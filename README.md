@@ -6,7 +6,7 @@
 ### 4. Send a Slack message to the tech leads that you made a PR.
 
 
-# Best Practices to Use:
+# Features and Best Practices to Use:
 ### CSS Modules
 ###   - has local scope by default, which we like
 ###   - makes sure that style applies to only the component and nothing else
