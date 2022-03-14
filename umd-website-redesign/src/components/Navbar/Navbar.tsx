@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { MenuItems } from "./MenuItems"
 import './Navbar.css'
-import h4iLogo from '../h4i-logo.svg'
+import h4iLogo from './logo.svg';
 
 class Navbar extends Component {
 
@@ -18,7 +18,7 @@ class Navbar extends Component {
                 <ul className={"nav-menu"}>
                     {MenuItems.map((item, index) => {
                         return (
-                            <li>
+                            <li key={item.cName}>
                                 <a className={item.cName} href={item.url}>
                                     {item.title}
                                 </a>
