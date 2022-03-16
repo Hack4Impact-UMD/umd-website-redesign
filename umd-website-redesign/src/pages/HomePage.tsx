@@ -1,25 +1,37 @@
 import React from 'react';
 import FeaturedProjects from '../components/FeaturedProjects';
-import styles from '../styles/Home.module.css';
+import HomePageLower from '../components/HomePageLower';
+
+/* Testing SVG backgrounds
+import { ReactComponent as BlueWave } from '../components/assets/bluewave_desktop.svg';
+import { ReactComponent as MintWave } from '../components/assets/mintwave_desktop.svg';
+import styles from '../styles/Home.module.css'; 
+
+const Home: React.FC = () => {
+  return (
+    <div id={styles.allpagecontent}>
+      <BlueWave id={styles.bgbluewave} />
+      <MintWave id={styles.bgmintwave} />
+      <div id={styles.content}>
+        <div>
+          <h1>Placeholder Area for Top Section</h1>
+        </div>
+        <FeaturedProjects />
+        <HomePageLower />
+      </div>
+    </div>
+  );
+};
+*/
 
 const Home: React.FC = () => {
   return (
     <div>
       <div>
-        <h1>Header Area</h1>
-        <a href="https://www.google.com">
-          <button className={styles.mintbtn}>Learn More</button>
-        </a>
+        <h1>Placeholder Area for Top Section</h1>
       </div>
-      <div>
-        <h1>Featured Projects</h1>
-        <div>
-          <FeaturedProjects />
-        </div>
-        <a href="https://www.google.com">
-          <button className={styles.bluebtn}>See More</button>
-        </a>
-      </div>
+      <FeaturedProjects />
+      <HomePageLower />
     </div>
   );
 };
