@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/ProjectCard.module.css';
+import styles from '../styles/FeaturedProjectCard.module.css';
 
 /* defines the parameters to pass into a project card */
 export interface FeaturedProjectCardData {
@@ -11,7 +11,15 @@ export interface FeaturedProjectCardData {
   altText: string;
 }
 
-const FeaturedProjectCard = ({ link, title, date, summary, image, altText }: FeaturedProjectCardData): JSX.Element => {
+/* Splits a Project Card into one div for the image and one for the text */
+const FeaturedProjectCard = ({
+  link,
+  title,
+  date,
+  summary,
+  image,
+  altText,
+}: FeaturedProjectCardData): JSX.Element => {
   return (
     <div id={styles.cardContainer}>
       <div id={styles.cardImageContainer}>
