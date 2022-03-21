@@ -22,14 +22,15 @@ In your description, you should include more detail about what you added/changed
 
 
 # Features and Best Practices to Use:
-### CSS Modules
-###   - has local scope by default, which we like
-###   - makes sure that style applies to only the component and nothing else
-###   - Avoid using CSS expressions or functions like calc(), it slows down the page, use attributes like box-sizing instead
+###Best Practices:
 
-### Prettier
-###   - Use Prettier in VSCode for consistent style throughout your code.
-
-### Avoid using global variables
-
+###- CSS Modules
+    ####- has local scope by default, which we like
+    ####- makes sure that style applies to only the component and nothing else
+    ####- Avoid using CSS expressions or functions like calc(), it slows down the page, use attributes like box-sizing instead
+###- Prettier
+    ####- Use Prettier in VSCode for consistent style throughout your code.
+###- Avoid using global variables
+###- Use JPGs for photographs/images that don’t have a transparent background (better for quick-loading websites). Use PNGs for logos and SVGs for other background shapes.
+###- Please use aria labels to ensure accessibility (you can learn more about aria labels here: [https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label))
 
