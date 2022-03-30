@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css?family=Karla');
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+.blueBG {
+  position: absolute;
+  left: 0%;
+  right: 0%;
+  margin-top: 4%;
+  width: 100%;
+}
+
+.textOne {
+  position: absolute;
+  left: 12.1%;
+  right: 48.81%;
+  top: 23%;
+  bottom: 86.36%;
+  width: 32%;
+  /* Title */
+
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.02em;
+  text-align: left;
+
+  /* H4I National/Black */
+
+  color: #333333;
+}
+
+.socialGoodSubText {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.02em;
+  text-align: left;
+
+  /* H4I National/Black */
+
+  color: #0069ca;
+}
+
+.textTwo {
+  position: absolute;
+  left: 12.1%;
+  right: 48.81%;
+  top: 47%;
+  bottom: 82.66%;
+  width: 34%;
+  /* Header 2 */
+
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -0.02em;
+  text-align: left;
+
+  /* H4I National/Black */
+
+  color: #333333;
+}
+
+.graphic {
+  position: absolute;
+  width: 380.05px;
+  height: 352.73px;
+  right: 183.95px;
+  top: 24%;
+
+  /* H4I National/Blue */
+}
+
+.mintbtn {
+  position: absolute;
+  margin: 10px 10px 10px 10px;
+  left: 11%;
+  right: 48.81%;
+  top: 60%;
+  bottom: 0%;
+
+  background-color: #80d2c8;
+  color: #333333;
+  border: none;
+  height: 55px;
+  width: 180px;
+  border-radius: 100px;
+  border-width: 0px;
+
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+.mintbtn:hover {
+  background-color: #1ca74a;
+}
+
+.mintbtn:focus,
+.mintbtn:active {
+  background-color: #808080;
+}
