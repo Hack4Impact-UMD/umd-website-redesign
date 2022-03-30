@@ -17,7 +17,7 @@ const HomePageTop = () => {
       </div>
         <img className="graphic" src={graphic}></img>
           <button className={styles.green}></button>
-          <button className="mintbtn">
+          <button aria-label="Learn More" className="mintbtn">
               Learn More
             </button>
     </div>
