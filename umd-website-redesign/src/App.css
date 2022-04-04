@@ -1,0 +1,15 @@
+* {
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+  /* identical to box height */
+
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  /* H4I National/Black */
+
+  color: #333333;
+}
