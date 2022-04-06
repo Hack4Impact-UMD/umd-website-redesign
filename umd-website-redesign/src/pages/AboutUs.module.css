@@ -1,145 +1,144 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik:ital@0;1&display=swap');
 
 .aboutUs h1 {
-    font-family: "Karla";
-    font-size: 34px;
-    color: #0069CA;
-    margin: 0;
-    text-align: center;
+  font-family: 'Karla';
+  font-size: 34px;
+  color: #0069ca;
+  margin: 0;
+  text-align: center;
 }
 
 .navBarDiv {
-    position: fixed;
-    z-index: 100;
+  position: fixed;
+  z-index: 100;
 }
 
-.headerImg{
-    max-width: 100%;
+.headerImg {
+  max-width: 100%;
 }
 
 .headerText {
-    position: absolute;
-    text-align: center;
-    top: 83%;;
-    width: 100%;
-    font-family: "Karla";
-    font-size: 50px;
+  position: absolute;
+  text-align: center;
+  top: 83%;
+  width: 100%;
+  font-family: 'Karla';
+  font-size: 50px;
 }
 
 .ourMission {
-    margin: auto;
-    text-align: center;
-    max-width: 832px;
+  margin: auto;
+  text-align: center;
+  max-width: 832px;
 }
 
 .ourMission p {
-    font-family: "Karla";
-    font-size: 24px;
+  font-family: 'Karla';
+  font-size: 24px;
 }
 
 /* source: https://stackoverflow.com/a/29223812 */
 .valuesCard {
-    /* Css for border/background */
-    height: 236px;
-    width: 307px;
-    position: relative;
-    border: 25px solid transparent;
-    border-radius: 50px;
-    background: #FFFFFF;
-    background-clip: padding-box;
-    padding: 10px;
+  /* Css for border/background */
+  height: 236px;
+  width: 307px;
+  position: relative;
+  border: 25px solid transparent;
+  border-radius: 50px;
+  background: #ffffff;
+  background-clip: padding-box;
+  padding: 10px;
 
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .valuesCard::after {
-    /* Css for border/background */
-    position: absolute;
-    top: -25px;
-    bottom: -25px;
-    left: -25px;
-    right: -25px;
-    background: linear-gradient(116.12deg, #CBF9F3 0%, #C2E0FB 100%);
-    content: '';
-    z-index: -1;
-    border-radius: 50px;
+  /* Css for border/background */
+  position: absolute;
+  top: -25px;
+  bottom: -25px;
+  left: -25px;
+  right: -25px;
+  background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
+  content: '';
+  z-index: -1;
+  border-radius: 50px;
 }
 
 .valuesCardTextMain {
-    font-family: "Karla";
-    font-size: 34px;
-    width: 181px;
-    height: 80px;
-    text-align: center;
+  font-family: 'Karla';
+  font-size: 34px;
+  width: 181px;
+  height: 80px;
+  text-align: center;
 }
 
 .valuesCardTextHover {
-    display: none;
-    font-family: "Rubik";
-    font-size: 18px;
-    width: 234px;
-    height: 147px;
-    text-align: left;
+  display: none;
+  font-family: 'Rubik';
+  font-size: 18px;
+  width: 234px;
+  height: 147px;
+  text-align: left;
 }
 
 .valuesCard:hover {
-    background: transparent;
+  background: transparent;
 }
 
 .valuesCard:hover .valuesCardTextMain {
-    display: none;
+  display: none;
 }
 
 .valuesCard:hover .valuesCardTextHover {
-    display: inline;
+  display: inline;
 }
 
 .valuesCardsDiv {
-    padding-top: 82px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 39px;
+  padding-top: 82px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 39px;
 }
 
 .valuesCards {
-    display: flex;
-    justify-content: center;
-    gap: 41px;
+  display: flex;
+  justify-content: center;
+  gap: 41px;
 }
 
 .execBoardDiv {
-    margin-top: 160px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 63px;
+  margin-top: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 63px;
 }
 
 .execBoardPhotos {
-    width: 1185px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
+  width: 1185px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .teamMembersDiv {
-    margin-top: 148px;
-    margin-bottom: 235px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 54px;
+  margin-top: 148px;
+  margin-bottom: 235px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 54px;
 }
 
 .teamMembersPhotos {
-    width: 1300px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 63px;
+  width: 1300px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 63px;
 }

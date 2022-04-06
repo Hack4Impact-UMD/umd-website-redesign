@@ -61,7 +61,7 @@ function ValuesCardRow() {
 
   return (
     <div className={styles.valuesCardsDiv}>
-        <h1>Our Values</h1>
+      <h1>Our Values</h1>
       <div className={styles.valuesCards}>
         <ValuesCard mainText={'Go Beyond Technology'} hoverText={summary} />
         <ValuesCard mainText={'Develop with Care'} hoverText={summary} />
@@ -72,63 +72,67 @@ function ValuesCardRow() {
 }
 
 function ExecBoard() {
-    return (
-     <div className={styles.execBoardDiv}>
-     <h1>Executive Board</h1>
-     <div className={styles.execBoardPhotos}>
-     <Person src={placeholder} memberName={"Surabi Ramamurthy"} role={"Executive Director"} pronouns={"she/her"}/>
-     <Person src={placeholder} memberName={"Daneil Nguyen"} role={"Director of Product"} pronouns={"he/him"}/>
-     <Person src={placeholder} memberName={"Vrundal Shah"} role={"Director of Engineering"} pronouns={"he/him"}/>
-     <Person src={placeholder} memberName={"Katherine Wang"} role={"Director of Design"} pronouns={"she/her"}/>
-     <Person src={placeholder} memberName={"Stevin Berit"} role={"Director of Sourcing"} pronouns={"he/him"}/>
-     <Person src={placeholder} memberName={"Sadena Rishindran"} role={"Co-Director of Education"} pronouns={"she/her"}/>
-     <Person src={placeholder} memberName={"Miranda Song"} role={"Co-Director of Education"} pronouns={"she/her"}/>
-     <Person src={placeholder} memberName={"Anaya Nadig"} role={"Director of Events"} pronouns={"she/her"}/>
-     <Person src={placeholder} memberName={"Ben Lin"} role={"Director of Recruitment"} pronouns={"he/him"}/>
-     </div>
-     </div>
-    );
+  return (
+    <div className={styles.execBoardDiv}>
+      <h1>Executive Board</h1>
+      <div className={styles.execBoardPhotos}>
+        <Person src={placeholder} memberName={'Surabi Ramamurthy'} role={'Executive Director'} pronouns={'she/her'} />
+        <Person src={placeholder} memberName={'Daneil Nguyen'} role={'Director of Product'} pronouns={'he/him'} />
+        <Person src={placeholder} memberName={'Vrundal Shah'} role={'Director of Engineering'} pronouns={'he/him'} />
+        <Person src={placeholder} memberName={'Katherine Wang'} role={'Director of Design'} pronouns={'she/her'} />
+        <Person src={placeholder} memberName={'Stevin Berit'} role={'Director of Sourcing'} pronouns={'he/him'} />
+        <Person
+          src={placeholder}
+          memberName={'Sadena Rishindran'}
+          role={'Co-Director of Education'}
+          pronouns={'she/her'}
+        />
+        <Person src={placeholder} memberName={'Miranda Song'} role={'Co-Director of Education'} pronouns={'she/her'} />
+        <Person src={placeholder} memberName={'Anaya Nadig'} role={'Director of Events'} pronouns={'she/her'} />
+        <Person src={placeholder} memberName={'Ben Lin'} role={'Director of Recruitment'} pronouns={'he/him'} />
+      </div>
+    </div>
+  );
 }
 
 function TeamMembers() {
-    return (
+  return (
     <div className={styles.teamMembersDiv}>
-     <h1>Team Members</h1>
-     <div className={styles.teamMembersPhotos}>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     <Person memberName={"Katherine Wang"} team={"Website Redesign Team"} role={"Designer"} pronouns={"she/her"}/>
-     </div>
+      <h1>Team Members</h1>
+      <div className={styles.teamMembersPhotos}>
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+      </div>
     </div>
-    );
+  );
 }
-
 
 export default AboutUs;
