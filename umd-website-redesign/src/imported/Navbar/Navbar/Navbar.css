@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
 .NavbarItems {
-  position: absolute;
+  position: fixed;
   left: 0%;
   right: 0%;
   top: 0%;
