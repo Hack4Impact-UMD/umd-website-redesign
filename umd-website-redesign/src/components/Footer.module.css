@@ -6,7 +6,6 @@
   line-height: 21.33px;
   letter-spacing: -0.02em;
   color: #333333;
-  white-space: pre-wrap;
   margin: 0;
   text-align: left;
 }
@@ -20,7 +19,13 @@
   text-align: left;
 }
 
-.Footer {
+.Footer img {
+  width: 100%;
+}
+
+.FooterContent {
+  position: absolute;
+  top: 451px;
   display: flex;
   gap: 122px;
   padding: 66px 190px 90px 174px;
@@ -29,6 +34,7 @@
 .FooterInfo {
   display: flex;
   flex-direction: column;
+  width: 442px;
   gap: 21px;
 }
 
@@ -50,6 +56,7 @@
   display: flex;
   flex-direction: column;
   gap: 18px;
+  white-space: nowrap;
 }
 
 .FooterColumn a {

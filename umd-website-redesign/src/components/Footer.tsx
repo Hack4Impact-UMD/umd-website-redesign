@@ -4,12 +4,16 @@ import { ReactComponent as IgLogo } from './assets/ig.svg';
 import { ReactComponent as FbLogo } from './assets/fb.svg';
 import { ReactComponent as GhLogo } from './assets/gh.svg';
 import styles from './Footer.module.css';
+import background from './assets/footer_background.png';
 
 function Footer() {
   return (
     <div className={styles.Footer}>
-      <FooterInfo />
-      <FooterCols />
+      <img src={background} />
+      <div className={styles.FooterContent}>
+        <FooterInfo />
+        <FooterCols />
+      </div>
     </div>
   );
 }
@@ -20,7 +24,9 @@ function FooterInfo() {
     <div className={styles.FooterInfo}>
       <Wordmark title={'Hack4Impact Logo'} />
       <p>
-        {"Couldn't find what you're looking for?\nContact us at "}
+        {"Couldn't find what you're looking for?"}
+        <br />
+        {'Contact us at '}
         <a href={'mailto:umd@hack4impact.org'}>{'umd@hack4impact.org'}</a>
         {' to get in touch!'}
       </p>

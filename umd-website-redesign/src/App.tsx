@@ -1,11 +1,14 @@
-import React from 'react';
 import './App.css';
-import AboutUs from './pages/AboutUs';
+<<<<<<< HEAD
+=======
+>>>>>>> main
 
 function App() {
   return (
     <div className="App">
-        <AboutUs/>
+<<<<<<< HEAD
+=======
+>>>>>>> main
     </div>
   );
 }
