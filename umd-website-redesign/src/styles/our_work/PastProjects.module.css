@@ -10,3 +10,48 @@
   letter-spacing: -0.02em;
   color: #0069ca;
 }
+
+#searchbarWrapper {
+  position:relative;
+  display: flex;
+  min-width: 100px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#searchIcon {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 25px;
+}
+
+#clearIcon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 25px;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+#searchbar {
+  border: 3px solid #657788;
+  box-sizing: border-box;
+  border-radius: 50px;
+  font-family: 'Karla';
+  height: 60px;
+  width: 100%;
+  padding: 2px 50px 2px 23px;
+  background-color: #ffffff;
+  justify-content: left;
+}
+
+#searchbar:hover, #searchbar:focus {
+  background-color: #f5f5f5;
+}
+
+#projectsDisplay {
+  align-items: center;
+  margin-top: 50px;
+}
