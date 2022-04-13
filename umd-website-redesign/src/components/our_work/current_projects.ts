@@ -22,5 +22,29 @@ export const current_projects = [
         summary: 'Short summary about the project. ',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
         altText: 'Image for Featured Project 3',
+    },
+    {
+        link: 'https://google.com',
+        title: 'Project 4',
+        date: '2022',
+        summary: 'Short summary about the project. ',
+        image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
+        altText: 'Image for Featured Project 4',
+    },
+    {
+        link: 'https://google.com',
+        title: 'Project 5',
+        date: '2022',
+        summary: 'Short summary about the project. ',
+        image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
+        altText: 'Image for Featured Project 5',
+    },
+    {
+        link: 'https://google.com',
+        title: 'Project 6',
+        date: '2022',
+        summary: 'Short summary about the project. ',
+        image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
+        altText: 'Image for Featured Project 5',
     }
 ]

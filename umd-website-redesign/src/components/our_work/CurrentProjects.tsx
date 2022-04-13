@@ -9,34 +9,17 @@ const CurrentProjects = () => {
     <div>
       <h1 id={styles.sectionTitle}>Current Projects</h1>
       <div>
-        <FeaturedProjectCard
-          link={current_projects[0].link}
-          title={current_projects[0].title}
-          date={current_projects[0].date}
-          summary={current_projects[0].summary}
-          image={current_projects[0].image}
-          altText={current_projects[0].altText}
-        />
-      </div>
-      <div>
-        <FeaturedProjectCard
-          link={current_projects[1].link}
-          title={current_projects[1].title}
-          date={current_projects[1].date}
-          summary={current_projects[1].summary}
-          image={current_projects[1].image}
-          altText={current_projects[1].altText}
-        />
-      </div>
-      <div>
-        <FeaturedProjectCard
-          link={current_projects[2].link}
-          title={current_projects[2].title}
-          date={current_projects[2].date}
-          summary={current_projects[2].summary}
-          image={current_projects[2].image}
-          altText={current_projects[2].altText}
-        />
+        {current_projects.map((item, index) => (
+          <FeaturedProjectCard
+            key={index}
+            link={item.link}
+            title={item.title}
+            date={item.date}
+            summary={item.summary}
+            image={item.image}
+            altText={item.altText}
+          />
+        ))}
       </div>
     </div>
   );
