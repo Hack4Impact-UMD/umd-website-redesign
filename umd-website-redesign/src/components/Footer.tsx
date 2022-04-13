@@ -51,13 +51,13 @@ function FooterIcons() {
   return (
     <div className={styles.FooterIcons}>
       <a href={'https://www.instagram.com/hack4impactumd'}>
-        <img src={igLogo} />
+        <img src={igLogo} className={styles.SocialIcon} />
       </a>
       <a href={'https://www.facebook.com/hack4impactumd'}>
-        <img src={fbLogo} />
+        <img src={fbLogo} className={styles.SocialIcon} />
       </a>
       <a href={'https://github.com/Hack4Impact-UMD'}>
-        <img src={ghLogo} />
+        <img src={ghLogo} className={styles.SocialIcon} />
       </a>
     </div>
   );

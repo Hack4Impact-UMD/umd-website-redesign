@@ -84,6 +84,12 @@
   display: block;
 }
 
+.SocialIcon {
+  width: 30px;
+  height: 30px;
+}
+
+/* Desktop Styling */
 @media screen and (min-width: 1200px) {
   .Footer {
     /* adjust height of background */
@@ -111,5 +117,10 @@
 
   .SocialIconsMobile {
     display: none;
+  }
+
+  .SocialIcon {
+    width: 40px;
+    height: 40px;
   }
 }
