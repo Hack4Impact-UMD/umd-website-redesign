@@ -1,28 +1,36 @@
 import React from 'react';
-import { ReactComponent as Wordmark } from './assets/wordmark.svg';
-import { ReactComponent as IgLogo } from './assets/ig.svg';
-import { ReactComponent as FbLogo } from './assets/fb.svg';
-import { ReactComponent as GhLogo } from './assets/gh.svg';
 import styles from './Footer.module.css';
-import background from './assets/footer_background.png';
+/* Avoiding inline svg to avoid excess code and id overlaps. */
+import wordmark from './assets/wordmark.svg';
+import igLogo from './assets/ig.svg';
+import fbLogo from './assets/fb.svg';
+import ghLogo from './assets/gh.svg';
+/* mobile */
+import background_svg from './assets/background.svg';
 
 function Footer() {
+  const footerBackground = {
+    backgroundImage: `url(${background_svg})`,
+  };
+
   return (
-    <div className={styles.Footer}>
-      <img src={background} />
+    <div className={styles.Footer} style={footerBackground}>
       <div className={styles.FooterContent}>
         <FooterInfo />
         <FooterCols />
+        <div className={styles.SocialIconsMobile}>
+          <FooterIcons />
+        </div>
       </div>
     </div>
   );
 }
 
-// Logo, email, and social media icons component.
+// Logo, Email blurb, icons
 function FooterInfo() {
   return (
     <div className={styles.FooterInfo}>
-      <Wordmark title={'Hack4Impact Logo'} />
+      <img src={wordmark} className={styles.WordMark} />
       <p>
         {"Couldn't find what you're looking for?"}
         <br />
@@ -30,7 +38,9 @@ function FooterInfo() {
         <a href={'mailto:umd@hack4impact.org'}>{'umd@hack4impact.org'}</a>
         {' to get in touch!'}
       </p>
-      <FooterIcons />
+      <div className={styles.SocialIconsDesktop}>
+        <FooterIcons />
+      </div>
     </div>
   );
 }
@@ -41,13 +51,13 @@ function FooterIcons() {
   return (
     <div className={styles.FooterIcons}>
       <a href={'https://www.instagram.com/hack4impactumd'}>
-        <IgLogo />
+        <img src={igLogo} />
       </a>
       <a href={'https://www.facebook.com/hack4impactumd'}>
-        <FbLogo />
+        <img src={fbLogo} />
       </a>
       <a href={'https://github.com/Hack4Impact-UMD'}>
-        <GhLogo />
+        <img src={ghLogo} />
       </a>
     </div>
   );
