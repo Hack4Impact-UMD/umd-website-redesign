@@ -21,7 +21,7 @@
   list-style: none;
   width: 23px;
   justify-content: end;
-  margin-right: 178px;
+  margin-right: 10%;
 }
 
 .nav-links {
@@ -41,10 +41,83 @@
   white-space: nowrap;
 }
 
+.nav-links:hover {
+  color: #657788;
+}
+
+.menu-icon {
+  display: none;
+}
+
 .logo {
   position: absolute;
-  left: 11.77%;
   right: 69.4%;
   top: 22.86%;
   bottom: 22.86%;
+  margin-left: 0%;
+}
+
+.fa-bars {
+
+  color: #0069CA;
+}
+
+@media screen and (max-width: 1000px){
+  .NavbarItems {
+    position: relative;
+  }
+
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 500px;
+    position:absolute;
+    top: 80px;
+    left: -100%;
+    opacity: 1;
+    transition: all 0.5s ease;
+  }
+
+  .nav-menu.active {
+    background-color: #0069CA;
+    left: 0;
+    opacity: 1;
+    transition: all 0.5s ease;
+    z-index: 1;
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    translate: scale(0);
+  }
+
+  .nav-links {
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    display: table;
+  }
+
+  .logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(25%, 50%);
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
+  .fa-times{
+    color: #0069CA;
+  }
+
 }

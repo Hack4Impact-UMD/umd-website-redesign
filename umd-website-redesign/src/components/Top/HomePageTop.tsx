@@ -8,15 +8,19 @@ const HomePageTop = () => {
     <div>
         <img className="blueBG" src={blueBG}></img>
       <div>
-        <p className="textOne">
-        Building powerful nonprofit software as a tool for <span className="socialGoodSubText">social good</span>
-        </p>
+        <div className="textOne">
+          <p className="textOne">
+          Building powerful nonprofit software as a tool for <span className="socialGoodSubText">social good</span>
+          </p>
+        </div>
         <p className="textTwo">
         We are a student-run organization that empowers engineers, designers, activists, and humanitarians to create lasting social change.
         </p>
       </div>
         <img className="graphic" src={graphic}></img>
-          <button className={styles.green}></button>
+          <div className="hide">
+            <button className={styles.green}>TEST</button>
+          </div>
           <button aria-label="Learn More" className="mintbtn">
               Learn More
             </button>
