@@ -6,7 +6,6 @@ import Footer from '../components/Footer';
 
 import header from './assets/aboutus_header.png';
 import placeholder from './assets/placeholder.png';
-import footerBackground from './assets/footer_background.jpg';
 
 function AboutUs(props: any) {
   return (
