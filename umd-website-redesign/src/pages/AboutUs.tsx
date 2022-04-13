@@ -4,10 +4,11 @@ import Person from '../components/Person';
 import Navbar from '../imported/Navbar/Navbar/Navbar';
 import Footer from '../components/Footer';
 
-import header from './assets/aboutus_header.png';
+import headerDesktop from './assets/aboutus_header.png';
+import headerMobile from './assets/aboutus_header_mobile.png';
 import placeholder from './assets/placeholder.png';
 
-function AboutUs(props: any) {
+function AboutUs() {
   return (
     <div className={styles.aboutUs}>
       <div className={styles.navBarDiv}>
@@ -18,15 +19,21 @@ function AboutUs(props: any) {
       <ValuesCardRow />
       <ExecBoard />
       <TeamMembers />
-      <Footer />
+      <div className={styles.footerDiv}>
+        <Footer />
+      </div>
     </div>
   );
 }
 
 function AboutUsHeader() {
   return (
-    <div>
-      <img src={header} className={styles.headerImg}></img>
+    <div className={styles.headerDiv}>
+      <picture>
+        {/* background image should change when navbar changes */}
+        <source srcSet={headerDesktop} media={'(min-width: 700px)'} />
+        <img src={headerMobile} className={styles.headerImg}></img>
+      </picture>
       <div className={styles.headerText}>About Us</div>
     </div>
   );

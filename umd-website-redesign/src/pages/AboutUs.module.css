@@ -11,93 +11,71 @@
 .navBarDiv {
   position: fixed;
   z-index: 100;
+  width: 100%;
+  height: 70px;
+}
+
+.headerDiv {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
 }
 
 .headerImg {
-  max-width: 100%;
+  width: 100%;
+  height: auto;
 }
 
 .headerText {
-  position: absolute;
   text-align: center;
-  top: 83%;
+  margin-top: -55%;
   width: 100%;
   font-family: 'Karla';
   font-size: 50px;
 }
 
 .ourMission {
-  margin: auto;
   text-align: center;
-  max-width: 832px;
+  padding: 0px 10vh;
+  width: auto;
+  margin-top: -30%;
 }
 
 .ourMission p {
   font-family: 'Karla';
   font-size: 24px;
+  line-height: 28px;
 }
 
-/* source: https://stackoverflow.com/a/29223812 */
 .valuesCard {
-  /* Css for border/background */
-  height: 236px;
-  width: 307px;
-  position: relative;
-  border: 25px solid transparent;
+  height: 248.5px;
+  width: 310px;
   border-radius: 50px;
-  background: #ffffff;
-  background-clip: padding-box;
-  padding: 10px;
+  background: linear-gradient(116.12deg, #c2e0fb 0%, #cbf9f3 100%);
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.valuesCard::after {
-  /* Css for border/background */
-  position: absolute;
-  top: -25px;
-  bottom: -25px;
-  left: -25px;
-  right: -25px;
-  background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
-  content: '';
-  z-index: -1;
-  border-radius: 50px;
-}
-
 .valuesCardTextMain {
   font-family: 'Karla';
-  font-size: 34px;
-  width: 181px;
-  height: 80px;
-  text-align: center;
-}
-
-.valuesCardTextHover {
-  display: none;
-  font-family: 'Rubik';
-  font-size: 18px;
-  width: 234px;
-  height: 147px;
+  font-size: 24px;
+  width: 236px;
   text-align: left;
 }
 
-.valuesCard:hover {
-  background: transparent;
-}
-
-.valuesCard:hover .valuesCardTextMain {
-  display: none;
-}
-
-.valuesCard:hover .valuesCardTextHover {
-  display: inline;
+.valuesCardTextHover {
+  font-family: 'Rubik';
+  font-size: 18px;
+  width: 236px;
+  line-height: 21.33px;
+  text-align: left;
 }
 
 .valuesCardsDiv {
-  padding-top: 82px;
+  padding-top: 53px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,12 +84,13 @@
 
 .valuesCards {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 41px;
+  gap: 12px;
 }
 
 .execBoardDiv {
-  margin-top: 160px;
+  margin-top: 45px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,16 +98,16 @@
 }
 
 .execBoardPhotos {
-  width: 1185px;
+  width: 310px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 15px;
+  row-gap: 18px;
 }
 
 .teamMembersDiv {
-  margin-top: 148px;
-  margin-bottom: 235px;
+  margin-top: 45px;
+  margin-bottom: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -136,9 +115,115 @@
 }
 
 .teamMembersPhotos {
-  width: 1300px;
+  width: 310px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 63px;
+  gap: 35px;
+}
+
+@media screen and (min-width: 1200px) {
+  /* source: https://stackoverflow.com/a/29223812 */
+  .valuesCard {
+    /* Css for border/background */
+    height: 236px;
+    width: 307px;
+    position: relative;
+    border: 25px solid transparent;
+    border-radius: 50px;
+    background: #ffffff;
+    background-clip: padding-box;
+    padding: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .valuesCard::after {
+    /* Css for border/background */
+    position: absolute;
+    top: -25px;
+    bottom: -25px;
+    left: -25px;
+    right: -25px;
+    background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
+    content: '';
+    z-index: -1;
+    border-radius: 50px;
+  }
+
+  .valuesCardTextMain {
+    font-size: 34px;
+    line-height: 39px;
+    width: 181px;
+    height: 80px;
+    text-align: center;
+  }
+
+  .valuesCardTextHover {
+    display: none;
+    width: 234px;
+    height: 147px;
+    text-align: left;
+  }
+
+  .valuesCard:hover {
+    background: transparent;
+  }
+
+  .valuesCard:hover .valuesCardTextMain {
+    display: none;
+  }
+
+  .valuesCard:hover .valuesCardTextHover {
+    display: inline;
+  }
+
+  .valuesCardsDiv {
+    padding-top: 82px;
+  }
+
+  .valuesCards {
+    flex-direction: row;
+    gap: 41px;
+  }
+
+  .execBoardDiv {
+    margin-top: 160px;
+    gap: 50px;
+  }
+
+  .execBoardPhotos {
+    width: 1185px;
+    justify-content: center;
+    gap: 64px;
+  }
+
+  .teamMembersDiv {
+    margin-top: 148px;
+  }
+
+  .teamMembersPhotos {
+    width: 1300px;
+    gap: 63px;
+    z-index: 5;
+  }
+
+  .footerDiv {
+    margin-top: -350px;
+    z-index: 0;
+  }
+}
+
+/* Should change with Navbar */
+@media screen and (min-width: 700px) {
+  .headerText {
+    margin-top: -134px;
+  }
+
+  .ourMission {
+    margin-top: 0px;
+    padding: 0px 47vh;
+  }
 }
