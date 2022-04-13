@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik:ital@0;1&display=swap');
+
+.Person h2 {
+  font-family: 'Karla';
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: #333333;
+  margin: 0;
+  text-align: center;
+}
+
+.Person p {
+  font-family: 'Rubik';
+  font-size: 18px;
+  line-height: 21.33px;
+  letter-spacing: -0.02em;
+  color: #333333;
+  white-space: pre-wrap;
+  margin: 0;
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.Person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Person img {
+  height: 150px;
+  width: 150px;
+}
+
+.Person img {
+  margin-bottom: 17px;
+}
+
+.Person h2 {
+  margin-bottom: 4px;
+}
+
+.Pronouns {
+  font-style: italic;
+}
