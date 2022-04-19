@@ -2,7 +2,7 @@ export const past_projects = [
     {
         link: 'https://google.com',
         title: '2Unstoppable',
-        date: '2022',
+        date: 'Fall 2021',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
         altText: 'Image for Project 1',
@@ -12,7 +12,7 @@ export const past_projects = [
     {
         link: 'https://google.com',
         title: 'YKNOT',
-        date: '2022',
+        date: 'Fall 2021',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
         altText: 'Image for Project 2',
@@ -22,7 +22,7 @@ export const past_projects = [
     {
         link: 'https://google.com',
         title: 'Matt Haven Fridge',
-        date: '2022',
+        date: 'Fall 2021',
         summary: 'Short summary about the project. ',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
         altText: 'Image for Project 3',
@@ -32,7 +32,7 @@ export const past_projects = [
     {
         link: 'https://google.com',
         title: 'Organization 4',
-        date: '2022',
+        date: 'Fall 2021',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
         altText: 'Image for Project 4',
@@ -42,7 +42,7 @@ export const past_projects = [
     {
         link: 'https://google.com',
         title: 'The Organization 5',
-        date: '2022',
+        date: 'Fall 2021',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
         altText: 'Image for Project 5',
@@ -52,7 +52,7 @@ export const past_projects = [
     {
         link: 'https://google.com',
         title: "Revamping CORA's Website",
-        date: '2021',
+        date: 'Spring 2021',
         summary: 'Short summary about the project.',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
         altText: 'Image for Project 6',
@@ -62,7 +62,7 @@ export const past_projects = [
     {
         link: 'https://google.com',
         title: 'Coding Project 7',
-        date: '2021',
+        date: 'Fall 2020',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
         altText: 'Image for Project 7',
@@ -71,7 +71,7 @@ export const past_projects = [
     },
     {
         link: 'https://google.com',
-        title: 'Project 8',
+        title: 'Fall 2020',
         date: '2021',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
@@ -82,7 +82,7 @@ export const past_projects = [
     {
         link: 'https://google.com',
         title: 'A Project for the Future 9',
-        date: '2021',
+        date: 'Fall 2020',
         summary: 'Short summary about the project. ',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
         altText: 'Image for Project 10',
