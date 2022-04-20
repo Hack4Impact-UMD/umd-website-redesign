@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik&display=swap');
 
+.Footer {
+  position: relative;
+}
+
 .Footer p {
   font-family: 'Rubik';
   font-size: 18px;
@@ -25,7 +29,7 @@
 
 .FooterContent {
   position: absolute;
-  top: 451px;
+  bottom: 0px;
   display: flex;
   gap: 122px;
   padding: 66px 190px 90px 174px;

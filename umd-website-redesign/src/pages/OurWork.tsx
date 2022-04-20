@@ -15,9 +15,7 @@ const OurWork: React.FC = () => {
       <OurWorkHeader />
       <CurrentProjects />
       <PastProjects />
-      <div className={styles.footerDiv}>
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };

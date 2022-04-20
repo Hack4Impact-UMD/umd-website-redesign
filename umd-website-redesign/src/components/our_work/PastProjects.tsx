@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import PastProjectCard from './PastProjectCard';
+import { PastProjectCard, PastProjectCardData } from './PastProjectCard';
 import { past_projects } from './past_projects';
 import styles from '../../styles/our_work/PastProjects.module.css';
 import { Container, Row, Col } from 'react-bootstrap';
@@ -63,7 +63,6 @@ const PastProjects: React.FC = () => {
       <Container>
         <Row sm={2} md={3}>
           {filteredData.map((item, index) => (
-            <Col key={index}>
               <PastProjectCard
                 key={index}
                 link={item.link}
@@ -72,7 +71,6 @@ const PastProjects: React.FC = () => {
                 image={item.image}
                 altText={item.altText}
               />
-            </Col>
           ))}
         </Row>
       </Container>

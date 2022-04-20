@@ -9,11 +9,11 @@ import background from './assets/footer_background.png';
 function Footer() {
   return (
     <div className={styles.Footer}>
-      <img src={background} />
       <div className={styles.FooterContent}>
         <FooterInfo />
         <FooterCols />
       </div>
+      <img src={background} />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../styles/our_work/PastProjectCard.module.css';
+import { Col } from 'react-bootstrap';
 
 /* defines the parameters to pass into a project card */
 export interface PastProjectCardData {
@@ -10,7 +11,7 @@ export interface PastProjectCardData {
   altText: string;
 }
 
-const PastProjectCard = ({
+export const PastProjectCard = ({
   link,
   title,
   date,
@@ -18,7 +19,7 @@ const PastProjectCard = ({
   altText,
 }: PastProjectCardData): JSX.Element => {
   return (
-    <div id={styles.cardContainer}>
+    <Col id={styles.cardContainer}>
       <div id={styles.cardImageContainer}>
         <img src={image} alt={altText} id={styles.cardImage}></img>
       </div>
@@ -29,8 +30,6 @@ const PastProjectCard = ({
           learn more
         </a>
       </div>
-    </div>
+    </Col>
   );
 };
-
-export default PastProjectCard;

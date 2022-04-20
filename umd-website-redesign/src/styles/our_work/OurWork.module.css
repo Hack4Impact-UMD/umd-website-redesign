@@ -5,11 +5,3 @@
   height: 70px;
   top: 0;
 }
-
-@media screen and (min-width: 1200px) {
-  .footerDiv {
-    margin-top: -350px;
-    z-index: 0;
-    bottom: 0;
-  }
-}
