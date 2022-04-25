@@ -1,4 +1,5 @@
-.valuesCard {
+/* Mobile Styles */
+.valueCard {
   height: 248.5px;
   width: 310px;
   border-radius: 50px;
@@ -8,16 +9,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 5px;
 }
 
-.valuesCardTextMain {
+.valueCard.rev {
+  background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
+}
+
+.valueCardTextMain {
   font-family: 'Karla';
   font-size: 24px;
   width: 236px;
   text-align: left;
 }
 
-.valuesCardTextHover {
+.valueCardTextSub {
   font-family: 'Rubik';
   font-size: 18px;
   width: 236px;
@@ -25,37 +31,30 @@
   text-align: left;
 }
 
+/* Desktop Styles */
 @media screen and (min-width: 1200px) {
-  /* source: https://stackoverflow.com/a/29223812 */
-  .valuesCard {
-    /* Css for border/background */
-    height: 236px;
-    width: 307px;
-    position: relative;
-    border: 25px solid transparent;
-    border-radius: 50px;
-    background: #ffffff;
-    background-clip: padding-box;
-    padding: 10px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  /* native css option (unused): https://stackoverflow.com/a/29223812 */
+  .valueCard {
+    width: 357px;
+    height: 286px;
+    background-image: url(./assets/ValueCardBackground1.svg);
+    background-size: cover;
+    transition: background-image 300ms ease-in;
   }
 
-  .valuesCard::after {
-    /* Css for border/background */
-    position: absolute;
-    top: -25px;
-    bottom: -25px;
-    left: -25px;
-    right: -25px;
-    background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
-    content: '';
-    z-index: -1;
-    border-radius: 50px;
+  .valueCard:hover {
+    background-image: url(./assets/ValueCardBackgroundHover1.svg);
   }
-  .valuesCardTextMain {
+
+  .valueCard.rev {
+    background-image: url(./assets/ValueCardBackground2.svg);
+  }
+
+  .valueCard.rev:hover {
+    background-image: url(./assets/ValueCardBackgroundHover2.svg);
+  }
+
+  .valueCardTextMain {
     font-size: 34px;
     line-height: 39px;
     width: 181px;
@@ -63,22 +62,18 @@
     text-align: center;
   }
 
-  .valuesCardTextHover {
+  .valueCard:hover .valueCardTextMain {
+    display: none;
+  }
+
+  .valueCardTextSub {
     display: none;
     width: 234px;
     height: 147px;
     text-align: left;
   }
 
-  .valuesCard:hover {
-    background: transparent;
-  }
-
-  .valuesCard:hover .valuesCardTextMain {
-    display: none;
-  }
-
-  .valuesCard:hover .valuesCardTextHover {
+  .valueCard:hover .valueCardTextSub {
     display: inline;
   }
 }

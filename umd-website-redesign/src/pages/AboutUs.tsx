@@ -62,7 +62,7 @@ function ValueCardRow() {
       <h1>Our Values</h1>
       <div className={styles.valuesCards}>
         <ValueCard mainText={'Go Beyond Technology'} hoverText={summary} />
-        <ValueCard mainText={'Develop with Care'} hoverText={summary} />
+        <ValueCard mainText={'Develop with Care'} hoverText={summary} revBackground={true} />
         <ValueCard mainText={'Be Open Minded'} hoverText={summary} />
       </div>
     </div>
