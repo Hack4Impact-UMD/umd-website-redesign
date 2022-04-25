@@ -36,7 +36,7 @@
 
 .ourMission {
   text-align: center;
-  padding: 0px 10vh;
+  padding: 0px 10%;
   width: auto;
   margin-top: -30%;
 }
@@ -140,6 +140,6 @@
 
   .ourMission {
     margin-top: 0px;
-    padding: 0px 47vh;
+    padding: 0px 22%;
   }
 }
