@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css?family=Karla');
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+.lower {
+  position: absolute;
+  top: 215%;
+}
+
+#parentContainer {
+  position: relative;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  justify-content: center;
+  display: flex;
+}
+
+#studentsContainer {
+  top: 150%;
+  flex: 50%;
+  justify-content: center;
+  width: auto !important;
+  text-align: center;
+}
+
+#nonprofitsContainer {
+  flex: 50%;
+  justify-content: center;
+  margin: auto auto auto 10%;
+  width: auto !important;
+  text-align: center;
+}
+
+#parentContainer h1 {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 34px;
+  line-height: 40px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  color: #0069ca;
+}
+
+#parentContainer p {
+  color: #333333;
+  font-family: 'Rubik';
+  font-weight: 400;
+  font-style: normal;
+  size: 18px;
+  text-align: center;
+}
+
+#parentContainer .bluebtn {
+  background-color: #0069ca;
+  color: #ffffff;
+  border: none;
+  height: 55px;
+  width: 180px;
+  border-radius: 100px;
+  border-width: 0px;
+
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+
+#parentContainer .bluebtn:hover {
+  background-color: #6abfe6;
+}
+
+#parentContainer .bluebtn:focus,
+#parentContainer .bluebtn:active {
+  background-color: #808080;
+}

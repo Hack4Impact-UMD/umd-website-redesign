@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik&display=swap');
+
+/* Styling for mobile first */
+
+.location {
+    position: relative;
+    margin-top: 100vh;
+
+}
+
+.greenBG {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% auto;
+    position: relative;
+    z-index: -1;
+    left: 0px;
+    bottom: 0;
+    /* margin-left: 100%;
+    margin-right: auto; */
+    width: 182vh;
+}
+
+.Footer p {
+  font-family: 'Rubik';
+  font-size: 18px;
+  line-height: 21.33px;
+  letter-spacing: -0.02em;
+  color: #333333;
+  margin: 0;
+  text-align: left;
+}
+
+.Footer h2 {
+  font-family: 'Karla';
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: #333333;
+  margin: 0;
+  text-align: left;
+}
+
+.Footer {
+  position: relative;
+
+}
+
+.FooterContent {
+  position: relative;
+  bottom: 200px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.FooterInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.WordMark {
+  width: 224px;
+  height: 30px;
+}
+
+.FooterInfo a {
+  color: #f2594b;
+}
+
+.FooterIcons {
+  display: flex;
+  gap: 32px;
+}
+
+.FooterColumns {
+  display: flex;
+  flex-direction: column;
+  gap: 5vw;
+}
+
+.FooterColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  white-space: nowrap;
+}
+
+.FooterColumn a {
+  color: #657788;
+  text-decoration: none;
+}
+
+.SocialIconsDesktop {
+  display: none;
+}
+
+.SocialIconsMobile {
+  display: block;
+}
+
+.SocialIcon {
+  width: 30px;
+  height: 30px;
+}
+
+/* Desktop Styling */
+@media screen and (min-width: 1200px) {
+  .Footer {
+    /* adjust height of background */
+    min-height: 815px;
+  }
+
+  .FooterContent {
+    flex-direction: row;
+    padding: 0px 24vh;
+    gap: 100px;
+  }
+
+  .WordMark {
+    width: 300px;
+    height: 40px;
+  }
+
+  .FooterColumns {
+    flex-direction: row;
+  }
+
+  .SocialIconsDesktop {
+    display: block;
+  }
+
+  .SocialIconsMobile {
+    display: none;
+  }
+
+  .SocialIcon {
+    width: 40px;
+    height: 40px;
+  }
+}
