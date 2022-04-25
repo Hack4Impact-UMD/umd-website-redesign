@@ -3,6 +3,7 @@ import styles from './AboutUs.module.css';
 import Person from '../components/Person';
 import Navbar from '../imported/Navbar/Navbar/Navbar';
 import Footer from '../components/Footer';
+import ValueCard from '../components/ValueCard';
 
 import headerDesktop from './assets/aboutus_header.png';
 import headerMobile from './assets/aboutus_header_mobile.png';
@@ -16,7 +17,7 @@ function AboutUs() {
       </div>
       <AboutUsHeader />
       <OurMission />
-      <ValuesCardRow />
+      <ValueCardRow />
       <ExecBoard />
       <TeamMembers />
       <div className={styles.footerDiv}>
@@ -52,16 +53,7 @@ function OurMission() {
   );
 }
 
-function ValuesCard(props: any) {
-  return (
-    <div className={styles.valuesCard}>
-      <span className={styles.valuesCardTextMain}>{props.mainText}</span>
-      <span className={styles.valuesCardTextHover}>{props.hoverText}</span>
-    </div>
-  );
-}
-
-function ValuesCardRow() {
+function ValueCardRow() {
   const summary =
     'Short summary about the value. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.';
 
@@ -69,9 +61,9 @@ function ValuesCardRow() {
     <div className={styles.valuesCardsDiv}>
       <h1>Our Values</h1>
       <div className={styles.valuesCards}>
-        <ValuesCard mainText={'Go Beyond Technology'} hoverText={summary} />
-        <ValuesCard mainText={'Develop with Care'} hoverText={summary} />
-        <ValuesCard mainText={'Be Open Minded'} hoverText={summary} />
+        <ValueCard mainText={'Go Beyond Technology'} hoverText={summary} />
+        <ValueCard mainText={'Develop with Care'} hoverText={summary} />
+        <ValueCard mainText={'Be Open Minded'} hoverText={summary} />
       </div>
     </div>
   );

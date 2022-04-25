@@ -47,33 +47,6 @@
   line-height: 28px;
 }
 
-.valuesCard {
-  height: 248.5px;
-  width: 310px;
-  border-radius: 50px;
-  background: linear-gradient(116.12deg, #c2e0fb 0%, #cbf9f3 100%);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.valuesCardTextMain {
-  font-family: 'Karla';
-  font-size: 24px;
-  width: 236px;
-  text-align: left;
-}
-
-.valuesCardTextHover {
-  font-family: 'Rubik';
-  font-size: 18px;
-  width: 236px;
-  line-height: 21.33px;
-  text-align: left;
-}
-
 .valuesCardsDiv {
   padding-top: 53px;
   display: flex;
@@ -123,63 +96,6 @@
 }
 
 @media screen and (min-width: 1200px) {
-  /* source: https://stackoverflow.com/a/29223812 */
-  .valuesCard {
-    /* Css for border/background */
-    height: 236px;
-    width: 307px;
-    position: relative;
-    border: 25px solid transparent;
-    border-radius: 50px;
-    background: #ffffff;
-    background-clip: padding-box;
-    padding: 10px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .valuesCard::after {
-    /* Css for border/background */
-    position: absolute;
-    top: -25px;
-    bottom: -25px;
-    left: -25px;
-    right: -25px;
-    background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
-    content: '';
-    z-index: -1;
-    border-radius: 50px;
-  }
-
-  .valuesCardTextMain {
-    font-size: 34px;
-    line-height: 39px;
-    width: 181px;
-    height: 80px;
-    text-align: center;
-  }
-
-  .valuesCardTextHover {
-    display: none;
-    width: 234px;
-    height: 147px;
-    text-align: left;
-  }
-
-  .valuesCard:hover {
-    background: transparent;
-  }
-
-  .valuesCard:hover .valuesCardTextMain {
-    display: none;
-  }
-
-  .valuesCard:hover .valuesCardTextHover {
-    display: inline;
-  }
-
   .valuesCardsDiv {
     padding-top: 82px;
   }
