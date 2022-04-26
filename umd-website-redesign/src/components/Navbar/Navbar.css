@@ -62,16 +62,15 @@
   color: #0069CA;
 }
 
+
 @media screen and (max-width: 1000px){
-  .NavbarItems {
-    position: relative;
-  }
+
 
   .nav-menu {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 500px;
+    height: auto;
     position:absolute;
     top: 80px;
     left: -100%;
@@ -80,16 +79,19 @@
   }
 
   .nav-menu.active {
+    background: #0069CA;
     background-color: #0069CA;
     left: 0;
     opacity: 1;
     transition: all 0.5s ease;
-    z-index: 1;
+    z-index: 50000;
     display: flex;
     flex: none;
     align-items: center;
     justify-content: center;
     translate: scale(0);
+    float:right;
+    
   }
 
   .nav-links {

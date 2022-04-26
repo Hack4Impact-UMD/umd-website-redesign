@@ -6,7 +6,7 @@ import bars from  './bars-solid.svg';
 import { getValue } from '@testing-library/user-event/dist/utils';
 const Navbar = () => {
 
-    const[currState, setState] = useState(true);
+    const[currState, setState] = useState(false);
 
     const handleState = () => {
         setState(!currState);
