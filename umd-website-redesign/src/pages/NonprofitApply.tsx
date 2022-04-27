@@ -77,9 +77,9 @@ function HowToApply() {
       <p>
         Please fill out our application form below, and our sourcing team will reach out to the email provided in the
         application within 2 weeks of the application being submitted. In this initial email, we will further explain
-        the role of Hack4Impact-UMD and set up a time to virtually meet with your organization. <br />
+        the role of Hack4Impact-UMD and set up a time to virtually meet with your organization. <br /> <br />
         During the first meeting, we will go over the timeline of working with Hack4Impact-UMD, clarify any questions
-        you may have, and learn more about your work. <br />
+        you may have, and learn more about your work. <br /> <br />
         We will also discuss any tech needs that your organization may need and potential collaborations that could be
         done between us. After the initial meeting, we will follow up with whether or not we would like to collaborate
         on the discussed project and any resulting next steps.
