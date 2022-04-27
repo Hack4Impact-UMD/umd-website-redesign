@@ -93,6 +93,10 @@
   margin-top: 65px;
 }
 
+.faq {
+  margin-top: 85px;
+}
+
 @media screen and (min-width: 1200px) {
   .studentApplyHeader {
     background-image: url(./assets/apply_header_desktop.svg);
@@ -156,6 +160,10 @@
   }
 
   .footerDiv {
-    margin-top: -505px;
+    margin-top: -20%;
+  }
+
+  .faq {
+    margin-top: 105px;
   }
 }

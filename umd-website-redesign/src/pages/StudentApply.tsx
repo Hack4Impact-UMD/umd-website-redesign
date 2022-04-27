@@ -24,7 +24,9 @@ function StudentApply() {
       <div className={styles.applyButton}>
         <ApplyButton />
       </div>
-      <FaqSection />
+      <div className={styles.faq}>
+        <FaqSection />
+      </div>
       <div className={styles.footerDiv}>
         <Footer />
       </div>

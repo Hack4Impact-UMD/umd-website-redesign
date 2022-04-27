@@ -27,6 +27,7 @@
   min-width: 100%;
   min-height: 922px;
   background-size: cover;
+  z-index: 0;
 }
 
 .FooterContent {

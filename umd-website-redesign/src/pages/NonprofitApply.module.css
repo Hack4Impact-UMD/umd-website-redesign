@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik:ital@0;1&display=swap');
+
+.studentApplyHeader h1 {
+  font-family: Karla;
+  font-size: 50px;
+  line-height: 58.45px;
+  text-align: center;
+  margin: 0;
+}
+
+.studentApplyHeader h2 {
+  font-family: Karla;
+  font-size: 24px;
+  line-height: 28.06px;
+  text-align: center;
+  margin: 0;
+
+  padding: 0 11%;
+}
+
+.studentApplyHeader {
+  background-image: url(./assets/apply_header.svg);
+  background-size: cover;
+  background-position: bottom;
+  min-width: 100%;
+  min-height: 810px;
+}
+
+.studentApplyHeaderContent {
+  padding-top: 125px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 44px;
+}
+
+.howToApply h1 {
+  color: #0069ca;
+  font-family: Karla;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 40px;
+  text-align: center;
+  margin: 56px 0 42px;
+}
+
+.howToApply p {
+  font-size: 18px;
+  line-height: 21.33px;
+  padding: 0 11%;
+  margin: 0;
+}
+
+.orgLogo {
+  height: 80px;
+  width: 80px;
+}
+
+.applyButton {
+  margin-top: 65px;
+}
+
+.faq {
+  margin-top: 96px;
+}
+
+.footerDiv {
+  margin-top: -50px;
+}
+
+@media screen and (min-width: 1200px) {
+  .studentApplyHeader {
+    background-image: url(./assets/apply_header_desktop.svg);
+    min-height: 989px;
+  }
+
+  .studentApplyHeader h2 {
+    font-family: Rubik;
+    font-size: 18px;
+    line-height: 21.33px;
+    width: 676px;
+  }
+
+  .studentApplyHeaderContent {
+    padding-top: 294px;
+  }
+
+  .howToApply h1 {
+    margin: 145px 0 40px;
+  }
+
+  .howToApply p {
+    padding: 0 25%;
+  }
+
+  .faq {
+    margin-top: 51px;
+  }
+
+  .footerDiv {
+    margin-top: -420px;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .carousel {
+    margin-top: -200px;
+  }
+
+  .orgLogo {
+    height: 200px;
+    width: 200px;
+  }
+}

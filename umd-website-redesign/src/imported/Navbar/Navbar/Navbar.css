@@ -2,16 +2,13 @@
 
 .NavbarItems {
   position: fixed;
+  z-index: 999;
   left: 0%;
   right: 0%;
   top: 0%;
   bottom: 0%;
 
-  background: linear-gradient(
-    89.4deg,
-    rgba(194, 224, 251, 0.8) 32.23%,
-    rgba(203, 249, 243, 0.8) 53.35%
-  );
+  background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.8) 32.23%, rgba(203, 249, 243, 0.8) 53.35%);
   backdrop-filter: blur(4px);
 
   display: flex;
