@@ -22,27 +22,33 @@ function StudentNonprofitSelector(props: any) {
   let nonprofitMobile: string;
   let studentDesktop: string;
   let nonprofitDesktop: string;
+  let studentClass: string;
+  let nonprofitClass: string;
   if (props.curr == 'student') {
     studentMobile = studentBlueMobile;
     studentDesktop = studentBlueDesktop;
     nonprofitMobile = nonprofitGreyMobile;
     nonprofitDesktop = nonprofitGreyDesktop;
+    studentClass = styles.blueButton
+    nonprofitClass = styles.greyButton
   } else {
     studentMobile = studentGreyMobile;
     studentDesktop = studentGreyDesktop;
     nonprofitMobile = nonprofitBlueMobile;
     nonprofitDesktop = nonprofitBlueDesktop;
+    studentClass = styles.greyButton
+    nonprofitClass = styles.blueButton
   }
 
   return (
     <div className={styles.studentNonprofitSelector}>
       <div className={styles.mobile}>
-        <img src={studentMobile} />
-        <img src={nonprofitMobile} />
+        <img src={studentMobile} className={studentClass}/>
+        <img src={nonprofitMobile} className={nonprofitClass}/>
       </div>
       <div className={styles.desktop}>
-        <img src={studentDesktop} />
-        <img src={nonprofitDesktop} />
+        <img src={studentDesktop} className={studentClass}/>
+        <img src={nonprofitDesktop} className={nonprofitClass}/>
       </div>
     </div>
   );
