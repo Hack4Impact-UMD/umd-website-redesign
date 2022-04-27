@@ -51,6 +51,11 @@
 
 .FooterInfo a {
   color: #f2594b;
+  transition: color 300ms ease-out;
+}
+
+.FooterInfo a:hover {
+  color: #0069ca;
 }
 
 .FooterIcons {
@@ -74,6 +79,11 @@
 .FooterColumn a {
   color: #657788;
   text-decoration: none;
+  transition: color 300ms ease-out;
+}
+
+.FooterColumn a:hover {
+  color: #0069ca;
 }
 
 .SocialIconsDesktop {

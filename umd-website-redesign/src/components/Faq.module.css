@@ -50,13 +50,13 @@
 
   opacity: 0;
   max-height: 0;
-  transition: max-height 0s 0.2s, opacity 0.2s linear;
+  transition: max-height 300ms 0ms, opacity 300ms linear;
 }
 
 .answer.showing p {
   opacity: 1;
   max-height: 2000px;
-  transition: max-height 0s 0s, opacity 0.2s linear;
+  transition: max-height 0s 0s, opacity 300ms linear;
 }
 
 .arrow.rotated {

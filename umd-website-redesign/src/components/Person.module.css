@@ -43,6 +43,14 @@
   max-width: 130px;
 }
 
+.team {
+  transition: color 300ms ease-out;
+}
+
+.team:hover {
+  color: #0069ca;
+}
+
 .Pronouns {
   font-style: italic;
 }
