@@ -15,11 +15,17 @@
   width: 237px;
 }
 
+.faqRow {
+  width: 100%;
+}
+
 .question {
   padding: 0 12%;
   display: flex;
-  gap: 40px;
   align-items: center;
+  justify-content: space-between;
+  /* position and z index ensures that invisible text will be behind the
+   * questions */
   position: relative;
   z-index: 5;
 }
@@ -62,4 +68,10 @@
 .arrow.rotated {
   transform: rotate(0.25turn);
   transform-origin: center;
+}
+
+@media screen and (min-width: 1200px) {
+  .header {
+    width: 600px;
+  }
 }

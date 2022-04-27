@@ -30,6 +30,7 @@
   padding-top: 125px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 44px;
 }
 
@@ -84,6 +85,77 @@
   margin-top: 14px;
 }
 
+.desktopTimelineIcon {
+  display: none;
+}
+
 .applyButton {
   margin-top: 65px;
+}
+
+@media screen and (min-width: 1200px) {
+  .studentApplyHeader {
+    background-image: url(./assets/apply_header_desktop.svg);
+    min-height: 989px;
+  }
+
+  .studentApplyHeader h2 {
+    font-family: Rubik;
+    font-size: 18px;
+    line-height: 21.33px;
+    width: 676px;
+  }
+
+  .studentApplyHeaderContent {
+    padding-top: 294px;
+  }
+
+  .studentApplyCards {
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 166px;
+    row-gap: 75px;
+    justify-content: center;
+
+    padding: 0 10%;
+    margin-top: -290px;
+  }
+
+  .timeline {
+    margin-top: 186px;
+    padding: 0 27%;
+    gap: 122px;
+  }
+
+  .timeline p {
+    padding: 0;
+    margin-top: 20px;
+  }
+
+  .timeline h1 {
+    margin-bottom: -47px;
+  }
+
+  .timelineStep {
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+  }
+
+  .mobileTimelineIcon {
+    display: none;
+  }
+
+  .desktopTimelineIcon {
+    display: block;
+  }
+
+  .timelineStepText h2,
+  p {
+    text-align: left;
+  }
+
+  .footerDiv {
+    margin-top: -505px;
+  }
 }

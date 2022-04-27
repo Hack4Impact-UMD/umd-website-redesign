@@ -10,6 +10,9 @@ import Faq, { FaqRow } from '../components/Faq';
 import oneIcon from './assets/one_icon.svg';
 import twoIcon from './assets/two_icon.svg';
 import threeIcon from './assets/three_icon.svg';
+import oneIconDesktop from './assets/one_icon_desktop.svg';
+import twoIconDesktop from './assets/two_icon_desktop.svg';
+import threeIconDesktop from './assets/three_icon_desktop.svg';
 
 function StudentApply() {
   return (
@@ -22,7 +25,9 @@ function StudentApply() {
         <ApplyButton />
       </div>
       <FaqSection />
-      <Footer />
+      <div className={styles.footerDiv}>
+        <Footer />
+      </div>
     </div>
   );
 }
@@ -65,19 +70,28 @@ function ApplicationTimeline() {
     <div className={styles.timeline}>
       <h1>Application Timeline</h1>
       <div className={styles.timelineStep}>
-        <img src={oneIcon} />
-        <h2>Application</h2>
-        <p>{summary}</p>
+        <img src={oneIcon} className={styles.mobileTimelineIcon} />
+        <img src={oneIconDesktop} className={styles.desktopTimelineIcon} />
+        <div className={styles.timelineStepText}>
+          <h2>Application</h2>
+          <p>{summary}</p>
+        </div>
       </div>
       <div className={styles.timelineStep}>
-        <img src={twoIcon} />
-        <h2>Interview</h2>
-        <p>{summary}</p>
+        <img src={twoIcon} className={styles.mobileTimelineIcon} />
+        <img src={twoIconDesktop} className={styles.desktopTimelineIcon} />
+        <div className={styles.timelineStepText}>
+          <h2>Interview</h2>
+          <p>{summary}</p>
+        </div>
       </div>
       <div className={styles.timelineStep}>
-        <img src={threeIcon} />
-        <h2>Notification of Decision</h2>
-        <p>{summary}</p>
+        <img src={threeIcon} className={styles.mobileTimelineIcon} />
+        <img src={threeIconDesktop} className={styles.desktopTimelineIcon} />
+        <div className={styles.timelineStepText}>
+          <h2>Notification of Decision</h2>
+          <p>{summary}</p>
+        </div>
       </div>
     </div>
   );

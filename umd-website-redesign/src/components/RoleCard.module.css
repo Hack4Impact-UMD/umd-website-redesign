@@ -42,41 +42,51 @@
 @media screen and (min-width: 1200px) {
   /* native css option (unused): https://stackoverflow.com/a/29223812 */
   .roleCard {
-    width: 357px;
-    height: 286px;
-    background-image: url(./assets/ValueCardBackground1.svg);
+    width: 275px;
+    height: 400px;
+    background-image: url(./assets/rolecard/RoleCardBackground1.svg);
     background-size: cover;
     transition: background-image 300ms ease-in;
   }
 
   .roleCard:hover {
-    background-image: url(./assets/ValueCardBackgroundHover1.svg);
+    background-image: url(./assets/rolecard/RoleCardBackgroundHover1.svg);
   }
 
   .roleCard.rev {
-    background-image: url(./assets/ValueCardBackground2.svg);
+    background-image: url(./assets/rolecard/RoleCardBackground2.svg);
   }
 
   .roleCard.rev:hover {
-    background-image: url(./assets/ValueCardBackgroundHover2.svg);
+    background-image: url(./assets/rolecard/RoleCardBackgroundHover2.svg);
+  }
+
+  .content {
+    padding: 142.8px 30px 154.15px;
+    align-items: center;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 7px;
   }
 
   .roleCardTextMain {
     font-size: 34px;
     line-height: 39px;
-    width: 181px;
-    height: 80px;
     text-align: center;
   }
 
-  .roleCard:hover .roleCardTextMain {
+  .roleCard:hover .header {
     display: none;
+  }
+
+  .roleCard:hover .content {
+    padding: 95px 39px;
   }
 
   .roleCardTextSub {
     display: none;
-    width: 234px;
-    height: 147px;
     text-align: left;
   }
 
