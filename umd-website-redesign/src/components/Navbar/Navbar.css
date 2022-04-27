@@ -65,6 +65,25 @@
 
 @media screen and (max-width: 1000px){
 
+  .nav-links{
+    font-family: 'Karla';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 40px;
+    /* identical to box height */
+
+    text-align: center;
+    letter-spacing: -0.02em;
+
+    /* H4I National/Black */
+
+    color: #333333;
+    text-align: left;
+    padding: 2rem;
+    width: 100%;
+    display: table;
+  }
 
   .nav-menu {
     display: flex;
@@ -72,33 +91,24 @@
     width: 100%;
     height: auto;
     position:absolute;
-    top: 80px;
+    top: 70%;
     left: -100%;
     opacity: 1;
     transition: all 0.5s ease;
+    padding: 3rem;
   }
 
   .nav-menu.active {
-    background: #0069CA;
-    background-color: #0069CA;
-    left: 0;
+    background: rgba(194,224,251,.7);
+    background-size: cover;
     opacity: 1;
+    left: 0;
     transition: all 0.5s ease;
-    z-index: 50000;
+    z-index: 500;
     display: flex;
-    flex: none;
-    align-items: center;
-    justify-content: center;
     translate: scale(0);
-    float:right;
-    
-  }
-
-  .nav-links {
-    text-align: center;
-    padding: 2rem;
     width: 100%;
-    display: table;
+    height: auto;
   }
 
   .logo {
@@ -123,3 +133,4 @@
   }
 
 }
+

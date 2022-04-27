@@ -2,8 +2,7 @@ import React, { Component, useState } from 'react'
 import { MenuItems } from "./MenuItems"
 import './Navbar.css'
 import h4iLogo from './logo.svg';
-import bars from  './bars-solid.svg';
-import { getValue } from '@testing-library/user-event/dist/utils';
+
 const Navbar = () => {
 
     const[currState, setState] = useState(false);
@@ -11,7 +10,6 @@ const Navbar = () => {
     const handleState = () => {
         setState(!currState);
     }
-
         //Map will go through each component and present them in a list  (sets up the alignment)
 
         //menu-icon is for later use for mobile implementation

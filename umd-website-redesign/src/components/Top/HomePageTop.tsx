@@ -23,7 +23,7 @@ const HomePageTop = () => {
           <div className="hide">
             <button className={styles.green}>TEST</button>
           </div>
-          </div>
+      </div>
     </div>
   );
 };

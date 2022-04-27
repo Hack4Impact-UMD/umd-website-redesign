@@ -81,6 +81,11 @@
   padding-bottom: 1%;
 }
 
+#cardLinkContainer {
+  justify-content: left;
+  margin-left: -85%;
+}
+
 #cardLink {
   font-family: 'Rubik';
   font-style: normal;
@@ -90,6 +95,30 @@
   color: #333333;
 }
 
+
 #cardLink:hover {
   color: #808080;
+}
+
+@media (max-width: 1250px){
+
+  #cardContainer {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    justify-content: center;
+    display: flex;
+    padding-bottom: 3%;
+    padding-top: 3%;
+  }
+
+  #cardImageContainer {
+    flex: 0.35;
+    border-color: #333333;
+    justify-content: center;
+    display: flex;
+    max-width: 400px;
+    max-height: 200px;
+  }
 }

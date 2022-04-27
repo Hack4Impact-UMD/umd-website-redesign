@@ -3,7 +3,7 @@
 
 .lower {
   position: absolute;
-  top: 215%;
+  top: 200%;
 }
 
 #parentContainer {
@@ -77,4 +77,53 @@
 #parentContainer .bluebtn:focus,
 #parentContainer .bluebtn:active {
   background-color: #808080;
+}
+
+@media (max-width: 1000px){
+    #parentContainer {
+    position: relative;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 1000px){
+  #parentContainer {
+    position: relative;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 20%;
+    margin-bottom: 5%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+  }
+
+  #studentsContainer {
+    top: 150%;
+    flex: 50%;
+    justify-content: center;
+    width: auto !important;
+    text-align: center;
+    padding-bottom: 10%;
+  }
+  
+  #nonprofitsContainer {
+    flex: 50%;
+    justify-content: center;
+    margin: auto;
+    width: auto !important;
+    text-align: center;
+    padding-bottom: 10%;
+  }
+
+  #parentContainer .bluebtn {
+    margin-top: 5%;
+  }
 }

@@ -127,7 +127,7 @@
 
 @media (max-width: 1400px){
   .graphic {
-    margin-right: 20%;
+    margin-right: 15%;
   }
 
   
@@ -150,20 +150,22 @@
 
   .textOne{
     width: 50vw;
-    margin-left: auto;
-    margin-right: auto;
+    left: 25%;
     text-align: center;
   }
 
   .textTwo{
     width: 50vw;
-    margin-left: auto;
-    margin-right: auto;
+    left: 50%;
     text-align: center;
   }
 
   .mintbtn {
     margin: auto;
+    top: 0;
+    left: 50%;
+    bottom: 0;
+    right: 0;
   }
   .graphic{
     display:none;
@@ -171,6 +173,24 @@
 }
 
 @media (max-width:850px){
+
+  .top {
+    width: auto;
+  }
+
+  .textOne{
+    font-size: 34px;
+    line-height: 40px;
+    text-align: center;
+    letter-spacing: -0.02em;
+  }
+
+  .socialGoodSubText {
+    font-size: 34px;
+    line-height: 40px;
+    text-align: center;
+    letter-spacing: -0.02em;
+  }
 
   .blueBG{
     width: 100vw;
