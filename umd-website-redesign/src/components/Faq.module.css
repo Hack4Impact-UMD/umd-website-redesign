@@ -1,0 +1,65 @@
+.faq {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 171px 0 120px 0;
+  gap: 49px;
+}
+
+.header {
+  font-family: Karla;
+  font-size: 34px;
+  line-height: 39.75px;
+  color: #0069ca;
+  margin: 0px;
+  width: 237px;
+}
+
+.question {
+  padding: 0 12%;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+.question p {
+  font-family: Karla;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: left;
+  margin: 0;
+}
+
+/* If svgs are added in this div in the future; this selector may affect it */
+.question:hover p,
+.question:hover path {
+  color: #657788;
+  /* arrow svg fill color */
+  fill: #657788;
+}
+
+.answer p {
+  font-size: 18px;
+  line-height: 21.33px;
+  text-align: left;
+  margin: 0;
+  padding: 22px 18% 0 20%;
+  z-index: -1;
+
+  opacity: 0;
+  max-height: 0;
+  transition: max-height 0s 0.2s, opacity 0.2s linear;
+}
+
+.answer.showing p {
+  opacity: 1;
+  max-height: 2000px;
+  transition: max-height 0s 0s, opacity 0.2s linear;
+}
+
+.arrow.rotated {
+  transform: rotate(0.25turn);
+  transform-origin: center;
+}

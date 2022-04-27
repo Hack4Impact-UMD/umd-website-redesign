@@ -4,9 +4,14 @@ import styles from './ValueCard.module.css';
 /*
  * ValueCard Component used in AboutUs page.
  *
+ * TODO: Use content div + padding rather than setting width of text boxes? See
+ * RoleCard.
+ *
  * Props:
  * revBackground (Boolean): if true, gradient is from blue to green.
  * Otherwise, gradient is from green to blue.
+ * mainText (String): Header text
+ * hoverText (String): Body text
  */
 function ValueCard(props: any) {
   let valueCardClass: string;
