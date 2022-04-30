@@ -2,6 +2,26 @@
 
 /* Styling for mobile first */
 
+.location {
+    position: relative;
+    margin-top: 0;
+    overflow-y: hidden;
+
+}
+
+.greenBG {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% auto;
+    position: relative;
+    z-index: -1;
+    left: 0px;
+    bottom: 0;
+    /* margin-left: 100%;
+    margin-right: auto; */
+    width: 100%;
+}
+
 .Footer p {
   font-family: 'Rubik';
   font-size: 18px;
@@ -23,20 +43,15 @@
 
 .Footer {
   position: relative;
-  /* sizing background image */
-  min-width: 100%;
-  min-height: 922px;
-  background-size: cover;
-  z-index: 0;
+
 }
 
 .FooterContent {
-  position: absolute;
-  bottom: 110px;
-  padding: 0px 5vh;
+  position: relative;
+  bottom: 200px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 32px;
 }
 
 .FooterInfo {
@@ -52,11 +67,6 @@
 
 .FooterInfo a {
   color: #f2594b;
-  transition: color 300ms ease-out;
-}
-
-.FooterInfo a:hover {
-  color: #0069ca;
 }
 
 .FooterIcons {
@@ -80,11 +90,6 @@
 .FooterColumn a {
   color: #657788;
   text-decoration: none;
-  transition: color 300ms ease-out;
-}
-
-.FooterColumn a:hover {
-  color: #0069ca;
 }
 
 .SocialIconsDesktop {
@@ -134,5 +139,4 @@
     width: 40px;
     height: 40px;
   }
-
 }
