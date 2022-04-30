@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik&display=swap');
+
+.Footer {
+  position: relative;
+}
+
+.Footer p {
+  font-family: 'Rubik';
+  font-size: 18px;
+  line-height: 21.33px;
+  letter-spacing: -0.02em;
+  color: #333333;
+  margin: 0;
+  text-align: left;
+}
+
+.Footer h2 {
+  font-family: 'Karla';
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: #333333;
+  margin: 0;
+  text-align: left;
+}
+
+.Footer img {
+  width: 100%;
+}
+
+.FooterContent {
+  position: absolute;
+  bottom: 0px;
+  display: flex;
+  gap: 122px;
+  padding: 66px 190px 90px 174px;
+}
+
+.FooterInfo {
+  display: flex;
+  flex-direction: column;
+  width: 442px;
+  gap: 21px;
+}
+
+.FooterInfo a {
+  color: #f2594b;
+}
+
+.FooterIcons {
+  display: flex;
+  gap: 32px;
+}
+
+.FooterColumns {
+  display: flex;
+  gap: 94px;
+}
+
+.FooterColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  white-space: nowrap;
+}
+
+.FooterColumn a {
+  color: #657788;
+  text-decoration: none;
+}
