@@ -1,0 +1,82 @@
+.faq {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  gap: 49px;
+}
+
+.header {
+  font-family: Karla;
+  font-size: 34px;
+  line-height: 39.75px;
+  color: #0069ca;
+  margin: 0px;
+  width: 237px;
+}
+
+.faqRow {
+  width: 100%;
+}
+
+.question {
+  padding: 0 12%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* position and z index ensures that invisible text will be behind the
+   * questions */
+  position: relative;
+  z-index: 5;
+}
+
+.question p {
+  font-family: Karla;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: left;
+  margin: 0;
+}
+
+/* If svgs are added in this div in the future; this selector may affect it */
+.question:hover p,
+.question:hover path {
+  color: #657788;
+  /* arrow svg fill color */
+  fill: #657788;
+}
+
+.answer p {
+  font-size: 18px;
+  line-height: 21.33px;
+  text-align: left;
+  margin: 0;
+  padding: 22px 18% 0 20%;
+
+  opacity: 0;
+  max-height: 0;
+  transition: max-height 300ms 0ms, opacity 300ms linear;
+}
+
+.answer.showing {
+  /* Above footer, below questions */
+  position: relative;
+  z-index: 3;
+}
+
+.answer.showing p {
+  opacity: 1;
+  max-height: 2000px;
+  transition: max-height 0s 0s, opacity 300ms linear;
+}
+
+.arrow.rotated {
+  transform: rotate(0.25turn);
+  transform-origin: center;
+}
+
+@media screen and (min-width: 1200px) {
+  .header {
+    width: 600px;
+  }
+}

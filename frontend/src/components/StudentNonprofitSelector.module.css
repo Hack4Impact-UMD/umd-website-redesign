@@ -1,0 +1,24 @@
+.studentNonprofitSelector {
+  display: flex;
+  justify-content: center;
+}
+
+.mobile {
+  display: flex;
+  gap: 6.44px;
+}
+
+.desktop {
+  display: none;
+}
+
+@media screen and (min-width: 1200px) {
+  .desktop {
+    display: flex;
+    gap: 10px;
+  }
+
+  .mobile {
+    display: none;
+  }
+}

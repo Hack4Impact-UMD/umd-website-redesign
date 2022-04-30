@@ -20,7 +20,7 @@ function Person(props: any) {
     <div className={styles.Person}>
       <img src={imageSrc} />
       <h2>{props.memberName}</h2>
-      <p>{props.team}</p>
+      <p className={styles.team}>{props.team}</p>
       <p>{props.role}</p>
       <p className={styles.Pronouns}>{props.pronouns}</p>
     </div>

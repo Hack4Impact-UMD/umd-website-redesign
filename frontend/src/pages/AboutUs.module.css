@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik:ital@0;1&display=swap');
+
+.aboutUs h1 {
+  font-family: 'Karla';
+  font-size: 34px;
+  color: #0069ca;
+  margin: 0;
+  text-align: center;
+}
+
+.navBarDiv {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 70px;
+}
+
+.headerDiv {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+}
+
+.headerImg {
+  width: 100%;
+  height: auto;
+}
+
+.headerText {
+  text-align: center;
+  margin-top: -55%;
+  width: 100%;
+  font-family: 'Karla';
+  font-size: 50px;
+}
+
+.ourMission {
+  text-align: center;
+  padding: 0px 10%;
+  width: auto;
+  margin-top: -30%;
+}
+
+.ourMission p {
+  font-family: 'Karla';
+  font-size: 24px;
+  line-height: 28px;
+}
+
+.valuesCardsDiv {
+  padding-top: 53px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 39px;
+}
+
+.valuesCards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.execBoardDiv {
+  margin-top: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 63px;
+}
+
+.execBoardPhotos {
+  width: 310px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 18px;
+}
+
+.teamMembersDiv {
+  margin-top: 45px;
+  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 54px;
+}
+
+.teamMembersPhotos {
+  width: 310px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 35px;
+}
+
+@media screen and (min-width: 1200px) {
+  .valuesCardsDiv {
+    padding-top: 82px;
+  }
+
+  .valuesCards {
+    flex-direction: row;
+    gap: 41px;
+  }
+
+  .execBoardDiv {
+    margin-top: 160px;
+    gap: 50px;
+  }
+
+  .execBoardPhotos {
+    width: 1185px;
+    justify-content: center;
+    gap: 64px;
+  }
+
+  .teamMembersDiv {
+    margin-top: 148px;
+  }
+
+  .teamMembersPhotos {
+    width: 1300px;
+    gap: 63px;
+    z-index: 5;
+  }
+
+  .footerDiv {
+    margin-top: -350px;
+    z-index: 0;
+  }
+}
+
+/* Should change with Navbar */
+@media screen and (min-width: 700px) {
+  .headerText {
+    margin-top: -134px;
+  }
+
+  .ourMission {
+    margin-top: 0px;
+    padding: 0px 22%;
+  }
+}

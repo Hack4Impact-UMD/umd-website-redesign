@@ -19,6 +19,8 @@
   margin: 0;
   text-align: center;
   margin-bottom: 6px;
+  max-width: 130px;
+
 }
 
 .Person {
@@ -28,8 +30,9 @@
 }
 
 .Person img {
-  height: 150px;
-  width: 150px;
+  height: 130px;
+  width: 130px;
+  border-radius: 50%;
 }
 
 .Person img {
@@ -38,8 +41,32 @@
 
 .Person h2 {
   margin-bottom: 4px;
+  max-width: 130px;
+}
+
+.team {
+  transition: color 300ms ease-out;
+}
+
+.team:hover {
+  color: #0069ca;
 }
 
 .Pronouns {
   font-style: italic;
 }
+
+@media screen and (min-width: 1200px) {
+  .Person img {
+    height: 150px;
+    width: 150px;
+  }
+  .Person h2 {
+    max-width: unset;
+  }
+
+  .Person p {
+    max-width: unset;
+  }
+}
+

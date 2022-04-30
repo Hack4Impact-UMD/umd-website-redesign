@@ -1,0 +1,79 @@
+/* Mobile Styles */
+.valueCard {
+  height: 248.5px;
+  width: 310px;
+  border-radius: 50px;
+  background: linear-gradient(116.12deg, #c2e0fb 0%, #cbf9f3 100%);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.valueCard.rev {
+  background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
+}
+
+.valueCardTextMain {
+  font-family: 'Karla';
+  font-size: 24px;
+  width: 236px;
+  text-align: left;
+}
+
+.valueCardTextSub {
+  font-family: 'Rubik';
+  font-size: 18px;
+  width: 236px;
+  line-height: 21.33px;
+  text-align: left;
+}
+
+/* Desktop Styles */
+@media screen and (min-width: 1200px) {
+  /* native css option (unused): https://stackoverflow.com/a/29223812 */
+  .valueCard {
+    width: 357px;
+    height: 286px;
+    background-image: url(./assets/ValueCardBackground1.svg);
+    background-size: cover;
+    transition: background-image 300ms ease-in;
+  }
+
+  .valueCard:hover {
+    background-image: url(./assets/ValueCardBackgroundHover1.svg);
+  }
+
+  .valueCard.rev {
+    background-image: url(./assets/ValueCardBackground2.svg);
+  }
+
+  .valueCard.rev:hover {
+    background-image: url(./assets/ValueCardBackgroundHover2.svg);
+  }
+
+  .valueCardTextMain {
+    font-size: 34px;
+    line-height: 39px;
+    width: 181px;
+    height: 80px;
+    text-align: center;
+  }
+
+  .valueCard:hover .valueCardTextMain {
+    display: none;
+  }
+
+  .valueCardTextSub {
+    display: none;
+    width: 234px;
+    height: 147px;
+    text-align: left;
+  }
+
+  .valueCard:hover .valueCardTextSub {
+    display: inline;
+  }
+}

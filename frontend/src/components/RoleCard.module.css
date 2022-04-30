@@ -1,0 +1,96 @@
+/* Mobile Styles */
+.roleCard {
+  height: 300px;
+  width: 310px;
+  border-radius: 50px;
+  background: linear-gradient(116.12deg, #c2e0fb 0%, #cbf9f3 100%);
+}
+
+.roleCard.rev {
+  background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
+}
+
+.content {
+  padding: 41px 39px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 5px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 10px;
+}
+
+.roleCardTextMain {
+  font-family: 'Karla';
+  font-size: 24px;
+  text-align: left;
+}
+
+.roleCardTextSub {
+  font-family: 'Rubik';
+  font-size: 18px;
+  line-height: 21.33px;
+  text-align: left;
+}
+
+/* Desktop Styles */
+@media screen and (min-width: 1200px) {
+  /* native css option (unused): https://stackoverflow.com/a/29223812 */
+  .roleCard {
+    width: 275px;
+    height: 400px;
+    background-image: url(./assets/rolecard/RoleCardBackground1.svg);
+    background-size: cover;
+    transition: background-image 300ms ease-in;
+  }
+
+  .roleCard:hover {
+    background-image: url(./assets/rolecard/RoleCardBackgroundHover1.svg);
+  }
+
+  .roleCard.rev {
+    background-image: url(./assets/rolecard/RoleCardBackground2.svg);
+  }
+
+  .roleCard.rev:hover {
+    background-image: url(./assets/rolecard/RoleCardBackgroundHover2.svg);
+  }
+
+  .content {
+    padding: 142.8px 30px 154.15px;
+    align-items: center;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .roleCardTextMain {
+    font-size: 34px;
+    line-height: 39px;
+    text-align: center;
+  }
+
+  .roleCard:hover .header {
+    display: none;
+  }
+
+  .roleCard:hover .content {
+    padding: 95px 39px;
+  }
+
+  .roleCardTextSub {
+    display: none;
+    text-align: left;
+  }
+
+  .roleCard:hover .roleCardTextSub {
+    display: inline;
+  }
+}
