@@ -20,3 +20,16 @@ export const MenuItems = [
         cName: 'nav-links'
     }
 ]
+
+export const ApplyDropdown = [
+    {
+        title: 'Students',
+        url: '#', //add links later
+        cName: 'apply-dropdown'
+    },
+    {
+        title: 'Nonprofits',
+        url: '#', //add links later
+        cName: 'apply-dropdown'
+    },
+]

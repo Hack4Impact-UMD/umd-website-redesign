@@ -3,20 +3,27 @@
 
 .blueBG {
   z-index: -1;
-  position: absolute;
+  position: relative;
   left: 0%;
   right: 0%;
-  margin-top: 0%;
-  width: 100%;
+  margin-top: -5%;
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
 }
+
+.top {
+  position: absolute;
+  top: 20%;
+}
+
 /*fix overlaym*/
 .textOne {
-  position: absolute;
-  left: 12.1%;
-  right: 48.81%;
-  top: 23%;
-  bottom: 86.36%;
-  width: 32%;
+  position: relative;
+  left: 19%;
+  top: 30%;
+  width: 550px;
+  margin-left: 0%;
   /* Title */
 
   font-family: 'Karla';
@@ -30,6 +37,10 @@
   /* H4I National/Black */
 
   color: #333333;
+}
+
+.hide {
+  display: none;
 }
 
 .socialGoodSubText {
@@ -47,12 +58,12 @@
 }
 
 .textTwo {
-  position: absolute;
-  left: 12.1%;
-  right: 48.81%;
-  top: 47%;
+  position: relative;
+  margin-top: -5%;
+  left: 38%;
+  top: -10%;
   bottom: 82.66%;
-  width: 34%;
+  width: 560px;
   /* Header 2 */
 
   font-family: 'Karla';
@@ -69,19 +80,21 @@
 }
 
 .graphic {
-  position: absolute;
+  position: relative;
   width: 380.05px;
   height: 352.73px;
-  right: 183.95px;
-  top: 24%;
+  left: 145%;
+  margin-right: 0%;
+  margin-top: -55%;
+  top: 100%;
 
   /* H4I National/Blue */
 }
 
 .mintbtn {
-  position: absolute;
+  position: relative;
   margin: 10px 10px 10px 10px;
-  left: 11%;
+  left: 35%;
   right: 48.81%;
   top: 63%;
   bottom: 0%;
@@ -110,4 +123,77 @@
 .mintbtn:focus,
 .mintbtn:active {
   background-color: #808080;
+}
+
+@media (max-width: 1400px){
+  .graphic {
+    margin-right: 15%;
+  }
+
+  
+  .blueBG {
+    width: 100vw;
+    height: 110vh;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 1250px){
+
+  .top {
+    top: 10%;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .textOne{
+    width: 50vw;
+    left: 25%;
+    text-align: center;
+  }
+
+  .textTwo{
+    width: 50vw;
+    left: 50%;
+    text-align: center;
+  }
+
+  .mintbtn {
+    margin: auto;
+    top: 0;
+    left: 50%;
+    bottom: 0;
+    right: 0;
+  }
+  .graphic{
+    display:none;
+  }
+}
+
+@media (max-width:850px){
+
+  .top {
+    width: auto;
+  }
+
+  .textOne{
+    font-size: 34px;
+    line-height: 40px;
+    text-align: center;
+    letter-spacing: -0.02em;
+  }
+
+  .socialGoodSubText {
+    font-size: 34px;
+    line-height: 40px;
+    text-align: center;
+    letter-spacing: -0.02em;
+  }
+
+  .blueBG{
+    width: 100vw;
+    height: 100vh auto;
+  }
 }

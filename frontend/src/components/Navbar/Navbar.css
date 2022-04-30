@@ -1,10 +1,10 @@
 .NavbarItems {
-  position: absolute;
+  position: fixed;
   left: 0%;
   right: 0%;
   top: 0%;
   bottom: 0%;
-
+  z-index: 50;
   background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.8) 32.23%, rgba(203, 249, 243, 0.8) 53.35%);
   backdrop-filter: blur(4px);
 
@@ -21,7 +21,7 @@
   list-style: none;
   width: 23px;
   justify-content: end;
-  margin-right: 178px;
+  margin-right: 10%;
 }
 
 .nav-links {
@@ -41,10 +41,96 @@
   white-space: nowrap;
 }
 
+.nav-links:hover {
+  color: #657788;
+}
+
+.menu-icon {
+  display: none;
+}
+
 .logo {
   position: absolute;
-  left: 11.77%;
   right: 69.4%;
   top: 22.86%;
   bottom: 22.86%;
+  margin-left: 0%;
 }
+
+.fa-bars {
+
+  color: #0069CA;
+}
+
+
+@media screen and (max-width: 1000px){
+
+  .nav-links{
+    font-family: 'Karla';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 40px;
+    /* identical to box height */
+
+    text-align: center;
+    letter-spacing: -0.02em;
+
+    /* H4I National/Black */
+
+    color: #333333;
+    text-align: left;
+    padding: 2rem;
+    width: 100%;
+    display: table;
+  }
+
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    position:absolute;
+    top: 70%;
+    left: -100%;
+    opacity: 1;
+    transition: all 0.5s ease;
+    padding: 3rem;
+  }
+
+  .nav-menu.active {
+    background: rgba(194,224,251,.7);
+    background-size: cover;
+    opacity: 1;
+    left: 0;
+    transition: all 0.5s ease;
+    z-index: 500;
+    display: flex;
+    translate: scale(0);
+    width: 100%;
+    height: auto;
+  }
+
+  .logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(25%, 50%);
+  }
+
+  .menu-icon {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(-100%, 60%);
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
+  .fa-times{
+    color: #0069CA;
+  }
+
+}
+
