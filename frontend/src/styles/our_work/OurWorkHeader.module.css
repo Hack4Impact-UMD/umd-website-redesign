@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Karla');
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+#headerDiv {
+  margin: auto;
+  text-align: center;
+  margin-top: 220px;
+  margin-bottom: 10%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+#title {
+  color: #333333;
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 50px;
+  line-height: 58px;
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  margin-bottom: 60px;
+}
+
+#headerText {
+  color: #333333;
+  font-family: 'Karla';
+  font-weight: 400;
+  font-style: normal;
+  size: 18px;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+  letter-spacing: -0.02em;
+}

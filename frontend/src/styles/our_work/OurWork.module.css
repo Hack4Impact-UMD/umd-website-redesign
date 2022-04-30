@@ -1,0 +1,35 @@
+.navBarDiv {
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  height: 70px;
+  top: 0;
+}
+
+#OurWorkPage {
+  position: relative;
+  margin: auto;
+}
+
+.headerBackground {
+  z-index: -1;
+  position: fixed;
+  left: 0%;
+  right: 0%;
+  margin-top: 0%;
+  width: 100%;
+}
+
+#ScrollToTopButton {
+  position: fixed;
+  right: 1vw;
+  bottom: 40%;
+  height: 2vw;
+  width: 2vw;
+  z-index: 1;
+  cursor: pointer;
+}
+
+#ScrollToTopButton:hover {
+  background-color: #333333;
+}

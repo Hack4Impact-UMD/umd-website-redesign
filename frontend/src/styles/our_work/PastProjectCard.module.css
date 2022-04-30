@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css?family=Karla');
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+#cardContainer {
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  width: 20vw;
+}
+
+#cardImageContainer {
+  border-color: #333333;
+  justify-content: center;
+  width: 18vw;
+  height: 18vw;
+}
+
+#cardTextContainer {
+  max-height: 200px;
+  height: 200px;
+  text-align: left;
+}
+
+#cardImage {
+  border-radius: 50px;
+  max-width: 100%;
+  height: auto;
+}
+
+#cardTitle {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  color: #333333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#cardDate {
+  font-family: 'Karla';
+  font-style: italic;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: left;
+  letter-spacing: -0.02em;
+  color: #333333;
+}
+
+#cardLink {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 16px;
+  color: #333333;
+  text-align: left;
+}
+
+#cardLink:hover {
+  color: #808080;
+}

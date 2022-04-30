@@ -1,17 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Karla');
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 
-.featured {
-  position: relative;
-  top: 150.5%;
-  left: 50%;
-  margin-right: -50%;
-  margin-top: 20%;
-  transform: translate(-50%, -50%);
-  width: 75%;
-  padding: 0 0 20px 0; 
-}
-
 .center {
   margin: auto;
   text-align: center;
@@ -26,7 +15,6 @@ h1 {
   text-align: center;
   letter-spacing: -0.02em;
   color: #0069ca;
-  padding-bottom: 1%;
 }
 
 p {
@@ -66,18 +54,3 @@ p {
 .bluebtn:active {
   background-color: #808080;
 }
-
-@media (max-width: 1400px) {
-  .featured {
-    position: absolute;
-    left: 50%;
-    margin-right: -50%;
-    margin-top: -10%;
-    transform: translate(-50%, -50%);
-    width: 75%;
-  }
-}
-
-
-
-

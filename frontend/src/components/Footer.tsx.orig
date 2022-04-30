@@ -15,10 +15,10 @@ function Footer() {
 
   return (
 <<<<<<< HEAD:frontend/src/components/Footer.tsx
-    <div className={styles.Footer}>
-=======
     <div className={styles.Footer} style={footerBackground}>
->>>>>>> about-us:umd-website-redesign/src/components/Footer.tsx
+=======
+    <div className={styles.Footer}>
+>>>>>>> origin/our_work:umd-website-redesign/src/components/Footer.tsx
       <div className={styles.FooterContent}>
         <FooterInfo />
         <FooterCols />
