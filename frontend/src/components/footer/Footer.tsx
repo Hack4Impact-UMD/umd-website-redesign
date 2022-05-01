@@ -9,12 +9,8 @@ import ghLogo from '../assets/gh.svg';
 import background_svg from './assets/background.svg';
 
 function Footer() {
-  const footerBackground = {
-    backgroundImage: `url(${background_svg})`,
-  };
-
   return (
-    <div className={styles.Footer} style={footerBackground}>
+    <div className={styles.Footer}>
       <div className={styles.FooterContent}>
         <FooterInfo />
         <FooterCols />
