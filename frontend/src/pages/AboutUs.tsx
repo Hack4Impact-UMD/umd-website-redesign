@@ -1,13 +1,13 @@
 import React from 'react';
-import styles from './AboutUs.module.css';
+import styles from '../styles/about_us/AboutUs.module.css';
 import Person from '../components/Person';
-import Navbar from '../imported/Navbar/Navbar/Navbar';
-import Footer from '../components/Footer';
-import ValueCard from '../components/ValueCard';
+import Navbar from '../components/navbar/Navbar';
+import Footer from '../components/footer/Footer';
+import ValueCard from '../components/apply/ValueCard';
 
-import headerDesktop from './assets/aboutus_header.png';
-import headerMobile from './assets/aboutus_header_mobile.png';
-import placeholder from './assets/placeholder.png';
+import headerDesktop from '../components/assets/aboutus_header.png';
+import headerMobile from '../components/assets/aboutus_header_mobile.png';
+import placeholder from '../components/assets/placeholder.png';
 
 function AboutUs() {
   return (

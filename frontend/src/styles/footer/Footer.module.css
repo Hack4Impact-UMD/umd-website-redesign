@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik&display=swap');
+
+/* Styling for mobile first */
+
+.Footer p {
+  font-family: 'Rubik';
+  font-size: 18px;
+  line-height: 21.33px;
+  letter-spacing: -0.02em;
+  color: #333333;
+  margin: 0;
+  text-align: left;
+}
+
+.Footer h2 {
+  font-family: 'Karla';
+  font-size: 24px;
+  letter-spacing: -0.02em;
+  color: #333333;
+  margin: 0;
+  text-align: left;
+}
+
+.Footer {
+  position: relative;
+  /* sizing background image */
+  min-width: 100%;
+  min-height: 922px;
+  background-size: cover;
+  z-index: 0;
+}
+
+.FooterContent {
+  position: absolute;
+  bottom: 110px;
+  padding: 0px 5vh;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.FooterInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+}
+
+.WordMark {
+  width: 224px;
+  height: 30px;
+}
+
+.FooterInfo a {
+  color: #f2594b;
+  transition: color 300ms ease-out;
+}
+
+.FooterInfo a:hover {
+  color: #0069ca;
+}
+
+.FooterIcons {
+  display: flex;
+  gap: 32px;
+}
+
+.FooterColumns {
+  display: flex;
+  flex-direction: column;
+  gap: 5vw;
+}
+
+.FooterColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  white-space: nowrap;
+}
+
+.FooterColumn a {
+  color: #657788;
+  text-decoration: none;
+  transition: color 300ms ease-out;
+}
+
+.FooterColumn a:hover {
+  color: #0069ca;
+}
+
+.SocialIconsDesktop {
+  display: none;
+}
+
+.SocialIconsMobile {
+  display: block;
+}
+
+.SocialIcon {
+  width: 30px;
+  height: 30px;
+}
+
+/* Desktop Styling */
+@media screen and (min-width: 1200px) {
+  .Footer {
+    /* adjust height of background */
+    min-height: 815px;
+  }
+
+  .FooterContent {
+    flex-direction: row;
+    padding: 0px 24vh;
+    gap: 100px;
+  }
+
+  .WordMark {
+    width: 300px;
+    height: 40px;
+  }
+
+  .FooterColumns {
+    flex-direction: row;
+  }
+
+  .SocialIconsDesktop {
+    display: block;
+  }
+
+  .SocialIconsMobile {
+    display: none;
+  }
+
+  .SocialIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+}

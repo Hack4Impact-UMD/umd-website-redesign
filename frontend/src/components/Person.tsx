@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Person.module.css';
+import styles from '../styles/people/Person.module.css';
 import globe from './assets/globe.svg';
 
 /*

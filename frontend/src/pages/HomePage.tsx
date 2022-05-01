@@ -1,6 +1,6 @@
 import React from 'react';
-import FeaturedProjects from '../components/FeaturedProjects';
-import HomePageLower from '../components/HomePageLower';
+import FeaturedProjects from '../components/our_work/FeaturedProjects';
+import HomePageLower from '../components/home_page/HomePageLower';
 
 /* Testing SVG backgrounds
 import { ReactComponent as BlueWave } from '../components/assets/bluewave_desktop.svg';

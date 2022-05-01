@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './StudentApply.module.css';
-import Navbar from '../imported/Navbar/Navbar/Navbar';
-import Footer from '../components/Footer';
-import RoleCard from '../components/RoleCard';
-import StudentNonprofitSelector from '../components/StudentNonprofitSelector';
-import ApplyButton from '../components/ApplyButton';
-import Faq, { FaqRow } from '../components/Faq';
+import Navbar from '../components/navbar/Navbar';
+import Footer from '../components/footer/Footer';
+import RoleCard from '../components/apply/RoleCard';
+import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
+import ApplyButton from '../components/apply/ApplyButton';
+import Faq, { FaqRow } from '../components/apply/Faq';
 
 import oneIcon from './assets/one_icon.svg';
 import twoIcon from './assets/two_icon.svg';

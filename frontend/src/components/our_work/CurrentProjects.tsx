@@ -1,5 +1,5 @@
 import React from 'react';
-import FeaturedProjectCard from '../FeaturedProjectCard';
+import FeaturedProjectCard from './FeaturedProjectCard';
 import { current_projects } from './current_projects';
 import styles from '../../styles/our_work/CurrentProjects.module.css';
 

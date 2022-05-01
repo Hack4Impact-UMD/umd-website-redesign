@@ -1,13 +1,12 @@
 import React from 'react';
 import 'keen-slider/keen-slider.min.css';
-import { useKeenSlider } from 'keen-slider/react';
-
+import {useKeenSlider} from 'keen-slider/react';
 import styles from './NonprofitApply.module.css';
-import Navbar from '../imported/Navbar/Navbar/Navbar';
-import Footer from '../components/Footer';
-import StudentNonprofitSelector from '../components/StudentNonprofitSelector';
-import ApplyButton from '../components/ApplyButton';
-import Faq, { FaqRow } from '../components/Faq';
+import Navbar from '../components/navbar/Navbar';
+import Footer from '../components/footer/Footer';
+import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
+import ApplyButton from '../components/apply/ApplyButton';
+import Faq, { FaqRow } from '../components/apply/Faq';
 
 import inspireLogo from './assets/inspire_logo.svg';
 import arcadiaLogo from './assets/arcadia_logo.svg';
