@@ -24,9 +24,10 @@
 .Footer {
   position: relative;
   /* sizing background image */
+  background-image: url(../../components/assets/footer/footer_background_mobile.svg);
+  background-size: cover;
   min-width: 100%;
   min-height: 922px;
-  background-size: cover;
   z-index: 0;
 }
 
@@ -134,5 +135,4 @@
     width: 40px;
     height: 40px;
   }
-
 }

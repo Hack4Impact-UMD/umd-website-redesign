@@ -44,21 +44,21 @@
   .roleCard {
     width: 275px;
     height: 400px;
-    background-image: url(./assets/rolecard/RoleCardBackground1.svg);
+    background-image: url(../../components/assets/rolecard/RoleCardBackground1.svg);
     background-size: cover;
     transition: background-image 300ms ease-in;
   }
 
   .roleCard:hover {
-    background-image: url(./assets/rolecard/RoleCardBackgroundHover1.svg);
+    background-image: url(../../components/assets/rolecard/RoleCardBackgroundHover1.svg);
   }
 
   .roleCard.rev {
-    background-image: url(./assets/rolecard/RoleCardBackground2.svg);
+    background-image: url(../../components/assets/rolecard/RoleCardBackground2.svg);
   }
 
   .roleCard.rev:hover {
-    background-image: url(./assets/rolecard/RoleCardBackgroundHover2.svg);
+    background-image: url(../../components/assets/rolecard/RoleCardBackgroundHover2.svg);
   }
 
   .content {
