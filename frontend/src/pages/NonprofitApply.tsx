@@ -1,18 +1,18 @@
 import React from 'react';
 import 'keen-slider/keen-slider.min.css';
-import {useKeenSlider} from 'keen-slider/react';
-import styles from './NonprofitApply.module.css';
+import { useKeenSlider } from 'keen-slider/react';
+import styles from '../styles/apply/NonprofitApply.module.css';
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
 import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
 import ApplyButton from '../components/apply/ApplyButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
 
-import inspireLogo from './assets/inspire_logo.svg';
-import arcadiaLogo from './assets/arcadia_logo.svg';
-import hamptonLogo from './assets/hampton_logo.svg';
-import cadcLogo from './assets/cadc_logo.svg';
-import unstoppableLogo from './assets/2unstoppable_logo.svg';
+import inspireLogo from '../components/assets/inspire_logo.svg';
+import arcadiaLogo from '../components/assets/arcadia_logo.svg';
+import hamptonLogo from '../components/assets/hampton_logo.svg';
+import cadcLogo from '../components/assets/cadc_logo.svg';
+import unstoppableLogo from '../components/assets/2unstoppable_logo.svg';
 
 function NonprofitApply() {
   return (
