@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './StudentApply.module.css';
+import styles from '../styles/apply/StudentApply.module.css';
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
 import RoleCard from '../components/apply/RoleCard';
@@ -7,12 +7,12 @@ import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelect
 import ApplyButton from '../components/apply/ApplyButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
 
-import oneIcon from './assets/one_icon.svg';
-import twoIcon from './assets/two_icon.svg';
-import threeIcon from './assets/three_icon.svg';
-import oneIconDesktop from './assets/one_icon_desktop.svg';
-import twoIconDesktop from './assets/two_icon_desktop.svg';
-import threeIconDesktop from './assets/three_icon_desktop.svg';
+import oneIcon from '../components/assets/one_icon.svg';
+import twoIcon from '../components/assets/two_icon.svg';
+import threeIcon from '../components/assets/three_icon.svg';
+import oneIconDesktop from '../components/assets/one_icon_desktop.svg';
+import twoIconDesktop from '../components/assets/two_icon_desktop.svg';
+import threeIconDesktop from '../components/assets/three_icon_desktop.svg';
 
 function StudentApply() {
   return (

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../../styles/apply/ApplyButton.module.css';
 import { ReactComponent as Background } from '../assets/ApplyButton.svg';
 
-function ApplyButton(props: any) {
+function ApplyButton() {
   return (
     <div className={styles.applyButton}>
       <svg width="180" height="55" viewBox="0 0 180 55" fill="none" xmlns="http://www.w3.org/2000/svg">
