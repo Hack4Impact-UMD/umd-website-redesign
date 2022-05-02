@@ -52,7 +52,7 @@ function StudentApplyHeader() {
 }
 
 function Carousel() {
-  const [ref, slider] = useKeenSlider<HTMLDivElement>({
+  const [ref] = useKeenSlider<HTMLDivElement>({
     loop: true,
     mode: 'free',
     slides: { origin: 'center', perView: 4, spacing: 30 },
