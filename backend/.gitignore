@@ -1,38 +1,4 @@
 ############################
-# OS X
-############################
-
-.DS_Store
-.AppleDouble
-.LSOverride
-Icon
-.Spotlight-V100
-.Trashes
-._*
-
-
-############################
-# Linux
-############################
-
-*~
-
-
-############################
-# Windows
-############################
-
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
-*.cab
-*.msi
-*.msm
-*.msp
-
-
-############################
 # Packages
 ############################
 
@@ -60,7 +26,6 @@ $RECYCLE.BIN/
 *.out
 *.pid
 
-
 ############################
 # Logs and databases
 ############################
@@ -70,7 +35,6 @@ $RECYCLE.BIN/
 *.sql
 *.sqlite
 *.sqlite3
-
 
 ############################
 # Misc.
@@ -82,18 +46,6 @@ ssl
 nbproject
 public/uploads/*
 !public/uploads/.gitkeep
-
-############################
-# Node.js
-############################
-
-lib-cov
-lcov.info
-pids
-logs
-results
-node_modules
-.node_history
 
 ############################
 # Tests
@@ -112,3 +64,4 @@ exports
 *.cache
 build
 .strapi-updater.json
+
