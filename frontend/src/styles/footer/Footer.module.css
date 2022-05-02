@@ -23,7 +23,7 @@
 
 .Footer {
   position: relative;
-  /* sizing background image */
+  /* sizing background image. Use mobile background for desktop too. */
   background-image: url(../../components/assets/footer/footer_background_mobile.svg);
   background-size: cover;
   min-width: 100%;
@@ -101,6 +101,10 @@
   height: 30px;
 }
 
+.SocialIcon.hidden {
+  display: none;
+}
+
 /* Desktop Styling */
 @media screen and (min-width: 1200px) {
   .Footer {
@@ -134,5 +138,17 @@
   .SocialIcon {
     width: 40px;
     height: 40px;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 300ms ease-out;
+  }
+
+  /* TODO: improve animation? Doesn't seem to fade out properly.
+   * Consider react-spring */
+  .SocialIcon.hidden {
+    opacity: 0;
+    position: absolute;
+    visibility: hidden;
+    transition: visibility 0s 300ms;
   }
 }
