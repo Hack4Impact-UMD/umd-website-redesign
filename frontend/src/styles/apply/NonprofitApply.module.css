@@ -68,6 +68,17 @@
   margin-top: -50px;
 }
 
+@media screen and (min-width: 700px) {
+  .carousel {
+    margin-top: -200px;
+  }
+
+  .orgLogo {
+    height: 200px;
+    width: 200px;
+  }
+}
+
 @media screen and (min-width: 1200px) {
   .studentApplyHeader {
     background-image: url(../../components/assets/apply_header_desktop.svg);
@@ -78,11 +89,15 @@
     font-family: Rubik;
     font-size: 18px;
     line-height: 21.33px;
-    width: 676px;
+    padding: 0 21%;
   }
 
   .studentApplyHeaderContent {
     padding-top: 294px;
+  }
+
+  .carousel {
+    margin-top: -250px;
   }
 
   .howToApply h1 {
@@ -99,16 +114,5 @@
 
   .footerDiv {
     margin-top: -420px;
-  }
-}
-
-@media screen and (min-width: 700px) {
-  .carousel {
-    margin-top: -200px;
-  }
-
-  .orgLogo {
-    height: 200px;
-    width: 200px;
   }
 }
