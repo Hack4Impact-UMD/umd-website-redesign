@@ -1,5 +1,6 @@
 {
   "dependencies": {
     "keen-slider": "^6.6.11"
-  }
+  },
+  "version": "0.0.0"
 }
