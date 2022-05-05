@@ -20,9 +20,6 @@ const HomePageTop = () => {
               Learn More
             </button>
         <img className={styles.graphic} src={graphic}></img>
-          <div className={styles.hide}>
-            <button className={styles.green}>TEST</button>
-          </div>
       </div>
     </div>
   );

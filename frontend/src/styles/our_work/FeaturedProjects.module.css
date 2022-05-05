@@ -2,8 +2,9 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 
 .center {
-  margin: auto;
+  min-height: 350px;
   text-align: center;
+  position: relative;
 }
 
 h1 {
@@ -54,3 +55,4 @@ p {
 .bluebtn:active {
   background-color: #808080;
 }
+

@@ -7,7 +7,7 @@
   left: 0%;
   right: 0%;
   margin-top: -5%;
-  width: 100vw;
+  width: 99vw;
   height: 100%;
   object-fit: cover;
 }
@@ -37,6 +37,7 @@
   /* H4I National/Black */
 
   color: #333333;
+  padding-bottom: 5px;
 }
 
 .hide {
@@ -197,3 +198,12 @@
     height: 100vh auto;
   }
 }
+
+@media (max-height: 500px) {
+  .top {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
