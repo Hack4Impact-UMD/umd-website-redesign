@@ -12,11 +12,10 @@
 }
 
 #searchbarWrapper {
-  position:relative;
+  position: relative;
   display: flex;
   min-width: 100px;
-  margin-left: 5%;
-  margin-right: 5%;
+  padding-bottom: 50px;
 }
 
 #searchIcon {
@@ -42,7 +41,7 @@
   font-family: 'Karla';
   height: 60px;
   width: 100%;
-  padding: 2px 50px 2px 23px;
+  padding: 2px 0px 2px 23px;
   background-color: #ffffff;
   justify-content: left;
 }
@@ -52,6 +51,10 @@
 }
 
 #projectsDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   margin-top: 50px;
+  gap: 12.5% 10%;
 }
