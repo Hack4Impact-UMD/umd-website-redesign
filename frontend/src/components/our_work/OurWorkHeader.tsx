@@ -7,11 +7,9 @@ const OurWorkHeader = () => {
       <div id={styles.headerDiv}>
         <h1 id={styles.title}>Our Work</h1>
         <p id={styles.headerText}>
-          Blurb about the projects we do. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt utz= labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-          laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-          esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-          officia deserunt mollit anim id est laborum.
+          We partner with national and local nonprofit organizations to develop products that help their technical
+          needs. Our chapter focuses on web development, and in the past, we&apos;ve built websites and web applications
+          for organizations such as Y-KNOT and 2Unstoppable. Check out our current and past projects!
         </p>
       </div>
     </div>
