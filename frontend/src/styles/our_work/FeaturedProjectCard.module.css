@@ -2,10 +2,8 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 
 #cardContainer {
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin-top: 3vw;
+  margin-bottom: 3vw;
   display: flex;
 }
 
@@ -13,16 +11,19 @@
   flex: 0.35;
   border-color: #333333;
   justify-content: center;
+  align-items: center;
+  overflow: hidden;
   display: flex;
-  max-width: 300px;
-  max-height: 200px;
   width: 300px;
   height: 200px;
+  border-radius: 50px;
 }
 
 #cardTextContainer {
-  flex: 0.6;
-  margin-left: 3%;
+  flex: 0.65;
+  left: 0;
+  top: 0;
+  margin-left: 2vw;
   max-height: 200px;
   height: 200px;
 }
@@ -32,9 +33,10 @@
 }
 
 #cardImage {
-  border-radius: 50px;
-  max-width: 100%;
-  height: auto;
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
 }
 
 #cardTitleContainer {
@@ -67,6 +69,8 @@
   letter-spacing: -0.02em;
   color: #333333;
   flex: 0.3;
+  right: 0;
+  top: 0;
 }
 
 #cardSummary {
@@ -89,7 +93,6 @@
 #cardLinkContainer {
   flex: 1;
   text-align: left;
-  margin-top: 1vw;
 }
 
 #cardLink {
@@ -101,8 +104,7 @@
   color: #333333;
 }
 
-#cardLink:hover, #cardLink:focus,
-#cardTitle:hover, #cardTitle:focus {
+#cardLink:hover, #cardLink:focus {
   color: #0069ca;
   animation-timing-function: ease-out;
   animation-duration: 300ms;

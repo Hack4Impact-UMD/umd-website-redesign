@@ -23,7 +23,7 @@ const FeaturedProjectCard = ({ link, title, date, summary, image, altText }: Fea
       <div id={styles.cardTextContainer}>
         <div id={styles.cardHeadingContainer}>
           <div id={styles.cardTitleContainer}>
-            <a href={link} id={styles.cardTitle}>
+            <a id={styles.cardTitle} href={link}>
               {title}
             </a>
           </div>
