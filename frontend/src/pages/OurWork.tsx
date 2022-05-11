@@ -31,28 +31,34 @@ const OurWork: React.FC = () => {
   window.addEventListener('scroll', toggleVisible);
 
   return (
-    <div id={styles.OurWorkPage}>
-      <div className={styles.navBarDiv}>
-        <Navbar />
+    <>
+      <div className={styles.headerBackground}>
+        <HeaderBackground style={{ height: '100%', width: '100%' }} />
       </div>
-      {/*<div className={styles.headerBackground}>
-        <HeaderBackground />
-        </div>*/}
-      <div className={styles.content}>
-        <OurWorkHeader />
-        <CurrentProjects />
-        <PastProjects />
+      <div id={styles.OurWorkPage}>
+        <div className={styles.navBarDiv}>
+          <Navbar />
+        </div>
+        <div className={styles.content}>
+          <OurWorkHeader />
+          <CurrentProjects />
+          <PastProjects />
+        </div>
+        <div
+          className={styles.ScrollToTopButton}
+          onClick={scrollToTop}
+          style={{ display: visible ? 'inline' : 'none' }}
+        >
+          <img src={ScrollToTopButton} aria-label="Scroll to Top Button" />
+          <img
+            className={styles.ScrollToTopButtonHover}
+            src={ScrollToTopButtonHover}
+            aria-label="Scroll to Top Button Hover"
+          />
+        </div>
+        <Footer />
       </div>
-      <div className={styles.ScrollToTopButton} onClick={scrollToTop} style={{ display: visible ? 'inline' : 'none' }}>
-        <img src={ScrollToTopButton} aria-label="Scroll to Top Button" />
-        <img
-          className={styles.ScrollToTopButtonHover}
-          src={ScrollToTopButtonHover}
-          aria-label="Scroll to Top Button Hover"
-        />
-      </div>
-      <Footer />
-    </div>
+    </>
   );
 };
 
