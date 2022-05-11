@@ -6,30 +6,74 @@
   top: 0;
 }
 
+.bluewave {
+  z-index: -1;
+  width: 100%;
+  top: 0;
+}
+
 #OurWorkPage {
   position: relative;
-  margin: auto;
+  justify-content: center;
 }
+
+
+@media screen and (max-width: 1400px) {
+  .content {
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .content {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+}
+
+/* .headerBackground {
+  z-index: -1;
+  position: fixed;
+  left: 0;
+  right: 0;
+  margin-top: 0;
+  top: 0;
+  width: 100%;
+} */
 
 .headerBackground {
   z-index: -1;
-  position: fixed;
+  position: relative;
   left: 0%;
   right: 0%;
-  margin-top: 0%;
-  width: 100%;
+  margin-top: -5%;
+  width: 100vw;
+  height: 100%;
+  object-fit: cover;
 }
 
-#ScrollToTopButton {
+.ScrollToTopButton {
   position: fixed;
-  right: 1vw;
-  bottom: 40%;
-  height: 2vw;
-  width: 2vw;
+  display: inline-block;
+  right: 2%;
+  bottom: 20%;
   z-index: 1;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border:1px solid black;
+  object-fit: fill;
 }
 
-#ScrollToTopButton:hover {
-  background-color: #333333;
+.ScrollToTopButton .ScrollToTopButtonHover {
+  display: none;
+  left: 0;
+  position: absolute;
+  z-index: 99;
+  object-fit: fill;
+}
+
+.ScrollToTopButton:hover .ScrollToTopButtonHover {
+  display: inline;
 }
