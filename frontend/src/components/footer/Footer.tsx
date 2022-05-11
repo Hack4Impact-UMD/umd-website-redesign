@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import styles from '../../styles/footer/Footer.module.css';
-/* Avoiding inline svg to avoid excess code and id overlaps. */
 import wordmark from '../assets/wordmark.svg';
+/* Use svgs for desktop, to make hover easier. */
+import { ReactComponent as IgLogoSvg } from '../assets/footer/ig.svg';
+import { ReactComponent as FbLogoSvg } from '../assets/footer/fb.svg';
+import { ReactComponent as GhLogoSvg } from '../assets/footer/gh.svg';
+/* Use pngs for mobile. No hover needed. Duplicating svg element leads to issues */
 import igLogo from '../assets/footer/ig.svg';
 import fbLogo from '../assets/footer/fb.svg';
 import ghLogo from '../assets/footer/gh.svg';
-import igHoverLogo from '../assets/footer/ig_hover.svg';
-import fbHoverLogo from '../assets/footer/fb_hover.svg';
-import ghHoverLogo from '../assets/footer/gh_hover.svg';
 
 function Footer() {
   return (
     <div className={styles.Footer}>
       <div className={styles.FooterContent}>
         <FooterInfo />
-        <FooterCols />
-        {/* Include two sets of icons to simplify implementation. Other is in FooterInfo */}
-        <div className={styles.SocialIconsMobile}>
-          <FooterIcons />
-        </div>
+        <FooterCol1 />
+        <FooterCol2 />
+        <FooterCol3 />
+        <FooterIconsMobile />
       </div>
     </div>
   );
@@ -36,78 +36,54 @@ function FooterInfo() {
         <a href={'mailto:umd@hack4impact.org'}>{'umd@hack4impact.org'}</a>
         {' to get in touch!'}
       </p>
-      <div className={styles.SocialIconsDesktop}>
-        <FooterIcons />
-      </div>
+      <FooterIconsDesktop />
     </div>
   );
 }
 
-// Social Media Icons component.
-// TODO: remove mobile animation by adding media queries in react.
-function FooterIcons() {
-  const [igClass, setIgClass] = useState(styles.SocialIcon);
-  const [igClassHover, setIgClassHover] = useState(`${styles.SocialIcon} ${styles.hidden}`);
-  const [fbClass, setFbClass] = useState(styles.SocialIcon);
-  const [fbClassHover, setFbClassHover] = useState(`${styles.SocialIcon} ${styles.hidden}`);
-  const [ghClass, setGhClass] = useState(styles.SocialIcon);
-  const [ghClassHover, setGhClassHover] = useState(`${styles.SocialIcon} ${styles.hidden}`);
-
+/*
+ * Desktop social media icons. Due to inline svg weirdness, good idea to only use this
+ * component once per page.
+ */
+function FooterIconsDesktop() {
   return (
-    <div className={styles.FooterIcons}>
+    <div className={styles.FooterIconsDesktop}>
       <a href={'https://www.instagram.com/hack4impactumd'}>
-        <img
-          src={igLogo}
-          onMouseEnter={() => {
-            setIgClass(`${styles.SocialIcon} ${styles.hidden}`);
-            setIgClassHover(styles.SocialIcon);
-          }}
-          className={igClass}
-        />
-        <img
-          src={igHoverLogo}
-          onMouseOut={() => {
-            setIgClass(styles.SocialIcon);
-            setIgClassHover(`${styles.SocialIcon} ${styles.hidden}`);
-          }}
-          className={igClassHover}
-        />
+        <div className={styles.SocialIcon}>
+          <IgLogoSvg />
+        </div>
       </a>
       <a href={'https://www.facebook.com/hack4impactumd'}>
-        <img
-          src={fbLogo}
-          onMouseEnter={() => {
-            setFbClass(`${styles.SocialIcon} ${styles.hidden}`);
-            setFbClassHover(styles.SocialIcon);
-          }}
-          className={fbClass}
-        />
-        <img
-          src={fbHoverLogo}
-          onMouseOut={() => {
-            setFbClass(styles.SocialIcon);
-            setFbClassHover(`${styles.SocialIcon} ${styles.hidden}`);
-          }}
-          className={fbClassHover}
-        />
+        <div className={styles.SocialIcon}>
+          <GhLogoSvg />
+        </div>
       </a>
       <a href={'https://github.com/Hack4Impact-UMD'}>
-        <img
-          src={ghLogo}
-          onMouseEnter={() => {
-            setGhClass(`${styles.SocialIcon} ${styles.hidden}`);
-            setGhClassHover(styles.SocialIcon);
-          }}
-          className={ghClass}
-        />
-        <img
-          src={ghHoverLogo}
-          onMouseOut={() => {
-            setGhClass(styles.SocialIcon);
-            setGhClassHover(`${styles.SocialIcon} ${styles.hidden}`);
-          }}
-          className={ghClassHover}
-        />
+        <div className={styles.SocialIcon}>
+          <FbLogoSvg />
+        </div>
+      </a>
+    </div>
+  );
+}
+
+function FooterIconsMobile() {
+  return (
+    <div className={styles.FooterIconsMobile}>
+      <a href={'https://www.instagram.com/hack4impactumd'}>
+        <div className={styles.SocialIcon}>
+          <img src={igLogo} />
+        </div>
+      </a>
+      <a href={'https://www.facebook.com/hack4impactumd'}>
+        <div className={styles.SocialIcon}>
+          <img src={fbLogo} />
+        </div>
+      </a>
+      <a href={'https://github.com/Hack4Impact-UMD'}>
+        <div className={styles.SocialIcon}>
+          <img src={ghLogo} />
+        </div>
       </a>
     </div>
   );
