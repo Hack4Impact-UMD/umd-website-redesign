@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik:ital@0;1&display=swap');
 
-.studentApplyHeader h1 {
+.nonprofitApplyHeader h1 {
   font-family: Karla;
   font-size: 50px;
   line-height: 58.45px;
@@ -8,7 +8,7 @@
   margin: 0;
 }
 
-.studentApplyHeader h2 {
+.nonprofitApplyHeader h2 {
   font-family: Karla;
   font-size: 24px;
   line-height: 28.06px;
@@ -18,7 +18,7 @@
   padding: 0 11%;
 }
 
-.studentApplyHeader {
+.nonprofitApplyHeader {
   background-image: url(../../components/assets/apply_header.svg);
   background-size: cover;
   background-position: bottom;
@@ -26,8 +26,8 @@
   min-height: 810px;
 }
 
-.studentApplyHeaderContent {
-  padding-top: 125px;
+.nonprofitApplyHeaderContent {
+  padding-top: clamp(120px, 18vw, 224px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -80,20 +80,16 @@
 }
 
 @media screen and (min-width: 1200px) {
-  .studentApplyHeader {
+  .nonprofitApplyHeader {
     background-image: url(../../components/assets/apply_header_desktop.svg);
     min-height: 989px;
   }
 
-  .studentApplyHeader h2 {
+  .nonprofitApplyHeader h2 {
     font-family: Rubik;
     font-size: 18px;
     line-height: 21.33px;
     padding: 0 21%;
-  }
-
-  .studentApplyHeaderContent {
-    padding-top: 294px;
   }
 
   .carousel {
