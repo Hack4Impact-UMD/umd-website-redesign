@@ -27,7 +27,7 @@
 }
 
 .studentApplyHeaderContent {
-  padding-top: 125px;
+  padding-top: clamp(120px, 18vw, 224px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -107,11 +107,8 @@
     font-family: Rubik;
     font-size: 18px;
     line-height: 21.33px;
-    width: 676px;
-  }
-
-  .studentApplyHeaderContent {
-    padding-top: 294px;
+    width: 867px;
+    padding: 0;
   }
 
   .studentApplyCards {
@@ -128,7 +125,7 @@
   .timeline {
     margin-top: 186px;
     padding: 0 27%;
-    gap: 122px;
+    gap: 70px;
   }
 
   .timeline p {
