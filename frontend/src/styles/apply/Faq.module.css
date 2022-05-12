@@ -38,6 +38,14 @@
   margin: 0;
 }
 
+.question p {
+  transition: color 300ms ease-out;
+}
+
+.question path {
+  transition: fill 300ms ease-out;
+}
+
 /* If svgs are added in this div in the future; this selector may affect it */
 .question:hover p,
 .question:hover path {

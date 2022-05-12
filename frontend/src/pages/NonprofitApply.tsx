@@ -52,10 +52,22 @@ function StudentApplyHeader() {
 }
 
 function Carousel() {
+  /* adjust scrolling speed with the easing function here */
+  const animation = { duration: 5000, easing: (t: any) => t / 3 };
   const [ref] = useKeenSlider<HTMLDivElement>({
     loop: true,
     mode: 'free',
     slides: { origin: 'center', perView: 4, spacing: 30 },
+    /* next 3 props implement auto scrolling */
+    created(s) {
+      s.moveToIdx(4, true, animation);
+    },
+    updated(s) {
+      s.moveToIdx(s.track.details.abs + 5, true, animation);
+    },
+    animationEnded(s) {
+      s.moveToIdx(s.track.details.abs + 5, true, animation);
+    },
   });
 
   return (
