@@ -17,6 +17,46 @@
   top: 20%;
 }
 
+.center {
+  position: absolute;
+  top: 93%;
+}
+
+.featuredTitle {
+  position: relative;
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 40px;
+  /* identical to box height */
+
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  /* H4I National/Blue */
+
+  color: #0069CA;
+}
+
+.featuredDescription {
+  position:relative;
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: -0.02em;
+  width: 50%;
+  margin:auto;
+  text-align: center;
+  padding-top: 1%;
+  /* H4I National/Black */
+
+  color: #333333;
+}
+
 /*fix overlaym*/
 .textOne {
   position: relative;

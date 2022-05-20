@@ -21,6 +21,10 @@ const HomePageTop = () => {
             </button>
         <img className={styles.graphic} src={graphic}></img>
       </div>
+      <div className={styles.center}>
+        <header className={styles.featuredTitle}>Featured Projects</header>
+        <p className={styles.featuredDescription}>We are the University of Maryland, College Park chapter of the national Hack4Impact organization, a student-run 501(c)(3) dedicated to building software for social impact. Each year, we partner with nonprofits to help them better serve their communities.</p>
+      </div>
     </div>
   );
 };
