@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import HomePage from './pages/HomePage'
 import OurWork from './pages/OurWork';
+import Projects from './pages/Projects'
 
 /*import Navbar from './components/navbar/Navbar';
 import Top from './components/home_page/HomePageTop';
@@ -14,7 +15,7 @@ import AboutUs from './pages/AboutUs';
 function App() {
   return (
     <div className="App">
-      <HomePage/>
+      <Projects/>
     </div>
   );
 }
