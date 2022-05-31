@@ -1,37 +1,21 @@
 import React from 'react';
 import FeaturedProjects from '../components/our_work/FeaturedProjects';
 import HomePageLower from '../components/home_page/HomePageLower';
-
-/* Testing SVG backgrounds
-import { ReactComponent as BlueWave } from '../components/assets/bluewave_desktop.svg';
-import { ReactComponent as MintWave } from '../components/assets/mintwave_desktop.svg';
-import styles from '../styles/Home.module.css'; 
-
-const Home: React.FC = () => {
-  return (
-    <div id={styles.allpagecontent}>
-      <BlueWave id={styles.bgbluewave} />
-      <MintWave id={styles.bgmintwave} />
-      <div id={styles.content}>
-        <div>
-          <h1>Placeholder Area for Top Section</h1>
-        </div>
-        <FeaturedProjects />
-        <HomePageLower />
-      </div>
-    </div>
-  );
-};
-*/
+import HomePageTop from '../components/home_page/HomePageTop';
+import Navbar from '../components/navbar/Navbar';
+import Footer from '../components/footer/Footer';
+import style from '../styles/home/HomePage.module.css'
 
 const Home: React.FC = () => {
   return (
     <div>
-      <div>
-        <h1>Placeholder Area for Top Section</h1>
-      </div>
+      <div className={style.mydiv}>
+      <Navbar/>
+      <HomePageTop/>
       <FeaturedProjects />
       <HomePageLower />
+      <Footer/>
+      </div>
     </div>
   );
 };
