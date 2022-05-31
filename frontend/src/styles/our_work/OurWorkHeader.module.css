@@ -5,9 +5,7 @@
   margin: auto;
   text-align: center;
   margin-top: 220px;
-  margin-bottom: 10%;
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-bottom: 300px;
 }
 
 #title {
@@ -19,7 +17,6 @@
   line-height: 58px;
   text-align: center;
   letter-spacing: -0.02em;
-
   margin-bottom: 60px;
 }
 

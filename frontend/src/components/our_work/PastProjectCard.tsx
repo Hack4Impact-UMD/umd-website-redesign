@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from '../../styles/our_work/PastProjectCard.module.css';
-import { Col } from 'react-bootstrap';
 
 /* defines the parameters to pass into a project card */
 export interface PastProjectCardData {
@@ -11,25 +10,27 @@ export interface PastProjectCardData {
   altText: string;
 }
 
-export const PastProjectCard = ({
-  link,
-  title,
-  date,
-  image,
-  altText,
-}: PastProjectCardData): JSX.Element => {
+export const PastProjectCard = ({ link, title, date, image, altText }: PastProjectCardData): JSX.Element => {
   return (
-    <Col id={styles.cardContainer}>
+    <div id={styles.cardContainer}>
       <div id={styles.cardImageContainer}>
-        <img src={image} alt={altText} id={styles.cardImage}></img>
-      </div>
-      <div id={styles.cardTextContainer}>
-        <p id={styles.cardTitle}>{title}</p>
-        <p id={styles.cardDate}>{date}</p>
-        <a id={styles.cardLink} href={link}>
-          learn more
+        <a href={link}>
+          <img src={image} alt={altText} id={styles.cardImage}></img>
         </a>
       </div>
-    </Col>
+      <div id={styles.cardTextContainer}>
+        <div id={styles.cardTitleContainer}>
+          <a id={styles.cardTitle} href={link}>
+            {title}
+          </a>
+        </div>
+        <div id={styles.cardDateContainer}>{date}</div>
+        <div id={styles.cardLinkContainer}>
+          <a id={styles.cardLink} href={link}>
+            read more
+          </a>
+        </div>
+      </div>
+    </div>
   );
 };
