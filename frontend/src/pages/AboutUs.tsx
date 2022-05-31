@@ -12,17 +12,11 @@ import placeholder from '../components/assets/placeholder.png';
 function AboutUs() {
   return (
     <div className={styles.aboutUs}>
-      <div className={styles.navBarDiv}>
-        <Navbar />
-      </div>
       <AboutUsHeader />
       <OurMission />
       <ValueCardRow />
       <ExecBoard />
       <TeamMembers />
-      <div className={styles.footerDiv}>
-        <Footer />
-      </div>
     </div>
   );
 }
