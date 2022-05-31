@@ -1,22 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../styles/footer/Footer.module.css';
-/* Avoiding inline svg to avoid excess code and id overlaps. */
 import wordmark from '../assets/wordmark.svg';
-import igLogo from '../assets/ig.svg';
-import fbLogo from '../assets/fb.svg';
-import ghLogo from '../assets/gh.svg';
-/* mobile */
-import background_svg from './assets/background.svg';
+/* Use svgs for desktop, to make hover easier. */
+import { ReactComponent as IgLogoSvg } from '../assets/footer/ig.svg';
+import { ReactComponent as FbLogoSvg } from '../assets/footer/fb.svg';
+import { ReactComponent as GhLogoSvg } from '../assets/footer/gh.svg';
+/* Use pngs for mobile. No hover needed. Duplicating svg element leads to issues */
+import igLogo from '../assets/footer/ig.svg';
+import fbLogo from '../assets/footer/fb.svg';
+import ghLogo from '../assets/footer/gh.svg';
 
 function Footer() {
   return (
     <div className={styles.Footer}>
       <div className={styles.FooterContent}>
         <FooterInfo />
-        <FooterCols />
-        <div className={styles.SocialIconsMobile}>
-          <FooterIcons />
-        </div>
+        <FooterCol1 />
+        <FooterCol2 />
+        <FooterCol3 />
+        <FooterIconsMobile />
       </div>
     </div>
   );
@@ -34,26 +36,54 @@ function FooterInfo() {
         <a href={'mailto:umd@hack4impact.org'}>{'umd@hack4impact.org'}</a>
         {' to get in touch!'}
       </p>
-      <div className={styles.SocialIconsDesktop}>
-        <FooterIcons />
-      </div>
+      <FooterIconsDesktop />
     </div>
   );
 }
 
-// Social Media Icons component.
-// Used in FooterInfo
-function FooterIcons() {
+/*
+ * Desktop social media icons. Due to inline svg weirdness, good idea to only use this
+ * component once per page.
+ */
+function FooterIconsDesktop() {
   return (
-    <div className={styles.FooterIcons}>
+    <div className={styles.FooterIconsDesktop}>
       <a href={'https://www.instagram.com/hack4impactumd'}>
-        <img src={igLogo} className={styles.SocialIcon} />
+        <div className={styles.SocialIcon}>
+          <IgLogoSvg />
+        </div>
       </a>
       <a href={'https://www.facebook.com/hack4impactumd'}>
-        <img src={fbLogo} className={styles.SocialIcon} />
+        <div className={styles.SocialIcon}>
+          <GhLogoSvg />
+        </div>
       </a>
       <a href={'https://github.com/Hack4Impact-UMD'}>
-        <img src={ghLogo} className={styles.SocialIcon} />
+        <div className={styles.SocialIcon}>
+          <FbLogoSvg />
+        </div>
+      </a>
+    </div>
+  );
+}
+
+function FooterIconsMobile() {
+  return (
+    <div className={styles.FooterIconsMobile}>
+      <a href={'https://www.instagram.com/hack4impactumd'}>
+        <div className={styles.SocialIcon}>
+          <img src={igLogo} />
+        </div>
+      </a>
+      <a href={'https://www.facebook.com/hack4impactumd'}>
+        <div className={styles.SocialIcon}>
+          <img src={fbLogo} />
+        </div>
+      </a>
+      <a href={'https://github.com/Hack4Impact-UMD'}>
+        <div className={styles.SocialIcon}>
+          <img src={ghLogo} />
+        </div>
       </a>
     </div>
   );

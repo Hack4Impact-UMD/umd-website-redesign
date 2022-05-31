@@ -23,7 +23,7 @@
 
 .Footer {
   position: relative;
-  /* sizing background image */
+  /* sizing background image. Use mobile background for desktop too. */
   background-image: url(../../components/assets/footer/footer_background_mobile.svg);
   background-size: cover;
   min-width: 100%;
@@ -46,23 +46,31 @@
   gap: 21px;
 }
 
+.FooterInfo a {
+  color: #f2594b;
+}
+
+.FooterInfo:hover a {
+  color: #f2594b;
+}
+
 .WordMark {
   width: 224px;
   height: 30px;
 }
 
-.FooterInfo a {
-  color: #f2594b;
-  transition: color 300ms ease-out;
-}
-
-.FooterInfo a:hover {
-  color: #0069ca;
-}
-
-.FooterIcons {
+.FooterIconsMobile {
   display: flex;
   gap: 32px;
+}
+
+.FooterIconsDesktop {
+  display: none;
+}
+
+.SocialIcon img {
+  width: 30px;
+  height: 30px;
 }
 
 .FooterColumns {
@@ -81,24 +89,6 @@
 .FooterColumn a {
   color: #657788;
   text-decoration: none;
-  transition: color 300ms ease-out;
-}
-
-.FooterColumn a:hover {
-  color: #0069ca;
-}
-
-.SocialIconsDesktop {
-  display: none;
-}
-
-.SocialIconsMobile {
-  display: block;
-}
-
-.SocialIcon {
-  width: 30px;
-  height: 30px;
 }
 
 /* Desktop Styling */
@@ -109,9 +99,9 @@
   }
 
   .FooterContent {
-    flex-direction: row;
     padding: 0px 24vh;
     gap: 100px;
+    flex-direction: row;
   }
 
   .WordMark {
@@ -123,15 +113,40 @@
     flex-direction: row;
   }
 
-  .SocialIconsDesktop {
-    display: block;
+  .FooterInfo a {
+    transition: color 300ms ease-out;
   }
 
-  .SocialIconsMobile {
+  .FooterInfo a:hover {
+    color: #0069ca;
+  }
+
+  .FooterColumn a {
+    transition: color 300ms ease-out;
+  }
+
+  .FooterColumn a:hover {
+    color: #0069ca;
+  }
+
+  .FooterIconsDesktop {
+    display: flex;
+    gap: 32px;
+  }
+
+  .FooterIconsMobile {
     display: none;
   }
 
-  .SocialIcon {
+  .SocialIcon g g rect {
+    transition: fill 300ms ease-out;
+  }
+
+  .SocialIcon:hover g g rect {
+    fill: #c2e0fb;
+  }
+
+  .SocialIcon svg {
     width: 40px;
     height: 40px;
   }

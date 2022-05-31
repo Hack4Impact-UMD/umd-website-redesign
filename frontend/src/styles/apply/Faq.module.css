@@ -10,6 +10,7 @@
   font-family: Karla;
   font-size: 34px;
   line-height: 39.75px;
+  text-align: center;
   color: #0069ca;
   margin: 0px;
   width: 237px;
@@ -36,6 +37,14 @@
   line-height: 28px;
   text-align: left;
   margin: 0;
+}
+
+.question p {
+  transition: color 300ms ease-out;
+}
+
+.question path {
+  transition: fill 300ms ease-out;
 }
 
 /* If svgs are added in this div in the future; this selector may affect it */

@@ -3,7 +3,7 @@ import styles from '../styles/about_us/AboutUs.module.css';
 import Person from '../components/Person';
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
-import ValueCard from '../components/apply/ValueCard';
+import ValueCard from '../components/about_us/ValueCard';
 
 import headerDesktop from '../components/assets/aboutus_header.png';
 import headerMobile from '../components/assets/aboutus_header_mobile.png';

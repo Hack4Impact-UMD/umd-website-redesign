@@ -16,7 +16,7 @@ import unstoppableLogo from '../components/assets/2unstoppable_logo.svg';
 
 function NonprofitApply() {
   return (
-    <div className={styles.studentApply}>
+    <div className={styles.nonprofitApply}>
       <Navbar />
       <StudentApplyHeader />
       <Carousel />
@@ -36,8 +36,8 @@ function NonprofitApply() {
 
 function StudentApplyHeader() {
   return (
-    <div className={styles.studentApplyHeader}>
-      <div className={styles.studentApplyHeaderContent}>
+    <div className={styles.nonprofitApplyHeader}>
+      <div className={styles.nonprofitApplyHeaderContent}>
         <h1>Apply</h1>
         <StudentNonprofitSelector curr={'nonprofit'} />
         <h2>
@@ -52,10 +52,22 @@ function StudentApplyHeader() {
 }
 
 function Carousel() {
-  const [ref, slider] = useKeenSlider<HTMLDivElement>({
+  /* adjust scrolling speed with the easing function here */
+  const animation = { duration: 5000, easing: (t: any) => t / 3 };
+  const [ref] = useKeenSlider<HTMLDivElement>({
     loop: true,
     mode: 'free',
     slides: { origin: 'center', perView: 4, spacing: 30 },
+    /* next 3 props implement auto scrolling */
+    created(s) {
+      s.moveToIdx(4, true, animation);
+    },
+    updated(s) {
+      s.moveToIdx(s.track.details.abs + 5, true, animation);
+    },
+    animationEnded(s) {
+      s.moveToIdx(s.track.details.abs + 5, true, animation);
+    },
   });
 
   return (

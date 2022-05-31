@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/apply/ValueCard.module.css';
+import styles from '../../styles/about_us/ValueCard.module.css';
 
 /*
  * ValueCard Component used in AboutUs page.

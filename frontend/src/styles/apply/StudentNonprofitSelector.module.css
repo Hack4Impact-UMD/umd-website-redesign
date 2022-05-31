@@ -21,4 +21,15 @@
   .mobile {
     display: none;
   }
+
+  .greyDesktop path:first-child {
+    fill: transparent;
+    fill-opacity: 0;
+    transition: fill 300ms ease-out, fill-opacity 300ms ease-out;
+  }
+
+  .greyDesktop:hover path:first-child {
+    fill: #657788;
+    fill-opacity: 0.3;
+  }
 }
