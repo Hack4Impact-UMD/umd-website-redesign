@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "members",
+  "info": {
+    "singularName": "member",
+    "pluralName": "members",
+    "displayName": "Member",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "roles": {
+      "type": "enumeration",
+      "enum": [
+        "Executive Director",
+        "Director of Product",
+        "Director of Engineering",
+        "Director of Education",
+        "Director of Events",
+        "Director of Recruitment",
+        "Director of Sourcing",
+        "Director of Design",
+        "Designer",
+        "Product Manager",
+        "Engineer",
+        "Tech Lead",
+        "Bootcamp"
+      ]
+    },
+    "pronouns": {
+      "type": "string"
+    },
+    "projects": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::project.project",
+      "mappedBy": "members"
+    }
+  }
+}

@@ -8,6 +8,12 @@ import ValueCard from '../components/about_us/ValueCard';
 import headerDesktop from '../components/assets/aboutus_header.png';
 import headerMobile from '../components/assets/aboutus_header_mobile.png';
 import placeholder from '../components/assets/placeholder.png';
+import axios from 'axios';
+
+axios.get('http://localhost:1337/api/members').then(response => {
+  console.log(response);
+});
+
 
 function AboutUs() {
   return (
@@ -39,9 +45,7 @@ function OurMission() {
     <div className={styles.ourMission}>
       <h1>Our Mission</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud exercitation ullamco laboris
+      Hack4Impact-UMD is a student organization at the University of Maryland, College Park. Founded in Fall 2020 by Lydia Hu, Simin Li, and Abbie Tran, the club focuses on using tech skills for helping the community while introducing students to a professional working environment and other post-graduation options compared to industry and academia.
       </p>
     </div>
   );
@@ -51,12 +55,16 @@ function ValueCardRow() {
   const summary =
     'Short summary about the value. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.';
 
+  const goBeyondTechnology = "Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools."
+
+  const developWithCare = "We build with others in mind. Empathy and compassion are crucial to serving our partner organizations and members. When we embark on projects, we work to deeply understand the people who we are helping."
+
   return (
     <div className={styles.valuesCardsDiv}>
       <h1>Our Values</h1>
       <div className={styles.valuesCards}>
-        <ValueCard mainText={'Go Beyond Technology'} hoverText={summary} />
-        <ValueCard mainText={'Develop with Care'} hoverText={summary} revBackground={true} />
+        <ValueCard mainText={'Go Beyond Technology'} hoverText={goBeyondTechnology} />
+        <ValueCard mainText={'Develop with Care'} hoverText={developWithCare} revBackground={true} />
         <ValueCard mainText={'Be Open Minded'} hoverText={summary} />
       </div>
     </div>
