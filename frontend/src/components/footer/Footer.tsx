@@ -125,10 +125,10 @@ function FooterCol2() {
     <div className={styles.FooterColumn}>
       <h2>Learn More</h2>
       <p>
-        <a href={'https://www.google.com/'}>About Us</a>
+        <a href={'/aboutus'}>About Us</a>
       </p>
       <p>
-        <a href={'https://www.google.com/'}>Our Work</a>
+        <a href={'/ourwork'}>Our Work</a>
       </p>
     </div>
   );

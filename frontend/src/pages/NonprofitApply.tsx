@@ -27,9 +27,6 @@ function NonprofitApply() {
       <div className={styles.faq}>
         <FaqSection />
       </div>
-      <div className={styles.footerDiv}>
-        <Footer />
-      </div>
     </div>
   );
 }

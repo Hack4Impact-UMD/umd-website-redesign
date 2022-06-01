@@ -56,7 +56,6 @@ const OurWork: React.FC = () => {
             aria-label="Scroll to Top Button Hover"
           />
         </div>
-        <Footer />
       </div>
     </>
   );
