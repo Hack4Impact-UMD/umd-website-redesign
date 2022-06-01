@@ -16,7 +16,7 @@ export const MenuItems = [
     },
     {
         title: 'Contact Us',
-        url: '/contactus', //add links later
+        url: 'mailto:umd@hack4impact.org', //add links later
         cName: 'nav-links'
     }
 ]
