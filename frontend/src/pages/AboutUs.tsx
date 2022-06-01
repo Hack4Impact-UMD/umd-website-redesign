@@ -115,7 +115,7 @@ function TeamMembers() {
   const res = useAxios("http://localhost:1337/api/members?populate=*", "GET", {});
   const members = res.data ? res.data["data"] : [];
 
-  members.map(item => console.log(item["attributes"]["firstName"]));
+  // members.map(item => console.log(item["attributes"]["firstName"]));
 
   return (
     <div className={styles.teamMembersDiv}>
