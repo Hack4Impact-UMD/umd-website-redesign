@@ -1,18 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from '../styles/about_us/AboutUs.module.css';
 import Person from '../components/Person';
-import Navbar from '../components/navbar/Navbar';
-import Footer from '../components/footer/Footer';
 import ValueCard from '../components/about_us/ValueCard';
 
 import headerDesktop from '../components/assets/aboutus_header.png';
 import headerMobile from '../components/assets/aboutus_header_mobile.png';
 import placeholder from '../components/assets/placeholder.png';
 import axios from 'axios';
-
-axios.get('http://localhost:1337/api/members').then(response => {
-  console.log(response);
-});
 
 
 function AboutUs() {
@@ -45,7 +39,7 @@ function OurMission() {
     <div className={styles.ourMission}>
       <h1>Our Mission</h1>
       <p>
-      Hack4Impact-UMD is a student organization at the University of Maryland, College Park. Founded in Fall 2020 by Lydia Hu, Simin Li, and Abbie Tran, the club focuses on using tech skills for helping the community while introducing students to a professional working environment and other post-graduation options compared to industry and academia.
+        Hack4Impact-UMD is a student organization at the University of Maryland, College Park. Founded in Fall 2020 by Lydia Hu, Simin Li, and Abbie Tran, the club focuses on using tech skills for helping the community while introducing students to a professional working environment and other post-graduation options compared to industry and academia.
       </p>
     </div>
   );
@@ -77,59 +71,71 @@ function ExecBoard() {
       <h1>Executive Board</h1>
       <div className={styles.execBoardPhotos}>
         <Person src={placeholder} memberName={'Surabi Ramamurthy'} role={'Executive Director'} pronouns={'she/her'} />
-        <Person src={placeholder} memberName={'Daneil Nguyen'} role={'Director of Product'} pronouns={'he/him'} />
-        <Person src={placeholder} memberName={'Vrundal Shah'} role={'Director of Engineering'} pronouns={'he/him'} />
-        <Person src={placeholder} memberName={'Katherine Wang'} role={'Director of Design'} pronouns={'she/her'} />
-        <Person src={placeholder} memberName={'Stevin Berit'} role={'Director of Sourcing'} pronouns={'he/him'} />
-        <Person
-          src={placeholder}
-          memberName={'Sadena Rishindran'}
-          role={'Co-Director of Education'}
-          pronouns={'she/her'}
-        />
-        <Person src={placeholder} memberName={'Miranda Song'} role={'Co-Director of Education'} pronouns={'she/her'} />
-        <Person src={placeholder} memberName={'Anaya Nadig'} role={'Director of Events'} pronouns={'she/her'} />
-        <Person src={placeholder} memberName={'Ben Lin'} role={'Director of Recruitment'} pronouns={'he/him'} />
       </div>
     </div>
   );
 }
 
+
+const useAxios = (url: any, method: any, payload: any) => {
+
+  const [data, setData] = useState(null);
+  const [error, setError] = useState("");
+  const [loaded, setLoaded] = useState(false);
+  const controllerRef = useRef(new AbortController());
+
+  const cancel = () => {
+    controllerRef.current.abort();
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.request({
+          data: payload,
+          signal: controllerRef.current.signal,
+          method,
+          url,
+        });
+        setData(response.data);
+      } catch (error) {
+        // setError(error.message);
+      } finally {
+        setLoaded(true);
+      }
+
+    })();
+  }, []);
+  return { cancel, data, error, loaded };
+};
+
+
 function TeamMembers() {
+
+  const res = useAxios("http://localhost:1337/api/members?populate=*", "GET", {});
+  const members = res.data ? res.data["data"] : [];
+
+  members.map(item => console.log(item["attributes"]["firstName"]));
+
   return (
     <div className={styles.teamMembersDiv}>
       <h1>Team Members</h1>
       <div className={styles.teamMembersPhotos}>
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        {!members ? members :
+          members.map((item, index) => (
+            <Person key={index}
+              memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"]}
+              team={item["attributes"]["firstName"]}
+              role={item["attributes"]["lastName"]}
+              pronouns={item["attributes"]["pronouns"]}
+            />
+          ))}
+        <Person
+          memberName={'Katherine Wang'}
+          team={'Website Redesign Team'}
+          role={'Designer'}
+          pronouns={'she/her'}
+        />
       </div>
     </div>
   );
