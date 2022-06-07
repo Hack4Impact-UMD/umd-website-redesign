@@ -99,7 +99,7 @@ function ValueCardRow() {
 }
 
 function ExecBoard() {
-  const res = useAxios("http://localhost:1337/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Board Member", "GET", {});
+  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Board Member", "GET", {});
   const boardMembers = res.data ? res.data["data"] : [];
 
   return (
@@ -125,7 +125,7 @@ function TeamMembers() {
 
   // fetch data with axios, assign the array of members to members var 
   // const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=*", "GET", {});
-  const res = useAxios("http://localhost:1337/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member", "GET", {});
+  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member", "GET", {});
   const members = res.data ? res.data["data"] : [];
 
   // members.map(item => console.log(item["attributes"]["firstName"]));
@@ -142,7 +142,7 @@ function TeamMembers() {
               team={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['team']}
               role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
               pronouns={item["attributes"]["pronouns"]}
-              // src={process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"]}
+              src={process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] ? process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
             />
           ))}
         <Person
