@@ -1,13 +1,46 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from '../styles/about_us/AboutUs.module.css';
 import Person from '../components/Person';
-import Navbar from '../components/navbar/Navbar';
-import Footer from '../components/footer/Footer';
 import ValueCard from '../components/about_us/ValueCard';
 
 import headerDesktop from '../components/assets/aboutus_header.png';
 import headerMobile from '../components/assets/aboutus_header_mobile.png';
 import placeholder from '../components/assets/placeholder.png';
+import axios from 'axios';
+
+// function used to use axios, which will query data from the backend
+const useAxios = (url: any, method: any, payload: any) => {
+
+  const [data, setData] = useState(null);
+  const [error, setError] = useState("");
+  const [loaded, setLoaded] = useState(false);
+  const controllerRef = useRef(new AbortController());
+
+  const cancel = () => {
+    controllerRef.current.abort();
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.request({
+          data: payload,
+          signal: controllerRef.current.signal,
+          method,
+          url,
+        });
+        setData(response.data);
+      } catch (error) {
+        // setError(error.message);
+      } finally {
+        setLoaded(true);
+      }
+
+    })();
+  }, []);
+  return { cancel, data, error, loaded };
+};
+
 
 function AboutUs() {
   return (
@@ -39,9 +72,7 @@ function OurMission() {
     <div className={styles.ourMission}>
       <h1>Our Mission</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud exercitation ullamco laboris
+        Hack4Impact-UMD is a student organization at the University of Maryland, College Park. Founded in Fall 2020 by Lydia Hu, Simin Li, and Abbie Tran, the club focuses on using tech skills for helping the community while introducing students to a professional working environment and other post-graduation options compared to industry and academia.
       </p>
     </div>
   );
@@ -51,12 +82,16 @@ function ValueCardRow() {
   const summary =
     'Short summary about the value. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.';
 
+  const goBeyondTechnology = "Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools."
+
+  const developWithCare = "We build with others in mind. Empathy and compassion are crucial to serving our partner organizations and members. When we embark on projects, we work to deeply understand the people who we are helping."
+
   return (
     <div className={styles.valuesCardsDiv}>
       <h1>Our Values</h1>
       <div className={styles.valuesCards}>
-        <ValueCard mainText={'Go Beyond Technology'} hoverText={summary} />
-        <ValueCard mainText={'Develop with Care'} hoverText={summary} revBackground={true} />
+        <ValueCard mainText={'Go Beyond Technology'} hoverText={goBeyondTechnology} />
+        <ValueCard mainText={'Develop with Care'} hoverText={developWithCare} revBackground={true} />
         <ValueCard mainText={'Be Open Minded'} hoverText={summary} />
       </div>
     </div>
@@ -64,64 +99,58 @@ function ValueCardRow() {
 }
 
 function ExecBoard() {
+  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Board Member", "GET", {});
+  const boardMembers = res.data ? res.data["data"] : [];
+
   return (
     <div className={styles.execBoardDiv}>
       <h1>Executive Board</h1>
       <div className={styles.execBoardPhotos}>
+        {!boardMembers ? boardMembers :
+          boardMembers.map((item, index) => (
+            <Person key={index}
+              memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"]}
+              role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
+              pronouns={item["attributes"]["pronouns"]}
+              // src={process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"]}
+            />
+          ))}
         <Person src={placeholder} memberName={'Surabi Ramamurthy'} role={'Executive Director'} pronouns={'she/her'} />
-        <Person src={placeholder} memberName={'Daneil Nguyen'} role={'Director of Product'} pronouns={'he/him'} />
-        <Person src={placeholder} memberName={'Vrundal Shah'} role={'Director of Engineering'} pronouns={'he/him'} />
-        <Person src={placeholder} memberName={'Katherine Wang'} role={'Director of Design'} pronouns={'she/her'} />
-        <Person src={placeholder} memberName={'Stevin Berit'} role={'Director of Sourcing'} pronouns={'he/him'} />
-        <Person
-          src={placeholder}
-          memberName={'Sadena Rishindran'}
-          role={'Co-Director of Education'}
-          pronouns={'she/her'}
-        />
-        <Person src={placeholder} memberName={'Miranda Song'} role={'Co-Director of Education'} pronouns={'she/her'} />
-        <Person src={placeholder} memberName={'Anaya Nadig'} role={'Director of Events'} pronouns={'she/her'} />
-        <Person src={placeholder} memberName={'Ben Lin'} role={'Director of Recruitment'} pronouns={'he/him'} />
       </div>
     </div>
   );
 }
 
 function TeamMembers() {
+
+  // fetch data with axios, assign the array of members to members var 
+  // const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=*", "GET", {});
+  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member", "GET", {});
+  const members = res.data ? res.data["data"] : [];
+
+  // members.map(item => console.log(item["attributes"]["firstName"]));
+
   return (
     <div className={styles.teamMembersDiv}>
       <h1>Team Members</h1>
       <div className={styles.teamMembersPhotos}>
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
-        <Person memberName={'Katherine Wang'} team={'Website Redesign Team'} role={'Designer'} pronouns={'she/her'} />
+        {!members ? members :
+        // render team members
+          members.map((item, index) => (
+            <Person key={index}
+              memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"]}
+              team={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['team']}
+              role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
+              pronouns={item["attributes"]["pronouns"]}
+              src={process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] ? process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
+            />
+          ))}
+        <Person
+          memberName={'Katherine Wang'}
+          team={'Website Redesign Team'}
+          role={'Designer'}
+          pronouns={'she/her'}
+        />
       </div>
     </div>
   );
