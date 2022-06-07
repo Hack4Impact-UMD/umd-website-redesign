@@ -13,13 +13,16 @@
   "pluginOptions": {},
   "attributes": {
     "firstName": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "lastName": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "pronouns": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "projects": {
       "type": "relation",
@@ -42,6 +45,16 @@
       "type": "component",
       "repeatable": true,
       "component": "roles.roles-test"
+    },
+    "memberDisplayStatus": {
+      "type": "enumeration",
+      "enum": [
+        "Current Member",
+        "Current Board Member",
+        "Former Member or Board Member"
+      ],
+      "default": "Current Member",
+      "required": true
     }
   }
 }

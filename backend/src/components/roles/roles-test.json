@@ -7,9 +7,6 @@
   },
   "options": {},
   "attributes": {
-    "startDate": {
-      "type": "date"
-    },
     "title": {
       "type": "enumeration",
       "enum": [
@@ -28,13 +25,25 @@
         "Bootcamp"
       ]
     },
+    "isDisplayRole": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "startDate": {
+      "type": "date"
+    },
     "endDate": {
       "type": "date"
     },
-    "project": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::project.project"
+    "team": {
+      "type": "enumeration",
+      "enum": [
+        "Two Unstoppable",
+        "WISE",
+        "YKNOT",
+        "Mott Haven"
+      ]
     }
   }
 }

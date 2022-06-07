@@ -8,6 +8,39 @@ import headerMobile from '../components/assets/aboutus_header_mobile.png';
 import placeholder from '../components/assets/placeholder.png';
 import axios from 'axios';
 
+// function used to use axios, which will query data from the backend
+const useAxios = (url: any, method: any, payload: any) => {
+
+  const [data, setData] = useState(null);
+  const [error, setError] = useState("");
+  const [loaded, setLoaded] = useState(false);
+  const controllerRef = useRef(new AbortController());
+
+  const cancel = () => {
+    controllerRef.current.abort();
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await axios.request({
+          data: payload,
+          signal: controllerRef.current.signal,
+          method,
+          url,
+        });
+        setData(response.data);
+      } catch (error) {
+        // setError(error.message);
+      } finally {
+        setLoaded(true);
+      }
+
+    })();
+  }, []);
+  return { cancel, data, error, loaded };
+};
+
 
 function AboutUs() {
   return (
@@ -66,53 +99,33 @@ function ValueCardRow() {
 }
 
 function ExecBoard() {
+  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Board Member", "GET", {});
+  const boardMembers = res.data ? res.data["data"] : [];
+
   return (
     <div className={styles.execBoardDiv}>
       <h1>Executive Board</h1>
       <div className={styles.execBoardPhotos}>
+        {!boardMembers ? boardMembers :
+          boardMembers.map((item, index) => (
+            <Person key={index}
+              memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"]}
+              role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
+              pronouns={item["attributes"]["pronouns"]}
+              // src={process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"]}
+            />
+          ))}
         <Person src={placeholder} memberName={'Surabi Ramamurthy'} role={'Executive Director'} pronouns={'she/her'} />
       </div>
     </div>
   );
 }
 
-
-const useAxios = (url: any, method: any, payload: any) => {
-
-  const [data, setData] = useState(null);
-  const [error, setError] = useState("");
-  const [loaded, setLoaded] = useState(false);
-  const controllerRef = useRef(new AbortController());
-
-  const cancel = () => {
-    controllerRef.current.abort();
-  };
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.request({
-          data: payload,
-          signal: controllerRef.current.signal,
-          method,
-          url,
-        });
-        setData(response.data);
-      } catch (error) {
-        // setError(error.message);
-      } finally {
-        setLoaded(true);
-      }
-
-    })();
-  }, []);
-  return { cancel, data, error, loaded };
-};
-
-
 function TeamMembers() {
 
-  const res = useAxios("http://localhost:1337/api/members?populate=*", "GET", {});
+  // fetch data with axios, assign the array of members to members var 
+  // const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=*", "GET", {});
+  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member", "GET", {});
   const members = res.data ? res.data["data"] : [];
 
   // members.map(item => console.log(item["attributes"]["firstName"]));
@@ -122,12 +135,14 @@ function TeamMembers() {
       <h1>Team Members</h1>
       <div className={styles.teamMembersPhotos}>
         {!members ? members :
+        // render team members
           members.map((item, index) => (
             <Person key={index}
               memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"]}
-              team={item["attributes"]["firstName"]}
-              role={item["attributes"]["lastName"]}
+              team={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['team']}
+              role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
               pronouns={item["attributes"]["pronouns"]}
+              src={process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"]}
             />
           ))}
         <Person
