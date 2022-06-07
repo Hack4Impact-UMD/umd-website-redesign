@@ -37,13 +37,7 @@
       "type": "date"
     },
     "team": {
-      "type": "enumeration",
-      "enum": [
-        "Two Unstoppable",
-        "WISE",
-        "YKNOT",
-        "Mott Haven"
-      ]
+      "type": "string"
     }
   }
 }
