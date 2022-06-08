@@ -139,10 +139,10 @@ function FooterCol3() {
     <div className={styles.FooterColumn}>
       <h2>Get Involved</h2>
       <p>
-        <a href={'https://www.google.com/'}>Student Applications</a>
+        <a href={'/apply/student'}>Student Applications</a>
       </p>
       <p>
-        <a href={'https://www.google.com/'}>Nonprofit Proposals</a>
+        <a href={'/apply/nonprofit'}>Nonprofit Proposals</a>
       </p>
     </div>
   );

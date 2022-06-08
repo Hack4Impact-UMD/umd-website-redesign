@@ -9,7 +9,7 @@ const HomePageLower = () => {
         <p>
           Our members consist of current University of Maryland students interested in using tech for social good. Each semester, members are split into teams of Product Managers, UI/UX Designers, and Engineers and partner with a nonprofit organization to develop a product that will help the organization.
         </p>
-        <a href="https://www.google.com">
+        <a href='/apply/student'>
           <button aria-label="Join Us" className={styles.bluebtn}>
             Join Us
           </button>
@@ -20,7 +20,7 @@ const HomePageLower = () => {
         <p>
           Nonprofit organizations are the pillars of our community; they focus on a variety of social issues, and Hack4Impact-UMD focuses on helping these organizations with any of their technical needs to improve the effectiveness of their work. 
         </p>
-        <a href="https://www.google.com">
+        <a href='/apply/nonprofit'>
           <button aria-label="Work With Us" className={styles.bluebtn}>
             Work With Us
           </button>
