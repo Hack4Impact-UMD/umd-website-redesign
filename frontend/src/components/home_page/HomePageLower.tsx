@@ -12,7 +12,7 @@ const HomePageLower = () => {
           labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
           exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
-        <a href="https://www.google.com">
+        <a href='/apply/student'>
           <button aria-label="Join Us" className={styles.bluebtn}>
             Join Us
           </button>
@@ -26,7 +26,7 @@ const HomePageLower = () => {
           labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
           exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
-        <a href="https://www.google.com">
+        <a href='/apply/nonprofit'>
           <button aria-label="Work With Us" className={styles.bluebtn}>
             Work With Us
           </button>
