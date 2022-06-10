@@ -1,6 +1,6 @@
 export const past_projects = [
     {
-        link: 'https://google.com',
+        link: '/ourwork/2Unstoppable',
         title: '2Unstoppable',
         date: 'Fall 2021',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
@@ -10,7 +10,7 @@ export const past_projects = [
         team: ['John Doe', 'Jane Doe', 'Joe Doe'],
     },
     {
-        link: 'https://google.com',
+        link: '/ourwork/YKNOT',
         title: 'YKNOT',
         date: 'Fall 2021',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
@@ -20,8 +20,8 @@ export const past_projects = [
         team: ['Adam Anderson', 'Bob Bobson', 'Carlos Carlos'],
     },
     {
-        link: 'https://google.com',
-        title: 'Matt Haven Fridge',
+        link: '/ourwork/MottHavenFridge',
+        title: 'Mott Haven Fridge',
         date: 'Fall 2021',
         summary: 'Short summary about the project. ',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
@@ -30,7 +30,7 @@ export const past_projects = [
         team: ['John Doe', 'Adam Anderson', 'Doug Dougson'],
     },
     {
-        link: 'https://google.com',
+        link: '/ourwork/Org4',
         title: 'Organization 4',
         date: 'Fall 2021',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
@@ -40,7 +40,7 @@ export const past_projects = [
         team: ['John Doe', 'Adam Anderson', 'Doug Dougson'],
     },
     {
-        link: 'https://google.com',
+        link: '/ourwork/Org5',
         title: 'The Organization 5',
         date: 'Fall 2021',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
@@ -50,7 +50,7 @@ export const past_projects = [
         team: ['Doug Dougson', 'Eric Yi', 'Jane Doe', 'Adam Anderson'],
     },
     {
-        link: 'https://google.com',
+        link: '/ourwork/CORA',
         title: "Revamping CORA's Website",
         date: 'Spring 2021',
         summary: 'Short summary about the project.',
@@ -60,7 +60,7 @@ export const past_projects = [
         team: ['Eric Yi', 'Bob Bobson'],
     },
     {
-        link: 'https://google.com',
+        link: '/ourwork/Org7',
         title: 'Coding Project 7',
         date: 'Fall 2020',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
@@ -70,7 +70,7 @@ export const past_projects = [
         team: ['Eric Yi', 'Adam Anderson', 'Bob Bobson', 'Carlos Carlos','Doug Dougson'],
     },
     {
-        link: 'https://google.com',
+        link: '/ourwork/Org8',
         title: 'Fall 2020',
         date: '2021',
         summary: 'Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan. Short summary about the project. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit velit in vitae diam ut blandit accumsan.',
@@ -80,7 +80,7 @@ export const past_projects = [
         team: ['Eric Yi'],
     },
     {
-        link: 'https://google.com',
+        link: '/ourwork/Org9',
         title: 'A Project for the Future 9',
         date: 'Fall 2020',
         summary: 'Short summary about the project. ',

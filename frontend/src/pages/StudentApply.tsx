@@ -17,7 +17,7 @@ import threeIconDesktop from '../components/assets/three_icon_desktop.svg';
 function StudentApply() {
   return (
     <div className={styles.studentApply}>
-      <Navbar />
+      {/* <Navbar /> */}
       <StudentApplyHeader />
       <StudentApplyCards />
       <ApplicationTimeline />
