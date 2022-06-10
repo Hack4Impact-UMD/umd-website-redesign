@@ -39,13 +39,14 @@ function Header() {
     return (
         <div className={styles.studentApplyHeader}>
         <div className={styles.studentApplyHeaderContent}>
-            <h1>{params ? params.projectpath : "Project Name"}</h1>
+            <h1>{ proj ? proj['attributes']['title'] : ""}</h1>
             
             <h2>
             project title: { proj ? proj['attributes']['title'] : ""} <br></br>
             project startDate: { proj ? proj['attributes']['startDate'] : ""} <br/>
             project summary: { proj ? proj['attributes']['summary'] : ""} <br/>
             project blurb: { proj ? proj['attributes']['blurb'] : ""} &nbsp;
+            project image: <img src={ proj && proj['attributes']["image"]['data'] ? process.env.REACT_APP_ROOT_URL + proj['attributes']["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}/>
             </h2>
         </div>
         </div>
@@ -53,38 +54,30 @@ function Header() {
 }
   
 function TeamMembers() {
-
-// fetch data with axios, assign the array of members to members var 
-// const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=*", "GET", {});
-// const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member", "GET", {});
-// const members = res.data ? res.data["data"] : [];
-
-// members.map(item => console.log(item["attributes"]["firstName"]));
-
-return (
-    <div className={styles.teamMembersDiv}>
-    <h1>Team Members</h1>
-    <div className={styles.teamMembersPhotos}>
-        {/* {!members ? members :
-        // render team members
-        members.map((item, index) => (
-            <Person key={index}
-            memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"]}
-            team={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['team']}
-            role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
-            pronouns={item["attributes"]["pronouns"]}
-            src={process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] ? process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
+    const members = proj ? proj["attributes"]["members"]["data"]: [];
+    return (
+        <div className={styles.teamMembersDiv}>
+        <h1>Team Members</h1>
+        <div className={styles.teamMembersPhotos}>
+            {!members ? members :
+            // render team members
+            members.map((item, index) => (
+                <Person key={index}
+                memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"]}
+                // role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
+                pronouns={item["attributes"]["pronouns"]}
+                // src={item["attributes"]["avatar"]["data"] ? process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
+                />
+            ))}
+            <Person
+            memberName={'Katherine Wang'}
+            team={'Website Redesign Team'}
+            role={'Designer'}
+            pronouns={'she/her'}
             />
-        ))} */}
-        <Person
-        memberName={'Katherine Wang'}
-        team={'Website Redesign Team'}
-        role={'Designer'}
-        pronouns={'she/her'}
-        />
-    </div>
-    </div>
-);
+        </div>
+        </div>
+    );
 }
 
 export default ProjectPage;

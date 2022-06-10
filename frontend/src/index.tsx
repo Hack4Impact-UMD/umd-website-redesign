@@ -23,8 +23,6 @@ const routing = (
         <Route path="/ourwork" element={<OurWork/>} />
         <Route path="/apply" element={<StudentApply/>} />
         <Route path="/contactus" element={<App/>} />
-
-        {/* Component */}
         <Route path="ourwork/:projectpath" element={<ProjectPage/>} />
       </Routes>
     <Footer/>

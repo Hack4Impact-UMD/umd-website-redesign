@@ -7,6 +7,7 @@ import headerDesktop from '../components/assets/aboutus_header.png';
 import headerMobile from '../components/assets/aboutus_header_mobile.png';
 import placeholder from '../components/assets/placeholder.png';
 import { useAxios } from '../components/HelperFunctions';
+import globe from '../components/assets/globe.svg';
 
 function AboutUs() {
   return (
@@ -108,7 +109,7 @@ function TeamMembers() {
               team={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['team']}
               role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
               pronouns={item["attributes"]["pronouns"]}
-              src={process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] ? process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
+              src={item["attributes"]["avatar"]["data"] ? process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
             />
           ))}
         <Person
