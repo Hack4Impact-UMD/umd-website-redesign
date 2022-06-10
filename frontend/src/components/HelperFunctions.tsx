@@ -35,3 +35,20 @@ export const useAxios = (url: any, method: any, payload: any) => {
     return { cancel, data, error, loaded };
   };
   
+export const getSeason = (month: number) => {
+
+  if (3 <= month && month <= 5) {
+      return 'Spring';
+  }
+
+  if (6 <= month && month <= 8) {
+      return 'Summer';
+  }
+
+  if (9 <= month && month <= 11) {
+      return 'Fall';
+  }
+
+  // Months 12, 01, 02
+  return 'Winter';
+}

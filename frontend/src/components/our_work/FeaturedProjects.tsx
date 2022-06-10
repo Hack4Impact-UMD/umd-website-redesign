@@ -2,24 +2,31 @@ import React from 'react';
 import FeaturedProjectCard from './FeaturedProjectCard';
 import { current_projects } from './current_projects';
 import styles from '../../styles/our_work/FeaturedProjects.module.css';
-import { useAxios } from '../HelperFunctions';
+import { useAxios , getSeason } from '../HelperFunctions';
 
 const FeaturedProjects = () => {
+  // fetch featuredProjects from backend
+  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*&filters[isFeatured][$eq]=true", "GET", {});
+  const featuredProjects = res.data ? res.data["data"] : [];
 
   return (
     <div>
         <div>
-          <FeaturedProjectCard
-            link={current_projects[5].link}
-            title={current_projects[5].title}
-            date={current_projects[5].date}
-            summary={current_projects[5].summary}
-            image={current_projects[5].image}
-            altText={current_projects[5].altText}
-          />
+          {!featuredProjects ? featuredProjects : 
+           featuredProjects.map((item, index) =>(
+              <FeaturedProjectCard
+                key={index}
+                link={"ourwork/" + item["attributes"]["path"]}
+                title={item["attributes"]["title"]}
+                date={item["attributes"]["startDate"]}
+                summary={item["attributes"]["summary"]}
+                image={current_projects[5].image}
+                altText={item["attributes"]["imageAltText"]}
+              />
+           ))}
         </div>
         <div>
-          <a href="https://www.google.com">
+          <a href='/ourwork' className={styles.buttonLink}>
             <button aria-label="See More" className={styles.bluebtn}>
               See More
             </button>

@@ -2,8 +2,16 @@ import React, { useState } from 'react';
 import { PastProjectCard } from './PastProjectCard';
 import { past_projects } from './past_projects';
 import styles from '../../styles/our_work/PastProjects.module.css';
+import { useAxios } from '../HelperFunctions';
 
 const PastProjects: React.FC = () => {
+  // query for all projects 
+  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*", "GET", {});
+  const allProjects = res.data ? res.data["data"] : [];
+  const cleanedProjects = allProjects.map(x => x["attributes"]);
+  console.log("cleaned projects: ", cleanedProjects); 
+  // const past_projects = cleanedProjects;
+
   // Set up state for search bar functionality
   const [searchInput, setSearchInput] = useState('');
 

@@ -13,7 +13,7 @@ let proj: null;
 function ProjectPage() {
     params = useParams();
 
-    const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*/api/members?&filters[projectName][$eq]=" + params.projectname, "GET", {});
+    const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*&filters[path][$eq]=" + params.projectpath, "GET", {});
     const project = res.data ? res.data["data"][0] : null;
     proj = project;
 
@@ -29,7 +29,7 @@ function ProjectPage() {
     return (
         <div className={styles.studentApplyHeader}>
             <div className={styles.studentApplyHeaderContent}>
-                <h1>{params ? params.projectname + "? Hmm... That doesn't sound like a project." : "Hmm."}</h1>
+                <h1>{params ? params.projectpath + "? Hmm... That doesn't sound like a project." : "Hmm."}</h1>
             </div>
         </div>
     );
@@ -39,14 +39,13 @@ function Header() {
     return (
         <div className={styles.studentApplyHeader}>
         <div className={styles.studentApplyHeaderContent}>
-            <h1>{params ? params.projectname : "Project Name"}</h1>
-            {/* <StudentNonprofitSelector curr={'student'} /> */}
+            <h1>{params ? params.projectpath : "Project Name"}</h1>
+            
             <h2>
-            project id: { proj ? proj['id'] : ""} <br></br>
-            project name: { proj ? proj['attributes']['projectName'] : ""} <br></br>
-            project startDate: { proj ? proj['attributes']['projectStartDate'] : ""} <br/>
-            project summary: { proj ? proj['attributes']['projectSummary'] : ""} <br/>
-            project blurb: { proj ? proj['attributes']['projectBlurb'] : ""} &nbsp;
+            project title: { proj ? proj['attributes']['title'] : ""} <br></br>
+            project startDate: { proj ? proj['attributes']['startDate'] : ""} <br/>
+            project summary: { proj ? proj['attributes']['summary'] : ""} <br/>
+            project blurb: { proj ? proj['attributes']['blurb'] : ""} &nbsp;
             </h2>
         </div>
         </div>

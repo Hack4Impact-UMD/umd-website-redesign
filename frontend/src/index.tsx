@@ -23,10 +23,9 @@ const routing = (
         <Route path="/ourwork" element={<OurWork/>} />
         <Route path="/apply" element={<StudentApply/>} />
         <Route path="/contactus" element={<App/>} />
-        {/* <Route path="/project" element={<ProjectPage/>} /> */}
 
         {/* Component */}
-        <Route path="ourwork/:projectname" element={<ProjectPage/>} />
+        <Route path="ourwork/:projectpath" element={<ProjectPage/>} />
       </Routes>
     <Footer/>
     </div>

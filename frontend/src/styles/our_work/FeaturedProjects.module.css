@@ -48,6 +48,10 @@ p {
   display: block;
 }
 
+.buttonLink {
+  text-decoration: none;
+}
+
 .bluebtn:hover {
   background-color: #6abfe6;
 }
