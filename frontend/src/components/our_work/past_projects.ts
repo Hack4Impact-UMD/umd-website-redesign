@@ -26,7 +26,7 @@ export const past_projects = [
         summary: 'Short summary about the project. ',
         image: 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png',
         altText: 'Image for Project 3',
-        org: 'Matt Haven Fridge',
+        org: 'Mott Haven Fridge',
         team: ['John Doe', 'Adam Anderson', 'Doug Dougson'],
     },
     {

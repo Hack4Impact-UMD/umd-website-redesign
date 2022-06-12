@@ -2,7 +2,7 @@ import React from 'react';
 import FeaturedProjectCard from './FeaturedProjectCard';
 import { current_projects } from './current_projects';
 import styles from '../../styles/our_work/CurrentProjects.module.css';
-import { useAxios } from '../HelperFunctions';
+import { getSeason, useAxios } from '../HelperFunctions';
 
 const CurrentProjects = () => {
   // fetch currentProjects from backend
@@ -18,7 +18,7 @@ const CurrentProjects = () => {
           key={index}
           link={"ourwork/" + item["attributes"]["path"]}
           title={item["attributes"]["title"]}
-          date={(item["attributes"]["startDate"] as string).substring(0,4)}
+          date={item["attributes"]["startDate"] ? getSeason((item["attributes"]["startDate"] as string).substring(5,7) as unknown as number) +  " " + (item["attributes"]["startDate"] as string).substring(0,4) : ""}
           summary={item["attributes"]["summary"]}
           image={item['attributes']["image"]['data'] ? process.env.REACT_APP_ROOT_URL + item['attributes']["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}
           altText={item["attributes"]["imageAltText"]}

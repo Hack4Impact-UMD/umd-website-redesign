@@ -5,7 +5,7 @@ import styles from '../styles/apply/StudentApply.module.css';
 import Person from '../components/Person';
 import ValueCard from '../components/about_us/ValueCard';
 import { Params, useParams } from 'react-router-dom';
-import { useAxios } from '../components/HelperFunctions'
+import { useAxios, getSeason } from '../components/HelperFunctions'
 
 let params: Readonly<Params<string>>;
 let proj: null;
@@ -36,14 +36,15 @@ function ProjectPage() {
 }
 
 function Header() {
+    const date = proj ? getSeason((proj['attributes']['startDate'] as string).substring(5, 7) as unknown as number) + " " + (proj['attributes']['startDate'] as string).substring(0,4) : ""
     return (
         <div className={styles.studentApplyHeader}>
         <div className={styles.studentApplyHeaderContent}>
             <h1>{ proj ? proj['attributes']['title'] : ""}</h1>
             
             <h2>
-            project title: { proj ? proj['attributes']['title'] : ""} <br></br>
-            project startDate: { proj ? proj['attributes']['startDate'] : ""} <br/>
+            {/* project title: { proj ? proj['attributes']['title'] : ""} <br></br> */}
+            project startDate: { date } <br/>
             project summary: { proj ? proj['attributes']['summary'] : ""} <br/>
             project blurb: { proj ? proj['attributes']['blurb'] : ""} &nbsp;
             project image: <img src={ proj && proj['attributes']["image"]['data'] ? process.env.REACT_APP_ROOT_URL + proj['attributes']["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}/>
@@ -59,7 +60,7 @@ function TeamMembers() {
         <div className={styles.teamMembersDiv}>
         <h1>Team Members</h1>
         <div className={styles.teamMembersPhotos}>
-            {!members ? members :
+            {!members ? "Looks like there are no team members here. Check again later?" :
             // render team members
             members.map((item, index) => (
                 <Person key={index}
@@ -69,12 +70,6 @@ function TeamMembers() {
                 // src={item["attributes"]["avatar"]["data"] ? process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
                 />
             ))}
-            <Person
-            memberName={'Katherine Wang'}
-            team={'Website Redesign Team'}
-            role={'Designer'}
-            pronouns={'she/her'}
-            />
         </div>
         </div>
     );

@@ -9,8 +9,9 @@ const PastProjects: React.FC = () => {
   const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*", "GET", {});
   const allProjects = res.data ? res.data["data"] : [];
   const cleanedProjects = allProjects.map(x => x["attributes"]);
+  // TODO: REMOVE, DEBUG STATEMENT
   // console.log("cleaned projects: ", cleanedProjects); 
-  // const past_projects = cleanedProjects;
+  const past_projects = cleanedProjects;
 
   // Set up state for search bar functionality
   const [searchInput, setSearchInput] = useState('');
@@ -24,8 +25,8 @@ const PastProjects: React.FC = () => {
   const filteredData = past_projects.filter((project) => {
     // check if query is similar to a team member's name
     const team_lowercase: string[] = [];
-    project.team.forEach((member) => {
-      team_lowercase.push(member.toLowerCase());
+    (project['members']['data'] as Array<any>).forEach((member) => {
+      team_lowercase.push(((member['attributes']['firstName'] + " " + member['attributes']['lastName']) as string).toLowerCase());
     });
     const member_match: string[] = team_lowercase.filter((elem) => {
       if (elem.includes(searchInput.toLowerCase())) {
@@ -36,11 +37,11 @@ const PastProjects: React.FC = () => {
     //if query is empty, return all projects
     if (searchInput === '') {
       return project;
-    } else if (project.title.toLowerCase().includes(searchInput.toLowerCase())) {
+    } else if (project['title'] && (project['title'] as string).toLowerCase().includes(searchInput.toLowerCase())) {
       return project;
-    } else if (project.date.toLowerCase().includes(searchInput.toLowerCase())) {
+    } else if (project['startDate'] && (project['startDate'] as string).toLowerCase().includes(searchInput.toLowerCase())) {
       return project;
-    } else if (project.org.toLowerCase().includes(searchInput.toLowerCase())) {
+    } else if (project['link'] && (project['link'] as string).toLowerCase().includes(searchInput.toLowerCase())) {
       return project;
     } else if (member_match.length > 0) {
       return project;
@@ -71,11 +72,11 @@ const PastProjects: React.FC = () => {
         {filteredData.map((item, index) => (
           <PastProjectCard
             key={index}
-            link={item.link}
-            title={item.title}
-            date={item.date}
-            image={item.image}
-            altText={item.altText}
+            link={item['link']}
+            title={item['title']}
+            date={item['date']}
+            image={'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png'}
+            altText={item['title']}
           />
         ))}
       </div>

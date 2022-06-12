@@ -41,11 +41,11 @@ export const getSeason = (month: number) => {
       return 'Spring';
   }
 
-  if (6 <= month && month <= 8) {
+  if (6 <= month && month <= 7) {
       return 'Summer';
   }
 
-  if (9 <= month && month <= 11) {
+  if (8 <= month && month <= 11) {
       return 'Fall';
   }
 
