@@ -156,7 +156,8 @@
 }
 
 .mintbtn:hover {
-  background-color: #1ca74a;
+  background-color: #CBF9F3;
+  color: #657788;
 }
 
 .mintbtn:focus,

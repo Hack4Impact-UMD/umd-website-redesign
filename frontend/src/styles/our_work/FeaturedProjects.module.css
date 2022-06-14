@@ -34,7 +34,8 @@
 }
 
 .bluebtn:hover {
-  background-color: #6abfe6;
+  background-color: #C2E0FB;
+  color: #657788;
 }
 
 .bluebtn:focus,
