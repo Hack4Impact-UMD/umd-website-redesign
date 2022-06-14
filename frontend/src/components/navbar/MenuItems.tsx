@@ -1,22 +1,22 @@
 export const MenuItems = [
     {
         title: 'About Us',
-        url: '/aboutus', //add links later
+        url: '/aboutus', 
         cName: 'nav-links'
     },
     {
         title: 'Our Work',
-        url: '/ourwork', //add links later
+        url: '/ourwork', 
         cName: 'nav-links'
     },
     {
         title: 'Apply',
-        url: '/apply', //add links later
+        url: '/apply', 
         cName: 'nav-links'
     },
     {
         title: 'Contact Us',
-        url: 'mailto:umd@hack4impact.org', //add links later
+        url: 'mailto:umd@hack4impact.org', 
         cName: 'nav-links'
     }
 ]
