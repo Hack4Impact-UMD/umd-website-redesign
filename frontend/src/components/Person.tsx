@@ -10,7 +10,7 @@ import globe from './assets/globe.svg';
  */
 function Person(props: any) {
   let imageSrc: string;
-  if (props.src == undefined) {
+  if (props.src == undefined || props.src == null) {
     imageSrc = globe;
   } else {
     imageSrc = props.src;

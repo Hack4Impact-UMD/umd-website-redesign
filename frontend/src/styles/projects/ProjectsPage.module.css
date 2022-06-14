@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik:ital@0;1&display=swap');
+
+.studentApplyHeader h1 {
+  font-family: Karla;
+  font-size: 50px;
+  line-height: 58.45px;
+  text-align: center;
+  margin: 0;
+}
+
+.studentApplyHeader h2 {
+  font-family: Karla;
+  font-size: 24px;
+  line-height: 28.06px;
+  text-align: center;
+  margin: 0;
+
+  padding: 0 11%;
+}
+
+.studentApplyHeader {
+  background-image: url(../../components/assets/apply_header.svg);
+  background-size: cover;
+  background-position: bottom;
+  min-width: 100%;
+  min-height: 810px;
+}
+
+.studentApplyHeaderContent {
+  padding-top: clamp(120px, 18vw, 224px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 44px;
+}
+
+.studentApplyCards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: -110px;
+}
+
+.timeline h1 {
+  font-family: Karla;
+  font-size: 34px;
+  line-height: 39.75px;
+  color: #0069ca;
+
+  margin: 0;
+  padding: 0px 10%;
+}
+
+.timeline h2 {
+  font-family: Karla;
+  font-size: 24px;
+  line-height: 28.06px;
+
+  margin: 0;
+}
+
+.timeline p {
+  font-family: Rubik;
+  font-size: 18px;
+  line-height: 21.33px;
+
+  margin: 8px 0 0 0;
+  padding: 0 10%;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 56px;
+  margin-top: 171px;
+}
+
+.timelineStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin-top: 14px;
+}
+
+.desktopTimelineIcon {
+  display: none;
+}
+
+.applyButton {
+  margin-top: 65px;
+}
+
+.faq {
+  margin-top: 85px;
+}
+
+.teamMembersDiv {
+    margin-top: 45px;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 54px;
+}
+  
+.teamMembersPhotos {
+    width: 310px;
+    display: flex;
+    justify-content: center;
+    /* flex-wrap: wrap; */
+    gap: 35px;
+}
+
+@media screen and (min-width: 1200px) {
+  .studentApplyHeader {
+    background-image: url(../../components/assets/apply_header_desktop.svg);
+    min-height: 989px;
+  }
+
+  .studentApplyHeader h2 {
+    font-family: Rubik;
+    font-size: 18px;
+    line-height: 21.33px;
+    width: 867px;
+    padding: 0;
+  }
+
+  .studentApplyCards {
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 166px;
+    row-gap: 75px;
+    justify-content: center;
+
+    padding: 0 10%;
+    margin-top: -290px;
+  }
+
+  .timeline {
+    margin-top: 186px;
+    padding: 0 27%;
+    gap: 70px;
+  }
+
+  .timeline p {
+    padding: 0;
+    margin-top: 20px;
+  }
+
+  .timeline h1 {
+    margin-bottom: -47px;
+  }
+
+  .timelineStep {
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+  }
+
+  .mobileTimelineIcon {
+    display: none;
+  }
+
+  .desktopTimelineIcon {
+    display: block;
+  }
+
+  .timelineStepText h2,
+  p {
+    text-align: left;
+  }
+
+  .footerDiv {
+    margin-top: -20%;
+  }
+
+  .faq {
+    margin-top: 105px;
+  }
+}
+
+
+

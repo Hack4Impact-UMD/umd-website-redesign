@@ -17,7 +17,7 @@ import unstoppableLogo from '../components/assets/2unstoppable_logo.svg';
 function NonprofitApply() {
   return (
     <div className={styles.nonprofitApply}>
-      <Navbar />
+      {/* <Navbar /> */}
       <StudentApplyHeader />
       <Carousel />
       <HowToApply />

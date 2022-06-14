@@ -6,41 +6,8 @@ import ValueCard from '../components/about_us/ValueCard';
 import headerDesktop from '../components/assets/aboutus_header.png';
 import headerMobile from '../components/assets/aboutus_header_mobile.png';
 import placeholder from '../components/assets/placeholder.png';
-import axios from 'axios';
-
-// function used to use axios, which will query data from the backend
-const useAxios = (url: any, method: any, payload: any) => {
-
-  const [data, setData] = useState(null);
-  const [error, setError] = useState("");
-  const [loaded, setLoaded] = useState(false);
-  const controllerRef = useRef(new AbortController());
-
-  const cancel = () => {
-    controllerRef.current.abort();
-  };
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios.request({
-          data: payload,
-          signal: controllerRef.current.signal,
-          method,
-          url,
-        });
-        setData(response.data);
-      } catch (error) {
-        // setError(error.message);
-      } finally {
-        setLoaded(true);
-      }
-
-    })();
-  }, []);
-  return { cancel, data, error, loaded };
-};
-
+import { useAxios } from '../components/HelperFunctions';
+import globe from '../components/assets/globe.svg';
 
 function AboutUs() {
   return (
@@ -142,7 +109,7 @@ function TeamMembers() {
               team={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['team']}
               role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
               pronouns={item["attributes"]["pronouns"]}
-              src={process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] ? process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
+              src={item["attributes"]["avatar"]["data"] ? process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
             />
           ))}
         <Person
