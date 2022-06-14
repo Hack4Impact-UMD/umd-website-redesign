@@ -72,9 +72,9 @@ const PastProjects: React.FC = () => {
         {filteredData.map((item, index) => (
           <PastProjectCard
             key={index}
-            link={item['link']}
+            link={"ourwork/" + item['path']}
             title={item['title']}
-            date={item['date']}
+            date={item['startDate']}
             image={'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png'}
             altText={item['title']}
           />
