@@ -41,7 +41,7 @@ const FeaturedProjects = () => {
         />
       </div>
       <div>
-        <a href="https://www.google.com">
+        <a href='/ourwork'>
           <button aria-label="See More" className={styles.bluebtn}>
             See More
           </button>
