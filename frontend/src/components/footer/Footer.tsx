@@ -30,7 +30,7 @@ function FooterInfo() {
     <div className={styles.FooterInfo}>
       <img src={wordmark} className={styles.WordMark} />
       <p>
-        {"Couldn't find what you're looking for?"}
+        {"Can't find what you're looking for?"}
         <br />
         {'Contact us at '}
         <a href={'mailto:umd@hack4impact.org'}>{'umd@hack4impact.org'}</a>
