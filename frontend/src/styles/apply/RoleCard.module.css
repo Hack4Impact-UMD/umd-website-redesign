@@ -10,6 +10,11 @@
   background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
 }
 
+.roleCardBgMain,
+.roleCardBgHover {
+  display: none;
+}
+
 .content {
   padding: 41px 39px;
   display: flex;
@@ -44,21 +49,29 @@
   .roleCard {
     width: 275px;
     height: 400px;
-    background-image: url(../../components/assets/rolecard/RoleCardBackground1.svg);
-    background-size: cover;
+    /* remove mobile background */
+    background: none;
     transition: background-image 300ms ease-in;
   }
 
-  .roleCard:hover {
-    background-image: url(../../components/assets/rolecard/RoleCardBackgroundHover1.svg);
-  }
-
   .roleCard.rev {
-    background-image: url(../../components/assets/rolecard/RoleCardBackground2.svg);
+    background: none;
   }
 
-  .roleCard.rev:hover {
-    background-image: url(../../components/assets/rolecard/RoleCardBackgroundHover2.svg);
+  .roleCardBgMain {
+    display: inline;
+    position: absolute;
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+  }
+
+  .roleCardBgHover {
+    display: inline;
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 300ms ease-in;
   }
 
   .content {
@@ -69,6 +82,9 @@
   .header {
     flex-direction: column;
     gap: 7px;
+
+    opacity: 1;
+    transition: opacity 300ms ease-in;
   }
 
   .roleCardTextMain {
@@ -77,20 +93,29 @@
     text-align: center;
   }
 
+  .roleCardTextSub {
+    text-align: left;
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+  }
+
   .roleCard:hover .header {
-    display: none;
+    opacity: 0;
   }
 
   .roleCard:hover .content {
     padding: 95px 39px;
   }
 
-  .roleCardTextSub {
-    display: none;
-    text-align: left;
+  .roleCard:hover .roleCardTextSub {
+    opacity: 1;
   }
 
-  .roleCard:hover .roleCardTextSub {
-    display: inline;
+  .roleCard:hover .roleCardBgMain {
+    opacity: 0;
+  }
+
+  .roleCard:hover .roleCardBgHover {
+    opacity: 1;
   }
 }
