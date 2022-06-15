@@ -16,9 +16,11 @@ const HomePageTop = () => {
         <p className={styles.textTwo}>
         We are a student-run organization that empowers engineers, designers, activists, and humanitarians to create lasting social change.
         </p>
-        <button aria-label="Learn More" className={styles.mintbtn}>
-              Learn More
-            </button>
+        <a href='/aboutus'>
+          <button aria-label="Learn More" className={styles.mintbtn}>
+                Learn More
+          </button>
+        </a>
         <img className={styles.graphic} src={graphic}></img>
       </div>
       <div className={styles.center}>

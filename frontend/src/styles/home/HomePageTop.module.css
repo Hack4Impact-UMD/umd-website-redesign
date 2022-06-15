@@ -18,8 +18,6 @@
 }
 
 .center {
-  position: absolute;
-  top: 93%;
 }
 
 .featuredTitle {
@@ -158,7 +156,8 @@
 }
 
 .mintbtn:hover {
-  background-color: #1ca74a;
+  background-color: #CBF9F3;
+  color: #657788;
 }
 
 .mintbtn:focus,
@@ -175,6 +174,7 @@
   .blueBG {
     width: 100vw;
     height: 110vh;
+    min-height: 500px;
     object-fit: cover;
   }
 }

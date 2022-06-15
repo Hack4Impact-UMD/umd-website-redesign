@@ -17,12 +17,14 @@ import unstoppableLogo from '../components/assets/2unstoppable_logo.svg';
 function NonprofitApply() {
   return (
     <div className={styles.nonprofitApply}>
-      <Navbar />
+      {/* <Navbar /> */}
       <StudentApplyHeader />
       <Carousel />
       <HowToApply />
       <div className={styles.applyButton}>
-        <ApplyButton />
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link">
+          <ApplyButton />
+        </a>
       </div>
       <div className={styles.faq}>
         <FaqSection />

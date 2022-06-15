@@ -17,12 +17,14 @@ import threeIconDesktop from '../components/assets/three_icon_desktop.svg';
 function StudentApply() {
   return (
     <div className={styles.studentApply}>
-      <Navbar />
+      {/* <Navbar /> */}
       <StudentApplyHeader />
       <StudentApplyCards />
       <ApplicationTimeline />
       <div className={styles.applyButton}>
-        <ApplyButton />
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJELnXgIjk8KNtJn2N5u1j3mnZBzhVQpwCITNetFpo0UIMmQ/viewform?usp=sf_link">
+          <ApplyButton />
+        </a>
       </div>
       <div className={styles.faq}>
         <FaqSection />
