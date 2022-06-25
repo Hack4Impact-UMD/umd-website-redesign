@@ -1,7 +1,7 @@
 import React from 'react';
 import FeaturedProjectCard from './FeaturedProjectCard';
-import { current_projects } from './current_projects';
-import styles from '../../styles/our_work/FeaturedProjects.module.css';
+import { current_projects } from '../our_work/current_projects';
+import styles from '../../styles/home/FeaturedProjects.module.css';
 import { useAxios , getSeason } from '../HelperFunctions';
 
 const FeaturedProjects = () => {
