@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react'
 import { MenuItems } from './MenuItems'
 import styles from '../../styles/navbar/Navbar.module.css'
-import h4iLogo from '../assets/logo.svg';
+import h4iLogo from '../assets/h4i_files/h4i_logo.svg';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
