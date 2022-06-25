@@ -1,6 +1,5 @@
 import React from 'react';
 import FeaturedProjectCard from './FeaturedProjectCard';
-import { current_projects } from '../our_work/current_projects';
 import styles from '../../styles/home/FeaturedProjects.module.css';
 import { useAxios , getSeason } from '../HelperFunctions';
 
