@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import stylestwo from '../styles/projects/ProjectsTop.module.css';
 import styles from '../styles/projects/ProjectsPage.module.css';
-import githubIcon from '../components/assets/github_icon.png';
-import internetIcon from '../components/assets/internet_icon.png';
+import githubIcon from '../components/assets/icons/github_icon.png';
+import internetIcon from '../components/assets/icons/internet_icon.png';
 
 import Person from '../components/Person';
 import { Params, useParams } from 'react-router-dom';
