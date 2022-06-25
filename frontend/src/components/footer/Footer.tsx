@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../../styles/footer/Footer.module.css';
-import wordmark from '../assets/wordmark.svg';
+import wordmark from '../assets/h4i_files/h4i_wordmark.svg';
 /* Use svgs for desktop, to make hover easier. */
 import { ReactComponent as IgLogoSvg } from '../assets/footer/ig.svg';
 import { ReactComponent as FbLogoSvg } from '../assets/footer/fb.svg';
