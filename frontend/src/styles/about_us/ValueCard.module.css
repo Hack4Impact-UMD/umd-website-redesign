@@ -37,21 +37,21 @@
   .valueCard {
     width: 357px;
     height: 286px;
-    background-image: url(../../components/assets/ValueCardBackground1.svg);
+    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackground1.svg);
     background-size: cover;
     transition: background-image 300ms ease-in;
   }
 
   .valueCard:hover {
-    background-image: url(../../components/assets/ValueCardBackgroundHover1.svg);
+    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackgroundHover1.svg);
   }
 
   .valueCard.rev {
-    background-image: url(../../components/assets/ValueCardBackground2.svg);
+    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackground2.svg);
   }
 
   .valueCard.rev:hover {
-    background-image: url(../../components/assets/ValueCardBackgroundHover2.svg);
+    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackgroundHover2.svg);
   }
 
   .valueCardTextMain {
