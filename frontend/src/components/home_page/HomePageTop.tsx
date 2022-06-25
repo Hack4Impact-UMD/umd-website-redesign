@@ -2,6 +2,8 @@ import React from 'react';
 import styles from '../../styles/home/HomePageTop.module.css';
 import blueBG from '../assets/blue-bg.svg';
 import graphic from '../assets/graphic.svg';
+import GreenButton from '../buttons/GreenButton';
+
 //first div is for background, second div is for left side text
 const HomePageTop = () => {
   return (
@@ -16,11 +18,10 @@ const HomePageTop = () => {
         <p className={styles.textTwo}>
         We are a student-run organization that empowers engineers, designers, activists, and humanitarians to create lasting social change.
         </p>
-        <a href='/aboutus'>
-          <button aria-label="Learn More" className={styles.mintbtn}>
-                Learn More
-          </button>
-        </a>
+
+        <div className={styles.greenbtn}>
+          <GreenButton text={"Learn More"} link={'/aboutus'}/>
+        </div>
         <img className={styles.graphic} src={graphic}></img>
       </div>
       <div className={styles.center}>

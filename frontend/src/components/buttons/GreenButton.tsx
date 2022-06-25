@@ -1,20 +1,16 @@
 import React from 'react';
-import Button from './CustomButtonComponent';
+import styles from '../../styles/buttons/Buttons.module.css';
 
-const GreenButton: React.FC = () => {
+
+function GreenButton(props: any) {
   return (
-    <Button
-      border="none"
-      color="#80d2c8"
-      height="55px"
-      radius="100px"
-      width="180px"
-      onClick={() => null}
-      text="Click me to go to google"
-    />
-  );
-};
+    <a href={props.link}>
+      <button aria-label={props.text} className={styles.greenbutton}>
+          {props.text}
+      </button>
+    </a>
 
-// white text ffffff, font is Rubik, Size is 18px
+  );
+}
 
 export default GreenButton;

@@ -4,8 +4,9 @@ import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
 import RoleCard from '../components/apply/RoleCard';
 import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
-import ApplyButton from '../components/apply/ApplyButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
+import GreenButton from '../components/buttons/GreenButton';
+
 
 import oneIcon from '../components/assets/one_icon.svg';
 import twoIcon from '../components/assets/two_icon.svg';
@@ -22,9 +23,7 @@ function StudentApply() {
       <StudentApplyCards />
       <ApplicationTimeline />
       <div className={styles.applyButton}>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdJELnXgIjk8KNtJn2N5u1j3mnZBzhVQpwCITNetFpo0UIMmQ/viewform?usp=sf_link">
-          <ApplyButton />
-        </a>
+        <GreenButton text={"Apply"} link={'https://docs.google.com/forms/d/e/1FAIpQLSdJELnXgIjk8KNtJn2N5u1j3mnZBzhVQpwCITNetFpo0UIMmQ/viewform?usp=sf_link'}/>
       </div>
       <div className={styles.faq}>
         <FaqSection />

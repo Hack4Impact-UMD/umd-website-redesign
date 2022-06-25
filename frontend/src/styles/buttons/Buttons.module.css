@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Rubik');
+
+.bluebutton {
+  background-color: #0069ca;
+  color: #ffffff;
+  border: none;
+  height: 55px;
+  width: 180px;
+  border-radius: 100px;
+  border-width: 0px;
+
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  /* transition: fill 300ms ease-out; */
+}
+
+.bluebutton:hover {
+  background-color: #C2E0FB;
+  color: #657788;
+}
+
+.greenbutton {
+  background-color: #80d2c8;
+  color: #333333;
+  border: none;
+  height: 55px;
+  width: 180px;
+  border-radius: 100px;
+  border-width: 0px;
+
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  /* transition: fill 300ms ease-out; */
+}
+
+.greenbutton:hover {
+  background-color: #CBF9F3;
+  color: #657788;
+}

@@ -1,17 +1,14 @@
 import React from "react";
-import Button from "./CustomButtonComponent";
+import styles from '../../styles/buttons/Buttons.module.css';
 
-const BlueButton: React.FC = () => {
+
+function BlueButton(props: any) {
     return (
-        <Button 
-        border="none"
-        color="#0069ca"
-        height = "55px"
-        radius = "100px"
-        width = "180px"
-        onClick = {() => null}
-        text = "Click me to go to google"
-        />
+        <a href={props.link}>
+            <button aria-label={props.text} className={styles.bluebutton}>
+                {props.text}
+            </button>
+        </a>
     );
 }
 

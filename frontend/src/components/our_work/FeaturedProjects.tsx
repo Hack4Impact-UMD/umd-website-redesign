@@ -3,6 +3,8 @@ import FeaturedProjectCard from './FeaturedProjectCard';
 import { current_projects } from './current_projects';
 import styles from '../../styles/our_work/FeaturedProjects.module.css';
 import { useAxios , getSeason } from '../HelperFunctions';
+import BlueButton from '../buttons/BlueButton';
+
 
 const FeaturedProjects = () => {
   // fetch featuredProjects from backend
@@ -27,11 +29,7 @@ const FeaturedProjects = () => {
            ))}
         </div>
         <div>
-          <a href='/ourwork' className={styles.buttonLink}>
-            <button aria-label="See More" className={styles.bluebtn}>
-              See More
-            </button>
-          </a>
+          <BlueButton text={"See More"} link={'/ourwork'}/>
         </div>
       </div>
   );

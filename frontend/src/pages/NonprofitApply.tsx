@@ -5,8 +5,8 @@ import styles from '../styles/apply/NonprofitApply.module.css';
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
 import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
-import ApplyButton from '../components/apply/ApplyButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
+import GreenButton from '../components/buttons/GreenButton';
 
 import inspireLogo from '../components/assets/inspire_logo.svg';
 import arcadiaLogo from '../components/assets/arcadia_logo.svg';
@@ -22,9 +22,7 @@ function NonprofitApply() {
       <Carousel />
       <HowToApply />
       <div className={styles.applyButton}>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link">
-          <ApplyButton />
-        </a>
+        <GreenButton text={"Apply"} link={'https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link'}/>
       </div>
       <div className={styles.faq}>
         <FaqSection />

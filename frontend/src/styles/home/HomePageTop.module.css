@@ -130,39 +130,13 @@
   /* H4I National/Blue */
 }
 
-.mintbtn {
+.greenbtn {
   position: relative;
   margin: 10px 10px 10px 10px;
-  left: 35%;
+  left: 4.5%;
   right: 48.81%;
   top: 63%;
   bottom: 0%;
-
-  background-color: #80d2c8;
-  color: #333333;
-  border: none;
-  height: 55px;
-  width: 180px;
-  border-radius: 100px;
-  border-width: 0px;
-
-  font-family: 'Rubik';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 21px;
-  text-align: center;
-  letter-spacing: -0.02em;
-}
-
-.mintbtn:hover {
-  background-color: #CBF9F3;
-  color: #657788;
-}
-
-.mintbtn:focus,
-.mintbtn:active {
-  background-color: #808080;
 }
 
 @media (max-width: 1400px){
@@ -201,7 +175,7 @@
     text-align: center;
   }
 
-  .mintbtn {
+  .greenbtn {
     margin: auto;
     top: 0;
     left: 50%;
