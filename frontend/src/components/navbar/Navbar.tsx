@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/navbar/Navbar.module.css';
 import h4iLogo from '../assets/logo.svg';
+import Hamburger from '../assets/hamburger_icon.svg';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -9,7 +10,6 @@ const Navbar = () => {
   const handleState = () => {
     setState(!currState);
   };
-  //Map will go through each component and present them in a list  (sets up the alignment)
 
   //menu-icon is for later use for mobile implementation
   return (
@@ -17,9 +17,7 @@ const Navbar = () => {
       <Link to="/">
         <img className={styles.logo} src={h4iLogo}></img>
       </Link>
-      {/* <div className={styles.menuIcon} onClick={handleState}>
-        <i className={currState ? styles.faTimes : styles.faBars}></i>
-      </div> */}
+      <img className={styles.menuIcon} src={Hamburger} onClick={handleState}></img>
       <ul className={currState ? styles.navMenu.active : styles.navMenu}>
         <li>
           <Link className={styles.navLinks} to={'/aboutus'}>
@@ -35,10 +33,10 @@ const Navbar = () => {
           <div className={styles.dropdown}>
             <button className={styles.dropdownButton}>Apply</button>
             <div className={styles.dropdownContent}>
-              <Link className={styles.navLinks} to={'/ourwork'}>
+              <Link className={styles.navLinks} to={'/apply/students'}>
                 {'For Students'}
               </Link>
-              <Link className={styles.navLinks} to={'/aboutus'}>
+              <Link className={styles.navLinks} to={'/apply/nonprofits'}>
                 {'For Nonprofits'}
               </Link>
             </div>

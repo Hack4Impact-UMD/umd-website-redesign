@@ -24,6 +24,7 @@
   align-items: center;
   margin-right: 10%;
   margin-top: 23px;
+  z-index: 50;
 }
 
 .navLinks {
@@ -42,6 +43,7 @@
   color: #333333;
   white-space: nowrap;
 }
+
 
 .navLinks:hover {
   color: #657788;
@@ -76,6 +78,7 @@
   background: rgba(203, 249, 243, 0.8);
   backdrop-filter: blur(4px);
   margin-top: 30px;
+  transform: translate(-45px, 0%);
 }
 
 /* Links inside the dropdown */
@@ -101,7 +104,23 @@
 }
 
 .menuIcon {
+  border: 0;
+  height: 40px;
+  width: 40px;
+  padding: 0.5rem;
+  position: absolute;
+  font-size: 1.8rem;
+  z-index: 50;
+  right: 5%;
+  top: 22.86%;
+  bottom: 22.86%;
+  margin-left: 0%;
+
   display: none;
+}
+
+.menuIcon:hover {
+  cursor: pointer;
 }
 
 .logo {
@@ -120,50 +139,64 @@
 
 @media screen and (max-width: 1000px){
 
-  .navLinks{
+  .navbarItems {
+    height: 70px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0.5rem 0rem;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    z-index: 50;
+    background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.8) 32.23%, rgba(203, 249, 243, 0.8) 53.35%);
+    backdrop-filter: blur(4px);
+  }
+
+  /*.navLinks{
     font-family: 'Karla';
     font-style: normal;
     font-weight: 700;
     font-size: 34px;
     line-height: 40px;
-    /* identical to box height */
 
     text-align: center;
-    letter-spacing: -0.02em;
-
-    /* H4I National/Black */
+    letter-spacing: -0.02em
 
     color: #333333;
     text-align: left;
     padding: 2rem;
     width: 100%;
     display: table;
-  }
+  }*/
 
   .navMenu {
-    display: flex;
+    display: none;
+  }
+
+  .navMenu li {
+    text-align: left;
+    margin: 0;
+  }
+
+  .navMenu.active {
+    display: block;
+
     flex-direction: column;
     width: 100%;
     height: auto;
     position:absolute;
-    top: 70%;
-    left: -100%;
-    opacity: 1;
-    transition: all 0.5s ease;
-    padding: 3rem;
-  }
-
-  .navMenu.active {
+    top: 70px;
+    left: 0;
+    display: flex;
     background: rgba(194,224,251,.7);
     background-size: cover;
     opacity: 1;
-    left: 0;
     transition: all 0.5s ease;
     z-index: 500;
-    display: flex;
     translate: scale(0);
-    width: 100%;
-    height: auto;
   }
 
   .logo {
@@ -175,12 +208,6 @@
 
   .menuIcon {
     display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%);
-    font-size: 1.8rem;
-    cursor: pointer;
   }
 
   .faTimes{
