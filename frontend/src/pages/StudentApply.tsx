@@ -1,7 +1,5 @@
 import React from 'react';
 import styles from '../styles/apply/StudentApply.module.css';
-import Navbar from '../components/navbar/Navbar';
-import Footer from '../components/footer/Footer';
 import RoleCard from '../components/apply/RoleCard';
 import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
 import ApplyButton from '../components/apply/ApplyButton';
@@ -61,6 +59,8 @@ function StudentApplyCards() {
 
   const bootcampSummary = 'Bootcamp teaches members the necessary skillset to join a project team and is for students with less experience. In Bootcamp, students learn web development skills starting from basic HTML, JavaScript, and CSS and then building up to the MERN (MongoDB, Express, React, Node.js) stack. The goal is for members to complete Bootcamp and then join a project team the following semester.'
 
+  const sourcingSummary = 'The Tech Lead for each team is the designated technical expert and helps the engineers with any tech-related questions. In addition to completing engineer tasks, their responsibilities include scoping the technical aspects of the product and creating engineer tasks with the product managers.'
+
   return (
     <div className={styles.studentApplyCards}>
       <RoleCard mainText={'Engineer'} hoverText={engineerSummary} role={1} />
@@ -68,6 +68,7 @@ function StudentApplyCards() {
       <RoleCard mainText={'Project Manager'} hoverText={projectManagerSummary} role={3} />
       <RoleCard mainText={'Tech Lead'} hoverText={techLeadSummary} revBackground={true} role={4} />
       <RoleCard mainText={'Bootcamp'} hoverText={bootcampSummary} role={5} />
+      <RoleCard mainText={'Sourcing'} hoverText={sourcingSummary} role={6} />
     </div>
   );
 }
