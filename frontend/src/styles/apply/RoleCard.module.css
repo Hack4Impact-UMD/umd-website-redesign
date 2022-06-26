@@ -1,121 +1,117 @@
-/* Mobile Styles */
-.roleCard {
-  height: 300px;
-  width: 310px;
-  border-radius: 50px;
-  background: linear-gradient(116.12deg, #c2e0fb 0%, #cbf9f3 100%);
+/* Desktop Styles */
+/* native css option (unused): https://stackoverflow.com/a/29223812 */
+
+ .roleCard {
+  width: 275px;
+  height: 400px;
+  /* remove mobile background  */
+  background: none;
+  transition: background-image 300ms ease-in;
 }
 
 .roleCard.rev {
-  background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
+  background: none;
 }
 
-.roleCardBgMain,
-.roleCardBgHover {
-  display: none;
+.cardContent {
+  align-items: center;
+  height: 400px;
+  width: 275px;
 }
 
-.content {
-  padding: 41px 39px;
+.cardContentWrapper {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: inherit;
+  width: inherit;
   flex-direction: column;
-  align-items: start;
-  gap: 5px;
+  text-align: center;
+  padding: 30px;
+}
+
+.cardFront {
+  position: absolute;
+  height: inherit;
+  width: inherit;
+  transition: opacity 300ms ease-in;
+}
+
+.cardFront .cardContentWrapper span {
+  font-size: 34px;
+  line-height: 40px;
+}
+
+.cardBack {
+  position: absolute;
+  height: inherit;
+  width: inherit;
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+.cardBack .cardContentWrapper span {
+  font-size: 20px;
+  line-height: 19px;
 }
 
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 10px;
+  flex-direction: column;
+  gap: 7px;
+
+  opacity: 1;
+  transition: opacity 300ms ease-in;
 }
 
-.roleCardTextMain {
-  font-family: 'Karla';
-  font-size: 24px;
-  text-align: left;
+/* hover styles */
+.roleCard:hover .cardFront {
+  opacity: 0;
 }
 
-.roleCardTextSub {
-  font-family: 'Rubik';
-  font-size: 18px;
-  line-height: 21.33px;
-  text-align: left;
+.roleCard:hover .cardBack {
+  opacity: 1;
 }
 
-/* Desktop Styles */
-@media screen and (min-width: 1200px) {
-  /* native css option (unused): https://stackoverflow.com/a/29223812 */
+/* Mobile Styles */
+@media screen and (max-width: 800px) {
+
   .roleCard {
-    width: 275px;
-    height: 400px;
-    /* remove mobile background */
-    background: none;
-    transition: background-image 300ms ease-in;
+    height: 300px;
+    width: 310px;
+    border-radius: 50px;
+    background: linear-gradient(116.12deg, #c2e0fb 0%, #cbf9f3 100%);
   }
 
-  .roleCard.rev {
-    background: none;
-  }
-
-  .roleCardBgMain {
-    display: inline;
-    position: absolute;
-    z-index: -1;
-    opacity: 1;
-    transition: opacity 300ms ease-in;
-  }
-
-  .roleCardBgHover {
-    display: inline;
-    position: absolute;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 300ms ease-in;
-  }
-
-  .content {
-    padding: 142.8px 30px 154.15px;
+  .cardContent {
     align-items: center;
+    height: 300px;
+    width: 310px;
   }
-
-  .header {
+  
+  .roleCard.rev {
+    background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
+  }
+  
+  .cardFront {
+    display: none;
+  }
+  
+  .cardBack {
+    background-image: none !important;
+    opacity: 1;
+  } 
+  
+  .cardBack .cardContentWrapper span {
+    font-size: 17px;
+    line-height: 16px;
+  }
+  
+  .cardContent {
+    padding: 0px;
+    display: flex;
     flex-direction: column;
-    gap: 7px;
+    justify-content: center;
+    align-items: start;
+  } 
 
-    opacity: 1;
-    transition: opacity 300ms ease-in;
-  }
-
-  .roleCardTextMain {
-    font-size: 34px;
-    line-height: 39px;
-    text-align: center;
-  }
-
-  .roleCardTextSub {
-    text-align: left;
-    opacity: 0;
-    transition: opacity 300ms ease-in;
-  }
-
-  .roleCard:hover .header {
-    opacity: 0;
-  }
-
-  .roleCard:hover .content {
-    padding: 95px 39px;
-  }
-
-  .roleCard:hover .roleCardTextSub {
-    opacity: 1;
-  }
-
-  .roleCard:hover .roleCardBgMain {
-    opacity: 0;
-  }
-
-  .roleCard:hover .roleCardBgHover {
-    opacity: 1;
-  }
 }
