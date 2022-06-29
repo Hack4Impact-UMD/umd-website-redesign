@@ -1,12 +1,11 @@
 /* Desktop Styles */
 /* native css option (unused): https://stackoverflow.com/a/29223812 */
 
- .roleCard {
+.roleCard {
   width: 275px;
   height: 400px;
   /* remove mobile background  */
   background: none;
-  transition: background-image 300ms ease-in;
 }
 
 .roleCard.rev {
@@ -74,7 +73,6 @@
 
 /* Mobile Styles */
 @media screen and (max-width: 800px) {
-
   .roleCard {
     height: 300px;
     width: 310px;
@@ -87,31 +85,30 @@
     height: 300px;
     width: 310px;
   }
-  
+
   .roleCard.rev {
     background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
   }
-  
+
   .cardFront {
     display: none;
   }
-  
+
   .cardBack {
     background-image: none !important;
     opacity: 1;
-  } 
-  
+  }
+
   .cardBack .cardContentWrapper span {
     font-size: 17px;
     line-height: 16px;
   }
-  
+
   .cardContent {
     padding: 0px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
-  } 
-
+  }
 }
