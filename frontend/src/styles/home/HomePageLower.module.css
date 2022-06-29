@@ -46,8 +46,8 @@
   text-align: center;
 }
 
-@media (max-width: 1000px){
-    #parentContainer {
+@media (max-width: 1000px) {
+  #parentContainer {
     position: relative;
     margin-left: 10%;
     margin-right: 10%;
@@ -59,7 +59,7 @@
   }
 }
 
-@media (max-width: 1000px){
+@media (max-width: 1000px) {
   #parentContainer {
     position: relative;
     margin-left: 10%;
@@ -80,7 +80,7 @@
     text-align: center;
     padding-bottom: 10%;
   }
-  
+
   #nonprofitsContainer {
     flex: 50%;
     justify-content: center;
