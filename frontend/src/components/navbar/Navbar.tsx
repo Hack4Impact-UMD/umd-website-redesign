@@ -13,11 +13,11 @@ const Navbar = () => {
 
   //menu-icon is for later use for mobile implementation
   return (
-    <div className={styles.navbarItems}>
+    <nav className={styles.navbarItems}>
       <Link to="/">
-        <img className={styles.logo} src={h4iLogo}></img>
+        <img alt="Hack4Impact Logo" className={styles.logo} src={h4iLogo}></img>
       </Link>
-      <img className={styles.menuIcon} src={Hamburger} onClick={handleState}></img>
+      <img className={styles.navIcon} src={Hamburger} onClick={handleState}></img>
       <ul className={currState ? styles.navMenu.active : styles.navMenu}>
         <li>
           <Link className={styles.navLinks} to={'/aboutus'}>
@@ -30,25 +30,29 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-          <div className={styles.dropdown}>
-            <button className={styles.dropdownButton}>Apply</button>
-            <div className={styles.dropdownContent}>
-              <Link className={styles.navLinks} to={'/apply/students'}>
-                {'For Students'}
-              </Link>
-              <Link className={styles.navLinks} to={'/apply/nonprofits'}>
-                {'For Nonprofits'}
-              </Link>
+            <Link className={styles.navLinks + " " + styles.applyDropdownButton} to={'/apply/students'}>Apply</Link>
+            <div className={styles.applyDropdownContainer}>
+              <ul className={styles.applyDropdownContent}>
+                <li>
+                  <Link className={styles.navLinks} to={'/apply/students'}>
+                  {'For Students'}
+                  </Link>
+                </li>
+                <li>
+                  <Link className={styles.navLinks} to={'/apply/nonprofits'}>
+                    {'For Nonprofits'}
+                  </Link>
+                </li>
+              </ul>
             </div>
-          </div>
         </li>
         <li>
-          <Link className={styles.navLinks} to={'mailto:umd@hack4impact.org'}>
+          <a className={styles.navLinks} href={'mailto:umd@hack4impact.org'}>
             {'Contact Us'}
-          </Link>
+          </a>
         </li>
       </ul>
-    </div>
+    </nav>
   );
 };
 
