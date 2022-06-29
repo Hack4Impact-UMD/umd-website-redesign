@@ -46,34 +46,6 @@
   text-align: center;
 }
 
-#parentContainer .bluebtn {
-  background-color: #0069ca;
-  color: #ffffff;
-  border: none;
-  height: 55px;
-  width: 180px;
-  border-radius: 100px;
-  border-width: 0px;
-
-  font-family: 'Rubik';
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 21px;
-  text-align: center;
-  letter-spacing: -0.02em;
-}
-
-#parentContainer .bluebtn:hover {
-  background-color: #C2E0FB;
-  color: #657788;
-}
-
-#parentContainer .bluebtn:focus,
-#parentContainer .bluebtn:active {
-  background-color: #808080;
-}
-
 @media (max-width: 1000px){
     #parentContainer {
     position: relative;

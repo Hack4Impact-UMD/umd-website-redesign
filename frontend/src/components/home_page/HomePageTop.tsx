@@ -2,6 +2,7 @@ import React from 'react';
 import styles from '../../styles/home/HomePageTop.module.css';
 import blueBG from '../assets/blue-bg.svg';
 import graphic from '../assets/graphic.svg';
+import OblongButton from '../buttons/OblongButton';
 //first div is for background, second div is for left side text
 const HomePageTop = () => {
   return (
@@ -16,11 +17,9 @@ const HomePageTop = () => {
         <p className={styles.textTwo}>
         We are a student-run organization that empowers engineers, designers, activists, and humanitarians to create lasting social change.
         </p>
-        <a href='/aboutus'>
-          <button aria-label="Learn More" className={styles.mintbtn}>
-                Learn More
-          </button>
-        </a>
+        <div className={styles.mintbtn}>
+        <OblongButton text="Learn More" color="green" link="/aboutus"/>
+        </div>
         <img className={styles.graphic} src={graphic}></img>
       </div>
       <div className={styles.center}>

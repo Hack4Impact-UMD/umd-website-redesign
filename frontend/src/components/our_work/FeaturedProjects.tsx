@@ -1,5 +1,6 @@
 import React from 'react';
 import FeaturedProjectCard from './FeaturedProjectCard';
+import OblongButton from '../buttons/OblongButton';
 import { current_projects } from './current_projects';
 import styles from '../../styles/our_work/FeaturedProjects.module.css';
 import { useAxios , getSeason } from '../HelperFunctions';
@@ -27,11 +28,9 @@ const FeaturedProjects = () => {
            ))}
         </div>
         <div>
-          <a href='/ourwork' className={styles.buttonLink}>
-            <button aria-label="See More" className={styles.bluebtn}>
-              See More
-            </button>
-          </a>
+        <div className={styles.bluebtn}>
+            <OblongButton text="See More" color="blue" link="/ourwork" />
+        </div>
         </div>
       </div>
   );
