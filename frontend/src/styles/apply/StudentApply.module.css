@@ -114,7 +114,7 @@
   .studentApplyCards {
     flex-direction: row;
     flex-wrap: wrap;
-    column-gap: 166px;
+    column-gap: 120px;
     row-gap: 75px;
     justify-content: center;
 

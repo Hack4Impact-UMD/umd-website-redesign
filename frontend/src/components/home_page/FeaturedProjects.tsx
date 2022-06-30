@@ -2,6 +2,7 @@ import React from 'react';
 import FeaturedProjectCard from './FeaturedProjectCard';
 import styles from '../../styles/home/FeaturedProjects.module.css';
 import { useAxios , getSeason } from '../HelperFunctions';
+import StandardButton from '../buttons/StandardButton';
 
 const FeaturedProjects = () => {
   // fetch featuredProjects from backend
@@ -27,9 +28,7 @@ const FeaturedProjects = () => {
         </div>
         <div>
           <a href='/ourwork' className={styles.buttonLink}>
-            <button aria-label="See More" className={styles.bluebtn}>
-              See More
-            </button>
+            <StandardButton text="See More" color="blue" link="/ourwork" />
           </a>
         </div>
       </div>

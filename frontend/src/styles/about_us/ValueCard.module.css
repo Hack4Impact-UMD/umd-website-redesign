@@ -12,6 +12,11 @@
   gap: 5px;
 }
 
+.valueCardBg1,
+.valueCardBg2 {
+  display: none;
+}
+
 .valueCard.rev {
   background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
 }
@@ -55,25 +60,40 @@
   }
 
   .valueCardTextMain {
+    position: absolute;
     font-size: 34px;
     line-height: 39px;
     width: 181px;
     height: 80px;
     text-align: center;
-  }
 
-  .valueCard:hover .valueCardTextMain {
-    display: none;
+    opacity: 1;
+    transition: opacity 300ms ease-in;
   }
 
   .valueCardTextSub {
-    display: none;
+    position: absolute;
     width: 234px;
     height: 147px;
     text-align: left;
+
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+  }
+
+  .valueCard:hover .valueCardBg1 {
+    opacity: 0;
+  }
+
+  .valueCard:hover .valueCardBg2 {
+    opacity: 1;
+  }
+
+  .valueCard:hover .valueCardTextMain {
+    opacity: 0;
   }
 
   .valueCard:hover .valueCardTextSub {
-    display: inline;
+    opacity: 1;
   }
 }

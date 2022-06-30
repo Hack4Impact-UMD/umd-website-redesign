@@ -4,15 +4,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import HomePageTop from './components/home_page/HomePageTop';
 import HomePageLower from './components/home_page/HomePageLower';
-import Navbar from './components/navbar/Navbar';
 import FeaturedProjects from './components/home_page/FeaturedProjects';
+
 
 function App() {
   return (
     <div className="App">
-      <HomePageTop/>
-      <FeaturedProjects/>
-      <HomePageLower/>
+      <HomePageTop />
+      <FeaturedProjects />
+      <HomePageLower />
     </div>
   );
 }

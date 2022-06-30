@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from '../../styles/apply/StudentNonprofitSelector.module.css';
 
 /* Import as SVG to allow for animation */
@@ -11,8 +12,6 @@ import { ReactComponent as NonprofitGreyDesktop } from '../assets/selector/nonpr
 import nonprofitBlueDesktop from '../assets/selector/nonprofit_blue_desktop.svg';
 import nonprofitGreyMobile from '../assets/selector/nonprofit_grey_mobile.svg';
 import nonprofitBlueMobile from '../assets/selector/nonprofit_blue_mobile.svg';
-
-/* TODO: add links */
 
 /*
  * Props:
@@ -47,12 +46,12 @@ function StudentNonprofitSelector(props: any) {
   return (
     <div className={styles.studentNonprofitSelector}>
       <div className={styles.mobile}>
-        {studentMobile}
-        {nonprofitMobile}
+        <Link to="/apply/student">{studentMobile}</Link>
+        <Link to="/apply/nonprofit">{nonprofitMobile}</Link>
       </div>
       <div className={styles.desktop}>
-        {studentDesktop}
-        {nonprofitDesktop}
+        <Link to="/apply/student">{studentDesktop}</Link>
+        <Link to="/apply/nonprofit">{nonprofitDesktop}</Link>
       </div>
     </div>
   );
