@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/our_work/FeaturedProjectCard.module.css';
+import styles from '../../styles/home/FeaturedProjectCard.module.css';
 
 /* defines the parameters to pass into a project card */
 export interface FeaturedProjectCardData {

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../../styles/home/HomePageTop.module.css';
-import blueBG from '../assets/blue-bg.svg';
+import blueBG from '../assets/backgrounds/blue-bg.svg';
 import graphic from '../assets/graphic.svg';
 import StandardButton from '../buttons/StandardButton';
 //first div is for background, second div is for left side text

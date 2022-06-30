@@ -19,7 +19,7 @@
 }
 
 .nonprofitApplyHeader {
-  background-image: url(../../components/assets/apply_header.svg);
+  background-image: url(../../components/assets/backgrounds/apply_header.svg);
   background-size: cover;
   background-position: bottom;
   min-width: 100%;
@@ -81,7 +81,7 @@
 
 @media screen and (min-width: 1200px) {
   .nonprofitApplyHeader {
-    background-image: url(../../components/assets/apply_header_desktop.svg);
+    background-image: url(../../components/assets/backgrounds/apply_header_desktop.svg);
     min-height: 989px;
   }
 

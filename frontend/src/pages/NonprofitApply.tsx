@@ -6,11 +6,11 @@ import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelect
 import StandardButton from '../components/buttons/StandardButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
 
-import inspireLogo from '../components/assets/inspire_logo.svg';
-import arcadiaLogo from '../components/assets/arcadia_logo.svg';
-import hamptonLogo from '../components/assets/hampton_logo.svg';
-import cadcLogo from '../components/assets/cadc_logo.svg';
-import unstoppableLogo from '../components/assets/2unstoppable_logo.svg';
+import inspireLogo from '../components/assets/npo_files/inspire_logo.svg';
+import arcadiaLogo from '../components/assets/npo_files/arcadia_logo.svg';
+import hamptonLogo from '../components/assets/npo_files/hampton_logo.svg';
+import cadcLogo from '../components/assets/npo_files/cadc_logo.svg';
+import unstoppableLogo from '../components/assets/npo_files/2unstoppable_logo.svg';
 
 function NonprofitApply() {
   return (
