@@ -30,7 +30,7 @@ const Navbar = () => {
           </Link>
         </li>
         <li>
-            <Link className={styles.navLinks + " " + styles.applyDropdownButton} to={'/apply/students'}>Apply</Link>
+            <Link className={styles.navLinks + " " + styles.applyDropdownButton} to={'/apply/student'}>Apply</Link>
             <div className={styles.applyDropdownContainer}>
               <ul className={styles.applyDropdownContent}>
                 <li>
