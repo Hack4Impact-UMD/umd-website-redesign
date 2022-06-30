@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/people/Person.module.css';
-import globe from './assets/globe.svg';
+import globe from './assets/h4i_files/globe.svg';
 
 /*
  * Person component

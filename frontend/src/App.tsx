@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import HomePageTop from './components/home_page/HomePageTop';
 import HomePageLower from './components/home_page/HomePageLower';
-import FeaturedProjects from './components/our_work/FeaturedProjects';
+import FeaturedProjects from './components/home_page/FeaturedProjects';
+
 
 function App() {
   return (

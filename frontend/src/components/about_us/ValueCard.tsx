@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from '../../styles/about_us/ValueCard.module.css';
-import bg1 from '../assets/ValueCardBackground1.svg';
-import bg2 from '../assets/ValueCardBackground2.svg';
-import bgHover1 from '../assets/ValueCardBackgroundHover1.svg';
-import bgHover2 from '../assets/ValueCardBackgroundHover2.svg';
+import bg1 from '../assets/ValueCardBackgrounds/ValueCardBackground1.svg';
+import bg2 from '../assets/ValueCardBackgrounds/ValueCardBackground2.svg';
+import bgHover1 from '../assets/ValueCardBackgrounds/ValueCardBackgroundHover1.svg';
+import bgHover2 from '../assets/ValueCardBackgrounds/ValueCardBackgroundHover2.svg';
 
 /*
  * ValueCard Component used in AboutUs page.

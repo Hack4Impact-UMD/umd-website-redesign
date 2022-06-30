@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styles from '../../styles/navbar/Navbar.module.css';
-import h4iLogo from '../assets/logo.svg';
+import React, { useState } from 'react'
 import Hamburger from '../assets/hamburger_icon.svg';
+import styles from '../../styles/navbar/Navbar.module.css'
+import h4iLogo from '../assets/h4i_files/h4i_logo.svg';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -34,12 +34,12 @@ const Navbar = () => {
             <div className={styles.applyDropdownContainer}>
               <ul className={styles.applyDropdownContent}>
                 <li>
-                  <Link className={styles.navLinks} to={'/apply/students'}>
+                  <Link className={styles.navLinks} to={'/apply/student'}>
                   {'For Students'}
                   </Link>
                 </li>
                 <li>
-                  <Link className={styles.navLinks} to={'/apply/nonprofits'}>
+                  <Link className={styles.navLinks} to={'/apply/nonprofit'}>
                     {'For Nonprofits'}
                   </Link>
                 </li>
