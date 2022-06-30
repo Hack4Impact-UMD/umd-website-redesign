@@ -2,10 +2,8 @@ import React from 'react';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import styles from '../styles/apply/NonprofitApply.module.css';
-import Navbar from '../components/navbar/Navbar';
-import Footer from '../components/footer/Footer';
 import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
-import OblongButton from '../components/buttons/OblongButton';
+import StandardButton from '../components/buttons/StandardButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
 
 import inspireLogo from '../components/assets/inspire_logo.svg';
@@ -22,7 +20,7 @@ function NonprofitApply() {
       <Carousel />
       <HowToApply />
       <div className={styles.applyButton}>
-        <OblongButton
+        <StandardButton
           color="green"
           text="Apply"
           externalLink={true}

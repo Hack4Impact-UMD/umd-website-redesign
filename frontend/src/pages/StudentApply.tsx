@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../styles/apply/StudentApply.module.css';
 import RoleCard from '../components/apply/RoleCard';
 import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
-import OblongButton from '../components/buttons/OblongButton';
+import StandardButton from '../components/buttons/StandardButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
 
 import oneIcon from '../components/assets/one_icon.svg';
@@ -20,7 +20,7 @@ function StudentApply() {
       <StudentApplyCards />
       <ApplicationTimeline />
       <div className={styles.applyButton}>
-        <OblongButton
+        <StandardButton
           color="green"
           text="Apply"
           externalLink={true}

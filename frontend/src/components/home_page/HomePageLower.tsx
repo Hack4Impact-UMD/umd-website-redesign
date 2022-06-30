@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../../styles/home/HomePageLower.module.css';
-import OblongButton from '../buttons/OblongButton';
+import StandardButton from '../buttons/StandardButton';
 
 const HomePageLower = () => {
   return (
@@ -13,7 +13,7 @@ const HomePageLower = () => {
           nonprofit organization to develop a product that will help the organization.
         </p>
         <div className={styles.bluebtn}>
-          <OblongButton text="Join Us" color="blue" link="/apply/student" />
+          <StandardButton text="Join Us" color="blue" link="/apply/student" />
         </div>
       </div>
       <div id={styles.nonprofitsContainer}>
@@ -24,7 +24,7 @@ const HomePageLower = () => {
           effectiveness of their work.
         </p>
         <div className={styles.bluebtn}>
-          <OblongButton text="Work With Us" color="blue" link="/apply/nonprofit" />
+          <StandardButton text="Work With Us" color="blue" link="/apply/nonprofit" />
         </div>
       </div>
     </div>

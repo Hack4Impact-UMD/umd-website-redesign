@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../../styles/home/HomePageTop.module.css';
 import blueBG from '../assets/blue-bg.svg';
 import graphic from '../assets/graphic.svg';
-import OblongButton from '../buttons/OblongButton';
+import StandardButton from '../buttons/StandardButton';
 //first div is for background, second div is for left side text
 const HomePageTop = () => {
   return (
@@ -20,7 +20,7 @@ const HomePageTop = () => {
           lasting social change.
         </p>
         <div className={styles.mintbtn}>
-          <OblongButton text="Learn More" color="green" link="/aboutus" />
+          <StandardButton text="Learn More" color="green" link="/aboutus" />
         </div>
         <img className={styles.graphic} src={graphic}></img>
       </div>

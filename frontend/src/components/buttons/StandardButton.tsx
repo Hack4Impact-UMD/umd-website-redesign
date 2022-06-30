@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/buttons/OblongButton.module.css';
+import styles from '../../styles/buttons/StandardButton.module.css';
 import { Link } from 'react-router-dom';
 
 interface ButtonProps {
@@ -14,7 +14,7 @@ interface ButtonProps {
 Color options: blue, green.
 If link is external, set externalLink to true.
 */
-const OblongButton = (props: ButtonProps) => {
+const StandardButton = (props: ButtonProps) => {
   let buttonClass: string;
 
   // Update class so stylesheet can change colors.
@@ -43,4 +43,4 @@ const OblongButton = (props: ButtonProps) => {
   }
 };
 
-export default OblongButton;
+export default StandardButton;

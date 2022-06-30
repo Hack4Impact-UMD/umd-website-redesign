@@ -1,6 +1,6 @@
 import React from 'react';
 import FeaturedProjectCard from './FeaturedProjectCard';
-import OblongButton from '../buttons/OblongButton';
+import StandardButton from '../buttons/StandardButton';
 import { current_projects } from './current_projects';
 import styles from '../../styles/our_work/FeaturedProjects.module.css';
 import { useAxios, getSeason } from '../HelperFunctions';
@@ -43,7 +43,7 @@ const FeaturedProjects = () => {
       </div>
       <div>
         <div className={styles.bluebtn}>
-          <OblongButton text="See More" color="blue" link="/ourwork" />
+          <StandardButton text="See More" color="blue" link="/ourwork" />
         </div>
       </div>
     </div>
