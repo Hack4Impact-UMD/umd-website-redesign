@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Karla');
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 
+div {
+  border: 1px solid black;
+}
+
 .blueBG {
   z-index: -1;
-  position: relative;
+  position: absolute;
   left: 0%;
   right: 0%;
   margin-top: -5%;
@@ -13,55 +17,28 @@
 }
 
 .top {
-  position: absolute;
-  top: 20%;
+  display: flex;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  height: 400px;
 }
 
-.center {
+.graphic {
+  flex: 40%;
 }
 
-.featuredTitle {
-  position: relative;
-  font-family: 'Karla';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 34px;
-  line-height: 40px;
-  /* identical to box height */
-
-  text-align: center;
-  letter-spacing: -0.02em;
-
-  /* H4I National/Blue */
-
-  color: #0069CA;
-}
-
-.featuredDescription {
-  position:relative;
-  font-family: 'Rubik';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 21px;
-  text-align: center;
-  letter-spacing: -0.02em;
-  width: 50%;
-  margin:auto;
-  text-align: center;
-  padding-top: 1%;
-  /* H4I National/Black */
-
-  color: #333333;
+.headerText{
+  flex: 45%;
+  justify-content: left;
+  align-items: left;
+  padding-right: 30px;
 }
 
 /*fix overlaym*/
 .textOne {
   position: relative;
-  left: 19%;
-  top: 30%;
-  width: 550px;
-  margin-left: 0%;
   /* Title */
 
   font-family: 'Karla';
@@ -78,33 +55,10 @@
   padding-bottom: 5px;
 }
 
-.hide {
-  display: none;
-}
-
-.socialGoodSubText {
-  font-family: 'Karla';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 50px;
-  line-height: 58px;
-  letter-spacing: -0.02em;
-  text-align: left;
-
-  /* H4I National/Black */
-
-  color: #0069ca;
-}
-
 .textTwo {
   position: relative;
-  margin-top: -5%;
-  left: 38%;
-  top: -10%;
-  bottom: 82.66%;
   width: 560px;
   /* Header 2 */
-
   font-family: 'Karla';
   font-style: normal;
   font-weight: 700;
@@ -118,24 +72,23 @@
   color: #333333;
 }
 
-.graphic {
-  position: relative;
-  width: 380.05px;
-  height: 352.73px;
-  left: 145%;
-  margin-right: 0%;
-  margin-top: -55%;
-  top: 100%;
+.socialGoodSubText {
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 58px;
+  letter-spacing: -0.02em;
+  text-align: left;
 
-  /* H4I National/Blue */
+  /* H4I National/Black */
+  color: #0069ca;
 }
 
 .mintbtn {
   position: relative;
-  margin: 10px 10px 10px 10px;
-  left: 35%;
-  right: 48.81%;
-  top: 63%;
+  margin-bottom: 10px;
+  left: 0;
   bottom: 0%;
 
   background-color: #80d2c8;
@@ -153,6 +106,7 @@
   line-height: 21px;
   text-align: center;
   letter-spacing: -0.02em;
+  float: left;
 }
 
 .mintbtn:hover {
@@ -164,6 +118,46 @@
 .mintbtn:active {
   background-color: #808080;
 }
+
+
+.center {
+}
+
+.featuredTitle {
+  position: relative;
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 40px;
+  /* identical to box height */
+  letter-spacing: -0.02em;
+  text-align: center;
+
+  /* H4I National/Blue */
+  color: #0069CA;
+}
+
+.featuredDescription {
+  position:relative;
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  width: 60%;
+  margin:auto;
+  padding-top: 1%;
+  text-align: center;
+
+  /* H4I National/Black */
+
+  color: #333333;
+}
+
+
+
 
 @media (max-width: 1400px){
   .graphic {
