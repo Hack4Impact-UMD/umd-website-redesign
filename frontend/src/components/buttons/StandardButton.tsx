@@ -20,17 +20,17 @@ const StandardButton = (props: ButtonProps) => {
   // Update class so stylesheet can change colors.
   switch (props.color) {
     case 'green':
-      buttonClass = `${styles.button} ${styles.green}`;
+      buttonClass = `${styles.green}`;
       break;
     case 'blue':
-      buttonClass = `${styles.button} ${styles.blue}`;
+      buttonClass = `${styles.blue}`;
       break;
     default:
-      buttonClass = `${styles.button} ${styles.green}`;
+      buttonClass = `${styles.blue}`;
   }
 
   const buttonComponent = (
-    <button className={buttonClass} type={'button'} aria-label={props.ariaLabel}>
+    <button className={`${styles.button} ${buttonClass}`} type={'button'} aria-label={props.ariaLabel}>
       {props.text}
     </button>
   );
