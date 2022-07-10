@@ -58,3 +58,14 @@
   margin-top: 50px;
   gap: 12.5% 10%;
 }
+
+.pastProjectsContainer {
+  padding-top: 30px;
+}
+
+@media screen and (max-width: 800px){
+  #projectsDisplay {
+    margin-top: 20px;
+    display: block;
+  }
+}
