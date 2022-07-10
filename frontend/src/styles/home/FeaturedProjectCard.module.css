@@ -111,3 +111,20 @@
   animation-timing-function: ease-out;
   animation-duration: 300ms;
 }
+
+
+@media screen and (max-width: 1000px){
+  #cardContainer {
+    display: block;
+    margin-left: 3em;
+    margin-right: 3em;
+  }
+
+  #cardHeadingContainer {
+    display: block;
+  }
+
+  #cardDateContainer {
+    text-align: left;
+  }
+}
