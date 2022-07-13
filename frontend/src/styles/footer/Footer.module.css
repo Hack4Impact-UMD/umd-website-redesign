@@ -1,25 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik&display=swap');
 
 /* Styling for mobile first */
-
-.Footer p {
-  font-family: 'Rubik';
-  font-size: 18px;
-  line-height: 21.33px;
-  letter-spacing: -0.02em;
-  color: #333333;
-  margin: 0;
-  text-align: left;
-}
-
-.Footer h2 {
-  font-family: 'Karla';
-  font-size: 24px;
-  letter-spacing: -0.02em;
-  color: #333333;
-  margin: 0;
-  text-align: left;
-}
 
 .Footer {
   position: relative;
