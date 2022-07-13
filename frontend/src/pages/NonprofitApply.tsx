@@ -106,20 +106,45 @@ function FaqSection() {
         question={<p>What types of projects do you undertake?</p>}
         answer={
           <p>
-            Most students spend about 3 hours per week on Hack4Impact project work. Each project team determines their
-            own schedule, but most meet for about 1 hour per week to plan and delegate tasks. The other time is spent
-            working on the project individually. <br /> <br />
-            We also hold general body meetings every week, which are about 1 hour long. H4I holds many other events
-            during the year, such as volunteer events, tech talks, and social events. These events are not mandatory,
-            but we highly encourage our members to attend. <br /> <br /> Leadership roles, such as executive directors,
-            project managers, and tech leads will spend more time, up to 10 hours a week.{' '}
+            Most of the projects we undertake are web applications. Common examples of problems we tackle include 
+            volunteer tracking forms, member directories, and data tracking softwares. Check out our projects page 
+            to see some of our previous work, and feel free to contact us with any project ideas!{' '}
           </p>
         }
       />
-      <FaqRow question={<p>How much does this cost?</p>} answer={<p>0</p>} />
-      <FaqRow question={<p>What does the project timeline look like?</p>} answer={<p>MERN</p>} />
-      <FaqRow question={<p>How much involvement is expected from nonprofits?</p>} answer={<p>asdfasdf</p>} />
-      <FaqRow question={<p>How does long term maintenance work?</p>} answer={<p>asdfasdf</p>} />
+      <FaqRow 
+        question={<p>How much does this cost?</p>} 
+        answer={
+          <p>
+            These projects are free or low cost (around $5 to $15 per month) for the website and hosting expenses. We are 
+            building software to better help you serve your community, and we know how tight money can be so we 
+            try to keep these expenses as low as possible.
+          </p>} />
+      <FaqRow 
+        question={<p>What does the project timeline look like?</p>} 
+        answer={
+          <p>
+            Most development begins at the start of the academic semseter and continues until around the end of the semester. 
+            Throughout all of this, we will remain in constant contact with you to ensure that we are building an application 
+            that you will want to use.
+          </p>} />
+      <FaqRow 
+        question={<p>How much involvement is expected from nonprofits?</p>} 
+        answer={
+          <p>
+            We strongly believe in continuous and transparent communication to ensure that your project is something that you 
+            will be happy with. This means we will be asking for constant feedback throughout the development cycle.
+          </p>} />
+      <FaqRow 
+        question={<p>How does long term maintenance work?</p>} 
+        answer={
+          <p>
+            Once we hand the product off to you around the end of the academic semester, we want to give you time to experiment 
+            with it and find anything that needs to be changed. <br /> <br /> 
+            Once we end the semester, we will no longer be able to make 
+            additions as easily due to limited resources on our end. If you encounter bugs on the site, we will attempt to 
+            correct these issues, but cannot guarantee that we will be able to.
+          </p>} />
     </Faq>
   );
 }
