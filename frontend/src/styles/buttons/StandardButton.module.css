@@ -10,11 +10,25 @@
 .button.green {
   color: #333333;
   background-color: #80d2c8;
+
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
 }
 
 .button.blue {
   color: #ffffff;
   background-color: #0069ca;
+
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
 }
 
 @media (hover: hover) {
