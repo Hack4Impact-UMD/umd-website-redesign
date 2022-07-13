@@ -29,7 +29,9 @@ function AboutUsHeader() {
         <source srcSet={headerDesktop} media={'(min-width: 700px)'} />
         <img src={headerMobile} className={styles.headerImg}></img>
       </picture>
-      <div className={styles.headerText}>About Us</div>
+      <div className={styles.headerText}>
+        <h1>About Us</h1>
+      </div>
     </div>
   );
 }
@@ -37,7 +39,7 @@ function AboutUsHeader() {
 function OurMission() {
   return (
     <div className={styles.ourMission}>
-      <h1>Our Mission</h1>
+      <h2>Our Mission</h2>
       <p>
         Hack4Impact-UMD is a student organization at the University of Maryland, College Park. Founded in Fall 2020 by <a href="https://www.linkedin.com/in/lydia-hu/">Lydia Hu</a>, <a href="https://www.linkedin.com/in/simin-li-88088b/">Simin Li</a>, and <a href="https://www.linkedin.com/in/abbie-tran-a47893153/">Abbie Tran</a>, the club focuses on using tech skills for helping the community while introducing students to a professional working environment and other post-graduation options compared to industry and academia.
       </p>
@@ -54,7 +56,7 @@ function ValueCardRow() {
 
   return (
     <div className={styles.valuesCardsDiv}>
-      <h1>Our Values</h1>
+      <h2>Our Values</h2>
       <div className={styles.valuesCards}>
         <ValueCard mainText={'Go Beyond Technology'} hoverText={goBeyondTechnology} />
         <ValueCard mainText={'Develop with Care'} hoverText={developWithCare} revBackground={true} />
@@ -70,7 +72,7 @@ function ExecBoard() {
 
   return (
     <div className={styles.execBoardDiv}>
-      <h1>Executive Board</h1>
+      <h2>Executive Board</h2>
       <div className={styles.execBoardPhotos}>
         {!boardMembers ? boardMembers :
           boardMembers.map((item, index) => (
@@ -98,7 +100,7 @@ function TeamMembers() {
 
   return (
     <div className={styles.teamMembersDiv}>
-      <h1>Team Members</h1>
+      <h2>Team Members</h2>
       <div className={styles.teamMembersPhotos}>
         {!members ? members :
         // render team members
