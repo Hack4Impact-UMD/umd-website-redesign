@@ -40,11 +40,11 @@ function StudentApplyHeader() {
       <div className={styles.studentApplyHeaderContent}>
         <h1>Apply</h1>
         <StudentNonprofitSelector curr={'student'} />
-        <h2>
+        <p>
           We strive to prepare students for socially conscious roles in tech while creating a supportive community. At
           Hack4Impact-UMD, students have the opportunity to develop real-world skills such as understanding the Agile
           methodology and working with team members like product managers, UI/UX designers, tech leads, and engineers.
-        </h2>
+        </p>
       </div>
     </div>
   );
@@ -99,12 +99,13 @@ function ApplicationTimeline() {
 
   return (
     <div className={styles.timeline}>
-      <h1>Application Timeline</h1>
+      <h2>Application Timeline</h2>
+      <p>The Hack4Impact-UMD application process includes a written application and possibly an interview. We recruit new members in the Fall and the Sping. Our applications are opened in early August and January and closed before the semester starts.</p>
       <div className={styles.timelineStep}>
         <img src={oneIcon} className={styles.mobileTimelineIcon} />
         <img src={oneIconDesktop} className={styles.desktopTimelineIcon} />
         <div className={styles.timelineStepText}>
-          <h2>Application</h2>
+          <h3>Application</h3>
           <p>{firstStep}</p>
         </div>
       </div>
@@ -112,7 +113,7 @@ function ApplicationTimeline() {
         <img src={twoIcon} className={styles.mobileTimelineIcon} />
         <img src={twoIconDesktop} className={styles.desktopTimelineIcon} />
         <div className={styles.timelineStepText}>
-          <h2>Interview</h2>
+          <h3>Interview</h3>
           <p>{secondStep}</p>
         </div>
       </div>
@@ -120,7 +121,7 @@ function ApplicationTimeline() {
         <img src={threeIcon} className={styles.mobileTimelineIcon} />
         <img src={threeIconDesktop} className={styles.desktopTimelineIcon} />
         <div className={styles.timelineStepText}>
-          <h2>Notification of Decision</h2>
+          <h3>Notification of Decision</h3>
           <p>{thirdStep}</p>
         </div>
       </div>
@@ -132,13 +133,13 @@ function FaqSection() {
   return (
     <Faq>
       <FaqRow
-        question={<p>How much of a time commitment is Hack4Impact?</p>}
+        question={<h3>How much of a time commitment is Hack4Impact-UMD?</h3>}
         answer={
           <p>
             Most students spend about 3 hours per week on Hack4Impact project work. Each project team determines their
             own schedule, but most meet for about 1 hour per week to plan and delegate tasks. The other time is spent
             working on the project individually. <br /> <br />
-            We also hold general body meetings every week, which are about 1 hour long. H4I holds many other events
+            We also hold general body meetings every week, which are about 1 hour long. Hack4Impact-UMD holds many other events
             during the year, such as volunteer events, tech talks, and social events. These events are not mandatory,
             but we highly encourage our members to attend. <br /> <br /> Leadership roles, such as executive directors,
             project managers, and tech leads will spend more time, up to 10 hours a week.{' '}
@@ -146,7 +147,7 @@ function FaqSection() {
         }
       />
       <FaqRow
-        question={<p>Do I need any prior technical experience before applying?</p>}
+        question={<h3>Do I need any prior technical experience before applying?</h3>}
         answer={
           <p>
             It is not required to know any specific languages, but we do require students who are applying to become
@@ -158,7 +159,7 @@ function FaqSection() {
         }
       />
       <FaqRow
-        question={<p>What tech stack is used in your projects?</p>}
+        question={<h3>What tech stack is used in your projects?</h3>}
         answer={
           <p>
             We mainly develop new projects on the MERN (MongoDB, Express.js, React, and Node.js) stack. However, we will
@@ -167,7 +168,7 @@ function FaqSection() {
           </p>
         }
       />
-      {/* <FaqRow question={<p>How many members are in Hack4Impact?</p>} answer={<p>1</p>} /> */}
+      {/* <FaqRow question={<p>How many members are in Hack4Impact-UMD?</p>} answer={<p>1</p>} /> */}
     </Faq>
   );
 }

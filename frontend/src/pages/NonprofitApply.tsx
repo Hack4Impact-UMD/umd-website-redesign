@@ -16,7 +16,7 @@ function NonprofitApply() {
   return (
     <div className={styles.nonprofitApply}>
       {/* <Navbar /> */}
-      <StudentApplyHeader />
+      <NonprofitApplyHeader />
       <Carousel />
       <HowToApply />
       <div className={styles.applyButton}>
@@ -34,18 +34,18 @@ function NonprofitApply() {
   );
 }
 
-function StudentApplyHeader() {
+function NonprofitApplyHeader() {
   return (
     <div className={styles.nonprofitApplyHeader}>
       <div className={styles.nonprofitApplyHeaderContent}>
         <h1>Apply</h1>
         <StudentNonprofitSelector curr={'nonprofit'} />
-        <h2>
+        <p>
           At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want to
           use our software and web development skills to help nonprofits. Our collaborations with nonprofits are
           semester-long (around 3-4 months), and we will work with you to develop a software product that suits your
           organization’s needs.
-        </h2>
+        </p>
       </div>
     </div>
   );
@@ -84,7 +84,7 @@ function Carousel() {
 function HowToApply() {
   return (
     <div className={styles.howToApply}>
-      <h1>How to Apply</h1>
+      <h2>How to Apply</h2>
       <p>
         Please fill out our application form below, and our sourcing team will reach out to the email provided in the
         application within 2 weeks of the application being submitted. In this initial email, we will further explain
@@ -103,7 +103,7 @@ function FaqSection() {
   return (
     <Faq>
       <FaqRow
-        question={<p>What types of projects do you undertake?</p>}
+        question={<h3>What types of projects do you undertake?</h3>}
         answer={
           <p>
             Most students spend about 3 hours per week on Hack4Impact project work. Each project team determines their
@@ -116,10 +116,10 @@ function FaqSection() {
           </p>
         }
       />
-      <FaqRow question={<p>How much does this cost?</p>} answer={<p>0</p>} />
-      <FaqRow question={<p>What does the project timeline look like?</p>} answer={<p>MERN</p>} />
-      <FaqRow question={<p>How much involvement is expected from nonprofits?</p>} answer={<p>asdfasdf</p>} />
-      <FaqRow question={<p>How does long term maintenance work?</p>} answer={<p>asdfasdf</p>} />
+      <FaqRow question={<h3>How much does this cost?</h3>} answer={<p>0</p>} />
+      <FaqRow question={<h3>What does the project timeline look like?</h3>} answer={<p>MERN</p>} />
+      <FaqRow question={<h3>How much involvement is expected from nonprofits?</h3>} answer={<p>asdfasdf</p>} />
+      <FaqRow question={<h3>How does long term maintenance work?</h3>} answer={<p>asdfasdf</p>} />
     </Faq>
   );
 }

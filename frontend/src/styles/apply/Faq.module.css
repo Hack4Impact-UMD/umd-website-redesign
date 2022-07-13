@@ -7,11 +7,7 @@
 }
 
 .header {
-  font-family: Karla;
-  font-size: 34px;
-  line-height: 39.75px;
   text-align: center;
-  color: #0069ca;
   margin: 0px;
   width: 237px;
 }
@@ -31,7 +27,7 @@
   z-index: 5;
 }
 
-.question p {
+.question h3 {
   font-family: Karla;
   font-size: 24px;
   line-height: 28px;
@@ -39,7 +35,7 @@
   margin: 0;
 }
 
-.question p {
+.question h3 {
   transition: color 300ms ease-out;
 }
 
@@ -48,7 +44,7 @@
 }
 
 /* If svgs are added in this div in the future; this selector may affect it */
-.question:hover p,
+.question:hover h3,
 .question:hover path {
   color: #657788;
   /* arrow svg fill color */

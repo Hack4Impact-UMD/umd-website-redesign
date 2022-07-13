@@ -1,17 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik:ital@0;1&display=swap');
 
 .studentApplyHeader h1 {
-  font-family: Karla;
-  font-size: 50px;
-  line-height: 58.45px;
   text-align: center;
   margin: 0;
 }
 
-.studentApplyHeader h2 {
-  font-family: Karla;
-  font-size: 24px;
-  line-height: 28.06px;
+.studentApplyHeader p {
   text-align: center;
   margin: 0;
 
@@ -42,28 +35,17 @@
   margin-top: -110px;
 }
 
-.timeline h1 {
-  font-family: Karla;
-  font-size: 34px;
-  line-height: 39.75px;
-  color: #0069ca;
-
+.timeline h2 {
   margin: 0;
   padding: 0px 10%;
 }
 
-.timeline h2 {
-  font-family: Karla;
-  font-size: 24px;
-  line-height: 28.06px;
-
+.timeline h3 {
   margin: 0;
 }
 
 .timeline p {
-  font-family: Rubik;
-  font-size: 18px;
-  line-height: 21.33px;
+  text-align: center;
 
   margin: 8px 0 0 0;
   padding: 0 10%;
@@ -85,6 +67,10 @@
   margin-top: 14px;
 }
 
+.timelineStep p {
+  text-align: left;
+}
+
 .desktopTimelineIcon {
   display: none;
 }
@@ -103,10 +89,7 @@
     min-height: 989px;
   }
 
-  .studentApplyHeader h2 {
-    font-family: Rubik;
-    font-size: 18px;
-    line-height: 21.33px;
+  .studentApplyHeader p {
     width: 867px;
     padding: 0;
   }
@@ -133,7 +116,7 @@
     margin-top: 20px;
   }
 
-  .timeline h1 {
+  .timeline h2 {
     margin-bottom: -47px;
   }
 
@@ -151,7 +134,7 @@
     display: block;
   }
 
-  .timelineStepText h2,
+  .timelineStepText h3,
   p {
     text-align: left;
   }
