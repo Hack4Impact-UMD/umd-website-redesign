@@ -5,7 +5,7 @@ import { ReactComponent as Arrow } from '../assets/faq_arrow.svg';
 export default function Faq(props: { children: React.ReactNode }) {
   return (
     <div className={styles.faq}>
-      <p className={styles.header}>Frequently Asked Questions</p>
+      <h2 className={styles.header}>Frequently Asked Questions</h2>
       {props.children}
     </div>
   );
