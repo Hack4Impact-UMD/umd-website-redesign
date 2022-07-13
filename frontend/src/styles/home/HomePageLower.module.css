@@ -8,22 +8,26 @@
   margin-bottom: 5%;
   justify-content: center;
   display: flex;
+  min-height: 250px;
 }
 
 #studentsContainer {
   flex: 50%;
   justify-content: center;
-  margin: auto;
-  width: auto !important;
   text-align: center;
+  flex-direction: column;
 }
 
 #nonprofitsContainer {
   flex: 50%;
   justify-content: center;
-  margin: auto auto auto 10%;
-  width: auto !important;
+  margin-left:  10%;
   text-align: center;
+  flex-direction: column;
+}
+
+#parentContainer .height {
+  flex-grow: 1;
 }
 
 #parentContainer h1 {
@@ -62,6 +66,8 @@
   line-height: 21px;
   text-align: center;
   letter-spacing: -0.02em;
+
+  bottom: 0;
 }
 
 #parentContainer .bluebtn:hover {
@@ -72,19 +78,6 @@
 #parentContainer .bluebtn:focus,
 #parentContainer .bluebtn:active {
   background-color: #808080;
-}
-
-@media (max-width: 1000px){
-    #parentContainer {
-    position: relative;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 @media (max-width: 1000px){
