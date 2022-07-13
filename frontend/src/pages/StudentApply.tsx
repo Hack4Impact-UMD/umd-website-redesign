@@ -70,7 +70,7 @@ function StudentApplyCards() {
     'Bootcamp teaches members the necessary skillset to join a project team and is for students with less experience. In Bootcamp, students learn web development skills starting from basic HTML, JavaScript, and CSS and then building up to the MERN (MongoDB, Express, React, Node.js) stack. The goal is for members to complete Bootcamp and then join a project team the following semester.';
 
   const sourcingSummary =
-    'The Tech Lead for each team is the designated technical expert and helps the engineers with any tech-related questions. In addition to completing engineer tasks, their responsibilities include scoping the technical aspects of the product and creating engineer tasks with the product managers.';
+    'The Sourcing committee focuses on securing our projects for the following semester. Members reach out to local nonprofit organizations and communicate the services that Hack4Impact-UMD provides for the community. This role does not require any technical skills and is open to all majors.';
 
   return (
     <div className={styles.studentApplyCards}>
@@ -135,13 +135,13 @@ function FaqSection() {
         question={<p>How much of a time commitment is Hack4Impact?</p>}
         answer={
           <p>
-            Most students spend about 3 hours per week on Hack4Impact project work. Each project team determines their
+            Most students spend about 3 to 5 hours per week on Hack4Impact-UMD project work. Each project team determines their
             own schedule, but most meet for about 1 hour per week to plan and delegate tasks. The other time is spent
             working on the project individually. <br /> <br />
-            We also hold general body meetings every week, which are about 1 hour long. H4I holds many other events
-            during the year, such as volunteer events, tech talks, and social events. These events are not mandatory,
-            but we highly encourage our members to attend. <br /> <br /> Leadership roles, such as executive directors,
-            project managers, and tech leads will spend more time, up to 10 hours a week.{' '}
+            We also hold mandatory general body meetings every month, which are about 1 hour long. Hack4Impact-UMD holds many other events
+            during the year, such as volunteer events, tech talks, and social events. These events are not required,
+            but we highly encourage our members to attend. <br /> <br /> 
+            Leadership roles, such as executive directors, project managers, and tech leads will spend more time, up to 10 hours a week.{' '}
           </p>
         }
       />
@@ -150,10 +150,13 @@ function FaqSection() {
         answer={
           <p>
             It is not required to know any specific languages, but we do require students who are applying to become
-            developers or product managers to have taken CMSC 131 or have basic programming skills (classes, arrays,
-            maps, etc.) already. General web development skills like HTML, CSS, and JavaScript are also good to know.
+            developers or tech leads to have taken CMSC 131 or have basic programming skills (classes, arrays,
+            maps, etc.) already. <br /> <br /> 
+            General web development skills like HTML, CSS, and JavaScript are also good to know. <br /> <br /> 
             People with less programming and web development experience will be placed in the bootcamp group, which will
-            allow you to get to know other people in Hack4Impact and improve your web development skills.
+            allow you to get to know other people in Hack4Impact-UMD, improve your web development skills, and understand the 
+            team dynamics in developer team. <br /> <br /> 
+            Roles like the Sourcing Commitee Member do not require any technical background.
           </p>
         }
       />
@@ -167,7 +170,6 @@ function FaqSection() {
           </p>
         }
       />
-      {/* <FaqRow question={<p>How many members are in Hack4Impact?</p>} answer={<p>1</p>} /> */}
     </Faq>
   );
 }
