@@ -1,10 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Karla');
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 
-div {
-  border: 1px solid black;
-}
-
 .blueBG {
   z-index: -1;
   position: absolute;
@@ -22,6 +18,7 @@ div {
   margin-left: auto;
   margin-right: auto;
   margin-top: 10%;
+  margin-bottom: 10%;
   height: 400px;
 }
 
@@ -89,7 +86,7 @@ div {
   position: relative;
   margin-bottom: 10px;
   left: 0;
-  bottom: 0%;
+  bottom: 0;
 
   background-color: #80d2c8;
   color: #333333;
@@ -121,6 +118,7 @@ div {
 
 
 .center {
+  display: block;
 }
 
 .featuredTitle {
@@ -157,12 +155,7 @@ div {
 }
 
 
-
-
 @media (max-width: 1400px){
-  .graphic {
-    margin-right: 15%;
-  }
 
   
   .blueBG {
@@ -176,31 +169,35 @@ div {
 @media (max-width: 1250px){
 
   .top {
-    top: 10%;
+    margin-top: 10%;
     display: flex;
+    flex-direction: column;
     align-items: center; 
     justify-content: center;
-    flex-direction: column;
+    position: relative;
+    height: 100%;
+  }
+
+  .headerText{
+    justify-content: center;
+    align-items: center;
   }
 
   .textOne{
     width: 50vw;
-    left: 25%;
     text-align: center;
   }
 
   .textTwo{
     width: 50vw;
-    left: 50%;
     text-align: center;
   }
 
   .mintbtn {
     margin: auto;
-    top: 0;
-    left: 50%;
+    margin-bottom: 10px;
+    float: none;
     bottom: 0;
-    right: 0;
   }
   .graphic{
     display:none;
@@ -232,12 +229,4 @@ div {
     height: 100vh auto;
   }
 }
-
-@media (max-height: 500px) {
-  .top {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
 
