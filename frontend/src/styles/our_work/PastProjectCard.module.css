@@ -31,12 +31,14 @@
   max-height: 200px;
   width: 100%;
   overflow: hidden;
+  margin-top: 6.5%;
 }
 
 #cardTitleContainer {
   text-align: left;
   text-overflow: ellipsis;
   overflow: hidden;
+  margin-bottom: 2.5%;
 }
 
 #cardTitle {
@@ -64,6 +66,7 @@
   width: 100%;
   text-align: left;
   overflow: hidden;
+  margin-bottom: 2%;
 }
 
 #cardDate {
