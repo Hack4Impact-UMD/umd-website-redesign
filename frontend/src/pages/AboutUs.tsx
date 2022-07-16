@@ -39,7 +39,7 @@ function OurMission() {
     <div className={styles.ourMission}>
       <h1>Our Mission</h1>
       <p>
-        Hack4Impact-UMD is a student organization at the University of Maryland, College Park. Founded in Fall 2020 by Lydia Hu, Simin Li, and Abbie Tran, the club focuses on using tech skills for helping the community while introducing students to a professional working environment and other post-graduation options compared to industry and academia.
+        Hack4Impact-UMD is a student organization at the University of Maryland, College Park. Founded in Fall 2020 by <a href="https://www.linkedin.com/in/lydia-hu/">Lydia Hu</a>, <a href="https://www.linkedin.com/in/simin-li-88088b/">Simin Li</a>, and <a href="https://www.linkedin.com/in/abbie-tran-a47893153/">Abbie Tran</a>, the club focuses on using tech skills for helping the community while introducing students to a professional working environment and other post-graduation options compared to industry and academia.
       </p>
     </div>
   );
