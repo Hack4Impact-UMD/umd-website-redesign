@@ -46,8 +46,7 @@ function OurMission() {
 }
 
 function ValueCardRow() {
-  const summary =
-    'Short summary about the value. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.';
+  const beOpenMinded = "Our process depends on openness to different people, topics, and perspectives. We embrace difference and work against intolerance to foster an inclusive environment. Our goal is to expose our members to the vast opportunities and daunting challenges in our work.";
 
   const goBeyondTechnology = "Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools."
 
@@ -59,7 +58,7 @@ function ValueCardRow() {
       <div className={styles.valuesCards}>
         <ValueCard mainText={'Go Beyond Technology'} hoverText={goBeyondTechnology} />
         <ValueCard mainText={'Develop with Care'} hoverText={developWithCare} revBackground={true} />
-        <ValueCard mainText={'Be Open Minded'} hoverText={summary} />
+        <ValueCard mainText={'Be Open Minded'} hoverText={beOpenMinded} />
       </div>
     </div>
   );
