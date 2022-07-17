@@ -1,12 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Karla');
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 
-/* #bootstrap-overrides h1, h2, h3 {
-  font-weight: 700;
-} */
-
 h1, h2, h3 {
-  font-weight: 700 !important;
+  font-weight: 700;
 }
 
 h1 {
@@ -25,10 +21,15 @@ h2 {
   font-style: normal;
   font-size: 34px;
   line-height: 40px;
+  margin-bottom: .7em;
 
   letter-spacing: -0.02em;
 
   color: #0069CA;
+}
+
+.alternateHeader {
+  color: #333333;
 }
 
 h3 {
