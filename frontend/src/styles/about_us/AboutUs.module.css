@@ -51,6 +51,14 @@
   line-height: 28px;
 }
 
+.ourMission a {
+  color:#333333;
+}
+
+.ourMission a:hover {
+  color:#0069CA;
+}
+
 .valuesCardsDiv {
   padding-top: 53px;
   display: flex;

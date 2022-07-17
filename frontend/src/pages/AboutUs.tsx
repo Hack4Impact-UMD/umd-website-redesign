@@ -39,15 +39,14 @@ function OurMission() {
     <div className={styles.ourMission}>
       <h1>Our Mission</h1>
       <p>
-        Hack4Impact-UMD is a student organization at the University of Maryland, College Park. Founded in Fall 2020 by Lydia Hu, Simin Li, and Abbie Tran, the club focuses on using tech skills for helping the community while introducing students to a professional working environment and other post-graduation options compared to industry and academia.
+        Hack4Impact-UMD is a student organization at the University of Maryland, College Park. Founded in Fall 2020 by <a href="https://www.linkedin.com/in/lydia-hu/">Lydia Hu</a>, <a href="https://www.linkedin.com/in/simin-li-88088b/">Simin Li</a>, and <a href="https://www.linkedin.com/in/abbie-tran-a47893153/">Abbie Tran</a>, the club focuses on using tech skills for helping the community while introducing students to a professional working environment and other post-graduation options compared to industry and academia.
       </p>
     </div>
   );
 }
 
 function ValueCardRow() {
-  const summary =
-    'Short summary about the value. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.';
+  const beOpenMinded = "Our process depends on openness to different people, topics, and perspectives. We embrace difference and work against intolerance to foster an inclusive environment. Our goal is to expose our members to the vast opportunities and daunting challenges in our work.";
 
   const goBeyondTechnology = "Technology is only one tool we use in our greater mission for social impact. Technology alone is not enough. We learn from, work with, and are inspired by others who are tackling social problems using a multitude of tools."
 
@@ -59,7 +58,7 @@ function ValueCardRow() {
       <div className={styles.valuesCards}>
         <ValueCard mainText={'Go Beyond Technology'} hoverText={goBeyondTechnology} />
         <ValueCard mainText={'Develop with Care'} hoverText={developWithCare} revBackground={true} />
-        <ValueCard mainText={'Be Open Minded'} hoverText={summary} />
+        <ValueCard mainText={'Be Open Minded'} hoverText={beOpenMinded} />
       </div>
     </div>
   );
