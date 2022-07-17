@@ -1,4 +1,5 @@
 
+/* Mobile Styles */
 .studentApplyHeader h1 {
   text-align: center;
   margin: 0;
@@ -42,6 +43,7 @@
 
 .timeline h3 {
   margin: 0;
+  text-align: center;
 }
 
 .timeline p {
@@ -68,7 +70,7 @@
 }
 
 .timelineStep p {
-  text-align: left;
+  text-align: center;
 }
 
 .desktopTimelineIcon {
@@ -77,12 +79,14 @@
 
 .applyButton {
   margin-top: 65px;
+  text-align: center;
 }
 
 .faq {
   margin-top: 85px;
 }
 
+/* Desktop Styles */
 @media screen and (min-width: 1200px) {
   .studentApplyHeader {
     background-image: url(../../components/assets/backgrounds/apply_header_desktop.svg);
@@ -132,11 +136,6 @@
 
   .desktopTimelineIcon {
     display: block;
-  }
-
-  .timelineStepText h3,
-  p {
-    text-align: left;
   }
 
   .footerDiv {

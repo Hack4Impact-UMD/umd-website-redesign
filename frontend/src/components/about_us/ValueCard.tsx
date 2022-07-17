@@ -35,7 +35,7 @@ function ValueCard(props: any) {
 
   return (
     <div className={valueCardClass}>
-      <div className={styles.valueCardTextMain}>{props.mainText}</div>
+      <div className={styles.valueCardTextMain}><h2 className={"alternateHeader"}>{props.mainText}</h2></div>
       <div className={styles.valueCardTextSub}>{props.hoverText}</div>
       <img src={bgMain} className={styles.valueCardBg1} />
       <img src={bgHover} className={styles.valueCardBg2} />
