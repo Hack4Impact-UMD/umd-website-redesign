@@ -152,6 +152,10 @@
     width: 100vw;
     height: 100vh auto;
   }
+
+  .featuredDescription {
+    width: 80%;
+  }
 }
 
 @media (max-height: 500px) {
