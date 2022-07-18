@@ -139,17 +139,10 @@ function FaqSection() {
             Most students spend about 3 to 5 hours per week on Hack4Impact-UMD project work. Each project team determines their
             own schedule, but most meet for about 1 hour per week to plan and delegate tasks. The other time is spent
             working on the project individually. <br /> <br />
-<<<<<<< HEAD
             We also hold mandatory general body meetings every month, which are about 1 hour long. Hack4Impact-UMD holds many other events
             during the year, such as volunteer events, tech talks, and social events. These events are not required,
             but we highly encourage our members to attend. <br /> <br /> 
             Leadership roles, such as executive directors, project managers, and tech leads will spend more time, up to 10 hours a week.{' '}
-=======
-            We also hold general body meetings every week, which are about 1 hour long. Hack4Impact-UMD holds many other events
-            during the year, such as volunteer events, tech talks, and social events. These events are not mandatory,
-            but we highly encourage our members to attend. <br /> <br /> Leadership roles, such as executive directors,
-            project managers, and tech leads will spend more time, up to 10 hours a week.{' '}
->>>>>>> 8feeef6 (updated the npo and student apply pages' styles and their components (role cards and faqs))
           </p>
         }
       />
@@ -178,10 +171,6 @@ function FaqSection() {
           </p>
         }
       />
-<<<<<<< HEAD
-=======
-      {/* <FaqRow question={<p>How many members are in Hack4Impact-UMD?</p>} answer={<p>1</p>} /> */}
->>>>>>> 8feeef6 (updated the npo and student apply pages' styles and their components (role cards and faqs))
     </Faq>
   );
 }

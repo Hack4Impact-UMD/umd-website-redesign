@@ -112,7 +112,6 @@ function FaqSection() {
           </p>
         }
       />
-<<<<<<< HEAD
       <FaqRow 
         question={<p>How much does this cost?</p>} 
         answer={
@@ -146,12 +145,6 @@ function FaqSection() {
             additions as easily due to limited resources on our end. If you encounter bugs on the site, we will attempt to 
             correct these issues, but cannot guarantee that we will be able to.
           </p>} />
-=======
-      <FaqRow question={<h3>How much does this cost?</h3>} answer={<p>0</p>} />
-      <FaqRow question={<h3>What does the project timeline look like?</h3>} answer={<p>MERN</p>} />
-      <FaqRow question={<h3>How much involvement is expected from nonprofits?</h3>} answer={<p>asdfasdf</p>} />
-      <FaqRow question={<h3>How does long term maintenance work?</h3>} answer={<p>asdfasdf</p>} />
->>>>>>> 8feeef6 (updated the npo and student apply pages' styles and their components (role cards and faqs))
     </Faq>
   );
 }
