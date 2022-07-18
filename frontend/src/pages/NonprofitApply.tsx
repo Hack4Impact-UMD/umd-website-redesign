@@ -113,7 +113,7 @@ function FaqSection() {
         }
       />
       <FaqRow 
-        question={<p>How much does this cost?</p>} 
+        question={<h3>How much does this cost?</h3>} 
         answer={
           <p>
             These projects are free or low cost (around $5 to $15 per month) for the website and hosting expenses. We are 
@@ -121,7 +121,7 @@ function FaqSection() {
             try to keep these expenses as low as possible.
           </p>} />
       <FaqRow 
-        question={<p>What does the project timeline look like?</p>} 
+        question={<h3>What does the project timeline look like?</h3>} 
         answer={
           <p>
             Most development begins at the start of the academic semseter and continues until around the end of the semester. 
@@ -129,14 +129,14 @@ function FaqSection() {
             that you will want to use.
           </p>} />
       <FaqRow 
-        question={<p>How much involvement is expected from nonprofits?</p>} 
+        question={<h3>How much involvement is expected from nonprofits?</h3>} 
         answer={
           <p>
             We strongly believe in continuous and transparent communication to ensure that your project is something that you 
             will be happy with. This means we will be asking for constant feedback throughout the development cycle.
           </p>} />
       <FaqRow 
-        question={<p>How does long term maintenance work?</p>} 
+        question={<h3>How does long term maintenance work?</h3>} 
         answer={
           <p>
             Once we hand the product off to you around the end of the academic semester, we want to give you time to experiment 
