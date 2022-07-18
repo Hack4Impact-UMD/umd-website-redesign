@@ -55,6 +55,7 @@
 
 .applyButton {
   margin-top: 65px;
+  text-align: center;
 }
 
 .faq {
@@ -95,11 +96,16 @@
   }
 
   .howToApply p {
-    padding: 0 25%;
+    padding: 0 11%;
   }
 
   .faq {
     margin-top: 110px;
+  }
+
+  .timelineStepText h2,
+  p {
+    text-align: left;
   }
 
   .footerDiv {

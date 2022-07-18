@@ -31,7 +31,7 @@ function ProjectPage() {
     return (
         <div className={styles.studentApplyHeader}>
             <div className={styles.studentApplyHeaderContent}>
-                <h1>{params ? params.projectpath + "? Hmm... That doesn't sound like a project." : "Hmm."}</h1>
+                <h1>{params ? params.projectpath + "" : ""}</h1>
             </div>
         </div>
     );
@@ -64,7 +64,7 @@ function TeamMembers() {
     const members = proj ? proj["attributes"]["members"]["data"]: [];
     return (
         <div className={styles.teamMembersDiv}>
-        <h1>Team Members</h1>
+        <h2>Team Members</h2>
         <div className={styles.teamMembersPhotos}>
             {!members ? "Looks like there are no team members here. Check again later?" :
             // render team members
