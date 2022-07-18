@@ -16,14 +16,32 @@
   justify-content: center;
   text-align: center;
   flex-direction: column;
+  position: relative;
 }
 
 #nonprofitsContainer {
   flex: 50%;
   justify-content: center;
-  margin-left:  10%;
   text-align: center;
   flex-direction: column;
+  position: relative;
+  margin-left:  10%;
+}
+
+.textHolder {
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  height:calc(100% - 55px);
+}
+
+.buttonHolder {
+  height: 55px;
+  width: 100%;
+  bottom: 0;
+  justify-content: center;
+  display: flex;
+
 }
 
 #parentContainer .height {
@@ -54,7 +72,7 @@
   background-color: #0069ca;
   color: #ffffff;
   border: none;
-  height: 55px;
+  height: 100%;
   width: 180px;
   border-radius: 100px;
   border-width: 0px;
@@ -66,8 +84,6 @@
   line-height: 21px;
   text-align: center;
   letter-spacing: -0.02em;
-
-  bottom: 0;
 }
 
 #parentContainer .bluebtn:hover {
@@ -99,7 +115,7 @@
     justify-content: center;
     width: auto !important;
     text-align: center;
-    padding-bottom: 10%;
+    margin-bottom: 5%;
   }
   
   #nonprofitsContainer {
@@ -108,10 +124,9 @@
     margin: auto;
     width: auto !important;
     text-align: center;
-    padding-bottom: 10%;
   }
 
-  #parentContainer .bluebtn {
+  .buttonHolder {
     margin-top: 5%;
   }
 }
