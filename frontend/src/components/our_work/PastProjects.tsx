@@ -50,7 +50,7 @@ const PastProjects: React.FC = () => {
 
   return (
     <div>
-      <h1 id={styles.sectionTitle}>Past Projects</h1>
+      <h2 id={styles.sectionTitle}>Past Projects</h2>
       <div id={styles.searchbarWrapper}>
         <img
           id={styles.clearIcon}

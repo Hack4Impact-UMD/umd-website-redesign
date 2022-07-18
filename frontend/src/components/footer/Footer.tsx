@@ -103,7 +103,7 @@ function FooterCols() {
 function FooterCol1() {
   return (
     <div className={styles.FooterColumn}>
-      <h2>Follow Us</h2>
+      <h3>Follow Us</h3>
       <p>
         <a href={'https://www.instagram.com/hack4impactumd'}>Instagram</a>
       </p>
@@ -123,7 +123,7 @@ function FooterCol1() {
 function FooterCol2() {
   return (
     <div className={styles.FooterColumn}>
-      <h2>Learn More</h2>
+      <h3>Learn More</h3>
       <p>
         <a href={'/aboutus'}>About Us</a>
       </p>
@@ -137,7 +137,7 @@ function FooterCol2() {
 function FooterCol3() {
   return (
     <div className={styles.FooterColumn}>
-      <h2>Get Involved</h2>
+      <h3>Get Involved</h3>
       <p>
         <a href={'/apply/student'}>Student Applications</a>
       </p>

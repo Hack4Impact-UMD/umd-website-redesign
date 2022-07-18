@@ -1,6 +1,11 @@
 /* Desktop Styles */
 /* native css option (unused): https://stackoverflow.com/a/29223812 */
 
+.roleCardTextMain h2 {
+  color: #000000;
+  font-size: 34px;
+}
+
 .roleCard {
   width: 275px;
   height: 400px;
@@ -16,6 +21,7 @@
   align-items: center;
   height: 400px;
   width: 275px;
+  text-align: center;
 }
 
 .cardContentWrapper {

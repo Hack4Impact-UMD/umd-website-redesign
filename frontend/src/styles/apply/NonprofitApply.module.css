@@ -1,17 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik:ital@0;1&display=swap');
+.nonprofitApplyHeader p {
+  text-align: center;
+  margin: 0;
+
+  padding: 0 11%;
+}
 
 .nonprofitApplyHeader h1 {
-  font-family: Karla;
-  font-size: 50px;
-  line-height: 58.45px;
   text-align: center;
   margin: 0;
 }
 
 .nonprofitApplyHeader h2 {
-  font-family: Karla;
-  font-size: 24px;
-  line-height: 28.06px;
   text-align: center;
   margin: 0;
 
@@ -34,19 +33,17 @@
   gap: 44px;
 }
 
-.howToApply h1 {
-  color: #0069ca;
-  font-family: Karla;
-  font-size: 34px;
-  font-weight: 700;
-  line-height: 40px;
+.nonprofitApplyHeaderContent p {
+  text-align: center;
+}
+
+.howToApply h2 {
   text-align: center;
   margin: 56px 0 42px;
 }
 
 .howToApply p {
-  font-size: 18px;
-  line-height: 21.33px;
+  text-align: center;
   padding: 0 11%;
   margin: 0;
 }
@@ -58,6 +55,7 @@
 
 .applyButton {
   margin-top: 65px;
+  text-align: center;
 }
 
 .faq {
@@ -85,10 +83,7 @@
     min-height: 989px;
   }
 
-  .nonprofitApplyHeader h2 {
-    font-family: Rubik;
-    font-size: 18px;
-    line-height: 21.33px;
+  .nonprofitApplyHeader p {
     padding: 0 21%;
   }
 
@@ -96,19 +91,25 @@
     margin-top: -250px;
   }
 
-  .howToApply h1 {
+  .howToApply h2 {
     margin: 145px 0 40px;
   }
 
   .howToApply p {
-    padding: 0 25%;
+    padding: 0 11%;
   }
 
   .faq {
     margin-top: 110px;
   }
 
+  .timelineStepText h2,
+  p {
+    text-align: left;
+  }
+
   .footerDiv {
     margin-top: -420px;
   }
+
 }
