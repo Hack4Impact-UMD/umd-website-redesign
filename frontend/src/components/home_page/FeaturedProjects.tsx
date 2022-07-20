@@ -12,7 +12,7 @@ const FeaturedProjects = () => {
   return (
     
     <div>
-        <div>
+        <div className={styles.featuredProjectCards}>
           {!featuredProjects ? featuredProjects : 
            featuredProjects.map((item, index) =>(
               <FeaturedProjectCard

@@ -10,7 +10,7 @@ const CurrentProjects = () => {
   const currentProjects = res.data ? res.data["data"] : [];
 
   return (
-    <div>
+    <div className={styles.featuredProjectCards}>
       <h2 id={styles.sectionTitle}>Current Projects</h2>
       {currentProjects.map((item, index) => (
         <FeaturedProjectCard
