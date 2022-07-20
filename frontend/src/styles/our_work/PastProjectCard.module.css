@@ -40,10 +40,7 @@
 }
 
 #cardTitle {
-  overflow: hidden;
-  text-overflow: ellipsis;
   text-decoration: none;
-  white-space: nowrap;
 }
 
 #cardDateContainer h3 {
@@ -69,4 +66,19 @@
   color: #0069ca;
   animation-timing-function: ease-out;
   animation-duration: 300ms;
+}
+
+@media screen and (max-width: 1000px){
+  #cardContainer {
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    margin-bottom: 50px;
+  }
+}
+
+@media screen and (max-width: 800px){
+  #cardContainer {
+    width: 100%;
+  }
 }

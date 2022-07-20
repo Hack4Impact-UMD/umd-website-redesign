@@ -49,7 +49,7 @@ const PastProjects: React.FC = () => {
   });
 
   return (
-    <div>
+    <div className={styles.pastProjectsContainer}>
       <h2 id={styles.sectionTitle}>Past Projects</h2>
       <div id={styles.searchbarWrapper}>
         <img
