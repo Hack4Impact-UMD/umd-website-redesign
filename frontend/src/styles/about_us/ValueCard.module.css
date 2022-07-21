@@ -97,3 +97,11 @@
     opacity: 1;
   }
 }
+
+/*Mobile Styles*/
+@media screen and (max-width: 1000px) {
+  .valueCard {
+    height: 400px;
+    width: 310px;
+  }
+}
