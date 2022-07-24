@@ -5,13 +5,13 @@ import PastProjects from '../components/our_work/PastProjects';
 import Navbar from '../components/navbar/Navbar';
 import Footer from '../components/footer/Footer';
 import styles from '../styles/our_work/OurWork.module.css';
-import { ReactComponent as HeaderBackground } from '../components/assets/backgrounds/bluewave_desktop.svg';
 import ScrollToTopButton from '../components/assets/ScrollToTopButton.png';
 import ScrollToTopButtonHover from '../components/assets/ScrollToTopButtonHover.png';
 
 const OurWork: React.FC = () => {
   const [visible, setVisible] = useState(false);
 
+  // Controls visibility of scroll up button.
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop;
     if (scrolled > 300) {
@@ -31,18 +31,18 @@ const OurWork: React.FC = () => {
   window.addEventListener('scroll', toggleVisible);
 
   return (
-    <>
-      <div className={styles.headerBackground}>
-        <HeaderBackground style={{ height: '100%', width: '100%' }} />
-      </div>
       <div id={styles.OurWorkPage}>
         <div className={styles.navBarDiv}>
           <Navbar />
         </div>
         <div className={styles.content}>
           <OurWorkHeader />
+          <div className={styles.currentProjects}>
           <CurrentProjects />
+          </div>
+          <div className={styles.pastProjects}>
           <PastProjects />
+          </div>
         </div>
         <div
           className={styles.ScrollToTopButton}
@@ -57,7 +57,6 @@ const OurWork: React.FC = () => {
           />
         </div>
       </div>
-    </>
   );
 };
 
