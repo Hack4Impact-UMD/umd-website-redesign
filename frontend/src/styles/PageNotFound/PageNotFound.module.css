@@ -1,0 +1,42 @@
+/* Mobile Styles */
+.pageNotFoundHeader h1 {
+    text-align: center;
+    margin: 0;
+  }
+  
+  .pageNotFoundHeader p {
+    text-align: center;
+    margin: 0;
+  
+    padding: 0 11%;
+  }
+  
+  .pageNotFoundHeader {
+    background-image: url(../../components/assets/backgrounds/apply_header.svg);
+    background-size: cover;
+    background-position: bottom;
+    min-width: 100%;
+    min-height: 810px;
+  }
+  
+  .pageNotFoundHeaderContent {
+    padding-top: clamp(120px, 18vw, 224px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 44px;
+  }
+  
+  /* Desktop Styles */
+  @media screen and (min-width: 1200px) {
+    .pageNotFoundHeader {
+      background-image: url(../../components/assets/backgrounds/apply_header_desktop.svg);
+      min-height: 989px;
+    }
+  
+    .pageNotFoundHeader p {
+      width: 867px;
+      padding: 0;
+    }
+  }
+  

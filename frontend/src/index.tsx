@@ -10,6 +10,7 @@ import StudentApply from './pages/StudentApply';
 import NonprofitApply from './pages/NonprofitApply';
 import Footer from './components/footer/Footer';
 import OurWork from './pages/OurWork';
+import PageNotFound from './pages/PageNotFound';
 
 import ProjectPage from './pages/ProjectPage';
 
@@ -25,6 +26,7 @@ const routing = (
         <Route path="/apply/student" element={<StudentApply />} />
         <Route path="/apply/nonprofit" element={<NonprofitApply />} />
         <Route path="/contactus" element={<App/>} />
+        <Route path="/pagenotfound" element={<PageNotFound/>}/>
         <Route path="ourwork/:projectpath" element={<ProjectPage/>} />
       </Routes>
       <Footer />
