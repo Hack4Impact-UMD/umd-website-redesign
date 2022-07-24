@@ -1,9 +1,13 @@
-
 #headerDiv {
-  margin: auto;
-  text-align: center;
-  margin-top: 220px;
-  margin-bottom: 300px;
+  background-image: url(../../components/assets/backgrounds/apply_header.svg);
+  background-size: cover;
+  background-position: bottom;
+  min-width: 100%;
+  min-height: 810px;
+}
+
+#headerContent {
+    padding-top: clamp(120px, 18vw, 224px);
 }
 
 #title {
@@ -13,4 +17,6 @@
 
 #headerText {
   text-align: center;
+  margin: 0;
+  padding: 0 22%;
 }
