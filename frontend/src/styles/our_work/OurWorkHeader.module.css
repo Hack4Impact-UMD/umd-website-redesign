@@ -7,7 +7,7 @@
 }
 
 #headerContent {
-    padding-top: clamp(120px, 18vw, 224px);
+  padding-top: clamp(120px, 18vw, 224px);
 }
 
 #title {
