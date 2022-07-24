@@ -14,15 +14,15 @@ import Footer from './components/footer/Footer';
 import OurWork from './pages/OurWork';
 import ProjectPage from './pages/ProjectPage';
 
-// Scrolls to top of 
+// Scrolls to top of
 // https://stackoverflow.com/a/70194027
-const ScrollToTopWrapper = ({children}: {children: JSX.Element}) => {
-    const location = useLocation();
-    useLayoutEffect(() => {
-        document.documentElement.scrollTo(0,0);
-    }, [location.pathname]);
-    return (children);
-}
+const ScrollToTopWrapper = ({ children }: { children: JSX.Element }) => {
+  const location = useLocation();
+  useLayoutEffect(() => {
+    document.documentElement.scrollTo(0, 0);
+  }, [location.pathname]);
+  return children;
+};
 
 function Homepage() {
   return (
@@ -35,26 +35,26 @@ function Homepage() {
 }
 
 function App() {
-    return (
-      <BrowserRouter>
-    <ScrollToTopWrapper>
+  return (
+    <BrowserRouter>
+      <ScrollToTopWrapper>
         <div>
           <Navbar />
           <Routes>
-            <Route path="/" element={<Homepage/>} />
-            <Route path="/aboutus" element={<AboutUs/>} />
-            <Route path="/ourwork" element={<OurWork/>} />
-            <Route path="/apply" element={<StudentApply/>} />
+            <Route path="/" element={<Homepage />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/ourwork" element={<OurWork />} />
+            <Route path="/apply" element={<StudentApply />} />
             <Route path="/apply/student" element={<StudentApply />} />
             <Route path="/apply/nonprofit" element={<NonprofitApply />} />
-            <Route path="/contactus" element={<App/>} />
-            <Route path="ourwork/:projectpath" element={<ProjectPage/>} />
+            <Route path="/contactus" element={<App />} />
+            <Route path="ourwork/:projectpath" element={<ProjectPage />} />
           </Routes>
           <Footer />
         </div>
-    </ScrollToTopWrapper>
-      </BrowserRouter>
-    );
+      </ScrollToTopWrapper>
+    </BrowserRouter>
+  );
 }
 
 export default App;
