@@ -1,51 +1,40 @@
+div {
+  border: 1px solid black;
+}
 
 .blueBG {
   z-index: -1;
-  position: relative;
-  left: 0%;
-  right: 0%;
+  position: absolute;
   margin-top: -5%;
-  width: 99vw;
-  height: 100%;
-  object-fit: cover;
+  width: 100%;
 }
 
 .top {
-  position: absolute;
-  top: 20%;
+  display: flex;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10%;
+  margin-bottom: 290px;
+  height: 400px;
 }
 
-.center {
+.headerText{
+  flex: 45%;
+  justify-content: left;
+  align-items: left;
+  height: auto;
+  flex-direction: column;
 }
 
-.featuredTitle {
-  position: relative;
-  /* identical to box height */
-  text-align: center;
+.graphic {
+  flex: 40%;
 }
 
-.featuredDescription {
-  position: relative;
-  width: 50%;
-  margin: auto;
-  text-align: center;
-  margin-bottom: 3em;
-}
-
-/*fix overlaym*/
 .textOne {
   position: relative;
-  left: 19%;
-  top: 30%;
-  width: 550px;
-  margin-left: 0%;
-  /* Title */
   text-align: left;
-  padding-bottom: 15px;
-}
-
-.hide {
-  display: none;
+  margin-bottom: 20px;
 }
 
 .socialGoodSubText {
@@ -55,83 +44,87 @@
 
 .textTwo {
   position: relative;
-  margin-top: -5%;
-  left: 38%;
-  top: -10%;
-  bottom: 82.66%;
-  width: 560px;
-  /* Header 2 */
   text-align: left;
-}
-
-.graphic {
-  position: relative;
-  width: 380.05px;
-  height: 352.73px;
-  left: 145%;
-  margin-right: 0%;
-  margin-top: -55%;
-  top: 100%;
+  margin-bottom: 30px;
 }
 
 .mintbtn {
   position: relative;
-  margin: 10px 10px 10px 10px;
-  left: 35%;
-  right: 48.81%;
-  top: 63%;
+  width: fit-content;
+  left: 0%;
   bottom: 0%;
 }
 
+.center {
+  display: block;
+  margin-bottom: 100px;
+}
+
+.featuredTitle {
+  position: relative;
+  text-align: center;
+}
+
+.featuredDescription {
+  position: relative;
+  width: 60%;
+  margin: auto;
+  text-align: center;
+  padding-top: 1%;
+}
+
 @media (max-width: 1400px) {
-  .graphic {
-    margin-right: 15%;
+
+  .headerText {
+    padding-right: 0px;
   }
 
-  .blueBG {
-    width: 100vw;
-    height: 110vh;
-    min-height: 500px;
-    object-fit: cover;
-  }
 }
 
 @media (max-width: 1250px) {
+
   .top {
-    top: 10%;
+    margin-top: 15%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: relative;
+    height: 100%;
   }
 
   .textOne {
     width: 50vw;
-    left: 25%;
     text-align: center;
   }
 
   .textTwo {
     width: 50vw;
-    left: 50%;
     text-align: center;
   }
 
   .mintbtn {
     margin: auto;
-    top: 0;
-    left: 50%;
+    margin-bottom: 10px;
+    float: none;
     bottom: 0;
-    right: 0;
   }
+
   .graphic {
     display: none;
   }
+
 }
 
 @media (max-width: 850px) {
+
+  .blueBG {
+    margin-top: -15%;
+  }
+
   .top {
     width: auto;
+    margin-top: 20%;
   }
 
   .textOne {
@@ -148,19 +141,8 @@
     letter-spacing: -0.02em;
   }
 
-  .blueBG {
-    width: 100vw;
-    height: 100vh auto;
-  }
-
   .featuredDescription {
     width: 80%;
   }
-}
 
-@media (max-height: 500px) {
-  .top {
-    display: flex;
-    flex-direction: column;
-  }
 }
