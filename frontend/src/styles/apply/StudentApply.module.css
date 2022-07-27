@@ -32,7 +32,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
+  padding: 0 5%;
   margin-top: -110px;
 }
 
@@ -88,6 +89,18 @@
   margin-top: 85px;
 }
 
+@media screen and (min-width: 800px) {
+
+  .studentApplyCards {
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 120px;
+    row-gap: 75px;
+    justify-content: center;
+  }
+
+}
+
 /* Desktop Styles */
 @media screen and (min-width: 1200px) {
   .studentApplyHeader {
@@ -101,13 +114,6 @@
   }
 
   .studentApplyCards {
-    flex-direction: row;
-    flex-wrap: wrap;
-    column-gap: 120px;
-    row-gap: 75px;
-    justify-content: center;
-
-    padding: 0 10%;
     margin-top: -290px;
   }
 
