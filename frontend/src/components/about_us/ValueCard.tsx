@@ -21,15 +21,17 @@ function ValueCard(props: any) {
   return (
     <div className={valueCardClass}>
       <div className={styles.cardFront}>
-          <div className={styles.cardContentWrapper}>
-              <div className={styles.valueCardTextMain}><h2 className={"alternateHeader"}>{props.mainText}</h2></div>
+        <div className={styles.cardContentWrapper}>
+          <div className={styles.valueCardTextMain}>
+            <h2 className={'alternateHeader'}>{props.mainText}</h2>
           </div>
+        </div>
       </div>
 
       <div className={styles.cardBack}>
-          <div className={styles.cardContentWrapper}>
-              <div className={styles.valueCardTextSub}>{props.hoverText}</div>
-          </div>
+        <div className={styles.cardContentWrapper}>
+          <div className={styles.valueCardTextSub}>{props.hoverText}</div>
+        </div>
       </div>
     </div>
   );

@@ -43,7 +43,7 @@
   }
 
   .valueCard.rev {
-      background: None;
+    background: None;
   }
 
   .valueCard h2 {
@@ -57,23 +57,23 @@
   .valueCardTextSub {
     text-align: left;
   }
-  
+
   .cardContentWrapper {
-      height: inherit;
-      width: inherit;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+    height: inherit;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .cardFront {
-      position: absolute;
-      height: inherit;
-      width: inherit;
+    position: absolute;
+    height: inherit;
+    width: inherit;
     background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackground1.svg);
 
-      transition: opacity 300ms ease-in;
+    transition: opacity 300ms ease-in;
   }
 
   .rev .cardFront {
@@ -81,13 +81,13 @@
   }
 
   .cardBack {
-      position: absolute;
-      height: inherit;
-      width: inherit;
+    position: absolute;
+    height: inherit;
+    width: inherit;
     background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackgroundHover1.svg);
-      opacity: 0;
+    opacity: 0;
 
-      transition: opacity 300ms ease-in;
+    transition: opacity 300ms ease-in;
   }
 
   .rev .cardBack {
@@ -95,10 +95,10 @@
   }
 
   .valueCard:hover .cardFront {
-        opacity: 0;
+    opacity: 0;
   }
 
   .valueCard:hover .cardBack {
-        opacity: 1;
+    opacity: 1;
   }
 }
