@@ -36,6 +36,11 @@
   text-align: left;
 }
 
+.valueCard {
+  height: 400px;
+  width: 310px;
+}
+
 /* Desktop Styles */
 @media screen and (min-width: 1200px) {
   /* native css option (unused): https://stackoverflow.com/a/29223812 */
@@ -95,13 +100,5 @@
 
   .valueCard:hover .valueCardTextSub {
     opacity: 1;
-  }
-}
-
-/*Mobile Styles*/
-@media screen and (max-width: 1000px) {
-  .valueCard {
-    height: 400px;
-    width: 310px;
   }
 }
