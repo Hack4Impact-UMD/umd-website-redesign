@@ -82,8 +82,7 @@
 
 #cardLink:hover, #cardLink:focus, #cardLink p:hover {
   color: #0069ca;
-  animation-timing-function: ease-out;
-  animation-duration: 300ms;
+  transition: color 300ms ease;
 }
 
 
