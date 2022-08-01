@@ -13,7 +13,6 @@
 }
 
 .title {
-  position: absolute;
   display:flex;
   justify-content: center;
   z-index: 1;
@@ -35,7 +34,6 @@
 .projectPicture {
   box-sizing: border-box;
 
-  position: absolute;
   width: 500px;
   height: 333.33px;
   left: 181px;
@@ -44,8 +42,7 @@
 }
 
 .projectInfoContainer {
-  position: absolute;
-  top: 40%;
+  width: 75vw;
   display:flex;
   flex-direction: row;
   margin-top: 3%;

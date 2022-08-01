@@ -49,10 +49,11 @@ function Header() {
                 </div>
                 <div className={stylestwo.flexChild}>
                     <div className={stylestwo.date}> { date }</div>
-                    <p className={stylestwo.projectDescription}>{ proj ? proj['attributes']['blurb'] : "More information about this project is pending."} </p>
-
-                    { proj && proj['attributes']['repoURL'] ? <a href={proj['attributes']['repoURL'] }><img src={ githubIcon }/></a> : ""} &nbsp;
-                    { proj && proj['attributes']['hostedProjectURL'] ? <a href={proj['attributes']['hostedProjectURL'] }><img src={ internetIcon }/></a> : ""}
+                    <p className={stylestwo.projectDescription}>
+                        { proj ? proj['attributes']['blurb'] : "More information about this project is pending."} <br/><br/>
+                        { proj && proj['attributes']['repoURL'] ? <a href={proj['attributes']['repoURL'] }><img src={ githubIcon }/></a> : ""} &nbsp;
+                        { proj && proj['attributes']['hostedProjectURL'] ? <a href={proj['attributes']['hostedProjectURL'] }><img src={ internetIcon }/></a> : ""}
+                    </p>
                 </div>
             </div>
         </div>
