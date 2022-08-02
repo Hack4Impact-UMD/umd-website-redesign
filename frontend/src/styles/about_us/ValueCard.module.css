@@ -1,31 +1,28 @@
 /* Mobile Styles */
 .valueCard {
-  height: 248.5px;
   width: 310px;
   border-radius: 50px;
   background: linear-gradient(116.12deg, #c2e0fb 0%, #cbf9f3 100%);
+  padding: 55px 37px;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   gap: 5px;
-}
-
-.valueCardBg1,
-.valueCardBg2 {
-  display: none;
 }
 
 .valueCard.rev {
   background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
 }
 
-.valueCardTextMain {
+.valueCard h2 {
   font-family: 'Karla';
   font-size: 24px;
-  width: 236px;
+  font-weight: 700px;
   text-align: left;
+  line-height: 28.06px;
+  margin: 0;
 }
 
 .valueCardTextSub {
@@ -47,58 +44,66 @@
   .valueCard {
     width: 357px;
     height: 286px;
-    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackground1.svg);
-    background-size: cover;
-    transition: background-image 300ms ease-in;
-  }
-
-  .valueCard:hover {
-    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackgroundHover1.svg);
+    background: None;
   }
 
   .valueCard.rev {
-    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackground2.svg);
+    background: None;
   }
 
-  .valueCard.rev:hover {
-    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackgroundHover2.svg);
-  }
-
-  .valueCardTextMain {
-    position: absolute;
+  .valueCard h2 {
     font-size: 34px;
     line-height: 39px;
-    width: 181px;
-    height: 80px;
+    font-weight: 700px;
     text-align: center;
-
-    opacity: 1;
-    transition: opacity 300ms ease-in;
+    width: 181px;
   }
 
   .valueCardTextSub {
-    position: absolute;
-    width: 234px;
-    height: 147px;
     text-align: left;
+  }
 
-    opacity: 0;
+  .cardContentWrapper {
+    height: inherit;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cardFront {
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackground1.svg);
+
     transition: opacity 300ms ease-in;
   }
 
-  .valueCard:hover .valueCardBg1 {
+  .rev .cardFront {
+    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackground2.svg);
+  }
+
+  .cardBack {
+    position: absolute;
+    height: inherit;
+    width: inherit;
+    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackgroundHover1.svg);
+    opacity: 0;
+
+    transition: opacity 300ms ease-in;
+  }
+
+  .rev .cardBack {
+    background-image: url(../../components/assets/ValueCardBackgrounds/ValueCardBackgroundHover2.svg);
+  }
+
+  .valueCard:hover .cardFront {
     opacity: 0;
   }
 
-  .valueCard:hover .valueCardBg2 {
-    opacity: 1;
-  }
-
-  .valueCard:hover .valueCardTextMain {
-    opacity: 0;
-  }
-
-  .valueCard:hover .valueCardTextSub {
+  .valueCard:hover .cardBack {
     opacity: 1;
   }
 }
