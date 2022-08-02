@@ -145,6 +145,7 @@ function FaqSection() {
             additions as easily due to limited resources on our end. If you encounter bugs on the site, we will attempt to 
             correct these issues, but cannot guarantee that we will be able to.
           </p>} />
+      <br/><br/><br/>
     </Faq>
   );
 }

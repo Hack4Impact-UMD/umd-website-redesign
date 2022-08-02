@@ -171,6 +171,7 @@ function FaqSection() {
           </p>
         }
       />
+      <br/><br/><br/>
     </Faq>
   );
 }
