@@ -1,3 +1,5 @@
+/* Desktop styles */ 
+
 .navbarItems {
   position: fixed;
   left: 0%;
@@ -5,13 +7,13 @@
   top: 0%;
   bottom: 0%;
   z-index: 50;
-  background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.9) 32.23%, rgba(203, 249, 243, 0.9) 53.35%);
-  backdrop-filter: blur(4px);
 
   display: flex;
   justify-content: right;
   align-items: center; 
   height: 70px;
+  
+  background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.9) 32.23%, rgba(203, 249, 243, 0.9) 53.35%);
 }
 
 .navMenu {
@@ -24,46 +26,43 @@
 
 .navMenu .navLinks {
   display: inline-block;
-  font-family: Rubik;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 24px;
-  
   padding: 20px 30px;
   
   /* identical to box height */
   text-align: center;
   letter-spacing: -0.02em;
 
-  /* H4I National/Black */
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
   text-decoration: none;
-  color: #333333;
+  color: #333333;  /* H4I National/Black */
   white-space: nowrap;
 }
 
-
 .navLinks:hover {
   color: #657788;
-}
 
+  transition: ease .5s;
+}
 
 .applyDropdownButton {
   padding: 0px 30px 30px 30px !important;
   margin: 30px 0px 0px 0px !important;
 }
 
-/* The dropdown container */
 .applyDropdownContainer {
-  opacity: 0%;
-  overflow: auto;
-  visibility: hidden;
-  transition: visibility 0s, opacity 0.5s;
   height: 0;
-  /* Note: backdrop-filter has minimal browser support */
+  opacity: 0%;
+  visibility: hidden;
+  overflow: auto;
+
+  transition: visibility 0s, opacity 0.5s;  
 }
 
-/* Dropdown button */
+/* Dropdown Button Styling */
 .applyDropdownContainer .applyDropdownButton {
   background-color: inherit;
   font-family: inherit; /* Important for vertical align on mobile phones */
@@ -74,27 +73,29 @@
 /* Dropdown content (hidden by default) */
 .applyDropdownContent {
   position: absolute;
+  padding: 0px;
+  transform: translate(-15px, 0%); 
+
+  list-style: none;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   border-radius: 20px;
   background: rgba(203, 249, 243, 0.9);
   backdrop-filter: blur(4px);
-  list-style: none;
-  padding: 0px;
-  transform: translate(-15px, 0%); 
 }
 
 /* Links inside the dropdown */
 .applyDropdownContent .navLinks {
-  float: none;
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
   display: block;
+  padding: 12px 16px;
+
+  text-decoration: none;
   text-align: center;
+  color: #333;
 }
 
 .applyDropdownContent .navLinks:hover {
   color: #657788;
+  transition: ease .5s;
 }
 
 /* Show the dropdown menu on hover */
@@ -105,19 +106,15 @@
 }
 
 .navIcon {
-  border: 0;
-  height: 40px;
-  width: 40px;
   padding: 0.5rem;
   position: absolute;
-  font-size: 1.8rem;
   z-index: 50;
-  right: 5%;
-  top: 22.86%;
-  bottom: 22.86%;
-  margin-left: 0%;
-
   display: none;
+
+  height: 40px;
+  width: 40px;
+  right: 5%;
+  margin-left: 0%;
 }
 
 .navIcon:hover {
@@ -129,69 +126,133 @@
   right: 69.4%;
   top: 22.86%;
   bottom: 22.86%;
-  margin-left: 0%;
+  margin-left: 10vw;
+  left: 1rem;
 }
 
 .faBars {
   color: #0069CA;
 }
 
+.blurOverlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
 
+/* Mobile Styles */
 @media screen and (max-width: 1000px){
-
-  .navbarItems {
-    height: 70px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding: 0.5rem 0rem;
-    left: 0%;
-    right: 0%;
-    top: 0%;
-    bottom: 0%;
-    z-index: 50;
-    background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.9) 32.23%, rgba(203, 249, 243, 0.8) 53.35%);
-    backdrop-filter: blur(4px);
-  }
-
-  .navMenu {
-    display: none;
-  }
-
-
-  .navMenu li {
-    text-align: left;
-    margin: 0;
-  }
-
-  .navMenu.active {
-    display: block;
-
-    flex-direction: column;
-    width: 100%;
-    height: auto;
-    position:absolute;
-    top: 70px;
-    left: 0;
-    display: flex;
-    background: rgba(194,224,251,.7);
-    background-size: cover;
-    opacity: 1;
-    transition: all 0.5s ease;
-    z-index: 500;
-    translate: scale(0);
-  }
-
+  /* Graphic styles */
   .logo {
     position: absolute;
     top: 0;
     left: 0;
-    transform: translate(25%, 50%);
+    transform: translate(0%, 50%);
+    max-width: 285px;
+    width: 70vw;
+    margin-left: 10vw;
   }
 
   .navIcon {
     display: block;
   }
 
+  /* General navbar styles */
+  .blurOverlay {
+    filter: blur(5px);
+    background: rgb(255, 255, 255, 0.9);
+  }
+
+  .navMenu {
+    visibility: hidden;
+    opacity: 0%;
+  }
+
+  .navMenu li {
+    text-align: left;
+    margin: 0;
+  }
+
+  .navbarItems > ul {
+    display: block;
+    position: fixed;
+    top: 70px; 
+
+    padding:0px;
+    width: 100vw;
+    height: 100vh;
+
+    border-top: 3px solid #0069CA;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Karla';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+
+    transition: ease-in-out opacity 0.7s;
+  }
+
+  .navbarItems li {
+    padding-left: 14vw;
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+  }
+
+  .navbarItems li a {
+    text-decoration: none;
+    font-weight: 700;    
+    color: #333333;
+  }
+
+  /* undoing styles for applyDropdownContainer and respective content */
+  .navbarItems .applyDropdownContainer {
+    height: auto;
+    opacity: 100%;
+    display: block;
+    visibility: visible;
+    overflow: hidden;
+  }
+
+  .applyDropdownContainer .applyDropdownButton {
+    display: none; 
+  }
+
+  .applyDropdownButton {
+    padding: 0px !important;
+    margin: 0px !important;
+  }
+
+  .applyDropdownContent {
+    background: none;
+    width: 100vw;
+    transform: none; 
+    position: initial;
+    box-shadow: none;
+    border: none;
+    height: 120px;
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .applyDropdownContent li {
+    padding-left: 1rem;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  
+  /* Links inside the dropdown */
+  .applyDropdownContent .navLinks {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .applyDropdownContent .navLinks:hover {
+    color: #657788;
+  }
 }
