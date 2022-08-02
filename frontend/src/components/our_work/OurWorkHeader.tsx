@@ -3,8 +3,8 @@ import styles from '../../styles/our_work/OurWorkHeader.module.css';
 
 const OurWorkHeader = () => {
   return (
-    <div>
-      <div id={styles.headerDiv}>
+    <div id={styles.headerDiv}>
+      <div id={styles.headerContent}>
         <h1 id={styles.title}>Our Work</h1>
         <p id={styles.headerText}>
           We partner with national and local nonprofit organizations to develop products that help their technical
