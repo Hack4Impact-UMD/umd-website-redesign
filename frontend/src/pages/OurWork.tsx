@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import OurWorkHeader from '../components/our_work/OurWorkHeader';
 import CurrentProjects from '../components/our_work/CurrentProjects';
 import PastProjects from '../components/our_work/PastProjects';
-import Navbar from '../components/navbar/Navbar';
-import Footer from '../components/footer/Footer';
 import styles from '../styles/our_work/OurWork.module.css';
 import ScrollToTopButton from '../components/assets/ScrollToTopButton.png';
 import ScrollToTopButtonHover from '../components/assets/ScrollToTopButtonHover.png';
