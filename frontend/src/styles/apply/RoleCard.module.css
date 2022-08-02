@@ -80,7 +80,7 @@
 /* Mobile Styles */
 @media screen and (max-width: 800px) {
   .roleCard {
-    height: 300px;
+    height: 350px;
     width: 310px;
     border-radius: 50px;
     background: linear-gradient(116.12deg, #c2e0fb 0%, #cbf9f3 100%);
@@ -88,7 +88,7 @@
 
   .cardContent {
     align-items: center;
-    height: 300px;
+    height: 355px;
     width: 310px;
   }
 
