@@ -8,6 +8,7 @@
 
 #headerContent {
   padding-top: clamp(120px, 18vw, 224px);
+  /* min-height: 989px; */
 }
 
 #title {

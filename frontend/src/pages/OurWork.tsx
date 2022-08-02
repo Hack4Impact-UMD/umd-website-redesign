@@ -32,9 +32,6 @@ const OurWork: React.FC = () => {
 
   return (
     <div id={styles.OurWorkPage}>
-      <div className={styles.navBarDiv}>
-        <Navbar />
-      </div>
       <div className={styles.content}>
         <OurWorkHeader />
         <div className={styles.currentProjects}>
