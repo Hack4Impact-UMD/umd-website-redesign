@@ -75,6 +75,10 @@
   transition: max-height 0s 0s, opacity 300ms linear;
 }
 
+.arrow {
+  transition: transform 0.25s;
+}
+
 .arrow.rotated {
   transform: rotate(0.25turn);
   transform-origin: center;
