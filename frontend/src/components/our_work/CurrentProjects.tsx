@@ -19,7 +19,7 @@ const CurrentProjects = () => {
           title={item["attributes"]["title"]}
           date={item["attributes"]["startDate"] ? getSeason((item["attributes"]["startDate"] as string).substring(5,7) as unknown as number) +  " " + (item["attributes"]["startDate"] as string).substring(0,4) : ""}
           summary={item["attributes"]["summary"]}
-          image={item['attributes']["image"]['data'] ? process.env.REACT_APP_ROOT_URL + item['attributes']["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}
+          image={item['attributes']["image"]['data'] ? item['attributes']["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}
           altText={item["attributes"]["imageAltText"]}
         />
       ))}
