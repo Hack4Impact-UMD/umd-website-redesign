@@ -13,6 +13,7 @@ import NonprofitApply from './pages/NonprofitApply';
 import Footer from './components/footer/Footer';
 import OurWork from './pages/OurWork';
 import ProjectPage from './pages/ProjectPage';
+import PageNotFound from './pages/PageNotFound';
 
 // Scrolls to top of
 // https://stackoverflow.com/a/70194027
@@ -41,6 +42,7 @@ function App() {
         <div>
           <Navbar />
           <Routes>
+            <Route path="*" element={<PageNotFound />} />
             <Route path="/" element={<Homepage />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/ourwork" element={<OurWork />} />
