@@ -6,22 +6,25 @@
   margin-bottom: 5%;
   justify-content: center;
   display: flex;
+  min-height: 250px;
+  width: 80%;
 }
 
 #studentsContainer {
   flex: 50%;
   justify-content: center;
-  margin: auto;
-  width: auto !important;
   text-align: center;
+  flex-direction: column;
+  position: relative;
 }
 
 #nonprofitsContainer {
   flex: 50%;
   justify-content: center;
-  margin: auto auto auto 10%;
-  width: auto !important;
   text-align: center;
+  flex-direction: column;
+  position: relative;
+  margin-left: 10%;
 }
 
 #parentContainer h1 {
@@ -32,25 +35,32 @@
   text-align: center;
 }
 
+#parentContainer .height {
+  flex-grow: 1;
+}
+
+.textHolder {
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  height:calc(100% - 55px);
+}
+
+.bluebtn {
+  height: 55px;
+  width: 100%;
+  bottom: 0;
+  justify-content: center;
+  display: flex;
+}
+
 @media (max-width: 1000px) {
+
   #parentContainer {
     position: relative;
     margin-left: 10%;
     margin-right: 10%;
     margin-top: 5%;
-    margin-bottom: 5%;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 1000px) {
-  #parentContainer {
-    position: relative;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 20%;
     margin-bottom: 5%;
     justify-content: center;
     display: flex;
@@ -64,7 +74,7 @@
     justify-content: center;
     width: auto !important;
     text-align: center;
-    padding-bottom: 10%;
+    margin-bottom: 5%;
   }
 
   #nonprofitsContainer {
@@ -73,10 +83,10 @@
     margin: auto;
     width: auto !important;
     text-align: center;
-    padding-bottom: 10%;
   }
 
   #parentContainer .bluebtn {
     margin-top: 5%;
   }
+
 }
