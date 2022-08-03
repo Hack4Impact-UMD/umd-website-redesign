@@ -3,6 +3,7 @@ import { PastProjectCard } from './PastProjectCard';
 import { past_projects } from './past_projects';
 import styles from '../../styles/our_work/PastProjects.module.css';
 import { useAxios } from '../HelperFunctions';
+import { getSeason } from '../HelperFunctions';
 
 const PastProjects: React.FC = () => {
   // query for all projects 
@@ -74,8 +75,8 @@ const PastProjects: React.FC = () => {
             key={index}
             link={"ourwork/" + item['path']}
             title={item['title']}
-            date={item['startDate']}
-            image={'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png'}
+            date={item['startDate'] ? getSeason((item["startDate"] as string).substring(5,7) as unknown as number) +  " " + (item["startDate"] as string).substring(0,4) : ""}
+            image={item["image"]['data'] ? item["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}
             altText={item['title']}
           />
         ))}

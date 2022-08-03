@@ -80,7 +80,7 @@ function ExecBoard() {
               memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"]}
               role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
               pronouns={item["attributes"]["pronouns"]}
-              // src={process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"]}
+              src={item["attributes"]["avatar"]["data"] ? item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
             />
           ))}
         <Person src={placeholder} memberName={'Surabi Ramamurthy'} role={'Executive Director'} pronouns={'she/her'} />
@@ -110,7 +110,7 @@ function TeamMembers() {
               team={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['team']}
               role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
               pronouns={item["attributes"]["pronouns"]}
-              src={item["attributes"]["avatar"]["data"] ? process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
+              src={item["attributes"]["avatar"]["data"] ? item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
             />
           ))}
         <Person
