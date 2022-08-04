@@ -19,30 +19,6 @@
   padding: 0 10%;
 }
 
-.ScrollToTopButton {
-  position: fixed;
-  display: inline-block;
-  right: 2%;
-  bottom: 20%;
-  z-index: 1;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  object-fit: fill;
-}
-
-.ScrollToTopButton .ScrollToTopButtonHover {
-  display: none;
-  left: 0;
-  position: absolute;
-  z-index: 99;
-  object-fit: fill;
-}
-
-.ScrollToTopButton:hover .ScrollToTopButtonHover {
-  display: inline;
-}
-
 @media screen and (min-width: 1000px){
   .currentProjects {
     padding: 0 12%;

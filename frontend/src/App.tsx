@@ -13,6 +13,7 @@ import NonprofitApply from './pages/NonprofitApply';
 import Footer from './components/footer/Footer';
 import OurWork from './pages/OurWork';
 import ProjectPage from './pages/ProjectPage';
+import ScrollToTopButton from './components/buttons/ScrollToTopButton';
 
 // Scrolls to top of
 // https://stackoverflow.com/a/70194027
@@ -51,6 +52,7 @@ function App() {
             <Route path="ourwork/:projectpath" element={<ProjectPage />} />
           </Routes>
           <Footer />
+          <ScrollToTopButton />
         </div>
       </ScrollToTopWrapper>
     </BrowserRouter>
