@@ -1,15 +1,19 @@
-.center {
-  min-height: 350px;
-  text-align: center;
-  position: relative;
-  margin-top: -25%;
-}
-
 .featuredProjectCards {
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 10%;
+  margin-right: 10%;
+  justify-content: center;
+  align-items: center;
 }
 
 .seeMore {
   text-align: center;
+}
+
+@media screen and (min-width: 700px) {
+
+  .featuredProjectCards {
+    margin-left: 20%;
+    margin-right: 20%;
+  }
+
 }
