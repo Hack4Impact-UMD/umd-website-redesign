@@ -9,6 +9,9 @@
   min-width: 100%;
   min-height: 922px;
   z-index: 0;
+
+  display: flex;
+  justify-content: center;
 }
 
 .FooterContent {
@@ -79,8 +82,8 @@
   }
 
   .FooterContent {
-    padding: 0px 24vh;
     gap: 100px;
+    padding: 0;
     flex-direction: row;
   }
 
