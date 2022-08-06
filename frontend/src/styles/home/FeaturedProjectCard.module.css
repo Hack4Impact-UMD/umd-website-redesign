@@ -1,33 +1,19 @@
-
 #cardContainer {
-  margin-top: 0px;
-  margin-bottom: 3vw;
-  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15vw;
 }
 
 #cardImageContainer {
-  flex: 0.35;
   border-color: #333333;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  display: flex;
-  width: 300px;
+  width: auto;
   height: 200px;
   border-radius: 50px;
-}
-
-#cardTextContainer {
-  flex: 0.65;
-  left: 0;
-  top: 0;
-  margin-left: 2vw;
-  max-height: 200px;
-  height: 200px;
-}
-
-#cardHeadingContainer {
-  display: flex;
+  margin-bottom: 7vw;
 }
 
 #cardImage {
@@ -37,23 +23,24 @@
   object-fit: cover;
 }
 
+#cardTextContainer {
+  margin-left: 0;
+}
+
+#cardHeadingContainer {
+  display: block;
+}
+
 #cardTitleContainer {
-  flex: 0.7;
   text-align: left;
 }
 
 #cardTitle {
-  overflow: hidden;
-  text-overflow: ellipsis;
   text-decoration: none;
-  white-space: nowrap;
 }
 
 #cardDateContainer {
-  text-align: center;
-  flex: 0.3;
-  right: 0;
-  top: 0;
+  text-align: left;
 }
 
 #cardDateContainer h3 {
@@ -61,18 +48,14 @@
 }
 
 #cardSummary {
-  max-height: 70%;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: pre-line;
-  padding-top: 2%;
-  padding-bottom: 1%;
   text-align: left;
 }
 
 #cardLinkContainer {
-  flex: 1;
   text-align: left;
+  height: 30px;
 }
 
 #cardLink {
@@ -85,19 +68,72 @@
   transition: color 300ms ease;
 }
 
+@media screen and (min-width: 700px){
 
-@media screen and (max-width: 1000px){
   #cardContainer {
-    display: block;
-    margin-left: 3em;
-    margin-right: 3em;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5vw;
+  }
+
+  #cardImageContainer {
+    display: flex;
+    flex: 0.35;
+    margin-bottom: 0;
+  }  
+
+  #cardTextContainer {
+    flex: 0.65;
+    right: 0;
+    top: 0;
+    margin-left: 2vw;
+    margin-top: 0;
+    flex-direction: column;
+    height: 200px;
+  }
+
+  #cardVariableTextContainer {
+    height:calc(100% - 30px);
+    display: flex;
+    flex-direction: column;
   }
 
   #cardHeadingContainer {
-    display: block;
+    display: flex;
+    top: 0;
+    width: auto;
+  }
+
+  #cardTitleContainer {
+    flex: 0.7;
+    text-align: left;
+  }
+
+  #cardTitle {
+    overflow: hidden;
+    text-decoration: none;
   }
 
   #cardDateContainer {
+    text-align: right;
+    flex: 0.3;
+    left: 0;
+    top: 0;
+  }
+
+  #cardSummary {
+    padding-top: 2%;
+    padding-bottom: 1%;
+    text-align: left;
+    height: auto;
+    width: auto;
+    justify-content: flex-start;
+    flex: 1;
+  }
+
+  #cardLinkContainer {
+    bottom: 0;
     text-align: left;
   }
+
 }
