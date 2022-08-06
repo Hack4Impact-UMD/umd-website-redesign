@@ -1,20 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik:ital@0;1&display=swap');
-
 .studentApplyHeader h1 {
-  font-family: Karla;
-  font-size: 50px;
-  line-height: 58.45px;
   text-align: center;
   margin: 0;
 }
 
 .studentApplyHeader h2 {
-  font-family: Karla;
   font-size: 24px;
   line-height: 28.06px;
   text-align: center;
   margin: 0;
-
   padding: 0 11%;
 }
 
@@ -43,7 +36,6 @@
 }
 
 .timeline h1 {
-  font-family: Karla;
   font-size: 34px;
   line-height: 39.75px;
   color: #0069ca;
@@ -53,7 +45,6 @@
 }
 
 .timeline h2 {
-  font-family: Karla;
   font-size: 24px;
   line-height: 28.06px;
 
@@ -61,7 +52,6 @@
 }
 
 .timeline p {
-  font-family: Rubik;
   font-size: 18px;
   line-height: 21.33px;
 
@@ -98,30 +88,30 @@
 }
 
 .teamMembersDiv {
-    margin-top: 45px;
-    margin-bottom: 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 54px;
+  margin-top: 45px;
+  margin-bottom: 60px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
   
 .teamMembersPhotos {
-    width: 310px;
-    display: flex;
-    justify-content: center;
-    /* flex-wrap: wrap; */
-    gap: 35px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  column-gap: 120px;
+  row-gap: 75px;
+  margin: auto;
 }
 
 @media screen and (min-width: 1200px) {
   .studentApplyHeader {
     background-image: url(../../components/assets/backgrounds/apply_header_desktop.svg);
-    min-height: 989px;
   }
 
   .studentApplyHeader h2 {
-    font-family: Rubik;
     font-size: 18px;
     line-height: 21.33px;
     width: 867px;

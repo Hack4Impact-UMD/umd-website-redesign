@@ -55,12 +55,12 @@ function FooterIconsDesktop() {
       </a>
       <a href={'https://www.facebook.com/hack4impactumd'}>
         <div className={styles.SocialIcon}>
-          <GhLogoSvg />
+          <FbLogoSvg />
         </div>
       </a>
       <a href={'https://github.com/Hack4Impact-UMD'}>
         <div className={styles.SocialIcon}>
-          <FbLogoSvg />
+          <GhLogoSvg />
         </div>
       </a>
     </div>
