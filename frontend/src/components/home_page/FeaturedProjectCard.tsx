@@ -21,18 +21,20 @@ const FeaturedProjectCard = ({ link, title, date, summary, image, altText }: Fea
         </a>
       </div>
       <div id={styles.cardTextContainer}>
-        <div id={styles.cardHeadingContainer}>
-          <div id={styles.cardTitleContainer}>
-            <a id={styles.cardTitle} href={link}>
-              <h3>{title}</h3>
-            </a>
+        <div id={styles.cardVariableTextContainer}>
+          <div id={styles.cardHeadingContainer}>
+            <div id={styles.cardTitleContainer}>
+              <a id={styles.cardTitle} href={link}>
+                <h3>{title}</h3>
+              </a>
+            </div>
+            <div id={styles.cardDateContainer}>
+              <h3>{date}</h3>
+            </div>
           </div>
-          <div id={styles.cardDateContainer}>
-            <h3>{date}</h3>
+          <div id={styles.cardSummary}>
+            <p>{summary}</p>
           </div>
-        </div>
-        <div id={styles.cardSummary}>
-          <p>{summary}</p>
         </div>
         <div id={styles.cardLinkContainer}>
           <a id={styles.cardLink} href={link}>

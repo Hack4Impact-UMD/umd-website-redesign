@@ -27,9 +27,7 @@ const FeaturedProjects = () => {
            ))}
         </div>
         <div className={styles.seeMore} >
-          <a href='/ourwork' className={styles.buttonLink}>
-            <StandardButton text="See More" color="blue" link="/ourwork" />
-          </a>
+          <StandardButton text="See More" color="blue" link="/ourwork" />
         </div>
       </div>
   );

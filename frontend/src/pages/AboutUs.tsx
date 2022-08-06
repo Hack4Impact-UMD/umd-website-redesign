@@ -83,7 +83,6 @@ function ExecBoard() {
               src={item["attributes"]["avatar"]["data"] ? item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
             />
           ))}
-        <Person src={placeholder} memberName={'Surabi Ramamurthy'} role={'Executive Director'} pronouns={'she/her'} />
       </div>
     </div>
   );
@@ -113,12 +112,6 @@ function TeamMembers() {
               src={item["attributes"]["avatar"]["data"] ? item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
             />
           ))}
-        <Person
-          memberName={'Katherine Wang'}
-          team={'Website Redesign Team'}
-          role={'Designer'}
-          pronouns={'she/her'}
-        />
       </div>
     </div>
   );

@@ -45,7 +45,9 @@ function Header() {
             <header className={stylestwo.title}>{ proj ? proj['attributes']['title'] : ""}</header>
             <div className={stylestwo.projectInfoContainer}>
                 <div className={stylestwo.flexChild}>
-                    <img src={ proj && proj['attributes']["image"]['data'] ? process.env.REACT_APP_ROOT_URL + proj['attributes']["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}/>
+                    <div className={stylestwo.projectPicture}>
+                        <img src={ proj && proj['attributes']["image"]['data'] ? process.env.REACT_APP_ROOT_URL + proj['attributes']["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}/>
+                    </div>
                 </div>
                 <div className={stylestwo.flexChild}>
                     <div className={stylestwo.date}> { date }</div>

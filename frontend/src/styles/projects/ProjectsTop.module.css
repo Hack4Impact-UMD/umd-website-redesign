@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Karla');
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 
+/* Desktop Styling */ 
 .blueBG {
   z-index: -1;
   position: relative;
@@ -32,18 +33,19 @@
 }
 
 .projectPicture {
-  box-sizing: border-box;
-
-  width: 500px;
-  height: 333.33px;
-  left: 181px;
-  top: 451px;
-  border-radius: 50px;
+  border-color: #333333;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  display: flex;
+  width: 400px;
+  height: 250px;
+  margin: 4px;
 }
 
 .projectInfoContainer {
   width: 75vw;
-  display:flex;
+  display: flex;
   flex-direction: row;
   margin-top: 3%;
 }
@@ -51,11 +53,8 @@
 .flexChild {
   flex: 1;
   align-items: center;
+  width: 40%;
 }
-
-.flexChild:first-child {
-  margin-right: 10%;
-} 
 
 .date {
   font-family: 'Karla';
@@ -83,7 +82,7 @@
   text-align: center;
 }
 
-
+/* Smaller Screen Styling */ 
 @media (max-width: 1400px){
 
   .blueBG {
@@ -91,13 +90,32 @@
     height: 110vh;
     object-fit: cover;
   }
+
+  .projectPicture {
+    width: 90%;
+    height: 250px;
+    margin: auto;
+    margin-bottom: 3em;
+  }
+
 }
 
-@media (max-width:850px){
+@media (max-width:1000px){
 
   .blueBG{
     width: 100vw;
     height: 100vh auto;
+  }
+
+  .projectInfoContainer {
+    width: 75vw;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3%;
+  }
+
+  .flexChild {
+    width: 100%;
   }
 }
 
