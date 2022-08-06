@@ -32,7 +32,7 @@
 }
 
 #cardTitleContainer {
-  text-align: center;
+  text-align: left;
 }
 
 #cardTitle {
@@ -40,7 +40,7 @@
 }
 
 #cardDateContainer {
-  text-align: center;
+  text-align: left;
 }
 
 #cardDateContainer h3 {
@@ -50,11 +50,11 @@
 #cardSummary {
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: center;
+  text-align: left;
 }
 
 #cardLinkContainer {
-  text-align: center;
+  text-align: left;
   height: 30px;
 }
 
