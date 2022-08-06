@@ -23,7 +23,7 @@
   object-fit: cover;
 }
 
-#cardTextContainer {
+#cardDetailsContainer {
   margin-left: 0;
 }
 
@@ -82,7 +82,7 @@
     margin-bottom: 0;
   }  
 
-  #cardTextContainer {
+  #cardDetailsContainer {
     flex: 0.65;
     right: 0;
     top: 0;
@@ -92,7 +92,7 @@
     height: 200px;
   }
 
-  #cardVariableTextContainer {
+  #cardDetails {
     height:calc(100% - 30px);
     display: flex;
     flex-direction: column;
