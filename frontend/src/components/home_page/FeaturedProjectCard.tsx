@@ -20,8 +20,8 @@ const FeaturedProjectCard = ({ link, title, date, summary, image, altText }: Fea
           <img src={image} alt={altText} id={styles.cardImage}></img>
         </a>
       </div>
-      <div id={styles.cardTextContainer}>
-        <div id={styles.cardVariableTextContainer}>
+      <div id={styles.cardDetailsContainer}>
+        <div id={styles.cardDetails}>
           <div id={styles.cardHeadingContainer}>
             <div id={styles.cardTitleContainer}>
               <a id={styles.cardTitle} href={link}>
