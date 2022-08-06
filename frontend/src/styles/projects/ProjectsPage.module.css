@@ -109,7 +109,6 @@
 @media screen and (min-width: 1200px) {
   .studentApplyHeader {
     background-image: url(../../components/assets/backgrounds/apply_header_desktop.svg);
-    min-height: 989px;
   }
 
   .studentApplyHeader h2 {
