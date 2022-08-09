@@ -24,7 +24,7 @@
   /* position and z index ensures that invisible text will be behind the
    * questions */
   position: relative;
-  z-index: 5;
+  z-index: 2;
 }
 
 .question h3 {
@@ -61,12 +61,6 @@
   opacity: 0;
   max-height: 0;
   transition: max-height 300ms 0ms, opacity 300ms linear;
-}
-
-.answer.showing {
-  /* Above footer, below questions */
-  position: relative;
-  z-index: 3;
 }
 
 .answer.showing p {
