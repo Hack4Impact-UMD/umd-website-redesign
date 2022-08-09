@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Hamburger from '../assets/hamburger_icon.svg';
-import styles from '../../styles/navbar/Navbar.module.css'
+import styles from '../../styles/navbar/Navbar.module.css';
 import h4iLogo from '../assets/h4i_files/h4i_logo.svg';
 import { Link } from 'react-router-dom';
 
@@ -32,21 +32,27 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-              <Link className={styles.navLinks + " " + styles.applyDropdownButton} to={'/apply/student'}>Apply</Link>
-              <div className={isMenuOpen ? `${styles.applyDropdownContainer} ${styles.menuOpen}` : styles.applyDropdownContainer}>
-                <ul className={styles.applyDropdownContent}>
-                  <li>
-                    <Link className={styles.navLinks} to={'/apply/student'}>
+            <Link className={styles.navLinks + ' ' + styles.applyDropdownButton} to={'/apply/student'}>
+              Apply
+            </Link>
+            <div
+              className={
+                isMenuOpen ? `${styles.applyDropdownContainer} ${styles.menuOpen}` : styles.applyDropdownContainer
+              }
+            >
+              <ul className={styles.applyDropdownContent}>
+                <li>
+                  <Link className={styles.navLinks} to={'/apply/student'}>
                     {'For Students'}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className={styles.navLinks} to={'/apply/nonprofit'}>
-                      {'For Nonprofits'}
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link className={styles.navLinks} to={'/apply/nonprofit'}>
+                    {'For Nonprofits'}
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </li>
           <li>
             <a className={styles.navLinks} href={'mailto:umd@hack4impact.org'}>
