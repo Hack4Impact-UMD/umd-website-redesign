@@ -13,7 +13,7 @@
   align-items: center; 
   height: 70px;
   
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
   background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.9) 32.23%, rgba(203, 249, 243, 0.9) 53.35%);
 }
 
