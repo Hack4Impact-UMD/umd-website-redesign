@@ -213,8 +213,12 @@
     height: auto;
     opacity: 100%;
     display: block;
-    visibility: visible;
+    visibility: hidden;
     overflow: hidden;
+  }
+
+  .navbarItems .applyDropdownContainer.menuOpen {
+      visibility: visible;
   }
 
   .applyDropdownContainer .applyDropdownButton {
