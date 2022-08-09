@@ -20,7 +20,7 @@ const Navbar = () => {
           <img alt="Hack4Impact Logo" className={styles.logo} src={h4iLogo}></img>
         </Link>
         <img className={styles.navIcon} src={Hamburger} onClick={toggleMenu}></img>
-        <ul className={isMenuOpen ? styles.navMenuActive : styles.navMenu}>
+        <ul className={isMenuOpen ? styles.navMenuActive : styles.navMenu} onClick={toggleMenu}>
           <li>
             <Link className={styles.navLinks} to={'/aboutus'}>
               {'About Us'}
