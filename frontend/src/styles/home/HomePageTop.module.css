@@ -10,12 +10,15 @@
   object-fit: cover;
 }
 
-.top {
+.header {
   position: absolute;
-  top: 20%;
-}
-
-.center {
+  top: 30%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  margin-left: 2.5%;
 }
 
 .featuredTitle {
@@ -32,14 +35,8 @@
   margin-bottom: 3em;
 }
 
-/*fix overlaym*/
 .textOne {
-  position: relative;
-  left: 19%;
-  top: 30%;
   width: 550px;
-  margin-left: 0%;
-  /* Title */
   text-align: left;
   padding-bottom: 15px;
 }
@@ -54,33 +51,21 @@
 }
 
 .textTwo {
-  position: relative;
-  margin-top: -5%;
-  left: 38%;
-  top: -10%;
-  bottom: 82.66%;
+  margin-bottom: 5%;
   width: 560px;
-  /* Header 2 */
   text-align: left;
 }
 
 .graphic {
-  position: relative;
   width: 380.05px;
   height: 352.73px;
-  left: 145%;
-  margin-right: 0%;
-  margin-top: -55%;
-  top: 100%;
+  margin-left: 5%;
 }
 
 .mintbtn {
-  position: relative;
-  margin: 10px 10px 10px 10px;
-  left: 35%;
-  right: 48.81%;
-  top: 63%;
-  bottom: 0%;
+  margin: 10px 10px 10px 0px;
+  display: flex;
+  justify-content: left;
 }
 
 @media (max-width: 1400px) {
@@ -123,6 +108,8 @@
     left: 50%;
     bottom: 0;
     right: 0;
+    display: flex;
+    justify-content: center;
   }
   .graphic {
     display: none;
