@@ -46,7 +46,7 @@ function Header() {
             <div className={stylestwo.projectInfoContainer}>
                 <div className={stylestwo.flexChild}>
                     <div className={stylestwo.projectPicture}>
-                        <img src={ proj && proj['attributes']["image"]['data'] ? process.env.REACT_APP_ROOT_URL + proj['attributes']["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}/>
+                        <img src={ proj && proj['attributes']["image"]['data'] ? proj['attributes']["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}/>
                     </div>
                 </div>
                 <div className={stylestwo.flexChild}>
@@ -75,9 +75,9 @@ function TeamMembers() {
                 <Person key={index}
                 memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"]}
                 // role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
-                role="tbd"
+                role=""
                 pronouns={item["attributes"]["pronouns"]}
-                // src={item["attributes"]["avatar"]["data"] ? process.env.REACT_APP_ROOT_URL + item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
+                // src={item["attributes"]["avatar"]["data"] ? item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
                 />
             ))}
         </div>
