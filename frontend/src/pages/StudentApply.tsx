@@ -24,7 +24,7 @@ function StudentApply() {
           color="green"
           text="Apply"
           externalLink={true}
-          link="https://docs.google.com/forms/d/e/1FAIpQLSdJELnXgIjk8KNtJn2N5u1j3mnZBzhVQpwCITNetFpo0UIMmQ/viewform?usp=sf_link"
+          link="https://go.umd.edu/h4i_application_fall22"
         />
       </div>
       <div className={styles.faq}>
