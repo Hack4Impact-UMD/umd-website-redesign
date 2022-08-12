@@ -11,43 +11,41 @@ const Navbar = () => {
     setMenuOpen(!isMenuOpen);
   };
 
-  //menu-icon is for later use for mobile implementation
   return (
     <div>
-      <div className={isMenuOpen ? styles.blurOverlay : ''}></div>
+      <div className={isMenuOpen ? styles.blurOverlay : `${styles.blurOverlay} ${styles.hidden}`}></div>
       <nav className={styles.navbarItems}>
         <Link to="/">
           <img alt="Hack4Impact Logo" className={styles.logo} src={h4iLogo}></img>
         </Link>
-        <img className={styles.navIcon} src={Hamburger} onClick={toggleMenu}></img>
-        <ul className={isMenuOpen ? styles.navMenuActive : styles.navMenu} onClick={toggleMenu}>
+        <img className={styles.navIcon} src={Hamburger} onClick={toggleMenu}/>
+
+        <ul className={isMenuOpen ? styles.navMenu : `${styles.navMenu} ${styles.hidden}`}>
           <li>
-            <Link className={styles.navLinks} to={'/aboutus'}>
+            <Link className={styles.navLinks} to={'/aboutus'} onClick={toggleMenu}>
               {'About Us'}
             </Link>
           </li>
           <li>
-            <Link className={styles.navLinks} to={'/ourwork'}>
+            <Link className={styles.navLinks} to={'/ourwork'} onClick={toggleMenu}>
               {'Our Work'}
             </Link>
           </li>
           <li>
-            <Link className={styles.navLinks + ' ' + styles.applyDropdownButton} to={'/apply/student'}>
+            <Link className={styles.navLinks + ' ' + styles.applyDropdownButton} to={'/apply/student'} onClick={toggleMenu}>
               Apply
             </Link>
             <div
-              className={
-                isMenuOpen ? `${styles.applyDropdownContainer} ${styles.menuOpen}` : styles.applyDropdownContainer
-              }
+              className={ `${styles.applyDropdownContainer} ${styles.menuOpen}`}
             >
               <ul className={styles.applyDropdownContent}>
                 <li>
-                  <Link className={styles.navLinks} to={'/apply/student'}>
+                  <Link className={styles.navLinks} to={'/apply/student'} onClick={toggleMenu}>
                     {'For Students'}
                   </Link>
                 </li>
                 <li>
-                  <Link className={styles.navLinks} to={'/apply/nonprofit'}>
+                  <Link className={styles.navLinks} to={'/apply/nonprofit'} onClick={toggleMenu}>
                     {'For Nonprofits'}
                   </Link>
                 </li>
