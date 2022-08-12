@@ -27,7 +27,6 @@
 }
 
 .navMenu .navLinks {
-  display: inline-block;
   padding: 20px 30px;
 
   /* identical to box height */
@@ -120,7 +119,8 @@
   margin-left: 0%;
 }
 
-.navIcon:hover {
+.navIcon:hover,
+.navIcon:focus {
   cursor: pointer;
 }
 
@@ -144,8 +144,14 @@
   z-index: 5;
 }
 
+
+
 /* Mobile Styles */
 @media screen and (max-width: 1000px) {
+  .hidden {
+    display: none !important;
+  }
+
   /* Graphic styles */
   .logo {
     position: absolute;
@@ -163,22 +169,33 @@
 
   /* General navbar styles */
   .blurOverlay {
-    filter: blur(5px);
-    background: rgb(255, 255, 255, 0.9);
+    backdrop-filter: blur(4px);
+    background: rgb(255, 255, 255, 0.7);
+  }
+
+  .applyDropdownContent {
+    transform: translate(15px, 0%);
   }
 
   .navMenu {
-    visibility: hidden;
-    opacity: 0%;
+    display: flex;
+    list-style: none;
+    align-items: center;
+  
+    margin-top: 0px;
+    margin-right: 0px;
   }
 
-  .navMenu li {
-    text-align: left;
-    margin: 0;
+  .navMenu .navLinks {
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Karla';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
   }
 
   .navbarItems > ul {
-    display: block;
     position: fixed;
     top: 70px;
 
@@ -195,6 +212,18 @@
     font-size: 34px;
 
     transition: ease-in-out opacity 0.7s;
+  }
+  
+  .navMenu {
+    display: block;
+  }
+
+  .navMenu:target {
+    display: block;
+  }
+
+  .navbarItems:target + .navIcon {
+    display: block;
   }
 
   .navbarItems li {
@@ -214,17 +243,17 @@
     height: auto;
     opacity: 100%;
     display: block;
-    visibility: visible;
+    visibility: inherit;
     overflow: hidden;
+    margin-bottom: 0px;
+  }
+
+  .navbarItems .applyDropdownContainer.menuOpen {
+    visibility: inherit;
   }
 
   .applyDropdownContainer .applyDropdownButton {
     display: none;
-  }
-
-  .applyDropdownButton {
-    padding: 0px !important;
-    margin: 0px !important;
   }
 
   .applyDropdownContent {
@@ -234,9 +263,11 @@
     position: initial;
     box-shadow: none;
     border: none;
-    height: 120px;
+    height: 100px;
     font-size: 24px;
     font-weight: 700;
+    backdrop-filter: none;
+    margin-left: 2em;
   }
 
   .applyDropdownContent li {
@@ -248,11 +279,12 @@
   /* Links inside the dropdown */
   .applyDropdownContent .navLinks {
     float: none;
-    color: black;
+    color: #333;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
+    font-size: 24px;
   }
 
   .applyDropdownContent .navLinks:hover {

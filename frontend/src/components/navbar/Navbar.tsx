@@ -1,52 +1,56 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import Hamburger from '../assets/hamburger_icon.svg';
-import styles from '../../styles/navbar/Navbar.module.css'
+import styles from '../../styles/navbar/Navbar.module.css';
 import h4iLogo from '../assets/h4i_files/h4i_logo.svg';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  const [currState, setState] = useState(false);
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
-  const handleState = () => {
-    setState(!currState);
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
   };
 
-  //menu-icon is for later use for mobile implementation
   return (
     <div>
-      <div className={currState ? styles.blurOverlay : ''}></div> 
+      <div className={isMenuOpen ? styles.blurOverlay : `${styles.blurOverlay} ${styles.hidden}`}></div>
       <nav className={styles.navbarItems}>
         <Link to="/">
           <img alt="Hack4Impact Logo" className={styles.logo} src={h4iLogo}></img>
         </Link>
-        <img className={styles.navIcon} src={Hamburger} onClick={handleState}></img>
-        <ul className={currState ? styles.navMenu.active : styles.navMenu}>
+        <img className={styles.navIcon} src={Hamburger} onClick={toggleMenu}/>
+
+        <ul className={isMenuOpen ? styles.navMenu : `${styles.navMenu} ${styles.hidden}`}>
           <li>
-            <Link className={styles.navLinks} to={'/aboutus'}>
+            <Link className={styles.navLinks} to={'/aboutus'} onClick={toggleMenu}>
               {'About Us'}
             </Link>
           </li>
           <li>
-            <Link className={styles.navLinks} to={'/ourwork'}>
+            <Link className={styles.navLinks} to={'/ourwork'} onClick={toggleMenu}>
               {'Our Work'}
             </Link>
           </li>
           <li>
-              <Link className={styles.navLinks + " " + styles.applyDropdownButton} to={'/apply/student'}>Apply</Link>
-              <div className={styles.applyDropdownContainer}>
-                <ul className={styles.applyDropdownContent}>
-                  <li>
-                    <Link className={styles.navLinks} to={'/apply/student'}>
+            <Link className={styles.navLinks + ' ' + styles.applyDropdownButton} to={'/apply/student'} onClick={toggleMenu}>
+              Apply
+            </Link>
+            <div
+              className={ `${styles.applyDropdownContainer} ${styles.menuOpen}`}
+            >
+              <ul className={styles.applyDropdownContent}>
+                <li>
+                  <Link className={styles.navLinks} to={'/apply/student'} onClick={toggleMenu}>
                     {'For Students'}
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className={styles.navLinks} to={'/apply/nonprofit'}>
-                      {'For Nonprofits'}
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link className={styles.navLinks} to={'/apply/nonprofit'} onClick={toggleMenu}>
+                    {'For Nonprofits'}
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </li>
           <li>
             <a className={styles.navLinks} href={'mailto:umd@hack4impact.org'}>
