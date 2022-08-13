@@ -76,6 +76,7 @@
   position: absolute;
   padding: 0px;
   transform: translate(-15px, 0%);
+  top:80px;
 
   list-style: none;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -142,9 +143,8 @@
   width: 100vw;
   height: 100vh;
   z-index: 5;
+  display: none;
 }
-
-
 
 /* Mobile Styles */
 @media screen and (max-width: 1000px) {
@@ -171,10 +171,12 @@
   .blurOverlay {
     backdrop-filter: blur(4px);
     background: rgb(255, 255, 255, 0.7);
+    display: block;
   }
 
   .applyDropdownContent {
     transform: translate(15px, 0%);
+    top:0px;
   }
 
   .navMenu {
