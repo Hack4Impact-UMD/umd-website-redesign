@@ -14,7 +14,7 @@ let proj: null;
 function ProjectPage() {
     params = useParams();
 
-    const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*&filters[path][$eq]=" + params.projectpath, "GET", {});
+    const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate[members][populate]=*&populate[image]=*&filters[path][$eq]=" + params.projectpath, "GET", {});
     const project = res.data ? res.data["data"][0] : null;
     proj = project;
 
@@ -23,7 +23,7 @@ function ProjectPage() {
     if (proj){
     return (
         <div>
-            <Header/>
+            <Header/> 
             <TeamMembers/>
         </div>
     );
@@ -74,10 +74,9 @@ function TeamMembers() {
             members.map((item, index) => (
                 <Person key={index}
                 memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"]}
-                // role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
-                role=""
+                role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
                 pronouns={item["attributes"]["pronouns"]}
-                // src={item["attributes"]["avatar"]["data"] ? item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
+                src={item["attributes"]["avatar"]["data"] ? item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
                 />
             ))}
         </div>
