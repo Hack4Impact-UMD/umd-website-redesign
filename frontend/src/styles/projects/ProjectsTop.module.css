@@ -43,6 +43,10 @@
   margin: 4px;
 }
 
+.projectPicture img {
+  width: 500px;
+}
+
 .projectInfoContainer {
   width: 75vw;
   display: flex;
