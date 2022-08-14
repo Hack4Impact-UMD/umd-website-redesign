@@ -100,7 +100,7 @@ function ApplicationTimeline() {
   return (
     <div className={styles.timeline}>
       <h2>Application Timeline</h2>
-      <p>The Hack4Impact-UMD application process includes a written application and possibly an interview. We recruit new members in the Fall and the Sping. Our applications are opened in early August and January and closed before the semester starts.</p>
+      <p>The Hack4Impact-UMD application process includes a written application and possibly an interview. We recruit new members in the Fall and the Spring. Our applications are opened in early August and January and closed before the semester starts.</p>
       <div className={styles.timelineStep}>
         <img src={oneIcon} className={styles.mobileTimelineIcon} />
         <img src={oneIconDesktop} className={styles.desktopTimelineIcon} />
