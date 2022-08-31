@@ -1,4 +1,4 @@
-
+/* Mobile First Styling */
 .aboutUs h1 {
   margin: 0;
   text-align: center;
@@ -74,12 +74,16 @@
   gap: 63px;
 }
 
-.execBoardPhotos {
-  width: 310px;
+.execBoardPhotos,.teamMembersPhotos {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  row-gap: 18px;
+  justify-content: center;
+  column-gap: 30px;
+  row-gap: 23px;
+}
+
+.teamMembersPhotos {
+  margin-bottom: 30px;
 }
 
 .teamMembersDiv {
@@ -89,14 +93,6 @@
   flex-direction: column;
   align-items: center;
   gap: 54px;
-}
-
-.teamMembersPhotos {
-  width: 310px;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 35px;
 }
 
 @media screen and (min-width: 1200px) {
@@ -114,10 +110,10 @@
     gap: 50px;
   }
 
-  .execBoardPhotos {
-    width: 1185px;
+  .execBoardPhotos, .teamMembersPhotos {
+    padding: 0px 10%;
     justify-content: center;
-    gap: 64px;
+    column-gap: 15px;
   }
 
   .teamMembersDiv {
@@ -125,8 +121,6 @@
   }
 
   .teamMembersPhotos {
-    width: 1300px;
-    gap: 63px;
     z-index: 5;
   }
 
