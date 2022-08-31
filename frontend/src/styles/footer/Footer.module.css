@@ -74,15 +74,16 @@
   text-decoration: none;
 }
 
+
 /* Desktop Styling */
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1000px) {
   .Footer {
     /* adjust height of background */
     min-height: 815px;
   }
 
   .FooterContent {
-    gap: 100px;
+    gap: 50px;
     padding: 0;
     flex-direction: row;
   }
@@ -133,4 +134,10 @@
     width: 40px;
     height: 40px;
   }
+}
+
+@media screen and (min-width: 1200px) {
+    .FooterContent {
+        gap: 93px;
+    }
 }
