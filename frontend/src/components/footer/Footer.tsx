@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import styles from '../../styles/footer/Footer.module.css';
 import wordmark from '../assets/h4i_files/h4i_wordmark.svg';
-/* Use svgs for desktop, to make hover easier. */
+/*
+ * Separate SVGs for mobile/desktop so that styling one doesn't affect the other.
+ * Manually added unique IDs in SVG files.
+ */
 import { ReactComponent as IgLogoSvg } from '../assets/footer/ig.svg';
 import { ReactComponent as FbLogoSvg } from '../assets/footer/fb.svg';
 import { ReactComponent as GhLogoSvg } from '../assets/footer/gh.svg';
-/* Use pngs for mobile. No hover needed. Duplicating svg element leads to issues */
-import igLogo from '../assets/footer/ig.svg';
-import fbLogo from '../assets/footer/fb.svg';
-import ghLogo from '../assets/footer/gh.svg';
+import { ReactComponent as IgLogoSvg2 } from '../assets/footer/ig2.svg';
+import { ReactComponent as FbLogoSvg2 } from '../assets/footer/fb2.svg';
+import { ReactComponent as GhLogoSvg2 } from '../assets/footer/gh2.svg';
 
 function Footer() {
   return (
@@ -72,17 +74,17 @@ function FooterIconsMobile() {
     <div className={styles.FooterIconsMobile}>
       <a href={'https://www.instagram.com/hack4impactumd'}>
         <div className={styles.SocialIcon}>
-          <img src={igLogo} />
+          <IgLogoSvg2 />
         </div>
       </a>
       <a href={'https://www.facebook.com/hack4impactumd'}>
         <div className={styles.SocialIcon}>
-          <img src={fbLogo} />
+          <FbLogoSvg2 />
         </div>
       </a>
       <a href={'https://github.com/Hack4Impact-UMD'}>
         <div className={styles.SocialIcon}>
-          <img src={ghLogo} />
+          <GhLogoSvg2 />
         </div>
       </a>
     </div>

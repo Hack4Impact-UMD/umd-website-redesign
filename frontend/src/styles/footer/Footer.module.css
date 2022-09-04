@@ -57,6 +57,14 @@
   height: 30px;
 }
 
+.SocialIcon g g rect {
+  transition: fill 300ms ease-out;
+}
+
+.SocialIcon:hover g g rect {
+  fill: #c2e0fb;
+}
+
 .FooterColumns {
   display: flex;
   flex-direction: column;
@@ -111,14 +119,6 @@
 
   .FooterIconsMobile {
     display: none;
-  }
-
-  .SocialIcon g g rect {
-    transition: fill 300ms ease-out;
-  }
-
-  .SocialIcon:hover g g rect {
-    fill: #c2e0fb;
   }
 
   .SocialIcon svg {
