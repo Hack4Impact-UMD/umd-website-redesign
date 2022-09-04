@@ -3,8 +3,8 @@
 
 .Footer {
   position: relative;
-  /* sizing background image. Use mobile background for desktop too. */
   background-image: url(../../components/assets/footer/footer_background_mobile.svg);
+  /* sizing background image. Use mobile background for desktop too. */
   background-size: cover;
   min-width: 100%;
   min-height: 922px;
@@ -15,8 +15,8 @@
 }
 
 .FooterContent {
-  position: absolute;
-  bottom: 110px;
+  margin-top: 150px;
+  margin-bottom: 100px;
   padding: 0px 5vh;
   display: flex;
   flex-direction: column;
@@ -88,6 +88,8 @@
   }
 
   .FooterContent {
+    margin-top: 400px;
+    margin-bottom: 0px;
     gap: 100px;
     padding: 0;
     flex-direction: row;
