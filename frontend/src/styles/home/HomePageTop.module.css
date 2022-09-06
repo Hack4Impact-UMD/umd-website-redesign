@@ -15,9 +15,6 @@
   top: 20%;
 }
 
-.center {
-}
-
 .featuredTitle {
   position: relative;
   /* identical to box height */
@@ -27,6 +24,7 @@
 .featuredDescription {
   position: relative;
   width: 50%;
+  max-width: 1100px;
   margin: auto;
   text-align: center;
   margin-bottom: 3em;

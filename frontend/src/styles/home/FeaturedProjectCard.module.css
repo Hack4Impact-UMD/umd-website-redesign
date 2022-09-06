@@ -74,7 +74,7 @@
   #cardContainer {
     display: flex;
     flex-direction: row;
-    margin-bottom: 5vw;
+    margin-bottom: min(5vw, 100px);
   }
 
   #cardImageContainer {

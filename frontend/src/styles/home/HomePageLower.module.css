@@ -1,11 +1,9 @@
 
 #parentContainer {
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  margin: 5% auto;
   justify-content: center;
   display: flex;
+  max-width: 1100px;
 }
 
 #studentsContainer {
@@ -30,19 +28,6 @@
 
 #parentContainer p {
   text-align: center;
-}
-
-@media (max-width: 1000px) {
-  #parentContainer {
-    position: relative;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 @media (max-width: 1000px) {
