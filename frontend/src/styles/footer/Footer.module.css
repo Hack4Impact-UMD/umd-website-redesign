@@ -79,6 +79,9 @@
   .Footer {
     /* adjust height of background */
     min-height: 815px;
+    padding-top: 1000px;
+    margin-top: -500px;
+    z-index: -1;
   }
 
   .FooterContent {
