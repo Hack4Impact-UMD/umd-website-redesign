@@ -8,22 +8,23 @@ const HomePageTop = () => {
   return (
     <div>
       <img className={styles.blueBG} src={blueBG}></img>
-      <div className={styles.top}>
-        <div className={styles.textOne}>
+      <div className={styles.header}>
+        <div className={styles.text}>
           <h1 className={styles.textOne}>
-            Building powerful nonprofit software as a tool for{' '}
-            <span className={styles.socialGoodSubText}>social good</span>
+              Building powerful nonprofit software as a tool for{' '}
+              <span className={styles.socialGoodSubText}>social good</span>
           </h1>
-        </div>
-        <h3 className={styles.textTwo}>
-          We are a student-run organization that empowers engineers, designers, activists, and humanitarians to create
-          lasting social change.
-        </h3>
-        <div className={styles.mintbtn}>
-          <StandardButton text="Learn More" color="green" link="/aboutus" />
+          <h3 className={styles.textTwo}>
+            We are a student-run organization that empowers engineers, designers, activists, and humanitarians to create
+            lasting social change.
+          </h3>
+          <div className={styles.mintbtn}>
+            <StandardButton text="Learn More" color="green" link="/aboutus" />
+          </div>
         </div>
         <img className={styles.graphic} src={graphic}></img>
       </div>
+      
       <div className={styles.center}>
         <h2 className={styles.featuredTitle}>Featured Projects</h2>
         <p className={styles.featuredDescription}>

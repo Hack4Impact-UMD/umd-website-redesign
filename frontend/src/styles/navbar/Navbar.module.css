@@ -170,7 +170,7 @@
   /* General navbar styles */
   .blurOverlay {
     backdrop-filter: blur(4px);
-    background: rgb(255, 255, 255, 0.7);
+    background: rgb(255, 255, 255, 0.5);
     display: block;
   }
 
@@ -201,7 +201,7 @@
     position: fixed;
     top: 70px;
 
-    padding: 0px;
+    padding: 20px 0 0 0;
     width: 100vw;
     height: 100vh;
 
