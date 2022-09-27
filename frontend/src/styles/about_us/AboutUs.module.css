@@ -1,7 +1,10 @@
-
 .aboutUs h1 {
   margin: 0;
   text-align: center;
+}
+
+.aboutUs h2 {
+  margin: 0;
 }
 
 .navBarDiv {
