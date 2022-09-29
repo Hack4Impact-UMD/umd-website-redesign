@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Hamburger from '../assets/hamburger_icon.svg';
+import CloseButton from '../assets/navbar_close_button.svg';
 import styles from '../../styles/navbar/Navbar.module.css';
 import h4iLogo from '../assets/h4i_files/h4i_logo.svg';
 import { Link } from 'react-router-dom';
@@ -18,7 +19,7 @@ const Navbar = () => {
         <Link to="/">
           <img alt="Hack4Impact Logo" className={styles.logo} src={h4iLogo}></img>
         </Link>
-        <img className={styles.navIcon} src={Hamburger} onClick={toggleMenu}/>
+        <img className={styles.navIcon} src={isMenuOpen ? CloseButton : Hamburger} onClick={toggleMenu}/>
 
         <ul className={isMenuOpen ? styles.navMenu : `${styles.navMenu} ${styles.hidden}`}>
           <li>
