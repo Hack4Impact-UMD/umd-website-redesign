@@ -1,11 +1,7 @@
 import React from 'react';
 import styles from '../../styles/about_us/ValueCard.module.css';
-
 /*
  * ValueCard Component used in AboutUs page.
- *
- * TODO: Use content div + padding rather than setting width of text boxes? See
- * RoleCard.
  *
  * Props:
  * revBackground (Boolean): if true, gradient is from blue to green.
@@ -16,7 +12,7 @@ import styles from '../../styles/about_us/ValueCard.module.css';
 function ValueCard(props: any) {
   let valueCardClass: string;
   if (props.revBackground) {
-    /* add additional rev class */
+    /* add additional rev class for mobile styling */
     valueCardClass = `${styles.valueCard} ${styles.rev}`;
   } else {
     valueCardClass = styles.valueCard;
@@ -24,8 +20,19 @@ function ValueCard(props: any) {
 
   return (
     <div className={valueCardClass}>
-      <span className={styles.valueCardTextMain}>{props.mainText}</span>
-      <span className={styles.valueCardTextSub}>{props.hoverText}</span>
+      <div className={styles.cardFront}>
+        <div className={styles.cardContentWrapper}>
+          <div className={styles.valueCardTextMain}>
+            <h2 className={'alternateHeader'}>{props.mainText}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.cardBack}>
+        <div className={styles.cardContentWrapper}>
+          <div className={styles.valueCardTextSub}>{props.hoverText}</div>
+        </div>
+      </div>
     </div>
   );
 }

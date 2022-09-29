@@ -1,0 +1,140 @@
+#cardContainer {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15vw;
+}
+
+#cardImageContainer {
+  border-color: #333333;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: auto;
+  height: 200px;
+  border-radius: 50px;
+  margin-bottom: 7vw;
+}
+
+#cardImage {
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  max-width: 400px;
+}
+
+#cardDetailsContainer {
+  margin-left: 0;
+}
+
+#cardHeadingContainer {
+  display: block;
+}
+
+#cardTitleContainer {
+  text-align: left;
+}
+
+#cardTitle {
+  text-decoration: none;
+}
+
+#cardDateContainer {
+  text-align: left;
+}
+
+#cardDateContainer h3 {
+  font-style: italic;
+}
+
+#cardSummary {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+#cardLinkContainer {
+  text-align: left;
+  height: 30px;
+}
+
+#cardLink {
+  line-height: 16px;
+  color: #333333;
+}
+
+#cardLink:hover, #cardLink:focus, #cardLink p:hover {
+  color: #0069ca;
+  transition: color 300ms ease;
+}
+
+@media screen and (min-width: 700px){
+
+  #cardContainer {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5vw;
+  }
+
+  #cardImageContainer {
+    display: flex;
+    flex: 0.35;
+    margin-bottom: 0;
+  }  
+
+  #cardDetailsContainer {
+    flex: 0.65;
+    right: 0;
+    top: 0;
+    margin-left: 2vw;
+    margin-top: 0;
+    flex-direction: column;
+    height: 200px;
+  }
+
+  #cardDetails {
+    height:calc(100% - 30px);
+    display: flex;
+    flex-direction: column;
+  }
+
+  #cardHeadingContainer {
+    display: flex;
+    top: 0;
+    width: auto;
+  }
+
+  #cardTitleContainer {
+    flex: 0.7;
+    text-align: left;
+  }
+
+  #cardTitle {
+    overflow: hidden;
+    text-decoration: none;
+  }
+
+  #cardDateContainer {
+    text-align: right;
+    flex: 0.3;
+    left: 0;
+    top: 0;
+  }
+
+  #cardSummary {
+    padding-top: 2%;
+    padding-bottom: 1%;
+    text-align: left;
+    height: auto;
+    width: auto;
+    justify-content: flex-start;
+    flex: 1;
+  }
+
+  #cardLinkContainer {
+    bottom: 0;
+    text-align: left;
+  }
+
+}

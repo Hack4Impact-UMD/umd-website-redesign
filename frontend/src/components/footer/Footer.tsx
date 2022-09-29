@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import styles from '../../styles/footer/Footer.module.css';
-import wordmark from '../assets/wordmark.svg';
-/* Use svgs for desktop, to make hover easier. */
+import wordmark from '../assets/h4i_files/h4i_wordmark.svg';
+/*
+ * Separate SVGs for mobile/desktop so that styling one doesn't affect the other.
+ * Manually added unique IDs in SVG files.
+ */
 import { ReactComponent as IgLogoSvg } from '../assets/footer/ig.svg';
 import { ReactComponent as FbLogoSvg } from '../assets/footer/fb.svg';
 import { ReactComponent as GhLogoSvg } from '../assets/footer/gh.svg';
-/* Use pngs for mobile. No hover needed. Duplicating svg element leads to issues */
-import igLogo from '../assets/footer/ig.svg';
-import fbLogo from '../assets/footer/fb.svg';
-import ghLogo from '../assets/footer/gh.svg';
+import { ReactComponent as IgLogoSvg2 } from '../assets/footer/ig2.svg';
+import { ReactComponent as FbLogoSvg2 } from '../assets/footer/fb2.svg';
+import { ReactComponent as GhLogoSvg2 } from '../assets/footer/gh2.svg';
 
 function Footer() {
   return (
@@ -30,7 +32,7 @@ function FooterInfo() {
     <div className={styles.FooterInfo}>
       <img src={wordmark} className={styles.WordMark} />
       <p>
-        {"Couldn't find what you're looking for?"}
+        {"Can't find what you're looking for?"}
         <br />
         {'Contact us at '}
         <a href={'mailto:umd@hack4impact.org'}>{'umd@hack4impact.org'}</a>
@@ -55,12 +57,12 @@ function FooterIconsDesktop() {
       </a>
       <a href={'https://www.facebook.com/hack4impactumd'}>
         <div className={styles.SocialIcon}>
-          <GhLogoSvg />
+          <FbLogoSvg />
         </div>
       </a>
       <a href={'https://github.com/Hack4Impact-UMD'}>
         <div className={styles.SocialIcon}>
-          <FbLogoSvg />
+          <GhLogoSvg />
         </div>
       </a>
     </div>
@@ -72,17 +74,17 @@ function FooterIconsMobile() {
     <div className={styles.FooterIconsMobile}>
       <a href={'https://www.instagram.com/hack4impactumd'}>
         <div className={styles.SocialIcon}>
-          <img src={igLogo} />
+          <IgLogoSvg2 />
         </div>
       </a>
       <a href={'https://www.facebook.com/hack4impactumd'}>
         <div className={styles.SocialIcon}>
-          <img src={fbLogo} />
+          <FbLogoSvg2 />
         </div>
       </a>
       <a href={'https://github.com/Hack4Impact-UMD'}>
         <div className={styles.SocialIcon}>
-          <img src={ghLogo} />
+          <GhLogoSvg2 />
         </div>
       </a>
     </div>
@@ -103,7 +105,7 @@ function FooterCols() {
 function FooterCol1() {
   return (
     <div className={styles.FooterColumn}>
-      <h2>Follow Us</h2>
+      <h3>Follow Us</h3>
       <p>
         <a href={'https://www.instagram.com/hack4impactumd'}>Instagram</a>
       </p>
@@ -123,7 +125,7 @@ function FooterCol1() {
 function FooterCol2() {
   return (
     <div className={styles.FooterColumn}>
-      <h2>Learn More</h2>
+      <h3>Learn More</h3>
       <p>
         <a href={'/aboutus'}>About Us</a>
       </p>
@@ -137,7 +139,7 @@ function FooterCol2() {
 function FooterCol3() {
   return (
     <div className={styles.FooterColumn}>
-      <h2>Get Involved</h2>
+      <h3>Get Involved</h3>
       <p>
         <a href={'/apply/student'}>Student Applications</a>
       </p>

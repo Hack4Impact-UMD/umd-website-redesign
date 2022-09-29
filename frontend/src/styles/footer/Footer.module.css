@@ -1,39 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@700&family=Rubik&display=swap');
-
 /* Styling for mobile first */
-
-.Footer p {
-  font-family: 'Rubik';
-  font-size: 18px;
-  line-height: 21.33px;
-  letter-spacing: -0.02em;
-  color: #333333;
-  margin: 0;
-  text-align: left;
-}
-
-.Footer h2 {
-  font-family: 'Karla';
-  font-size: 24px;
-  letter-spacing: -0.02em;
-  color: #333333;
-  margin: 0;
-  text-align: left;
-}
 
 .Footer {
   position: relative;
-  /* sizing background image. Use mobile background for desktop too. */
   background-image: url(../../components/assets/footer/footer_background_mobile.svg);
+  /* sizing background image. Use mobile background for desktop too. */
   background-size: cover;
   min-width: 100%;
   min-height: 922px;
   z-index: 0;
+
+  display: flex;
+  justify-content: center;
+}
+
+.Footer p {
+    margin: 0px;
 }
 
 .FooterContent {
-  position: absolute;
-  bottom: 110px;
+  margin-top: 150px;
+  margin-bottom: 100px;
   padding: 0px 5vh;
   display: flex;
   flex-direction: column;
@@ -48,10 +34,11 @@
 
 .FooterInfo a {
   color: #f2594b;
+  transition: color 300ms ease-out;
 }
 
-.FooterInfo:hover a {
-  color: #f2594b;
+.FooterInfo a:hover {
+  color: #0069ca;
 }
 
 .WordMark {
@@ -73,6 +60,14 @@
   height: 30px;
 }
 
+.SocialIcon g g rect {
+  transition: fill 300ms ease-out;
+}
+
+.SocialIcon:hover g g rect {
+  fill: #c2e0fb;
+}
+
 .FooterColumns {
   display: flex;
   flex-direction: column;
@@ -89,18 +84,27 @@
 .FooterColumn a {
   color: #657788;
   text-decoration: none;
+  transition: color 300ms ease-out;
 }
 
+.FooterColumn a:hover {
+  color: #0069ca;
+}
+
+
 /* Desktop Styling */
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1000px) {
   .Footer {
     /* adjust height of background */
     min-height: 815px;
   }
 
   .FooterContent {
-    padding: 0px 24vh;
+    margin-top: 400px;
+    margin-bottom: 0px;
     gap: 100px;
+
+    padding: 0;
     flex-direction: row;
   }
 
@@ -113,22 +117,6 @@
     flex-direction: row;
   }
 
-  .FooterInfo a {
-    transition: color 300ms ease-out;
-  }
-
-  .FooterInfo a:hover {
-    color: #0069ca;
-  }
-
-  .FooterColumn a {
-    transition: color 300ms ease-out;
-  }
-
-  .FooterColumn a:hover {
-    color: #0069ca;
-  }
-
   .FooterIconsDesktop {
     display: flex;
     gap: 32px;
@@ -138,16 +126,14 @@
     display: none;
   }
 
-  .SocialIcon g g rect {
-    transition: fill 300ms ease-out;
-  }
-
-  .SocialIcon:hover g g rect {
-    fill: #c2e0fb;
-  }
-
   .SocialIcon svg {
     width: 40px;
     height: 40px;
   }
+}
+
+@media screen and (min-width: 1200px) {
+    .FooterContent {
+        gap: 93px;
+    }
 }

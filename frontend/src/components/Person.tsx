@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../styles/people/Person.module.css';
-import globe from './assets/globe.svg';
+import globe from './assets/h4i_files/globe.svg';
 
 /*
  * Person component
@@ -10,7 +10,7 @@ import globe from './assets/globe.svg';
  */
 function Person(props: any) {
   let imageSrc: string;
-  if (props.src == undefined) {
+  if (props.src == undefined || props.src == null) {
     imageSrc = globe;
   } else {
     imageSrc = props.src;

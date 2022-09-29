@@ -5,6 +5,10 @@ import designerLogo from '../assets/rolecard/designer.svg';
 import pmLogo from '../assets/rolecard/pm.svg';
 import techleadLogo from '../assets/rolecard/techlead.svg';
 import bootcampLogo from '../assets/rolecard/bootcamp.svg';
+import bg1 from '../assets/rolecard/RoleCardBackground1.svg';
+import bg2 from '../assets/rolecard/RoleCardBackground2.svg';
+import bgHover1 from '../assets/rolecard/RoleCardBackgroundHover1.svg';
+import bgHover2 from '../assets/rolecard/RoleCardBackgroundHover2.svg';
 
 /*
  * RoleCard Component used in Apply pages.
@@ -21,11 +25,17 @@ import bootcampLogo from '../assets/rolecard/bootcamp.svg';
  */
 function RoleCard(props: any) {
   let roleCardClass: string;
+  let bgMain: string;
+  let bgHover: string;
   if (props.revBackground) {
-    /* add additional rev class */
+    /* add additional rev class for mobile */
     roleCardClass = `${styles.roleCard} ${styles.rev}`;
+    bgMain = bg2;
+    bgHover = bgHover2;
   } else {
     roleCardClass = styles.roleCard;
+    bgMain = bg1;
+    bgHover = bgHover1;
   }
 
   let roleLogo: string;
@@ -51,12 +61,25 @@ function RoleCard(props: any) {
 
   return (
     <div className={roleCardClass}>
-      <div className={styles.content}>
-        <div className={styles.header}>
-          <img src={roleLogo} className={styles.logo} />
-          <span className={styles.roleCardTextMain}>{props.mainText}</span>
+      <div className={styles.cardContent}>
+
+        <div className={styles.cardFront} style={{ backgroundImage: `url(${bgMain})` }}>
+          <div className={styles.cardContentWrapper}>
+              <img src={roleLogo} className={styles.logo} /><br/>
+              <span className={styles.roleCardTextMain}>
+                <h2>{props.mainText}</h2>
+              </span>
+          </div>
         </div>
-        <span className={styles.roleCardTextSub}>{props.hoverText}</span>
+        
+        <div className={styles.cardBack} style={{ backgroundImage: `url(${bgHover})` }}>
+          <div className={styles.cardContentWrapper}>
+            <span className={styles.roleCardTextSub}>
+              <p>{props.hoverText}</p>
+            </span>
+          </div>
+        </div>
+
       </div>
     </div>
   );

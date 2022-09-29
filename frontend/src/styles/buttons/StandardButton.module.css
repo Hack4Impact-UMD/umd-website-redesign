@@ -1,0 +1,46 @@
+.button {
+  height: 55px;
+  width: 180px;
+  border: none;
+  border-radius: 100px;
+  transition: color 300ms ease-out;
+  transition: background-color 300ms ease-out;
+}
+
+.button.green {
+  color: #333333;
+  background-color: #80d2c8;
+
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+}
+
+.button.blue {
+  color: #ffffff;
+  background-color: #0069ca;
+
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+}
+
+@media (hover: hover) {
+  .button.green:hover {
+    background-color: #cbf9f3;
+  }
+
+  .button.blue:hover {
+    background-color: #c2e0fb;
+  }
+
+  .button:hover {
+    color: #657788;
+  }
+}

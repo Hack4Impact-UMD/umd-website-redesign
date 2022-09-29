@@ -1,0 +1,16 @@
+.featuredProjectCards {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.seeMore {
+  text-align: center;
+}
+
+@media screen and (min-width: 1000px) {
+
+  .featuredProjectCards {
+    margin: 0 12%;
+  }
+
+}

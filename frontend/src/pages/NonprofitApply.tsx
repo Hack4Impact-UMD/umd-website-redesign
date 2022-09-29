@@ -2,29 +2,30 @@ import React from 'react';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import styles from '../styles/apply/NonprofitApply.module.css';
-import Navbar from '../components/navbar/Navbar';
-import Footer from '../components/footer/Footer';
 import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
-import ApplyButton from '../components/apply/ApplyButton';
+import StandardButton from '../components/buttons/StandardButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
 
-import inspireLogo from '../components/assets/inspire_logo.svg';
-import arcadiaLogo from '../components/assets/arcadia_logo.svg';
-import hamptonLogo from '../components/assets/hampton_logo.svg';
-import cadcLogo from '../components/assets/cadc_logo.svg';
-import unstoppableLogo from '../components/assets/2unstoppable_logo.svg';
+import inspireLogo from '../components/assets/npo_files/inspire_logo.svg';
+import arcadiaLogo from '../components/assets/npo_files/arcadia_logo.svg';
+import hamptonLogo from '../components/assets/npo_files/hampton_logo.svg';
+import cadcLogo from '../components/assets/npo_files/cadc_logo.svg';
+import unstoppableLogo from '../components/assets/npo_files/2unstoppable_logo.svg';
 
 function NonprofitApply() {
   return (
     <div className={styles.nonprofitApply}>
-      <Navbar />
-      <StudentApplyHeader />
+      {/* <Navbar /> */}
+      <NonprofitApplyHeader />
       <Carousel />
       <HowToApply />
       <div className={styles.applyButton}>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link">
-          <ApplyButton />
-        </a>
+        <StandardButton
+          color="green"
+          text="Apply"
+          externalLink={true}
+          link="https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link"
+        />
       </div>
       <div className={styles.faq}>
         <FaqSection />
@@ -33,18 +34,18 @@ function NonprofitApply() {
   );
 }
 
-function StudentApplyHeader() {
+function NonprofitApplyHeader() {
   return (
     <div className={styles.nonprofitApplyHeader}>
       <div className={styles.nonprofitApplyHeaderContent}>
         <h1>Apply</h1>
         <StudentNonprofitSelector curr={'nonprofit'} />
-        <h2>
+        <p>
           At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want to
           use our software and web development skills to help nonprofits. Our collaborations with nonprofits are
           semester-long (around 3-4 months), and we will work with you to develop a software product that suits your
           organization’s needs.
-        </h2>
+        </p>
       </div>
     </div>
   );
@@ -83,7 +84,7 @@ function Carousel() {
 function HowToApply() {
   return (
     <div className={styles.howToApply}>
-      <h1>How to Apply</h1>
+      <h2>How to Apply</h2>
       <p>
         Please fill out our application form below, and our sourcing team will reach out to the email provided in the
         application within 2 weeks of the application being submitted. In this initial email, we will further explain
@@ -102,23 +103,49 @@ function FaqSection() {
   return (
     <Faq>
       <FaqRow
-        question={<p>What types of projects do you undertake?</p>}
+        question={<h3>What types of projects do you undertake?</h3>}
         answer={
           <p>
-            Most students spend about 3 hours per week on Hack4Impact project work. Each project team determines their
-            own schedule, but most meet for about 1 hour per week to plan and delegate tasks. The other time is spent
-            working on the project individually. <br /> <br />
-            We also hold general body meetings every week, which are about 1 hour long. H4I holds many other events
-            during the year, such as volunteer events, tech talks, and social events. These events are not mandatory,
-            but we highly encourage our members to attend. <br /> <br /> Leadership roles, such as executive directors,
-            project managers, and tech leads will spend more time, up to 10 hours a week.{' '}
+            Most of the projects we undertake are web applications. Common examples of problems we tackle include 
+            volunteer tracking forms, member directories, and data tracking softwares. Check out our projects page 
+            to see some of our previous work, and feel free to contact us with any project ideas!{' '}
           </p>
         }
       />
-      <FaqRow question={<p>How much does this cost?</p>} answer={<p>0</p>} />
-      <FaqRow question={<p>What does the project timeline look like?</p>} answer={<p>MERN</p>} />
-      <FaqRow question={<p>How much involvement is expected from nonprofits?</p>} answer={<p>asdfasdf</p>} />
-      <FaqRow question={<p>How does long term maintenance work?</p>} answer={<p>asdfasdf</p>} />
+      <FaqRow 
+        question={<h3>How much does this cost?</h3>} 
+        answer={
+          <p>
+            These projects are free or low cost (around $5 to $15 per month) for the website and hosting expenses. We are 
+            building software to better help you serve your community, and we know how tight money can be so we 
+            try to keep these expenses as low as possible.
+          </p>} />
+      <FaqRow 
+        question={<h3>What does the project timeline look like?</h3>} 
+        answer={
+          <p>
+            Most development begins at the start of the academic semseter and continues until around the end of the semester. 
+            Throughout all of this, we will remain in constant contact with you to ensure that we are building an application 
+            that you will want to use.
+          </p>} />
+      <FaqRow 
+        question={<h3>How much involvement is expected from nonprofits?</h3>} 
+        answer={
+          <p>
+            We strongly believe in continuous and transparent communication to ensure that your project is something that you 
+            will be happy with. This means we will be asking for constant feedback throughout the development cycle.
+          </p>} />
+      <FaqRow 
+        question={<h3>How does long term maintenance work?</h3>} 
+        answer={
+          <p>
+            Once we hand the product off to you around the end of the academic semester, we want to give you time to experiment 
+            with it and find anything that needs to be changed. <br /> <br /> 
+            Once we end the semester, we will no longer be able to make 
+            additions as easily due to limited resources on our end. If you encounter bugs on the site, we will attempt to 
+            correct these issues, but cannot guarantee that we will be able to.
+          </p>} />
+      <br/><br/><br/>
     </Faq>
   );
 }

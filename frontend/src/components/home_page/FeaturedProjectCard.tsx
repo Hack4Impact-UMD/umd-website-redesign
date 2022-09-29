@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../../styles/our_work/FeaturedProjectCard.module.css';
+import styles from '../../styles/home/FeaturedProjectCard.module.css';
 
 /* defines the parameters to pass into a project card */
 export interface FeaturedProjectCardData {
@@ -20,19 +20,25 @@ const FeaturedProjectCard = ({ link, title, date, summary, image, altText }: Fea
           <img src={image} alt={altText} id={styles.cardImage}></img>
         </a>
       </div>
-      <div id={styles.cardTextContainer}>
-        <div id={styles.cardHeadingContainer}>
-          <div id={styles.cardTitleContainer}>
-            <a id={styles.cardTitle} href={link}>
-              {title}
-            </a>
+      <div id={styles.cardDetailsContainer}>
+        <div id={styles.cardDetails}>
+          <div id={styles.cardHeadingContainer}>
+            <div id={styles.cardTitleContainer}>
+              <a id={styles.cardTitle} href={link}>
+                <h3>{title}</h3>
+              </a>
+            </div>
+            <div id={styles.cardDateContainer}>
+              <h3>{date}</h3>
+            </div>
           </div>
-          <div id={styles.cardDateContainer}>{date}</div>
+          <div id={styles.cardSummary}>
+            <p>{summary}</p>
+          </div>
         </div>
-        <div id={styles.cardSummary}>{summary}</div>
         <div id={styles.cardLinkContainer}>
           <a id={styles.cardLink} href={link}>
-            read more
+            <p>read more</p>
           </a>
         </div>
       </div>

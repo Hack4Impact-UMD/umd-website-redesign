@@ -6,59 +6,21 @@
   top: 0;
 }
 
-.headerBackground {
-  z-index: -1;
-  /* position: absolute; */
-  left: 0;
-  right: 0;
-  top: 0;
-  margin-top: 0;
-  width: 100%;
-  height: 900px;
-  object-fit: contain;
-}
-
 #OurWorkPage {
-  /* position: absolute; */
   justify-content: center;
 }
 
+.currentProjects {
+  margin-top: -100px;
+  padding: 0 2%;
+}
 
-@media screen and (max-width: 1400px) {
-  .content {
-    margin-left: 10%;
-    margin-right: 10%;
+.pastProjects {
+  padding: 0 10%;
+}
+
+@media screen and (min-width: 1000px){
+  .currentProjects {
+    padding: 0 12%;
   }
-}
-
-@media screen and (min-width: 1400px) {
-  .content {
-    margin-top: -55%;
-    margin-left: 20%;
-    margin-right: 20%;
-  }
-}
-
-.ScrollToTopButton {
-  position: fixed;
-  display: inline-block;
-  right: 2%;
-  bottom: 20%;
-  z-index: 1;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  object-fit: fill;
-}
-
-.ScrollToTopButton .ScrollToTopButtonHover {
-  display: none;
-  left: 0;
-  position: absolute;
-  z-index: 99;
-  object-fit: fill;
-}
-
-.ScrollToTopButton:hover .ScrollToTopButtonHover {
-  display: inline;
 }

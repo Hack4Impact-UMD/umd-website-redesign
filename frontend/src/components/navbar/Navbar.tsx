@@ -1,43 +1,67 @@
-import React, { Component, useState } from 'react'
-import { MenuItems } from './MenuItems'
-import styles from '../../styles/navbar/Navbar.module.css'
-import h4iLogo from '../assets/logo.svg';
+import React, { useState } from 'react';
+import Hamburger from '../assets/hamburger_icon.svg';
+import CloseButton from '../assets/navbar_close_button.svg';
+import styles from '../../styles/navbar/Navbar.module.css';
+import h4iLogo from '../assets/h4i_files/h4i_logo.svg';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
+  const [isMenuOpen, setMenuOpen] = useState(false);
 
-    const[currState, setState] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
 
-    const handleState = () => {
-        setState(!currState);
-    }
-        //Map will go through each component and present them in a list  (sets up the alignment)
+  return (
+    <div>
+      <div className={isMenuOpen ? styles.blurOverlay : `${styles.blurOverlay} ${styles.hidden}`}></div>
+      <nav className={styles.navbarItems}>
+        <Link to="/">
+          <img alt="Hack4Impact Logo" className={styles.logo} src={h4iLogo}></img>
+        </Link>
+        <img className={styles.navIcon} src={isMenuOpen ? CloseButton : Hamburger} onClick={toggleMenu}/>
 
-        //menu-icon is for later use for mobile implementation
-        return(
-            <nav className={styles.navbarItems}>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-                <h1 className="navbar-logo"></h1>
-                <Link to="/"> <img className={styles.logo} src={h4iLogo}></img></Link>
-                <div className={styles.menuIcon} onClick={handleState}> 
-                    <i className={currState ? styles.faTimes : styles.faBars}></i>
-                    
-                </div>
-                <ul className={currState ? styles.navMenu.active : styles.navMenu}>
-                    {MenuItems.map((item, index) => {
-                        return (
-                            <li key={index}>
-                                <a className={styles.navLinks} href={item.url}>
-                                    {item.title}
-                                </a>
-                            </li>
-                        )
-                    })}
-
-                </ul>
-            </nav>
-        )
-    
-}
+        <ul className={isMenuOpen ? styles.navMenu : `${styles.navMenu} ${styles.hidden}`}>
+          <li>
+            <Link className={styles.navLinks} to={'/aboutus'} onClick={toggleMenu}>
+              {'About Us'}
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.navLinks} to={'/ourwork'} onClick={toggleMenu}>
+              {'Our Work'}
+            </Link>
+          </li>
+          <li>
+            <Link className={styles.navLinks + ' ' + styles.applyDropdownButton} to={'/apply/student'} onClick={toggleMenu}>
+              Apply
+            </Link>
+            <div
+              className={ `${styles.applyDropdownContainer} ${styles.menuOpen}`}
+            >
+              <ul className={styles.applyDropdownContent}>
+                <li>
+                  <Link className={styles.navLinks} to={'/apply/student'} onClick={toggleMenu}>
+                    {'For Students'}
+                  </Link>
+                </li>
+                <li>
+                  <Link className={styles.navLinks} to={'/apply/nonprofit'} onClick={toggleMenu}>
+                    {'For Nonprofits'}
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a className={styles.navLinks} href={'mailto:umd@hack4impact.org'}>
+              {'Contact Us'}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  );
+};
 
 export default Navbar;

@@ -21,13 +21,15 @@ export const PastProjectCard = ({ link, title, date, image, altText }: PastProje
       <div id={styles.cardTextContainer}>
         <div id={styles.cardTitleContainer}>
           <a id={styles.cardTitle} href={link}>
-            {title}
+            <h3>{title}</h3>
           </a>
         </div>
-        <div id={styles.cardDateContainer}>{date}</div>
+        <div id={styles.cardDateContainer}>
+          <h3>{date}</h3>
+        </div>
         <div id={styles.cardLinkContainer}>
           <a id={styles.cardLink} href={link}>
-            read more
+            <p>read more</p>
           </a>
         </div>
       </div>

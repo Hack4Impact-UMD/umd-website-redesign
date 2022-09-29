@@ -1,9 +1,4 @@
-nav {
-  position: fixed;
-  z-index: 100;
-  width: 100%;
-  height: 70px;
-}
+/* Desktop styles */
 
 .navbarItems {
   position: fixed;
@@ -12,48 +7,122 @@ nav {
   top: 0%;
   bottom: 0%;
   z-index: 50;
-  background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.8) 32.23%, rgba(203, 249, 243, 0.8) 53.35%);
-  backdrop-filter: blur(4px);
 
   display: flex;
   justify-content: right;
-  align-items: center; 
+  align-items: center;
   height: 70px;
+
+  backdrop-filter: blur(6px);
+  background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.9) 32.23%, rgba(203, 249, 243, 0.9) 53.35%);
 }
 
 .navMenu {
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-  grid-gap: 85px;
+  display: flex;
   list-style: none;
-  width: 23px;
-  justify-content: end;
+  align-items: center;
+
+  margin-top: 23px;
   margin-right: 10%;
 }
 
-.navLinks {
+.navMenu .navLinks {
+  padding: 20px 30px;
+
+  /* identical to box height */
+  text-align: center;
+  letter-spacing: -0.02em;
+
   font-family: Rubik;
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
   line-height: 24px;
-  /* identical to box height */
-
-  text-align: center;
-  letter-spacing: -0.02em;
-
-  /* H4I National/Black */
   text-decoration: none;
-  color: #333333;
+  color: #333333; /* H4I National/Black */
   white-space: nowrap;
 }
 
 .navLinks:hover {
   color: #657788;
+
+  transition: ease 0.5s;
 }
 
-.menuIcon {
+.applyDropdownButton {
+  padding: 0px 30px 30px 30px !important;
+  margin: 30px 0px 0px 0px !important;
+}
+
+.applyDropdownContainer {
+  height: 0;
+  opacity: 0%;
+  visibility: hidden;
+  overflow: auto;
+
+  transition: visibility 0s, opacity 0.5s;
+}
+
+/* Dropdown Button Styling */
+.applyDropdownContainer .applyDropdownButton {
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+  border: none;
+}
+
+/* Dropdown content (hidden by default) */
+.applyDropdownContent {
+  position: absolute;
+  padding: 0px;
+  transform: translate(-15px, 0%);
+  top:80px;
+
+  list-style: none;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  background: rgba(203, 249, 243, 0.9);
+  backdrop-filter: blur(4px);
+}
+
+/* Links inside the dropdown */
+.applyDropdownContent .navLinks {
+  display: block;
+  padding: 12px 16px;
+
+  text-decoration: none;
+  text-align: center;
+  color: #333;
+}
+
+.applyDropdownContent .navLinks:hover {
+  color: #657788;
+  transition: ease 0.5s;
+}
+
+/* Show the dropdown menu on hover */
+.applyDropdownButton:hover + .applyDropdownContainer,
+.applyDropdownContainer:hover {
+  visibility: visible;
+  z-index: 100;
+  opacity: 100%;
+}
+
+.navIcon {
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 50;
   display: none;
+
+  height: 40px;
+  width: 40px;
+  right: 5%;
+  margin-left: 0%;
+}
+
+.navIcon:hover,
+.navIcon:focus {
+  cursor: pointer;
 }
 
 .logo {
@@ -61,82 +130,166 @@ nav {
   right: 69.4%;
   top: 22.86%;
   bottom: 22.86%;
-  margin-left: 0%;
+  margin-left: 10vw;
+  left: 1rem;
 }
 
 .faBars {
-
-  color: #0069CA;
+  color: #0069ca;
 }
 
+.blurOverlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+  display: none;
+}
 
-@media screen and (max-width: 1000px){
-
-  .navLinks{
-    font-family: 'Karla';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 34px;
-    line-height: 40px;
-    /* identical to box height */
-
-    text-align: center;
-    letter-spacing: -0.02em;
-
-    /* H4I National/Black */
-
-    color: #333333;
-    text-align: left;
-    padding: 2rem;
-    width: 100%;
-    display: table;
+/* Mobile Styles */
+@media screen and (max-width: 1000px) {
+  .hidden {
+    display: none !important;
   }
 
-  .navMenu {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: auto;
-    position:absolute;
-    top: 70%;
-    left: -100%;
-    opacity: 1;
-    transition: all 0.5s ease;
-    padding: 3rem;
-  }
-
-  .navMenu.active {
-    background: rgba(194,224,251,.7);
-    background-size: cover;
-    opacity: 1;
-    left: 0;
-    transition: all 0.5s ease;
-    z-index: 500;
-    display: flex;
-    translate: scale(0);
-    width: 100%;
-    height: auto;
-  }
-
+  /* Graphic styles */
   .logo {
     position: absolute;
     top: 0;
     left: 0;
-    transform: translate(25%, 50%);
+    transform: translate(0%, 50%);
+    max-width: 285px;
+    width: 70vw;
+    margin-left: 10vw;
   }
 
-  .menuIcon {
+  .navIcon {
     display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%);
-    font-size: 1.8rem;
-    cursor: pointer;
   }
 
-  .faTimes{
-    color: #0069CA;
+  /* General navbar styles */
+  .blurOverlay {
+    backdrop-filter: blur(4px);
+    background: rgb(255, 255, 255, 0.5);
+    display: block;
   }
 
+  .applyDropdownContent {
+    transform: translate(15px, 0%);
+    top:0px;
+  }
+
+  .navMenu {
+    display: flex;
+    list-style: none;
+    align-items: center;
+  
+    margin-top: 0px;
+    margin-right: 0px;
+  }
+
+  .navMenu .navLinks {
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Karla';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+  }
+
+  .navbarItems > ul {
+    position: fixed;
+    top: 70px;
+
+    padding: 20px 0 0 0;
+    width: 100vw;
+    height: 100vh;
+
+    border-top: 3px solid #0069ca;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Karla';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 34px;
+
+    transition: ease-in-out opacity 0.7s;
+  }
+  
+  .navMenu {
+    display: block;
+  }
+
+  .navMenu:target {
+    display: block;
+  }
+
+  .navbarItems:target + .navIcon {
+    display: block;
+  }
+
+  .navbarItems li {
+    padding-left: 14vw;
+    margin-top: 1vh;
+    margin-bottom: 2vh;
+  }
+
+  .navbarItems li a {
+    text-decoration: none;
+    font-weight: 700;
+    color: #333333;
+  }
+
+  /* undoing styles for applyDropdownContainer and respective content */
+  .navbarItems .applyDropdownContainer {
+    height: auto;
+    opacity: 100%;
+    display: block;
+    visibility: inherit;
+    overflow: hidden;
+    margin-bottom: 0px;
+  }
+
+  .navbarItems .applyDropdownContainer.menuOpen {
+    visibility: inherit;
+  }
+
+  .applyDropdownContainer .applyDropdownButton {
+    display: none;
+  }
+
+  .applyDropdownContent {
+    background: none;
+    width: 100vw;
+    transform: none;
+    position: initial;
+    box-shadow: none;
+    border: none;
+    height: 100px;
+    font-size: 24px;
+    font-weight: 700;
+    backdrop-filter: none;
+    margin-left: 2em;
+  }
+
+  .applyDropdownContent li {
+    padding-left: 1rem;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  /* Links inside the dropdown */
+  .applyDropdownContent .navLinks {
+    float: none;
+    color: #333;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-size: 24px;
+  }
+
+  .applyDropdownContent .navLinks:hover {
+    color: #657788;
+  }
 }

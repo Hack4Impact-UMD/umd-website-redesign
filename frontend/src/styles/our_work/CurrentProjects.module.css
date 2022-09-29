@@ -1,12 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Karla');
 
 #sectionTitle {
-  font-family: 'Karla';
-  font-style: normal;
-  font-weight: bold;
-  font-size: 34px;
-  line-height: 40px;
   text-align: center;
-  letter-spacing: -0.02em;
-  color: #0069ca;
+}
+
+.featuredProjectCards {
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 1000px){
 }

@@ -1,15 +1,60 @@
-* {
-  font-family: 'Rubik', sans-serif;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 24px;
-  /* identical to box height */
+@import url('https://fonts.googleapis.com/css?family=Karla');
+@import url('https://fonts.googleapis.com/css?family=Rubik');
 
-  text-align: center;
+html {
+  scroll-behavior: auto !important;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+}
+
+h1 {
+  font-family: 'Karla';
+  font-style: normal;
+  font-size: 50px;
+  line-height: 58px;
+
   letter-spacing: -0.02em;
 
-  /* H4I National/Black */
+  color: #333333;
+}
+
+h2 {
+  font-family: 'Karla';
+  font-style: normal;
+  font-size: 34px;
+  line-height: 40px;
+  margin-bottom: .7em;
+
+  letter-spacing: -0.02em;
+
+  color: #0069CA;
+}
+
+.alternateHeader {
+  color: #333333;
+}
+
+h3 {
+  font-family: 'Karla';
+  font-style: normal;
+  font-size: 24px;
+  line-height: 28px;
+
+  letter-spacing: -0.02em;
+
+  color: #333333;
+}
+
+p {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+
+  letter-spacing: -0.02em;
 
   color: #333333;
 }
