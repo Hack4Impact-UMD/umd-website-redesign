@@ -16,7 +16,6 @@
 
 .FooterContent {
   position: absolute;
-  bottom: 110px;
   padding: 0px 5vh;
   display: flex;
   flex-direction: column;
