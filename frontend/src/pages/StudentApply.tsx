@@ -11,6 +11,7 @@ import threeIcon from '../components/assets/icons/three_icon.svg';
 import oneIconDesktop from '../components/assets/icons/one_icon_desktop.svg';
 import twoIconDesktop from '../components/assets/icons/two_icon_desktop.svg';
 import threeIconDesktop from '../components/assets/icons/three_icon_desktop.svg';
+import {useEffect, useState} from 'react';
 
 function StudentApply() {
   return (
@@ -50,7 +51,25 @@ function StudentApplyHeader() {
   );
 }
 
+function getWindowSize() {
+  const {innerWidth, innerHeight} = window;
+  return {innerWidth, innerHeight};
+}
 function StudentApplyCards() {
+  const [windowSize, setWindowSize] = useState(getWindowSize());
+
+  useEffect(() => {
+    function handleWindowResize() {
+      setWindowSize(getWindowSize());
+    }
+
+    window.addEventListener('resize', handleWindowResize);
+
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+    };
+  }, []);
+
   const summary =
     'Short summary about the role and its responsibilities. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.';
 
@@ -74,12 +93,12 @@ function StudentApplyCards() {
 
   return (
     <div className={styles.studentApplyCards}>
-      <RoleCard mainText={'Engineer'} hoverText={engineerSummary} role={1} />
-      <RoleCard mainText={'Designer'} hoverText={designerSummary} revBackground={true} role={2} />
-      <RoleCard mainText={'Project Manager'} hoverText={projectManagerSummary} role={3} />
-      <RoleCard mainText={'Tech Lead'} hoverText={techLeadSummary} revBackground={true} role={4} />
-      <RoleCard mainText={'Bootcamp'} hoverText={bootcampSummary} role={5} />
-      <RoleCard mainText={'Sourcing'} hoverText={sourcingSummary} role={6} />
+      <RoleCard mainText={'Engineer'} hoverText={engineerSummary} screenWidth={windowSize.innerWidth} role={1} />
+      <RoleCard mainText={'Designer'} hoverText={designerSummary} screenWidth={windowSize.innerWidth} revBackground={true} role={2} />
+      <RoleCard mainText={'Project Manager'} hoverText={projectManagerSummary} screenWidth={windowSize.innerWidth} role={3} />
+      <RoleCard mainText={'Tech Lead'} hoverText={techLeadSummary} screenWidth={windowSize.innerWidth} revBackground={true} role={4} />
+      <RoleCard mainText={'Bootcamp'} hoverText={bootcampSummary} screenWidth={windowSize.innerWidth} role={5} />
+      <RoleCard mainText={'Sourcing'} hoverText={sourcingSummary} screenWidth={windowSize.innerWidth} role={6} />
     </div>
   );
 }

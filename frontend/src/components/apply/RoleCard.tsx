@@ -5,8 +5,11 @@ import designerLogo from '../assets/rolecard/designer.svg';
 import pmLogo from '../assets/rolecard/pm.svg';
 import techleadLogo from '../assets/rolecard/techlead.svg';
 import bootcampLogo from '../assets/rolecard/bootcamp.svg';
+import sourcingLogo from '../assets/rolecard/sourcing.svg';
 import bg1 from '../assets/rolecard/RoleCardBackground1.svg';
 import bg2 from '../assets/rolecard/RoleCardBackground2.svg';
+import bgm1 from '../assets/rolecard/RoleCardBackgroundMobile1.svg';
+import bgm2 from '../assets/rolecard/RoleCardBackgroundMobile2.svg';
 import bgHover1 from '../assets/rolecard/RoleCardBackgroundHover1.svg';
 import bgHover2 from '../assets/rolecard/RoleCardBackgroundHover2.svg';
 
@@ -30,11 +33,11 @@ function RoleCard(props: any) {
   if (props.revBackground) {
     /* add additional rev class for mobile */
     roleCardClass = `${styles.roleCard} ${styles.rev}`;
-    bgMain = bg2;
+    bgMain = props.screenWidth>800?bg2:bgm2;
     bgHover = bgHover2;
   } else {
     roleCardClass = styles.roleCard;
-    bgMain = bg1;
+    bgMain = props.screenWidth>800?bg1:bgm1;
     bgHover = bgHover1;
   }
 
@@ -54,6 +57,9 @@ function RoleCard(props: any) {
       break;
     case 5:
       roleLogo = bootcampLogo;
+      break;
+    case 6:
+      roleLogo = sourcingLogo;
       break;
     default:
       roleLogo = engineerLogo;
