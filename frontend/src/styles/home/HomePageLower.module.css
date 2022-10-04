@@ -1,7 +1,8 @@
 
 #parentContainer {
-  margin-left: 10%;
-  margin-right: 10%;
+  max-width: 1096px;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 5%;
   margin-bottom: 5%;
   justify-content: center;
@@ -11,7 +12,7 @@
 #studentsContainer {
   flex: 50%;
   justify-content: center;
-  margin: auto;
+  margin: auto 5% auto 5%;
   width: auto !important;
   text-align: center;
 }
@@ -19,7 +20,7 @@
 #nonprofitsContainer {
   flex: 50%;
   justify-content: center;
-  margin: auto auto auto 10%;
+  margin: auto 5% auto 5%;
   width: auto !important;
   text-align: center;
 }
@@ -30,6 +31,7 @@
 
 #parentContainer p {
   text-align: center;
+  margin-bottom: 30px;
 }
 
 @media (max-width: 1000px) {
