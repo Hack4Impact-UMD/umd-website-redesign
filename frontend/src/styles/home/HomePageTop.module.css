@@ -11,10 +11,8 @@
 
 .top {
   position: absolute;
-  /* decreased from 20% */
-  top: 16.1%;
-  /* added margin left to line up */
-  margin-left: 0.1vh;
+  top: 20%;
+  margin-left: -8vh;
 }
 
 .center {
