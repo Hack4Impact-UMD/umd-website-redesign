@@ -96,13 +96,8 @@
     background: linear-gradient(116.12deg, #cbf9f3 0%, #c2e0fb 100%);
   }
 
-  .cardFront {
-    display: none;
-  }
-
   .cardBack {
     background-image: none !important;
-    opacity: 1;
   }
 
   .cardBack .cardContentWrapper span {
@@ -116,5 +111,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: start;
+  }
+
+  .roleCard:hover .cardFront {
+    opacity: 0;
+  }
+  
+  .roleCard:hover .cardBack {
+    opacity: 1;
   }
 }
