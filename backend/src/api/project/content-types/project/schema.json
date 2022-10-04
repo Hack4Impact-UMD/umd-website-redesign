@@ -12,19 +12,22 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "projectName": {
-      "type": "string"
+    "title": {
+      "type": "string",
+      "required": true
     },
-    "projectStartDate": {
+    "startDate": {
       "type": "date"
     },
-    "projectSummary": {
-      "type": "string"
+    "summary": {
+      "type": "string",
+      "required": true
     },
-    "projectBlurb": {
-      "type": "richtext"
+    "blurb": {
+      "type": "richtext",
+      "required": true
     },
-    "projectImage": {
+    "image": {
       "type": "media",
       "multiple": true,
       "required": false,
@@ -40,6 +43,28 @@
       "relation": "manyToMany",
       "target": "api::member.member",
       "inversedBy": "projects"
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "required": true
+    },
+    "isCurrentProject": {
+      "type": "boolean",
+      "required": true
+    },
+    "path": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "repoURL": {
+      "type": "string"
+    },
+    "hostedProjectURL": {
+      "type": "string"
+    },
+    "imageAltText": {
+      "type": "string"
     }
   }
 }
