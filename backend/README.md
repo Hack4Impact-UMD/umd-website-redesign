@@ -4,8 +4,8 @@ Strapi comes with a full featured [Command Line Interface](https://docs.strapi.i
 
 ### 'Setting up'
 1. run: npm install or yarn install
+2. Create .env file with fields (i'll send these to you privately)
 2. run "npm run develop" or "yarn develop" to run the backend
-3. Create env file
 
 ### `develop`
 
