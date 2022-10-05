@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/buttons/ScrollToTopButton.module.css';
-import ScrollToTopButtonImg from '../assets/ScrollToTopButton.png';
-import ScrollToTopButtonHoverImg from '../assets/ScrollToTopButtonHover.png';
+import ScrollToTopButtonImg from '../assets/ScrollToTopButton.svg';
+import ScrollToTopButtonHoverImg from '../assets/ScrollToTopButtonHover.svg';
 
 const ScrollToTopButton: React.FC = () => {
   const [visible, setVisible] = useState(false);
