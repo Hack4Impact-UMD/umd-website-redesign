@@ -9,7 +9,7 @@ const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    setMenuOpen(isMenuOpen);
+    setMenuOpen(!isMenuOpen);
   };
 
   return (
@@ -23,17 +23,17 @@ const Navbar = () => {
 
         <ul className={isMenuOpen ? styles.navMenu : `${styles.navMenu} ${styles.hidden}`}>
           <li>
-            <Link className={styles.navLinks} to={'/aboutus'} onClick={toggleMenu}>
+            <Link className={styles.navLinks} to={'/aboutus'}>
               {'About Us'}
             </Link>
           </li>
           <li>
-            <Link className={styles.navLinks} to={'/ourwork'} onClick={toggleMenu}>
+            <Link className={styles.navLinks} to={'/ourwork'}>
               {'Our Work'}
             </Link>
           </li>
           <li>
-            <Link className={styles.navLinks + ' ' + styles.applyDropdownButton} to={'/apply/student'} onClick={toggleMenu}>
+            <Link className={styles.navLinks + ' ' + styles.applyDropdownButton} to={'/apply/student'}>
               Apply
             </Link>
             <div
@@ -41,12 +41,12 @@ const Navbar = () => {
             >
               <ul className={styles.applyDropdownContent}>
                 <li>
-                  <Link className={styles.navLinks} to={'/apply/student'} onClick={toggleMenu}>
+                  <Link className={styles.navLinks} to={'/apply/student'}>
                     {'For Students'}
                   </Link>
                 </li>
                 <li>
-                  <Link className={styles.navLinks} to={'/apply/nonprofit'} onClick={toggleMenu}>
+                  <Link className={styles.navLinks} to={'/apply/nonprofit'}>
                     {'For Nonprofits'}
                   </Link>
                 </li>
