@@ -8,6 +8,7 @@
     align-items: center;
     justify-content: center;
     object-fit: fill;
+    animation: fadeIn 1s; 
   }
   
   .ScrollToTopButton .ScrollToTopButtonHover {
@@ -20,4 +21,13 @@
   .ScrollToTopButton:hover .ScrollToTopButtonHover {
     display: inline;
   }
-  
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* @keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;} 
+ } */
