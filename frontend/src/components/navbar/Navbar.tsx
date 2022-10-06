@@ -9,7 +9,9 @@ const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
-    setMenuOpen(isMenuOpen);
+    if (window.innerWidth <= 1000) {
+      setMenuOpen(!isMenuOpen)
+    }
   };
 
   return (
