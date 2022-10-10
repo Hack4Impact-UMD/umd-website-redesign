@@ -5,6 +5,7 @@ import './App.css';
 
 import HomePageTop from './components/home_page/HomePageTop';
 import HomePageLower from './components/home_page/HomePageLower';
+import Supporters from './components/home_page/Supporters';
 import FeaturedProjects from './components/home_page/FeaturedProjects';
 import AboutUs from './pages/AboutUs';
 import Navbar from './components/navbar/Navbar';
@@ -32,6 +33,7 @@ function Homepage() {
       <HomePageTop />
       <FeaturedProjects />
       <HomePageLower />
+      <Supporters />
     </div>
   );
 }
