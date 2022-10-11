@@ -5,12 +5,14 @@ import styles from '../styles/apply/NonprofitApply.module.css';
 import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
 import StandardButton from '../components/buttons/StandardButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
+import { Link } from 'react-router-dom';
 
 import inspireLogo from '../components/assets/npo_files/inspire_logo.svg';
 import arcadiaLogo from '../components/assets/npo_files/arcadia_logo.svg';
 import hamptonLogo from '../components/assets/npo_files/hampton_logo.svg';
 import cadcLogo from '../components/assets/npo_files/cadc_logo.svg';
 import unstoppableLogo from '../components/assets/npo_files/2unstoppable_logo.svg';
+import { useAxios } from '../components/HelperFunctions';
 
 function NonprofitApply() {
   return (
@@ -70,16 +72,54 @@ function Carousel() {
     },
   });
 
+  // query all projects to be used to find the recent project.
+  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*", "GET", {});
+  const allProjects: any[] = res.data ? res.data["data"] : [];
+  const cleanedProjects = allProjects.map(x => x["attributes"]);
+  const past_projects = cleanedProjects;
+
   return (
     <div ref={ref} className={`keen-slider ${styles.carousel}`}>
-      <img className={`keen-slider__slide ${styles.orgLogo}`} src={inspireLogo} />
-      <img className={`keen-slider__slide ${styles.orgLogo}`} src={arcadiaLogo} />
-      <img className={`keen-slider__slide ${styles.orgLogo}`} src={hamptonLogo} />
-      <img className={`keen-slider__slide ${styles.orgLogo}`} src={cadcLogo} />
+      <Link to={getRecentProject("Inspire", past_projects)}> {/* Don't know the link to inspire logo*/}
+        <img className={`keen-slider__slide ${styles.orgLogo}`} src={inspireLogo} />
+      </Link>
+      <Link to={getRecentProject("Arcadia", past_projects)}>
+        <img className={`keen-slider__slide ${styles.orgLogo}`} src={arcadiaLogo} />
+      </Link>
+      <Link to={getRecentProject("WISE-E", past_projects)}>
+        <img className={`keen-slider__slide ${styles.orgLogo}`} src={hamptonLogo} />
+      </Link>
+      <Link to={getRecentProject("CaDC", past_projects)}>
+        <img className={`keen-slider__slide ${styles.orgLogo}`} src={cadcLogo} />
+      </Link>
+      <Link to={getRecentProject("2Unstoppable", past_projects)}>
       <img className={`keen-slider__slide ${styles.orgLogo}`} src={unstoppableLogo} />
+      </Link>
     </div>
   );
 }
+
+/*
+  Get the most recent project from an organization. It will redirect to the 'ourwork' page if organization does not 
+  have any projects in database. 
+*/
+function getRecentProject(organization: string, past_projects: any[]) {
+  let path = '/ourwork/';
+  const organizationProjects = past_projects.filter(project => (project['title'] as string).includes(organization));
+  if (organizationProjects.length > 0) {
+    let recentProject = organizationProjects[0];
+    organizationProjects.forEach(project => {
+      const recentProjectDate = new Date(recentProject["startDate"] as string);
+      const curProjectDate = new Date(project["startDate"] as string);
+      if (curProjectDate > recentProjectDate) {
+        recentProject = project;
+      }
+    })
+    path += recentProject["path"] as string
+  }
+  return path
+}
+
 
 function HowToApply() {
   return (

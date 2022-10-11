@@ -14,10 +14,10 @@
 
 .faqRow {
   width: 100%;
-  cursor: pointer;
 }
 
 .question {
+  cursor: pointer;
   padding: 0 12%;
   display: flex;
   align-items: center;
