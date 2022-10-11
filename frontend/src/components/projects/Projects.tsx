@@ -1,20 +1,33 @@
 import React from 'react';
-import FeaturedProjectCard from './FeaturedProjectCard';
-import styles from '../../styles/home/FeaturedProjects.module.css';
+import FeaturedProjectCard from './FeaturedProjectCard';  
+import styles from '../../styles/projects/Projects.module.css';
 import { useAxios , getSeason } from '../HelperFunctions';
 import StandardButton from '../buttons/StandardButton';
 
-const FeaturedProjects = () => {
+const Projects = (props:any) => {
+
+    let res = null
+    let projects = null
+  
+  //check which type of projects were rendering
+  if (props.isFeatured == true){
+      // fetch featuredProjects from backend
+    res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*&filters[isFeatured][$eq]=true", "GET", {});
+    projects = res.data ? res.data["data"] : []; 
+  } else { //fetch current projects
+    res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*&filters[isCurrentProject][$eq]=true", "GET", {});
+    projects = res.data ? res.data["data"] : []; 
+  }
   // fetch featuredProjects from backend
-  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*&filters[isFeatured][$eq]=true", "GET", {});
-  const featuredProjects = res.data ? res.data["data"] : [];
 
   return (
     
     <div>
         <div className={styles.featuredProjectCards}>
-          {!featuredProjects ? featuredProjects : 
-           featuredProjects.map((item, index) =>(
+        {/*if display current projects, show current projects title*/}
+        {props.isFeatured?null: <h2 id={styles.sectionTitle}>Current Projects</h2>}
+          {!projects ? projects : 
+           projects.map((item, index) =>(
               <FeaturedProjectCard
                 key={index}
                 link={"ourwork/" + item["attributes"]["path"]}
@@ -26,9 +39,11 @@ const FeaturedProjects = () => {
               />
            ))}
         </div>
-        <div className={styles.seeMore} >
+        {/**display see more button if showing featured projects */}
+        {props.isFeatured? <div className={styles.seeMore} >
           <StandardButton text="See More" color="blue" link="/ourwork" />
-        </div>
+        </div>: null}
+        
       </div>
   );
 };
@@ -37,4 +52,4 @@ const NoProjects = () => {
   return <h1>Oops! There are currently no projects loaded. Try again later.</h1>
 }
 
-export default FeaturedProjects;
+export default Projects;

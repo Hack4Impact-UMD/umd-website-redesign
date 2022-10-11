@@ -5,7 +5,6 @@ import './App.css';
 
 import HomePageTop from './components/home_page/HomePageTop';
 import HomePageLower from './components/home_page/HomePageLower';
-import FeaturedProjects from './components/home_page/FeaturedProjects';
 import AboutUs from './pages/AboutUs';
 import Navbar from './components/navbar/Navbar';
 import StudentApply from './pages/StudentApply';
@@ -15,6 +14,7 @@ import OurWork from './pages/OurWork';
 import ProjectPage from './pages/ProjectPage';
 import ScrollToTopButton from './components/buttons/ScrollToTopButton';
 import PageNotFound from './pages/PageNotFound';
+import Projects from './components/projects/Projects';
 
 // Scrolls to top of
 // https://stackoverflow.com/a/70194027
@@ -30,7 +30,7 @@ function Homepage() {
   return (
     <div>
       <HomePageTop />
-      <FeaturedProjects />
+      <Projects isFeatured = {true} />
       <HomePageLower />
     </div>
   );
