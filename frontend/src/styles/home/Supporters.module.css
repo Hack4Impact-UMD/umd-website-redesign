@@ -10,7 +10,7 @@
     text-align: center; 
     border-top: 3px solid #0069CA;
     line-height: 0.1em;
-    margin: 70px auto 224px; 
+    margin: 70px auto; 
 }
 
 .divider span { 
@@ -21,6 +21,10 @@
     font-size: 24px;
 }
 
+.content {
+    margin-bottom: 70px;
+}
+
 a {
     color: #f2594b;
     transition: color 300ms ease-out;
@@ -29,4 +33,9 @@ a {
   
 a:hover {
     color: #0069ca;
+}
+
+#bloomburg {
+    width: 400px;
+    margin: 50px
 }
