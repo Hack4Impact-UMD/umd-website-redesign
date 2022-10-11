@@ -74,10 +74,9 @@ function Carousel() {
 
   // query all projects to be used to find the recent project.
   const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*", "GET", {});
-  const allProjects = res.data ? res.data["data"] : [];
+  const allProjects: any[] = res.data ? res.data["data"] : [];
   const cleanedProjects = allProjects.map(x => x["attributes"]);
   const past_projects = cleanedProjects;
-  console.log(past_projects)
 
   return (
     <div ref={ref} className={`keen-slider ${styles.carousel}`}>
@@ -104,12 +103,12 @@ function Carousel() {
   Get the most recent project from an organization. It will redirect to the 'ourwork' page if organization does not 
   have any projects in database. 
 */
-function getRecentProject(organization: string, past_projects: never[]) {
+function getRecentProject(organization: string, past_projects: any[]) {
   let path = '/ourwork/';
   const organizationProjects = past_projects.filter(project => (project['title'] as string).includes(organization));
   if (organizationProjects.length > 0) {
-    let recentProject = organizationProjects[0] as any;
-    (organizationProjects as Array<any>).forEach(project => {
+    let recentProject = organizationProjects[0];
+    organizationProjects.forEach(project => {
       const recentProjectDate = new Date(recentProject["startDate"] as string);
       const curProjectDate = new Date(project["startDate"] as string);
       if (curProjectDate > recentProjectDate) {
