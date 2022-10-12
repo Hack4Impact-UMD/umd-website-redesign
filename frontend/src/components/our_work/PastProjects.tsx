@@ -81,6 +81,7 @@ const PastProjects: React.FC = () => {
           />
         ))}
       </div>
+      <div id={styles.notFound}>No results for &quot;{searchInput}&quot;</div>
     </div>
   );
 };
