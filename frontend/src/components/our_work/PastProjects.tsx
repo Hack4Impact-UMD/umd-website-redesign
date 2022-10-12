@@ -22,7 +22,6 @@ const PastProjects: React.FC = () => {
     setSearchInput(e.target.value);
   };
 
-  const [notFound, setNotFound] = useState(false);
 
   // filters projects based on project title, project data, nonprofit name, and project team
   const filteredData = past_projects.filter((project) => {
