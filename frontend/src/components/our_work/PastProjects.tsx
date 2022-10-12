@@ -22,8 +22,10 @@ const PastProjects: React.FC = () => {
     setSearchInput(e.target.value);
   };
 
+  const modifiedInput = searchInput.trim().toLowerCase()
 
-  // filters projects based on project title, project data, nonprofit name, and project team
+  // filters projects based on project title, project data, nonprofit name, project team, season and year.
+  
   const filteredData = past_projects.filter((project) => {
     // check if query is similar to a team member's name
     const team_lowercase: string[] = [];
@@ -31,19 +33,24 @@ const PastProjects: React.FC = () => {
       team_lowercase.push(((member['attributes']['firstName'] + " " + member['attributes']['lastName']) as string).toLowerCase());
     });
     const member_match: string[] = team_lowercase.filter((elem) => {
-      if (elem.includes(searchInput.toLowerCase())) {
+      if (elem.includes(modifiedInput)) {
         return true;
       }
     });
 
+    // used to check if the input contains the season and/or year
+    const season_and_year: string = ((project['Season'] + " " + project['Year']) as string).toLowerCase();
+
     //if query is empty, return all projects
-    if (searchInput === '') {
+    if (modifiedInput === '') {
       return project;
-    } else if (project['title'] && (project['title'] as string).toLowerCase().includes(searchInput.toLowerCase())) {
+    } else if (project['title'] && (project['title'] as string).toLowerCase().includes(modifiedInput)) {
       return project;
-    } else if (project['startDate'] && (project['startDate'] as string).toLowerCase().includes(searchInput.toLowerCase())) {
+    } else if (project['startDate'] && (project['startDate'] as string).toLowerCase().includes(modifiedInput)) {
       return project;
-    } else if (project['link'] && (project['link'] as string).toLowerCase().includes(searchInput.toLowerCase())) {
+    } else if (project['link'] && (project['link'] as string).toLowerCase().includes(modifiedInput)) {
+      return project;
+    } else if ((project['Season'] || project['Year']) && season_and_year.includes(modifiedInput)) {
       return project;
     } else if (member_match.length > 0) {
       return project;
@@ -64,7 +71,7 @@ const PastProjects: React.FC = () => {
         />
         <input
           id={styles.searchbar}
-          placeholder="search by project, nonprofit, or team member"
+          placeholder="search by project, nonprofit, team member, season, or year"
           onChange={handleChange}
           value={searchInput}
           type="text"

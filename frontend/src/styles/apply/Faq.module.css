@@ -17,6 +17,7 @@
 }
 
 .question {
+  cursor: pointer;
   padding: 0 12%;
   display: flex;
   align-items: center;

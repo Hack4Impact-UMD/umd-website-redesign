@@ -9,12 +9,19 @@
   z-index: 50;
 
   display: flex;
-  justify-content: right;
+  justify-content: center;
   align-items: center;
   height: 70px;
+  gap: 200px;
 
   backdrop-filter: blur(6px);
   background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.9) 32.23%, rgba(203, 249, 243, 0.9) 53.35%);
+}
+
+@media screen and (max-width: 1100px) {
+  .navbarItems {
+    gap: 100px;
+  }
 }
 
 .navMenu {
@@ -126,7 +133,6 @@
 }
 
 .logo {
-  position: absolute;
   right: 69.4%;
   top: 22.86%;
   bottom: 22.86%;
@@ -170,7 +176,7 @@
   /* General navbar styles */
   .blurOverlay {
     backdrop-filter: blur(4px);
-    background: rgb(255, 255, 255, 0.7);
+    background: rgb(255, 255, 255, 0.5);
     display: block;
   }
 
@@ -201,7 +207,7 @@
     position: fixed;
     top: 70px;
 
-    padding: 0px;
+    padding: 20px 0 0 0;
     width: 100vw;
     height: 100vh;
 
