@@ -6,17 +6,31 @@
 }
 
 #cardImageContainer {
+  display: flex;
   border-color: #333333;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   width: auto;
-  height: 200px;
   border-radius: 50px;
   margin-bottom: 7vw;
 }
 
 #cardImage {
+  /* flex-shrink: 0;
+  height: 200px;
+  object-fit: cover;
+  max-width: 400px; */
+
+  /* testing in website
+  border-radius: 50px;
+    flex-shrink: 0;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    max-width: 250px;*/
+
+  border-radius: 50px;
   flex-shrink: 0;
   min-width: 100%;
   min-height: 100%;
