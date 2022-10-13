@@ -3,19 +3,21 @@
     justify-content: center;
     width: auto !important;
     text-align: center;
+    margin-top: 190px; 
 }
 
 .divider {
     width: 90%; 
     text-align: center; 
-    border-top: 3px solid #0069CA;
+    border-top: 4px solid #0069CA;
     line-height: 0.1em;
+    max-width: 1148px;
     margin: 70px auto; 
 }
 
 .divider span { 
     background:rgb(255, 255, 255); 
-    padding:0 10px;
+    padding:0 15px;
     color: #0069CA;
     font-weight: 700;
     font-size: 24px;
