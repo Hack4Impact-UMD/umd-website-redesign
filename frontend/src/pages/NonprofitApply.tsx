@@ -59,7 +59,7 @@ function Carousel() {
   const [ref] = useKeenSlider<HTMLDivElement>({
     loop: true,
     mode: 'free',
-    slides: { origin: 'center', perView: 4, spacing: 30 },
+    slides: { origin: 'center', perView: 3, spacing: 30}, //If adding another image to the carousel, update perView
     /* next 3 props implement auto scrolling */
     created(s) {
       s.moveToIdx(4, true, animation);
@@ -80,9 +80,9 @@ function Carousel() {
 
   return (
     <div ref={ref} className={`keen-slider ${styles.carousel}`}>
-      <Link to={getRecentProject("Inspire", past_projects)}> {/* Don't know the link to inspire logo*/}
+      {/* <Link to={getRecentProject("Inspire", past_projects)}>
         <img className={`keen-slider__slide ${styles.orgLogo}`} src={inspireLogo} />
-      </Link>
+      </Link> */}
       <Link to={getRecentProject("Arcadia", past_projects)}>
         <img className={`keen-slider__slide ${styles.orgLogo}`} src={arcadiaLogo} />
       </Link>
