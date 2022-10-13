@@ -20,7 +20,7 @@ function ProjectPage() {
 
     if (proj){
     return (
-        <div>
+        <div className={styles.content}>
             <Header/> 
             <TeamMembers/>
         </div>
