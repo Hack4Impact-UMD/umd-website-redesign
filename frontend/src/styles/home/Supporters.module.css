@@ -35,7 +35,15 @@ a:hover {
     color: #0069ca;
 }
 
+/* mobile */
 #bloomburg {
-    width: 400px;
+    max-width: 275px;
     margin: 50px
+}
+
+@media screen and (min-width: 800px) {
+    #bloomburg {
+        max-width: 400px;
+        margin: 50px
+    }
 }
