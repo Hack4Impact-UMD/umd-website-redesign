@@ -4,6 +4,8 @@
     background-position: bottom;
     min-width: 100%;
     min-height: 810px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .MessageSent {
@@ -19,4 +21,5 @@
     text-align: center;
     font-weight: 700px;
     font-size: 34px;
+    line-height: 1.1;
 }
