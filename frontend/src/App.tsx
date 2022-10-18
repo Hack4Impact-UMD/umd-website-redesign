@@ -7,6 +7,7 @@ import HomePageTop from './components/home_page/HomePageTop';
 import HomePageLower from './components/home_page/HomePageLower';
 import Supporters from './components/home_page/Supporters';
 import AboutUs from './pages/AboutUs';
+import ContactPage from './pages/ContactPage';
 import Navbar from './components/navbar/Navbar';
 import StudentApply from './pages/StudentApply';
 import NonprofitApply from './pages/NonprofitApply';
@@ -52,7 +53,7 @@ function App() {
             <Route path="/apply" element={<StudentApply />} />
             <Route path="/apply/student" element={<StudentApply />} />
             <Route path="/apply/nonprofit" element={<NonprofitApply />} />
-            <Route path="/contactus" element={<App />} />
+            <Route path="/contactus" element={<ContactPage />} />
             <Route path="ourwork/:projectpath" element={<ProjectPage />} />
           </Routes>
           <Footer />

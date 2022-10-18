@@ -1,0 +1,89 @@
+#headerDiv {
+    background-image: url(../../components/assets/backgrounds/apply_header.svg);
+    background-size: cover;
+    background-position: bottom;
+    min-width: 100%;
+    min-height: 810px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#headerContent {
+    padding-top: clamp(120px, 18vw, 224px);
+}
+
+#title {
+    text-align: center;
+    margin-bottom: 80px;
+}
+  
+form {
+    max-width: 672px;
+    margin: auto;
+    font-size: 18px;
+}
+
+form p {
+    float: left;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+form p:nth-child(1) {
+    float: left;
+    width: 47%;
+}
+
+form p:nth-child(2) {
+    float: right;
+    width: 47%;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+
+form label {
+    display: block;
+}
+
+input, textarea {
+    padding: 1em;
+}
+
+textarea {
+    height: 263px;
+    resize: none;
+}
+
+input[type=text] {
+    height: 40px;
+}
+
+input[type=submit] {
+    background-color: #0069CA;
+    color: #FFFFFF;
+    height: 55px;
+    width: 180px;
+    padding: 10px;
+    border: none;
+    border-radius: 100px;
+    transition: color 300ms ease-out;
+    transition: background-color 300ms ease-out;
+}
+
+input, textarea {
+    width: 100%;
+    border: 1px solid #657788;
+    border-radius: 5px;
+}
+
+.buttonHolder {
+    text-align: center;
+}
+
+.buttonHolder input {
+    margin-top: 50px;
+}
