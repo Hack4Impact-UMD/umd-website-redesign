@@ -53,9 +53,12 @@ const Navbar = () => {
             </div>
           </li>
           <li>
-            <a className={styles.navLinks} href={'mailto:umd@hack4impact.org'}>
+            {/* <a className={styles.navLinks} href={'mailto:umd@hack4impact.org'}>
               {'Contact Us'}
-            </a>
+            </a> */}
+            <Link className={styles.navLinks} to={'/contactus'} onClick={toggleMenu}>
+              {'Contact Us'}
+            </Link>
           </li>
         </ul>
       </nav>
