@@ -1,7 +1,7 @@
 .ScrollToTopButton {
     position: fixed;
     display: inline-block;
-    right: 2%;
+    right: 1%;
     bottom: 20%;
     z-index: 99;
     cursor: pointer;
