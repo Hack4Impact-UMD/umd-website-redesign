@@ -20,3 +20,10 @@
   margin: 0;
   padding: 0 22%;
 }
+
+@media screen and (min-width: 1200px) {
+  #headerDiv {
+    background-image: url(../../components/assets/backgrounds/apply_header_desktop.svg);
+    min-height: 989px;
+  }
+}
