@@ -76,9 +76,32 @@
   padding-top: 30px;
 }
 
+
+
+#showMore {
+    display: none;
+    background-color: #0069CA;
+    color: #FFFFFF;
+    height: 55px;
+    width: 180px;
+    padding: 10px;
+    margin: 0 auto;
+    border: none;
+    border-radius: 100px;
+    transition: color 300ms ease-out;
+    transition: background-color 300ms ease-out;
+    margin-top: 5px;
+}
+
 @media screen and (max-width: 800px){
   #projectsDisplay {
     margin-top: 20px;
+    display: block;
+    height: 580px;
+    overflow-y:scroll;
+  }
+
+  #showMore {
     display: block;
   }
 } 
