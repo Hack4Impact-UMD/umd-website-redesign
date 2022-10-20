@@ -6,13 +6,12 @@ import { useAxios } from '../HelperFunctions';
 import { getSeason } from '../HelperFunctions';
 
 const PastProjects: React.FC = () => {
-  //keeps track of how many projects to load
-  const [projectsToLoad, setProjectsToLoad] = useState(3)
   // query for all projects 
   const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*", "GET", {});
   const allProjects = res.data ? res.data["data"] : [];
   const cleanedProjects = allProjects.map(x => x["attributes"]);
   // TODO: REMOVE, DEBUG STATEMENT
+  // console.log("cleaned projects: ", cleanedProjects); 
   const past_projects = cleanedProjects;
 
   // Set up state for search bar functionality
@@ -22,19 +21,6 @@ const PastProjects: React.FC = () => {
     e.preventDefault();
     setSearchInput(e.target.value);
   };
-
-    //Loads more projects
-  const loadMoreProjects = () => {
-    //get access to the div that shows the projects
-    const projectsDisplay:Element | null = document.querySelector(`${styles.projectsDisplay}`)
-    //show each project
-    for (let i = projectsToLoad; i < projectsToLoad + 3 && i < filteredData.length; i++){
-      if (projectsDisplay != null){    
-          projectsDisplay.innerHTML += filteredData[i]
-      }
-    }
-    setProjectsToLoad(projectsToLoad + 3)
-  }
 
   const modifiedInput = searchInput.trim().toLowerCase()
 
@@ -97,23 +83,20 @@ const PastProjects: React.FC = () => {
       </div>
       { filteredData.length != 0 ? 
       <div id={styles.projectsDisplay}>
-        {filteredData.map((item, index) => {
-          if (index < projectsToLoad){
-            return (<PastProjectCard
-              key={index}
-              link={"ourwork/" + item['path']}
-              title={item['title']}
-              date={item['startDate'] ? getSeason((item["startDate"] as string).substring(5,7) as unknown as number) +  " " + (item["startDate"] as string).substring(0,4) : ""}
-              image={item["image"]['data'] ? item["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}
-              altText={item['title']}
-            />)
-          }
-          
-      })}
+        {filteredData.map((item, index) => (
+          <PastProjectCard
+            key={index}
+            link={"ourwork/" + item['path']}
+            title={item['title']}
+            date={item['startDate'] ? getSeason((item["startDate"] as string).substring(5,7) as unknown as number) +  " " + (item["startDate"] as string).substring(0,4) : ""}
+            image={item["image"]['data'] ? item["image"]["data"][0]["attributes"]["url"] : "https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png"}
+            altText={item['title']}
+          />
+        ))}
       </div> :
         <div id={styles.notFound}>No results for &quot;{searchInput}&quot;</div>
       }
-      <button id = {styles.showMore} onClick = {loadMoreProjects}>Show more</button>
+      
     </div>
   );
 };
