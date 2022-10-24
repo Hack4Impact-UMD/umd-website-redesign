@@ -54,6 +54,24 @@
   margin-right: auto;
 }
 
+#notFound{
+  display: block;
+  width: 100%;
+  height: 28px;
+
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  /* identical to box height */
+
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  color: #000000;
+  margin-bottom: 2em;
+}
 .pastProjectsContainer {
   padding-top: 30px;
 }

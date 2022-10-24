@@ -1,13 +1,14 @@
 .ScrollToTopButton {
     position: fixed;
     display: inline-block;
-    right: 2%;
+    right: 1%;
     bottom: 20%;
     z-index: 99;
     cursor: pointer;
     align-items: center;
     justify-content: center;
     object-fit: fill;
+    animation: fadeIn 1s; 
   }
   
   .ScrollToTopButton .ScrollToTopButtonHover {
@@ -20,4 +21,8 @@
   .ScrollToTopButton:hover .ScrollToTopButtonHover {
     display: inline;
   }
-  
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }

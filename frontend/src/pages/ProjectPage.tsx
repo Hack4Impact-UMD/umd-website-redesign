@@ -3,7 +3,6 @@ import stylestwo from '../styles/projects/ProjectsTop.module.css';
 import styles from '../styles/projects/ProjectsPage.module.css';
 import githubIcon from '../components/assets/icons/github_icon.png';
 import internetIcon from '../components/assets/icons/internet_icon.png';
-
 import Person from '../components/Person';
 import { Params, useParams } from 'react-router-dom';
 import { useAxios, getSeason } from '../components/HelperFunctions'
@@ -18,11 +17,10 @@ function ProjectPage() {
     const project = res.data ? res.data["data"][0] : null;
     proj = project;
 
-    // console.log(proj);
 
     if (proj){
     return (
-        <div>
+        <div className={styles.content}>
             <Header/> 
             <TeamMembers/>
         </div>
@@ -71,14 +69,25 @@ function TeamMembers() {
         <div className={styles.teamMembersPhotos}>
             {!members ? "Looks like there are no team members here. Check again later?" :
             // render team members
-            members.map((item, index) => (
-                <Person key={index}
-                memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"]}
-                role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title']}
-                pronouns={item["attributes"]["pronouns"]}
-                src={item["attributes"]["avatar"]["data"] ? item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
-                />
-            ))}
+            members.map((item, index) => {
+                //if this user had no role in the project dont render them
+                if (Array.from(item['attributes']['componentRolesArr']).length == 0){
+                    return null
+                } else {
+                    return (
+                        <Person key={index}
+                        memberName={item["attributes"]["firstName"] + ' ' + item["attributes"]["lastName"] || "Member"}
+                        //if no title exists for the user use "Member"
+                        role={(item['attributes']['componentRolesArr'] as Array<any>).find(e => e['isDisplayRole'] == true)['title'] || "Member"}
+                        //if no pronouns are provided, show nothing for that
+                        pronouns={item["attributes"]["pronouns"] || null}
+                        //if no user image exists, return null, a template will be used
+                        src={item["attributes"]["avatar"]["data"] != null ? item["attributes"]["avatar"]["data"]["attributes"]["url"] : null}
+                        />
+                    )
+                }
+               
+            })}
         </div>
         </div>
     );
