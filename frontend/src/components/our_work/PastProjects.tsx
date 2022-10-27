@@ -6,13 +6,12 @@ import { useAxios } from '../HelperFunctions';
 import { getSeason } from '../HelperFunctions';
 
 const PastProjects: React.FC = () => {
-  //keeps track of how many projects to load
-  const [projectsToLoad, setProjectsToLoad] = useState(3)
   // query for all projects 
   const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*", "GET", {});
   const allProjects = res.data ? res.data["data"] : [];
   const cleanedProjects = allProjects.map(x => x["attributes"]);
   // TODO: REMOVE, DEBUG STATEMENT
+  // console.log("cleaned projects: ", cleanedProjects); 
   const past_projects = cleanedProjects;
 
   // Set up state for search bar functionality
@@ -35,6 +34,7 @@ const PastProjects: React.FC = () => {
   //   }
   //   setProjectsToLoad(projectsToLoad + 3)
   // }
+
 
   const modifiedInput = searchInput.trim().toLowerCase()
 
@@ -113,6 +113,7 @@ const PastProjects: React.FC = () => {
         <div id={styles.notFound}>No results for &quot;{searchInput}&quot;</div>
       }
       {/* <button id={styles.showMore} onClick={loadMoreProjects}>Show more</button> */}
+
     </div>
   );
 };

@@ -8,14 +8,17 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
   const [isMenuOpen, setMenuOpen] = useState(false);
 
-  function toggleAndReload(to:string) {
+  // if window <= 1000, will toggle hamburger menu
+  // otherwise, will scroll to top of current page, if current page link was clicked
+  function toggleOrScroll(to:string) {
     toggleMenu();
-    reload(to);
+    scroll(to);
   }
 
-  const reload = (to:string) => {
+  // only scrolls to top of the current page if it's wide enough not to have the hamburger menu
+  const scroll = (to:string) => {
     if (window.innerWidth > 1000 && window.location.pathname == to) {
-      window.location.reload();
+      window.scrollTo(0,0)
     }
   };
   
@@ -29,24 +32,24 @@ const Navbar = () => {
     <div>
       <div className={isMenuOpen ? styles.blurOverlay : `${styles.blurOverlay} ${styles.hidden}`}></div>
       <nav className={styles.navbarItems}>
-        <Link to="/" onClick={() => reload('/')}>
+        <Link to="/" onClick={() => scroll('/')}>
           <img alt="Hack4Impact Logo" className={styles.logo} src={h4iLogo}></img>
         </Link>
         <img className={styles.navIcon} src={isMenuOpen ? CloseButton : Hamburger} onClick={toggleMenu}/>
 
         <ul className={isMenuOpen ? styles.navMenu : `${styles.navMenu} ${styles.hidden}`}>
           <li>
-            <Link className={styles.navLinks} to={'/aboutus'} onClick={() => toggleAndReload('/aboutus')}>
+            <Link className={styles.navLinks} to={'/aboutus'} onClick={() => toggleOrScroll('/aboutus')}>
               {'About Us'}
             </Link>
           </li>
           <li>
-            <Link className={styles.navLinks} to={'/ourwork'} onClick={() => toggleAndReload('/ourwork')}>
+            <Link className={styles.navLinks} to={'/ourwork'} onClick={() => toggleOrScroll('/ourwork')}>
               {'Our Work'}
             </Link>
           </li>
           <li>
-            <Link className={styles.navLinks + ' ' + styles.applyDropdownButton} to={'/apply/student'} onClick={() => toggleAndReload('/apply/student')}>
+            <Link className={styles.navLinks + ' ' + styles.applyDropdownButton} to={'/apply/student'} onClick={() => toggleOrScroll('/apply/student')}>
               Apply
             </Link>
             <div
@@ -54,12 +57,12 @@ const Navbar = () => {
             >
               <ul className={styles.applyDropdownContent}>
                 <li>
-                  <Link className={styles.navLinks} to={'/apply/student'} onClick={() => toggleAndReload('/apply/student')}>
+                  <Link className={styles.navLinks} to={'/apply/student'} onClick={() => toggleOrScroll('/apply/student')}>
                     {'For Students'}
                   </Link>
                 </li>
                 <li>
-                  <Link className={styles.navLinks} to={'/apply/nonprofit'} onClick={() => toggleAndReload('/apply/nonprofit')}>
+                  <Link className={styles.navLinks} to={'/apply/nonprofit'} onClick={() => toggleOrScroll('/apply/nonprofit')}>
                     {'For Nonprofits'}
                   </Link>
                 </li>
@@ -70,7 +73,7 @@ const Navbar = () => {
             {/* <a className={styles.navLinks} href={'mailto:umd@hack4impact.org'}>
               {'Contact Us'}
             </a> */}
-            <Link className={styles.navLinks} to={'/contactus'} onClick={toggleMenu}>
+            <Link className={styles.navLinks} to={'/contactus'} onClick={() => toggleOrScroll('/contactus')}>
               {'Contact Us'}
             </Link>
           </li>
