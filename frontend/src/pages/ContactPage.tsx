@@ -66,7 +66,7 @@ function ContactPage() {
         <div id={styles.headerDiv}>
             <div id={styles.headerContent}>
                 <h1 id={styles.title}>Contact Us</h1>
-                <form action="https://formsubmit.co/434ea1d2a920d96f068d3215b79ddade" onSubmit={validateForm} method='POST'>
+                <form action="https://formsubmit.co/" onSubmit={validateForm} method='POST'>
                     <div>
                     <label>First Name</label>
                     <input  type="text" id="firstName" name="firstName" onChange={updateInfo}/>
