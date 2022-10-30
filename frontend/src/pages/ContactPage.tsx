@@ -66,7 +66,7 @@ function ContactPage() {
         <div id={styles.headerDiv}>
             <div id={styles.headerContent}>
                 <h1 id={styles.title}>Contact Us</h1>
-                <form action="https://formsubmit.co/umd@hack4impact.org" onSubmit={validateForm} method='POST'>
+                <form action="https://formsubmit.co/50a550228ae91c27050614b130c7b1c5" onSubmit={validateForm} method='POST'>
                     <div>
                     <label>First Name</label>
                     <input  type="text" id="firstName" name="firstName" onChange={updateInfo}/>
