@@ -28,16 +28,14 @@ const ScrollToTopButton: React.FC = () => {
   return (
     <div className={styles.ScrollToTopButton} onClick={scrollToTop} style={{ display: visible ? 'inline' : 'none' }}>
       <img 
+        className={styles.ScrollToTopButton}
         src={ScrollToTopButtonImg} 
         aria-label="Scroll to Top Button" 
-        width={window.innerWidth <= 500 ? 59 : 64} // Check if in mobile mode
-        height={window.innerWidth <= 500 ? 59 : 64}/>
+      />
       <img
         className={styles.ScrollToTopButtonHover}
         src={ScrollToTopButtonHoverImg}
         aria-label="Scroll to Top Button Hover"
-        width={window.innerWidth <= 500 ? 59 : 64}
-        height={window.innerWidth <= 500 ? 59 : 64}
       />
     </div>
   );

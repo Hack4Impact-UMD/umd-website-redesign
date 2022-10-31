@@ -80,13 +80,6 @@ input, textarea {
     border-radius: 5px;
 }
 
-.error {
-    float: right;
-    color: red;
-    font-size: 15px;
-    margin-bottom: 0px;
-}
-
 .buttonHolder {
     text-align: center;
 }
