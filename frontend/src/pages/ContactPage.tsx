@@ -1,6 +1,4 @@
-import { STATES } from 'mongoose';
 import React, { useState } from 'react';
-import { InferTypeNode } from 'typescript';
 import styles from '../styles/contact/Contact.module.css';
 import MessageSent from './MessageSent';
 
