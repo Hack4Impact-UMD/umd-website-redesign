@@ -23,18 +23,18 @@ form {
     font-size: 18px;
 }
 
-form p {
+form div {
     float: left;
     width: 100%;
     margin-bottom: 30px;
 }
 
-form p:nth-child(1) {
+form div:nth-child(1) {
     float: left;
     width: 47%;
 }
 
-form p:nth-child(2) {
+form div:nth-child(2) {
     float: right;
     width: 47%;
 }
