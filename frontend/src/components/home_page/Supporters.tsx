@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '../../styles/home/Supporters.module.css';
 import bloomburgLogo from '../assets/supporters/Bloomberg.png';
+import { Link } from 'react-router-dom';
 
 const Supporters = () => {
     return (
@@ -12,7 +13,9 @@ const Supporters = () => {
                 <img src={bloomburgLogo} id={styles.bloomburg}/>
             </div>
             {/* <h4 className={styles.divider}><span>BRONZE</span></h4> */}
-            <a href={'mailto:umd@hack4impact.org'}>{'Interested in partnering? Contact us!'}</a>
+            <Link className={styles.navLinks} to={'/contactus'}>
+              {'Interested in partnering? Contact us!'}
+            </Link>
         </div>
     );
 };
