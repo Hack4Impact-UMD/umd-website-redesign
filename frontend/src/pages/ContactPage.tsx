@@ -21,6 +21,7 @@ function ContactPage() {
     function submitValid() {
         return state.fname && state.lname && state.subject && state.email && state.phone && state.text;
     }
+
     const [contactInfo] = useState({
         firstName: '',
         lastName: '',
@@ -109,7 +110,6 @@ function ContactPage() {
                     </p>
                     <div className={styles.buttonHolder}>
                         <input type="submit" value="Send Message" onClick={() => { submitValid() && setSent(true) }}></input>
-
                     </div>
                 </form>
             </div>
