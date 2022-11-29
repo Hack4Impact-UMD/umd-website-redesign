@@ -11,18 +11,17 @@ The chapter website frontend is built in `React` and `TypeScript`, with a `Strap
 ### Links
 
 - 👾 [Live Deploy](https://umd.hack4impact.org/)
-- [Technical Design Doc](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Technical%20Design%20Doc%20f8b67954916f49bc9feb8a8f89430715.md)
-         * includes some architecture of site, initial design proposal
+- [Technical Design Doc](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Technical%20Design%20Doc%20f8b67954916f49bc9feb8a8f89430715.md):  includes some architecture of site, initial design proposal
 - [User Guide/Feature List](https://www.notion.so/User-Guide-Feature-List-bd562efc39b2404fabb7cdcb9325b2cf)
-         * How to add new content to the website 
-         * How to use the backend
+    - How to add new content to the website 
+    - How to use the CMS backend
 - Technical Pages/Dev Guides
-         * [Component Structure + Project Cards, Value Cards, Search, Pages](https://github.com/Hack4Impact-UMD/umd-website-redesign/blob/main/docs/Component%20Structure%20%2B%20Project%20Cards%2C%20Value%20Cards.md)
-         * [Deployment (detail)](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Deployment%20(detail)%2057ac1f04d4cf4cbc8ab339c9634081b1.md)
-         * [Manual Testing](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Manual%20Testing%2092d90d0dc8db42d5b5d351d09333b3b5.md)
-         * [Helpful Commands & Misc Important Notes Dump](https://github.com/Hack4Impact-UMD/umd-website-redesign/blob/main/docs/Helpful%20Commands%20%26%20Misc%20Important%20Notes%20Dump.md)
-         * [Known Bugs](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Known%20Bugs%207f2921a97f8c412dad57264ad2d2f6c3.md)
-         * [CHANGELOG.md](https://github.com/Hack4Impact-UMD/umd-website-redesign/blob/main/CHANGELOG.md)
+    * [Component Structure + Project Cards, Value Cards, Search, Pages](https://github.com/Hack4Impact-UMD/umd-website-redesign/blob/main/docs/Component%20Structure%20%2B%20Project%20Cards%2C%20Value%20Cards.md)
+    * [Deployment (detail)](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Deployment%20(detail)%2057ac1f04d4cf4cbc8ab339c9634081b1.md)
+    * [Manual Testing](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Manual%20Testing%2092d90d0dc8db42d5b5d351d09333b3b5.md)
+    * [Helpful Commands & Misc Important Notes Dump](https://github.com/Hack4Impact-UMD/umd-website-redesign/blob/main/docs/Helpful%20Commands%20%26%20Misc%20Important%20Notes%20Dump.md)
+    * [Known Bugs](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Known%20Bugs%207f2921a97f8c412dad57264ad2d2f6c3.md)
+- [CHANGELOG.md](https://github.com/Hack4Impact-UMD/umd-website-redesign/blob/main/CHANGELOG.md)
 
 # Dependencies, Libraries, Frameworks
 - react-bootstrap
@@ -82,6 +81,5 @@ Read more about Strapi content structure here: [https://docs.strapi.io/user-docs
 - Custom animations: mostly css! tried to avoid heavy javascript
     - … with the exception of the search bar
 - contact us section: it used to be an email link but now it is a form
-    - [how does the form run]
 
 refer to the technical pages for more
