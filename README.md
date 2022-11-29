@@ -10,42 +10,27 @@ The chapter website frontend is built in `React` and `TypeScript`, with a `Strap
 
 ### Links
 
-👾 [Live Deploy](https://umd.hack4impact.org/)
-
-[Technical Design Doc](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Technical%20Design%20Doc%20f8b67954916f49bc9feb8a8f89430715.md)
-
-         → architecture of site, initial design proposal
-
-[User Guide/Feature List](https://www.notion.so/User-Guide-Feature-List-bd562efc39b2404fabb7cdcb9325b2cf)
-
-          → How to add new content to the website 
-
-          → How to use the backend
-
+- 👾 [Live Deploy](https://umd.hack4impact.org/)
+- [Technical Design Doc](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Technical%20Design%20Doc%20f8b67954916f49bc9feb8a8f89430715.md)
+         * includes some architecture of site, initial design proposal
+- [User Guide/Feature List](https://www.notion.so/User-Guide-Feature-List-bd562efc39b2404fabb7cdcb9325b2cf)
+         * How to add new content to the website 
+         * How to use the backend
 - Technical Pages/Dev Guides
-    
-    [Component Structure + Project Cards, Value Cards, Search, Pages](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Component%20Structure%20+%20Project%20Cards,%20Value%20Cards,%20%2076adca64cd20447f90a6a69b7ef70b32.md)
-    
-    [Deployment (detail)](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Deployment%20(detail)%2057ac1f04d4cf4cbc8ab339c9634081b1.md)
-    
-    [Manual Testing](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Manual%20Testing%2092d90d0dc8db42d5b5d351d09333b3b5.md)
-    
-    [Helpful Commands & Misc Important Notes Dump](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Helpful%20Commands%20&%20Misc%20Important%20Notes%20Dump%2028bdae0629b14d608f870a4f98087406.md)
-    
-
-[Known Bugs](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Known%20Bugs%207f2921a97f8c412dad57264ad2d2f6c3.md)
-
-[CHANGELOG.md](https://www.notion.so/CHANGELOG-md-4db2ed8a908d4d86b53882cda9fe4f5c)
+         * [Component Structure + Project Cards, Value Cards, Search, Pages](https://github.com/Hack4Impact-UMD/umd-website-redesign/blob/main/docs/Component%20Structure%20%2B%20Project%20Cards%2C%20Value%20Cards.md)
+         * [Deployment (detail)](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Deployment%20(detail)%2057ac1f04d4cf4cbc8ab339c9634081b1.md)
+         * [Manual Testing](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Manual%20Testing%2092d90d0dc8db42d5b5d351d09333b3b5.md)
+         * [Helpful Commands & Misc Important Notes Dump](https://github.com/Hack4Impact-UMD/umd-website-redesign/blob/main/docs/Helpful%20Commands%20%26%20Misc%20Important%20Notes%20Dump.md)
+         * [Known Bugs](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Known%20Bugs%207f2921a97f8c412dad57264ad2d2f6c3.md)
+         * [CHANGELOG.md](https://github.com/Hack4Impact-UMD/umd-website-redesign/blob/main/CHANGELOG.md)
 
 # Dependencies, Libraries, Frameworks
-
 - react-bootstrap
 - keen-slider
 - react-router
 - strapi
 - react
-
-did not use any major ui libraries, as a lot was done from scratch. nor were a lot of frameworks 
+Did not use any major ui libraries nor frameworks as many components were created from scratch.
 
 # How To Run and Deploy Project
 
@@ -63,29 +48,15 @@ npm install —legacy-peer-deps //installs required dependencies
 npm start //launches the backend
 ```
 
-How to deploy (frontend): 
-
-```jsx
-cd frontend
-npm build //build frontend
-surge deploy // 
-```
-
-How to deploy (backend): 
-
-```jsx
-heroku push 
-```
-
 # Broad App and Content Structure
 
 ### App structure:
 
-![Untitled](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Untitled.png)
+![app-structure](https://user-images.githubusercontent.com/45301066/204440249-363aea5e-616f-494d-aa22-40eccdd9ee5a.png)
 
 ### Content structure:
 
-![Untitled](H4I%20Website%20Redesign%20Technical%20Documentation%20READM%20d98c2749b37d4928ab9dce70bdd79efe/Untitled%201.png)
+![content-structure](https://user-images.githubusercontent.com/45301066/204440267-879ee43a-c5c3-4da8-80c0-b837e4efe89c.png)
 
 Notes: 
 
@@ -104,7 +75,7 @@ Read more about Strapi content structure here: [https://docs.strapi.io/user-docs
 
 ### Frontend
 
-`/src` is organized with `components`, `pages`, and `styles`. Both global and local styles are actually in the styles folder, which, as I’m writing this, I realize is dumb as hell because then you need to sync the organization of the `/components` and `/styles` folders. That’s for another year. 
+`/src` is organized with `components`, `pages`, and `styles`. Both global and local styles are actually in the styles folder, which, as I’m writing this, I realize is not ideal because then you need to sync the organization of the `/components` and `/styles` folders. That’s for another year. 
 
 - Pages and components: pages themselves are a kind of component! And the routing is done in App.tsx in the root folder for these pages. You would add another page in `/page`
 - Media Queries: tbh we selected 1000px arbitrarily for the resize. Probably have to think about what size is better
