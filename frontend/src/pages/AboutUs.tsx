@@ -3,8 +3,8 @@ import styles from '../styles/about_us/AboutUs.module.css';
 import Person from '../components/Person';
 import ValueCard from '../components/about_us/ValueCard';
 
-import headerDesktop from '../components/assets/backgrounds/about_us/aboutus_header.png';
-import headerMobile from '../components/assets/backgrounds/about_us/aboutus_header_mobile.png';
+import headerDesktop from '../components/assets/backgrounds/about_us/aboutus_header2023.png';
+import headerMobile from '../components/assets/backgrounds/about_us/aboutus_header_mobile2023.png';
 import placeholder from '../components/assets/placeholder.png';
 import { useAxios } from '../components/HelperFunctions';
 import globe from '../components/assets/globe.svg';

@@ -37,7 +37,11 @@ const StandardButton = (props: ButtonProps) => {
 
   // If the link is external, use an <a> tag. Otherwise, use a <Link> tag.
   if (props.externalLink) {
-    return <a href={props.link}>{buttonComponent}</a>;
+    return (
+      <a href={props.link} target="_blank" rel="noopener noreferrer">
+        {buttonComponent}
+      </a>
+    );
   } else {
     return <Link to={props.link}>{buttonComponent}</Link>;
   }

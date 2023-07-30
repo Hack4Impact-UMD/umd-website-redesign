@@ -11,7 +11,7 @@ import threeIcon from '../components/assets/icons/three_icon.svg';
 import oneIconDesktop from '../components/assets/icons/one_icon_desktop.svg';
 import twoIconDesktop from '../components/assets/icons/two_icon_desktop.svg';
 import threeIconDesktop from '../components/assets/icons/three_icon_desktop.svg';
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 function StudentApply() {
   return (
@@ -25,7 +25,7 @@ function StudentApply() {
           color="green"
           text="Apply"
           externalLink={true}
-          link="https://go.umd.edu/h4i_application_fall22"
+          link="https://docs.google.com/forms/d/e/1FAIpQLSe0d9TaH1Dwa2NkEj3w8DG2ZvQL8_0p-9pXHIakw9YFROIOXw/viewform"
         />
       </div>
       <div className={styles.faq}>
@@ -52,8 +52,8 @@ function StudentApplyHeader() {
 }
 
 function getWindowSize() {
-  const {innerWidth, innerHeight} = window;
-  return {innerWidth, innerHeight};
+  const { innerWidth, innerHeight } = window;
+  return { innerWidth, innerHeight };
 }
 function StudentApplyCards() {
   const [windowSize, setWindowSize] = useState(getWindowSize());
@@ -94,9 +94,26 @@ function StudentApplyCards() {
   return (
     <div className={styles.studentApplyCards}>
       <RoleCard mainText={'Engineer'} hoverText={engineerSummary} screenWidth={windowSize.innerWidth} role={1} />
-      <RoleCard mainText={'Designer'} hoverText={designerSummary} screenWidth={windowSize.innerWidth} revBackground={true} role={2} />
-      <RoleCard mainText={'Project Manager'} hoverText={projectManagerSummary} screenWidth={windowSize.innerWidth} role={3} />
-      <RoleCard mainText={'Tech Lead'} hoverText={techLeadSummary} screenWidth={windowSize.innerWidth} revBackground={true} role={4} />
+      <RoleCard
+        mainText={'Designer'}
+        hoverText={designerSummary}
+        screenWidth={windowSize.innerWidth}
+        revBackground={true}
+        role={2}
+      />
+      <RoleCard
+        mainText={'Project Manager'}
+        hoverText={projectManagerSummary}
+        screenWidth={windowSize.innerWidth}
+        role={3}
+      />
+      <RoleCard
+        mainText={'Tech Lead'}
+        hoverText={techLeadSummary}
+        screenWidth={windowSize.innerWidth}
+        revBackground={true}
+        role={4}
+      />
       <RoleCard mainText={'Bootcamp'} hoverText={bootcampSummary} screenWidth={windowSize.innerWidth} role={5} />
       <RoleCard mainText={'Sourcing'} hoverText={sourcingSummary} screenWidth={windowSize.innerWidth} role={6} />
     </div>
@@ -119,7 +136,11 @@ function ApplicationTimeline() {
   return (
     <div className={styles.timeline}>
       <h2>Application Timeline</h2>
-      <p>The Hack4Impact-UMD application process includes a written application and possibly an interview. We recruit new members in the Fall and the Spring. Our applications are opened in early August and January and closed before the semester starts.</p>
+      <p>
+        The Hack4Impact-UMD application process includes a written application and possibly an interview. We recruit new
+        members in the Fall and the Spring. Our applications are opened in early August and January and closed before
+        the semester starts.
+      </p>
       <div className={styles.timelineStep}>
         <img src={oneIcon} className={styles.mobileTimelineIcon} />
         <img src={oneIconDesktop} className={styles.desktopTimelineIcon} />
@@ -155,13 +176,14 @@ function FaqSection() {
         question={<h3>How much of a time commitment is Hack4Impact-UMD?</h3>}
         answer={
           <p>
-            Most students spend about 3 to 5 hours per week on Hack4Impact-UMD project work. Each project team determines their
-            own schedule, but most meet for about 1 hour per week to plan and delegate tasks. The other time is spent
-            working on the project individually. <br /> <br />
-            We also hold mandatory general body meetings every month, which are about 1 hour long. Hack4Impact-UMD holds many other events
-            during the year, such as volunteer events, tech talks, and social events. These events are not required,
-            but we highly encourage our members to attend. <br /> <br /> 
-            Leadership roles, such as executive directors, project managers, and tech leads will spend more time, up to 10 hours a week.{' '}
+            Most students spend about 3 to 5 hours per week on Hack4Impact-UMD project work. Each project team
+            determines their own schedule, but most meet for about 1 hour per week to plan and delegate tasks. The other
+            time is spent working on the project individually. <br /> <br />
+            We also hold mandatory general body meetings every month, which are about 1 hour long. Hack4Impact-UMD holds
+            many other events during the year, such as volunteer events, tech talks, and social events. These events are
+            not required, but we highly encourage our members to attend. <br /> <br />
+            Leadership roles, such as executive directors, project managers, and tech leads will spend more time, up to
+            10 hours a week.{' '}
           </p>
         }
       />
@@ -170,12 +192,12 @@ function FaqSection() {
         answer={
           <p>
             It is not required to know any specific languages, but we do require students who are applying to become
-            developers or tech leads to have taken CMSC 131 or have basic programming skills (classes, arrays,
-            maps, etc.) already. <br /> <br /> 
-            General web development skills like HTML, CSS, and JavaScript are also good to know. <br /> <br /> 
+            developers or tech leads to have taken CMSC 131 or have basic programming skills (classes, arrays, maps,
+            etc.) already. <br /> <br />
+            General web development skills like HTML, CSS, and JavaScript are also good to know. <br /> <br />
             People with less programming and web development experience will be placed in the bootcamp group, which will
-            allow you to get to know other people in Hack4Impact-UMD, improve your web development skills, and understand the 
-            team dynamics in developer team. <br /> <br /> 
+            allow you to get to know other people in Hack4Impact-UMD, improve your web development skills, and
+            understand the team dynamics in developer team. <br /> <br />
             Roles like the Sourcing Commitee Member do not require any technical background.
           </p>
         }
@@ -190,7 +212,9 @@ function FaqSection() {
           </p>
         }
       />
-      <br/><br/><br/>
+      <br />
+      <br />
+      <br />
     </Faq>
   );
 }
