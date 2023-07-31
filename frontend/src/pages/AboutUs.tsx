@@ -82,6 +82,18 @@ function ExecBoard() {
     {},
   );
   const boardMembers = res.data ? res.data['data'] : [];
+  const execOrder = [
+    'Executive Director',
+    'Director of Product',
+    'Director of Engineering',
+    'Director of Design',
+    'Director of Education',
+    'Director of Finance',
+    'Director of Events',
+    'Director of Recruitment',
+    'Director of Sourcing',
+    'Senior Advisor',
+  ];
 
   return (
     <div className={styles.execBoardDiv}>
@@ -89,23 +101,37 @@ function ExecBoard() {
       <div className={styles.execBoardPhotos}>
         {!boardMembers
           ? boardMembers
-          : boardMembers.map((item, index) => (
-              <Person
-                key={index}
-                memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName']}
-                role={
-                  (item['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                    'title'
-                  ]
-                }
-                pronouns={item['attributes']['pronouns']}
-                src={
-                  item['attributes']['avatar']['data']
-                    ? item['attributes']['avatar']['data']['attributes']['url']
-                    : null
-                }
-              />
-            ))}
+          : boardMembers
+              .sort(
+                (a, b) =>
+                  execOrder.indexOf(
+                    (a['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
+                      'title'
+                    ],
+                  ) -
+                  execOrder.indexOf(
+                    (b['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
+                      'title'
+                    ],
+                  ),
+              )
+              .map((item, index) => (
+                <Person
+                  key={index}
+                  memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName']}
+                  role={
+                    (item['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
+                      'title'
+                    ]
+                  }
+                  pronouns={item['attributes']['pronouns']}
+                  src={
+                    item['attributes']['avatar']['data']
+                      ? item['attributes']['avatar']['data']['attributes']['url']
+                      : null
+                  }
+                />
+              ))}
       </div>
     </div>
   );
