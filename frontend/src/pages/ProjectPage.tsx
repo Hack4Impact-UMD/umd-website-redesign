@@ -100,41 +100,57 @@ function Header() {
 
 function TeamMembers() {
   const members = proj ? proj['attributes']['members']['data'] : [];
+  const teamOrder = ['Product Manager', 'Tech Lead', 'Designer', 'Engineer'];
   return (
     <div className={styles.teamMembersDiv}>
       <h2>Team Members</h2>
       <div className={styles.teamMembersPhotos}>
         {!members
           ? 'Looks like there are no team members here. Check again later?'
-          : // render team members
-            members.map((item, index) => {
-              console.log(item['attributes']['componentRolesArr']);
-              //if this user had no role in the project dont render them
-              if (Array.from(item['attributes']['componentRolesArr']).length == 0) {
-                return null;
-              } else {
-                return (
-                  <Person
-                    key={index}
-                    memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName'] || 'Member'}
-                    //if no title exists for the user use "Member"
-                    role={
-                      (item['attributes']['componentRolesArr'] as Array<any>).find(
-                        (e) => e['team'] && e['team'].trim() == proj!['attributes']['title'],
-                      )['title'] || 'Member'
-                    }
-                    //if no pronouns are provided, show nothing for that
-                    pronouns={item['attributes']['pronouns'] || null}
-                    //if no user image exists, return null, a template will be used
-                    src={
-                      item['attributes']['avatar']['data'] != null
-                        ? item['attributes']['avatar']['data']['attributes']['url']
-                        : null
-                    }
-                  />
-                );
-              }
-            })}
+          : // group team members by role
+            members
+              .sort(
+                (a, b) =>
+                  teamOrder.indexOf(
+                    (a['attributes']['componentRolesArr'] as Array<any>).find(
+                      (e) => e['team'] && e['team'].trim() == proj!['attributes']['title'],
+                    )['title'],
+                  ) -
+                  teamOrder.indexOf(
+                    (b['attributes']['componentRolesArr'] as Array<any>).find(
+                      (e) => e['team'] && e['team'].trim() == proj!['attributes']['title'],
+                    )['title'],
+                  ),
+              )
+              // render team members
+              .map((item, index) => {
+                console.log(item['attributes']['componentRolesArr']);
+                //if this user had no role in the project dont render them
+                if (Array.from(item['attributes']['componentRolesArr']).length == 0) {
+                  return null;
+                } else {
+                  return (
+                    <Person
+                      key={index}
+                      memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName'] || 'Member'}
+                      //if no title exists for the user use "Member"
+                      role={
+                        (item['attributes']['componentRolesArr'] as Array<any>).find(
+                          (e) => e['team'] && e['team'].trim() == proj!['attributes']['title'],
+                        )['title'] || 'Member'
+                      }
+                      //if no pronouns are provided, show nothing for that
+                      pronouns={item['attributes']['pronouns'] || null}
+                      //if no user image exists, return null, a template will be used
+                      src={
+                        item['attributes']['avatar']['data'] != null
+                          ? item['attributes']['avatar']['data']['attributes']['url']
+                          : null
+                      }
+                    />
+                  );
+                }
+              })}
       </div>
     </div>
   );

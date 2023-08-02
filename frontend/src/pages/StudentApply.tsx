@@ -65,9 +65,6 @@ function StudentApplyCards() {
     };
   }, []);
 
-  const summary =
-    'Short summary about the role and its responsibilities. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis.';
-
   const engineerSummary =
     'The Engineers implement the technical aspects of the product; they are expected to complete tasks for each sprint. Their work focuses on coding the features of the product.';
 
@@ -116,9 +113,6 @@ function StudentApplyCards() {
 }
 
 function ApplicationTimeline() {
-  const summary =
-    'Short summary. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.';
-
   const firstStep =
     "The written application is the main part of our new member application process. It consists of short essay questions that gauge a candidate's interest and commitment to Hack4Impact-UMD’s mission and goals.";
 
