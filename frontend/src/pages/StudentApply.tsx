@@ -71,7 +71,7 @@ function StudentApplyCards() {
   const designerSummary =
     'The UI/UX Designer develops the frontend designs for the product and meets with the nonprofit partner to incorporate their input and needs into the design. They also provide feedback to the engineers as they implement the designs.';
 
-  const projectManagerSummary =
+  const productManagerSummary =
     "The Product Manager (PM) scopes out the product and develops the team's timeline. They are the main point of contact with the nonprofit partner and meet with them weekly to discuss updates to the product. The PM creates sprints and holds the team's week standup meetings to check in with their engineers and designers to assign their tasks.";
 
   const techLeadSummary =
@@ -94,8 +94,8 @@ function StudentApplyCards() {
         role={2}
       />
       <RoleCard
-        mainText={'Project Manager'}
-        hoverText={projectManagerSummary}
+        mainText={'Product Manager'}
+        hoverText={productManagerSummary}
         screenWidth={windowSize.innerWidth}
         role={3}
       />
@@ -171,7 +171,7 @@ function FaqSection() {
             We also hold mandatory general body meetings every month, which are about 1 hour long. Hack4Impact-UMD holds
             many other events during the year, such as volunteer events, tech talks, and social events. These events are
             not required, but we highly encourage our members to attend. <br /> <br />
-            Leadership roles, such as executive directors, project managers, and tech leads will spend more time, up to
+            Leadership roles, such as executive directors, product managers, and tech leads will spend more time, up to
             10 hours a week.{' '}
           </p>
         }
