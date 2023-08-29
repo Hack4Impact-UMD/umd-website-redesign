@@ -13,23 +13,21 @@ const Supporters = () => {
       <h4 className={styles.divider}>
         <span>PLATINUM</span>
       </h4>
-      <div className={styles.content}>
-        <img src={geicoLogo} id={styles.supporterLogo} />
-      </div>
-      <div className={styles.content}>
-        <img src={workdayLogo} id={styles.supporterLogo} />
+      <div className={styles.tierContainer}>
+        <img src={geicoLogo} className={styles.supporterLogo} />
+        <img src={workdayLogo} className={styles.supporterLogo} />
       </div>
       <h4 className={styles.divider}>
         <span>GOLD</span>
       </h4>
       <div className={styles.content}>
-        <img src={codepathLogo} id={styles.supporterLogo} />
+        <img src={codepathLogo} className={styles.supporterLogo} />
       </div>
       <h4 className={styles.divider}>
         <span>SILVER</span>
       </h4>
       <div className={styles.content}>
-        <img src={bloombergLogo} id={styles.supporterLogo} />
+        <img src={bloombergLogo} className={styles.supporterLogo} />
       </div>
       {/* <h4 className={styles.divider}><span>BRONZE</span></h4> */}
       <Link className={styles.navLinks} to={'/contactus'}>

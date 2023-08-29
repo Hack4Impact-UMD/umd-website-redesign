@@ -23,6 +23,14 @@
   font-size: 24px;
 }
 
+.tierContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .content {
   margin-bottom: 70px;
 }
@@ -38,13 +46,13 @@ a:hover {
 }
 
 /* mobile */
-#supporterLogo {
+.supporterLogo {
   max-width: 275px;
   margin: 50px;
 }
 
 @media screen and (min-width: 800px) {
-  #supporterLogo {
+  .supporterLogo {
     max-width: 400px;
     margin: 50px;
   }
