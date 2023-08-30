@@ -4,6 +4,7 @@ import bloombergLogo from '../assets/supporters/Bloomberg.png';
 import geicoLogo from '../assets/supporters/Geico.png';
 import workdayLogo from '../assets/supporters/Workday.png';
 import codepathLogo from '../assets/supporters/CodePath.png';
+import iSchoolLogo from '../assets/supporters/iSchool.png';
 import { Link } from 'react-router-dom';
 
 const Supporters = () => {
@@ -20,8 +21,9 @@ const Supporters = () => {
       <h4 className={styles.divider}>
         <span>GOLD</span>
       </h4>
-      <div className={styles.content}>
+      <div className={styles.tierContainer}>
         <img src={codepathLogo} className={styles.supporterLogo} />
+        <img src={iSchoolLogo} className={styles.supporterLogo} />
       </div>
       <h4 className={styles.divider}>
         <span>SILVER</span>
