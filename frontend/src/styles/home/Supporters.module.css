@@ -12,7 +12,7 @@
   border-top: 4px solid #0069ca;
   line-height: 0.1em;
   max-width: 1148px;
-  margin: 70px auto;
+  margin: 50px auto;
 }
 
 .divider span {
@@ -29,6 +29,9 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
+  width: 90%;
+  max-width: 1148px;
+  margin: 50px auto;
 }
 
 .content {
@@ -47,13 +50,15 @@ a:hover {
 
 /* mobile */
 .supporterLogo {
-  max-width: 275px;
-  margin: 50px;
+  max-width: 170px;
+  max-height: 100px;
+  margin: 30px;
 }
 
 @media screen and (min-width: 800px) {
   .supporterLogo {
-    max-width: 400px;
-    margin: 50px;
+    max-width: 300px;
+    max-height: 200px;
+    margin: 30px;
   }
 }
