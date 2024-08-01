@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { Route, BrowserRouter, Routes, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -50,6 +50,7 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/ourwork" element={<OurWork />} />
+            <Route path="/apply-f24" element={<AppsPage/>}/>
             <Route path="/apply" element={<StudentApply />} />
             <Route path="/apply/student" element={<StudentApply />} />
             <Route path="/apply/nonprofit" element={<NonprofitApply />} />
@@ -62,6 +63,14 @@ function App() {
       </ScrollToTopWrapper>
     </BrowserRouter>
   );
+}
+
+const AppsPage = () => {
+  useEffect(() => {
+      window.location.href = "https://forms.gle/FmHsAnhaExZZKjm49";
+  }, []);
+
+  return null;
 }
 
 export default App;

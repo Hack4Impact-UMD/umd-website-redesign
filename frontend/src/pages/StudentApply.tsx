@@ -21,7 +21,7 @@ function StudentApply() {
       <StudentApplyCards />
       <ApplicationTimeline />
       <div className={styles.applyButton}>
-        <StandardButton color="green" text="Apply" externalLink={true} link="https://bit.ly/apply-h4i-umd" />
+        <StandardButton color="green" text="Apply" externalLink={true} link="https://forms.gle/FmHsAnhaExZZKjm49" />
       </div>
       <div className={styles.faq}>
         <FaqSection />
