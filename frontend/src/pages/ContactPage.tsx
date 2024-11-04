@@ -1,3 +1,4 @@
+import emailjs from '@emailjs/browser';
 import React, { useState } from 'react';
 import styles from '../styles/contact/Contact.module.css';
 import MessageSent from './MessageSent';
@@ -34,8 +35,9 @@ function ContactPage() {
       contactInfo.message = formProp.value;
     }
   }
+  console.log(process.env.PUBLIC_KEY);
 
-  function validateForm(event: React.FormEvent<HTMLFormElement>) {
+  async function validateForm(event: React.FormEvent<HTMLFormElement>) {
     console.log(contactInfo);
     const verifyEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     const verifyPhoneNumberCaseOne = /^[0-9]{10}$/;
@@ -69,7 +71,18 @@ function ContactPage() {
       alert('Phone number is invalid\nFormat: 0000000000 or 000-000-0000 or 000 000 0000');
       return false;
     }
-    console.log('valiated');
+    await emailjs
+      .send('service_rux8luc', 'template_fgd74qw', contactInfo, {
+        publicKey: 'oqfPTswPuNLGMxG8o',
+      })
+      .then(
+        () => {
+          console.log('SUCCESS!');
+        },
+        (error) => {
+          console.log('FAILED...', error);
+        },
+      );
     return true;
   }
 
@@ -80,7 +93,6 @@ function ContactPage() {
       <div id={styles.headerContent}>
         <h1 id={styles.title}>Contact Us</h1>
         <form
-          action="https://formsubmit.co/sgaba@terpmail.umd.edu"
           onSubmit={(form) => {
             form.preventDefault();
             setSent(true);

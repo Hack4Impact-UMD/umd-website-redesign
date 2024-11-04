@@ -1,13 +1,11 @@
-import React from 'react';
-import FeaturedProjectCard from './FeaturedProjectCard';
 import styles from '../../styles/projects/Projects.module.css';
-import { useAxios, getSeason } from '../HelperFunctions';
+import { getSeason, useAxios } from '../HelperFunctions';
 import StandardButton from '../buttons/StandardButton';
+import FeaturedProjectCard from './FeaturedProjectCard';
 
 const Projects = (props: any) => {
   let res = null;
   let projects = null;
-
   //check which type of projects were rendering
   if (props.isFeatured == true) {
     // fetch featuredProjects from backend
