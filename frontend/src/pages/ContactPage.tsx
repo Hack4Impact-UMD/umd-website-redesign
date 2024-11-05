@@ -126,7 +126,9 @@ function ContactPage() {
             <textarea name="message" onChange={handleChange} required></textarea>
           </p>
           <div className={styles.buttonHolder}>
-            <button type="submit" value="Send Message"></button>
+            <button type="submit" value="Send Message" className={styles.submitButton}>
+              Submit
+            </button>
           </div>
         </form>
       </div>
