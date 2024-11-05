@@ -25,5 +25,4 @@ yarn-error.log*
 .env.production.local
 /.pnp
 .pnp.js
-node_modules
-.env
+

@@ -1,22 +1,22 @@
+import React, { useEffect, useLayoutEffect } from 'react';
+import { Route, BrowserRouter, Routes, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect, useLayoutEffect } from 'react';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 
-import ScrollToTopButton from './components/buttons/ScrollToTopButton';
-import Footer from './components/footer/Footer';
-import HomePageLower from './components/home_page/HomePageLower';
 import HomePageTop from './components/home_page/HomePageTop';
+import HomePageLower from './components/home_page/HomePageLower';
 import Supporters from './components/home_page/Supporters';
-import Navbar from './components/navbar/Navbar';
-import Projects from './components/projects/Projects';
 import AboutUs from './pages/AboutUs';
 import ContactPage from './pages/ContactPage';
-import NonprofitApply from './pages/NonprofitApply';
-import OurWork from './pages/OurWork';
-import PageNotFound from './pages/PageNotFound';
-import ProjectPage from './pages/ProjectPage';
+import Navbar from './components/navbar/Navbar';
 import StudentApply from './pages/StudentApply';
+import NonprofitApply from './pages/NonprofitApply';
+import Footer from './components/footer/Footer';
+import OurWork from './pages/OurWork';
+import ProjectPage from './pages/ProjectPage';
+import ScrollToTopButton from './components/buttons/ScrollToTopButton';
+import PageNotFound from './pages/PageNotFound';
+import Projects from './components/projects/Projects';
 
 // Scrolls to top of
 // https://stackoverflow.com/a/70194027
@@ -32,7 +32,7 @@ function Homepage() {
   return (
     <div>
       <HomePageTop />
-      <Projects isFeatured={true} />
+      <Projects isFeatured = {true} />
       <HomePageLower />
       <Supporters />
     </div>
@@ -50,7 +50,7 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/ourwork" element={<OurWork />} />
-            <Route path="/apply-f24" element={<AppsPage />} />
+            <Route path="/apply-f24" element={<AppsPage/>}/>
             <Route path="/apply" element={<StudentApply />} />
             <Route path="/apply/student" element={<StudentApply />} />
             <Route path="/apply/nonprofit" element={<NonprofitApply />} />
@@ -67,10 +67,10 @@ function App() {
 
 const AppsPage = () => {
   useEffect(() => {
-    window.location.href = 'https://forms.gle/FmHsAnhaExZZKjm49';
+      window.location.href = "https://forms.gle/FmHsAnhaExZZKjm49";
   }, []);
 
   return null;
-};
+}
 
 export default App;
