@@ -31,6 +31,22 @@ function ContactPage() {
         message: '',
     });
 
+  function updateInfo(event: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>) {
+    const formProp = event.currentTarget;
+    if (formProp.id == 'firstName') {
+      contactInfo.firstName = formProp.value;
+    } else if (formProp.id == 'lastName') {
+      contactInfo.lastName = formProp.value;
+    } else if (formProp.id == 'subject') {
+      contactInfo.subject = formProp.value;
+    } else if (formProp.id == 'email') {
+      contactInfo.email = formProp.value;
+    } else if (formProp.id == 'phoneNumber') {
+      contactInfo.phoneNumber = formProp.value;
+    } else if (formProp.id == 'message') {
+      contactInfo.message = formProp.value;
+    }
+  }
     function updateInfo(event: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>) {
         const formProp = event.currentTarget
         if (formProp.id == "firstName") {
@@ -48,6 +64,12 @@ function ContactPage() {
         }
     }
 
+  function validateForm(event: React.FormEvent<HTMLFormElement>) {
+    console.log(contactInfo);
+    const verifyEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    const verifyPhoneNumberCaseOne = /^[0-9]{10}$/;
+    const verifyPhoneNumberCaseTwo = /^[0-9]{3} [0-9]{3} [0-9]{4}$/;
+    const verifyPhoneNumberCaseThree = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
     function validateForm(event: React.FormEvent<HTMLFormElement>) {
         console.log(contactInfo)
         const verifyEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
