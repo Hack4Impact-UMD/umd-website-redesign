@@ -2,7 +2,6 @@ import emailjs from '@emailjs/browser';
 import React, { useState } from 'react';
 import styles from '../styles/contact/Contact.module.css';
 import MessageSent from './MessageSent';
-
 function ContactPage() {
   const [sent, setSent] = useState(false);
   const [contactInfo] = useState({
@@ -13,12 +12,10 @@ function ContactPage() {
     phoneNumber: '',
     message: '',
   });
-
   const handleChange = (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>) => {
     const { value, name } = e.currentTarget;
     contactInfo[name as keyof typeof contactInfo] = value;
   };
-
   function updateInfo(event: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>) {
     const formProp = event.currentTarget;
     if (formProp.id == 'firstName') {
@@ -36,14 +33,8 @@ function ContactPage() {
     }
   }
   console.log(process.env.PUBLIC_KEY);
-
   async function validateForm(event: React.FormEvent<HTMLFormElement>) {
     console.log(contactInfo);
-    const verifyEmail = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-    const verifyPhoneNumberCaseOne = /^[0-9]{10}$/;
-    const verifyPhoneNumberCaseTwo = /^[0-9]{3} [0-9]{3} [0-9]{4}$/;
-    const verifyPhoneNumberCaseThree = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
-
     if (
       contactInfo.firstName === '' ||
       contactInfo.lastName === '' ||
@@ -56,27 +47,13 @@ function ContactPage() {
       alert('contact information is empty');
       return false;
     }
-
-    if (!verifyEmail.test(contactInfo.email)) {
-      event.preventDefault();
-      alert('Email is invalid');
-      return false;
-    }
-    if (
-      !verifyPhoneNumberCaseOne.test(contactInfo.phoneNumber) &&
-      !verifyPhoneNumberCaseTwo.test(contactInfo.phoneNumber) &&
-      !verifyPhoneNumberCaseThree.test(contactInfo.phoneNumber)
-    ) {
-      event.preventDefault();
-      alert('Phone number is invalid\nFormat: 0000000000 or 000-000-0000 or 000 000 0000');
-      return false;
-    }
     await emailjs
       .send('service_rux8luc', 'template_fgd74qw', contactInfo, {
         publicKey: 'oqfPTswPuNLGMxG8o',
       })
       .then(
         () => {
+          setSent(true);
           console.log('SUCCESS!');
         },
         (error) => {
@@ -85,7 +62,6 @@ function ContactPage() {
       );
     return true;
   }
-
   return sent ? (
     <MessageSent />
   ) : (
@@ -95,7 +71,6 @@ function ContactPage() {
         <form
           onSubmit={(form) => {
             form.preventDefault();
-            setSent(true);
             validateForm(form);
           }}
           method="POST"
@@ -108,7 +83,6 @@ function ContactPage() {
             <label>Last Name</label>
             <input type="text" name="lastName" onChange={handleChange} required />
           </div>
-
           <p>
             <label>Subject</label>
             <input type="text" name="subject" onChange={handleChange} required />
@@ -135,5 +109,4 @@ function ContactPage() {
     </div>
   );
 }
-
 export default ContactPage;
