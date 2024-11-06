@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "firebase": "^11.0.1",
     "keen-slider": "^6.6.11",
     "nodemon": "^2.0.20",
     "react-router-dom": "6",
