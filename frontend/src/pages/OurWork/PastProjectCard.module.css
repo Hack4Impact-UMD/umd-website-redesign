@@ -1,0 +1,88 @@
+#cardContainer {
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  margin-bottom: 50px;
+}
+
+#cardImageContainer {
+  border-color: #333333;
+  justify-content: center;
+  align-items: center;
+  max-height: 100%;
+  max-width: 100%;
+  height: 200px;
+  border-radius: 50px;
+  overflow: hidden;
+  display: flex;
+
+}
+
+#cardImage {
+  border-radius: 50px;
+  flex-shrink: 0;
+  max-width: 100%;
+  max-width: 300px;
+  max-height: 200px;
+  object-fit: contain;
+  padding: 15px 15px;
+}
+
+#cardTextContainer {
+  max-height: 200px;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 6.5%;
+}
+
+#cardTitleContainer {
+  text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin-bottom: 2.5%;
+}
+
+#cardTitle {
+  text-decoration: none;
+}
+
+#cardDateContainer h3 {
+  font-style: italic;
+  width: 100%;
+  text-align: left;
+  overflow: hidden;
+  margin-bottom: 2%;
+}
+
+#cardLinkContainer {
+  width: 100%;
+  text-align: left;
+  overflow: hidden;
+}
+
+#cardLink {
+  line-height: 16px;
+  color: #333333;
+}
+
+#cardLink:hover,
+#cardLink:focus,
+#cardLink p:hover {
+  color: #0069ca;
+  transition: color 300ms ease;
+}
+
+@media screen and (max-width: 1000px) {
+  #cardContainer {
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    margin-bottom: 50px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #cardContainer {
+    width: 100%;
+  }
+}

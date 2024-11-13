@@ -1,0 +1,133 @@
+#sectionTitle {
+  text-align: center;
+}
+
+#searchbarWrapper {
+  position: relative;
+  display: flex;
+  min-width: 100px;
+  padding-bottom: 50px;
+}
+
+#searchIcon {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 25px;
+}
+
+#clearIcon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 25px;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+#searchbar {
+  border: 3px solid #657788;
+  box-sizing: border-box;
+  border-radius: 50px;
+  font-family: 'Karla';
+  height: 60px;
+  width: 100%;
+  padding: 2px 0px 2px 23px;
+  background-color: #ffffff;
+  justify-content: left;
+}
+
+#searchbar:hover,
+#searchbar:focus {
+  background-color: #f5f5f5;
+}
+
+#projectsDisplay {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+  gap: 12.5% 10%;
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#notFound {
+  display: block;
+  width: 100%;
+  height: 28px;
+
+  font-family: 'Karla';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 28px;
+  /* identical to box height */
+
+  text-align: center;
+  letter-spacing: -0.02em;
+
+  color: #000000;
+  margin-bottom: 2em;
+}
+
+.pastProjectsContainer {
+  padding-top: 30px;
+}
+
+
+
+#showMore {
+  background-color: #0069CA;
+  color: #FFFFFF;
+  height: 55px;
+  width: 180px;
+  padding: 10px;
+  margin: 0 auto;
+  border: none;
+  border-radius: 100px;
+  transition: color 300ms ease-out;
+  transition: background-color 300ms ease-out;
+  margin-top: 5px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 10px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+@media screen and (max-width: 800px) {
+  #projectsDisplay {
+    margin-top: 20px;
+    display: block;
+    height: 580px;
+    overflow-y: scroll;
+  }
+
+  #showMore {
+    display: block;
+  }
+}

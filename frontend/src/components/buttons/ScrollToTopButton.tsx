@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import styles from '../../styles/buttons/ScrollToTopButton.module.css';
 import ScrollToTopButtonImg from '../assets/ScrollToTopButton.svg';
 import ScrollToTopButtonHoverImg from '../assets/ScrollToTopButtonHover.svg';
+import styles from './ScrollToTopButton.module.css';
 
 const ScrollToTopButton: React.FC = () => {
   const [visible, setVisible] = useState(false);
@@ -27,11 +27,7 @@ const ScrollToTopButton: React.FC = () => {
 
   return (
     <div className={styles.ScrollToTopButton} onClick={scrollToTop} style={{ display: visible ? 'inline' : 'none' }}>
-      <img 
-        className={styles.ScrollToTopButton}
-        src={ScrollToTopButtonImg} 
-        aria-label="Scroll to Top Button" 
-      />
+      <img className={styles.ScrollToTopButton} src={ScrollToTopButtonImg} aria-label="Scroll to Top Button" />
       <img
         className={styles.ScrollToTopButtonHover}
         src={ScrollToTopButtonHoverImg}

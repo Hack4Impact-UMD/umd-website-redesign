@@ -1,0 +1,37 @@
+.ScrollToTopButton {
+    position: fixed;
+    display: inline-block;
+    right: 1%;
+    bottom: 20%;
+    z-index: 99;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    object-fit: fill;
+    animation: fadeIn 1s; 
+  }
+  
+.ScrollToTopButton .ScrollToTopButtonHover {
+  display: none;
+  left: 0;
+  position: absolute;
+  object-fit: fill;
+}
+  
+.ScrollToTopButton:hover .ScrollToTopButtonHover {
+  display: inline;
+}
+
+  /*Resize the img when in mobile mode */
+@media screen and (max-width: 500px) { 
+  .ScrollToTopButton {
+    width: 59px;
+    height: 59px;
+  }
+
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}

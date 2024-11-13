@@ -1,30 +1,17 @@
-import React from 'react';
-import FeaturedProjectCard from './FeaturedProjectCard';
-import styles from '../../styles/projects/Projects.module.css';
-import { useAxios, getSeason } from '../HelperFunctions';
+import { getSeason } from '../../HelperFunctions';
 import StandardButton from '../buttons/StandardButton';
+import FeaturedProjectCard from './FeaturedProjectCard';
+import styles from './Projects.module.css';
 
 const Projects = (props: any) => {
-  let res = null;
-  let projects = null;
+  const res = null;
+  const projects = []!;
 
   //check which type of projects were rendering
   if (props.isFeatured == true) {
     // fetch featuredProjects from backend
-    res = useAxios(
-      process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*&filters[isFeatured][$eq]=true',
-      'GET',
-      {},
-    );
-    projects = res.data ? res.data['data'] : [];
   } else {
     //fetch current projects
-    res = useAxios(
-      process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*&filters[isCurrentProject][$eq]=true',
-      'GET',
-      {},
-    );
-    projects = res.data ? res.data['data'] : [];
   }
   // fetch featuredProjects from backend
 

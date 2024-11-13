@@ -1,6 +1,5 @@
-import React from 'react';
-import styles from '../../styles/buttons/StandardButton.module.css';
 import { Link } from 'react-router-dom';
+import styles from './StandardButton.module.css';
 
 interface ButtonProps {
   text: string;

@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
-import styles from '../../styles/footer/Footer.module.css';
 import wordmark from '../assets/h4i_files/h4i_wordmark.svg';
+import styles from './Footer.module.css';
 /*
  * Separate SVGs for mobile/desktop so that styling one doesn't affect the other.
  * Manually added unique IDs in SVG files.
  */
-import { ReactComponent as IgLogoSvg } from '../assets/footer/ig.svg';
+import { useLocation } from 'react-router-dom';
 import { ReactComponent as FbLogoSvg } from '../assets/footer/fb.svg';
-import { ReactComponent as GhLogoSvg } from '../assets/footer/gh.svg';
-import { ReactComponent as IgLogoSvg2 } from '../assets/footer/ig2.svg';
 import { ReactComponent as FbLogoSvg2 } from '../assets/footer/fb2.svg';
+import { ReactComponent as GhLogoSvg } from '../assets/footer/gh.svg';
 import { ReactComponent as GhLogoSvg2 } from '../assets/footer/gh2.svg';
+import { ReactComponent as IgLogoSvg } from '../assets/footer/ig.svg';
+import { ReactComponent as IgLogoSvg2 } from '../assets/footer/ig2.svg';
 
 function Footer() {
+  const location = useLocation();
+  if (location.pathname.startsWith('/admin')) {
+    return null;
+  }
   return (
     <div className={styles.Footer}>
       <div className={styles.FooterContent}>
