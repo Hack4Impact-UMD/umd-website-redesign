@@ -3,16 +3,14 @@ import { AuthError } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import graphic from '../../../components/assets/graphic.svg';
-import { useAuth } from '../../../components/auth/AuthProvider';
-import { authenticateUser } from '../../../firebaseFunctions/AuthFunctions';
+import { authenticateUser, logOut } from '../../../firebaseFunctions/AuthFunctions';
 import styles from './AdminLoginPage.module.css';
 import ForgotPassword from './ForgotPasswordModal/ForgotPassword';
 
 const AdminLoginPage = () => {
-  const auth = useAuth();
   useEffect(() => {
-    console.log(auth.token);
-  }, [auth]);
+    logOut();
+  }, []);
   const navigate = useNavigate();
   const [openForgotModal, setOpenForgotModal] = useState<boolean>(false);
   const [isVisiblePassword, setIsVisiblePassword] = useState<boolean>(false);
@@ -27,7 +25,7 @@ const AdminLoginPage = () => {
     if (loginDetails.email != '' && loginDetails.pass != '') {
       authenticateUser(loginDetails.email, loginDetails.pass)
         .then(() => {
-          navigate('/');
+          navigate('/admin/members');
         })
         .catch((error: any) => {
           const code = (error as AuthError).code;
@@ -73,7 +71,7 @@ const AdminLoginPage = () => {
               <input
                 className={styles.textBoxPass}
                 type={isVisiblePassword ? 'text' : 'password'}
-                placeholder="Enter your Password"
+                placeholder="Enter your password"
                 value={loginDetails.pass}
                 onChange={(event) =>
                   setLoginDetails({

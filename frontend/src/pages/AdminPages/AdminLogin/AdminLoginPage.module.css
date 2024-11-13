@@ -119,6 +119,12 @@
   border-radius: 100px;
   transition: color 300ms ease-out;
   transition: background-color 300ms ease-out;
+  background: #80d2c8;
+  color: #333333;
+}
+
+.loginButton:hover {
+  background: #b9e5e0;
 }
 
 .eyeImg {
