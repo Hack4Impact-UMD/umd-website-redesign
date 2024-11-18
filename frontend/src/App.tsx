@@ -4,12 +4,16 @@ import './App.css';
 
 import { useEffect, useLayoutEffect } from 'react';
 import { AuthProvider } from './components/auth/AuthProvider';
+import RequireAuth from './components/auth/RequireAuth';
 import ScrollToTopButton from './components/buttons/ScrollToTopButton';
 import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';
 import Projects from './components/projects/Projects';
 import AboutUs from './pages/AboutUsPage/AboutUs';
 import AdminLoginPage from './pages/AdminPages/AdminLogin/AdminLoginPage';
+import AdminMembers from './pages/AdminPages/AdminMembers/AdminMembers';
+import AdminProjects from './pages/AdminPages/AdminProjects/AdminProjects';
+import AdminSponsors from './pages/AdminPages/AdminSponsors/AdminSponsors';
 import NonprofitApply from './pages/ApplyPages/NonprofitApply';
 import StudentApply from './pages/ApplyPages/StudentApply';
 import ContactPage from './pages/ContactUs/ContactPage';
@@ -60,6 +64,30 @@ function App() {
               <Route path="/contactus" element={<ContactPage />} />
               <Route path="ourwork/:projectpath" element={<ProjectPage />} />
               <Route path="/admin/login" element={<AdminLoginPage />} />
+              <Route
+                path="/admin/members"
+                element={
+                  <RequireAuth>
+                    <AdminMembers />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/admin/sponsors"
+                element={
+                  <RequireAuth>
+                    <AdminSponsors />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/admin/projects"
+                element={
+                  <RequireAuth>
+                    <AdminProjects />
+                  </RequireAuth>
+                }
+              />
             </Routes>
             <Footer />
             <ScrollToTopButton />

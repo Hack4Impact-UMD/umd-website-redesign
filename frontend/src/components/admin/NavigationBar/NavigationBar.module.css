@@ -1,0 +1,202 @@
+.navigationBar {
+  background-color: white;
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+}
+
+.navigationBarPopupOpen {
+  background-color: white;
+  width: 250px;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+  z-index: 1;
+}
+
+.titleContainer {
+  text-align: center;
+  margin-top: 15%;
+}
+
+.header {
+  text-align: left;
+  padding-left: 8%;
+  margin: 10% 0% 0% 0%;
+}
+
+.breakLine {
+  border: 0;
+  width: 100%;
+  background-color: #d8d8d8;
+  height: 2px;
+}
+
+.linkOptionsContainer {
+  text-align: left;
+  text-decoration: none;
+}
+
+.linkOptions {
+  display: block;
+  color: white;
+  padding: 5% 0% 5% 10%;
+  text-decoration: none;
+}
+
+.linkOptionsUnselected {
+  display: block;
+  color: black;
+  padding: 5% 0% 5% 10%;
+  text-decoration: none;
+}
+
+.highlightOn {
+  background-color: #80d2c8;
+  border-radius: 0px 20px 20px 0px;
+  width: 85%;
+}
+
+.highlightOn:hover {
+  color: white;
+}
+
+.highlightOff {
+  width: 85%;
+}
+
+.tab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5%;
+}
+
+.iconInactive {
+  display: block;
+}
+
+.iconActive {
+  width: 25px;
+}
+
+.highlightOn .iconInactive {
+  display: none;
+}
+
+.highlightOn .iconActive {
+  display: block;
+}
+
+.menuBtn {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .background {
+    background-color: rgba(0, 0, 0, 0.4);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+  }
+
+  .navigationBar {
+    background-color: white;
+    width: 100%;
+    height: 80px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+  }
+
+  .navigationBarPopupOpen {
+    background-color: white;
+    width: 100%;
+    height: 80px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+  }
+
+  .closedMenu {
+    display: none;
+  }
+
+  .titleContainer {
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin: 15px 0px 0px 30px;
+    align-items: center;
+  }
+  .menuBtn {
+    position: absolute;
+    right: 50px;
+    display: block;
+    background: none;
+    border: none;
+  }
+  .menuBtn > img {
+    width: 30px;
+  }
+  .openMenu {
+    background-color: white;
+    margin-top: 18px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+    padding-bottom: 20px;
+  }
+  .header {
+    color: white;
+    background-color: var(--color-orange);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px -3px inset;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0px 40px;
+    margin: 0px 0px 5px 0px;
+  }
+  .breakLine {
+    display: none;
+  }
+  .highlightOn {
+    background: #0069ca;
+    width: 100%;
+  }
+  .linkOptions {
+    padding: 20px 30px;
+    color: black;
+  }
+  .linkOptionsUnselected {
+    padding: 20px 30px;
+  }
+  .highlightOn .iconInactive {
+    display: block;
+  }
+  .highlightOn .iconActive {
+    display: none;
+  }
+  .tab {
+    gap: 20px;
+  }
+  .linkOptions:hover,
+  .linkOptionsUnselected:hover {
+    color: #aaaaaa;
+    width: 100%;
+  }
+  .tab > img {
+    width: 30px;
+  }
+}
