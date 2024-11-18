@@ -1,0 +1,7 @@
+.rightPane {
+  width: calc(100% - 250px);
+  height: 100%;
+  float: right;
+  display: flex;
+  flex-direction: column;
+}

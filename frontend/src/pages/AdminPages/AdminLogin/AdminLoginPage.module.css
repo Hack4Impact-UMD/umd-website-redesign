@@ -83,7 +83,7 @@
   width: 350px;
   height: 60px;
   border-radius: 0.25rem;
-  font-family: 'Inter', serif;
+  font-family: 'Karla';
   color: #4d4d4d;
 }
 
@@ -101,7 +101,7 @@
   color: #4d4d4d;
   text-decoration: none;
   flex: 1;
-  font-family: 'Inter', serif;
+  font-family: 'Karla';
   margin-left: 35px;
   font-size: 14px;
   text-align: right;
@@ -136,7 +136,7 @@
  */
 .passwordContainer > input {
   height: 60px;
-  font-family: 'Inter', serif;
+  font-family: 'Karla';
   color: #4d4d4d;
   box-sizing: border-box;
   border-style: solid;

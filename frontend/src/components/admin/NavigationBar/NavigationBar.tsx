@@ -1,15 +1,14 @@
+import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import HandshakeOutlinedIcon from '@mui/icons-material/HandshakeOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
+import NoteAltOutlinedIcon from '@mui/icons-material/NoteAltOutlined';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import logoutIcon from '../../assets/admin/logout-black.svg';
-import members from '../../assets/admin/members.svg';
-import projects from '../../assets/admin/projects.png';
-import sponsors from '../../assets/admin/sponsors.png';
 import x from '../../assets/admin/x.svg';
 import { useAuth } from '../../auth/AuthProvider';
 import LogOutConfirmation from './LogOutConfirmation/LogOutConfirmation';
 import styles from './NavigationBar.module.css';
-
 const NavigationBar = (): JSX.Element => {
   const authContext = useAuth();
   const [showPopup, setShowPopup] = useState(false);
@@ -54,7 +53,7 @@ const NavigationBar = (): JSX.Element => {
                     id="members"
                   >
                     <div className={styles.tab}>
-                      <img className={styles.iconActive} src={members} alt="House Icon" />
+                      <GroupsOutlinedIcon className={styles.iconActive} />
                       Members
                     </div>
                   </NavLink>
@@ -71,7 +70,7 @@ const NavigationBar = (): JSX.Element => {
                     id="projects"
                   >
                     <div className={styles.tab}>
-                      <img className={styles.iconActive} src={projects} alt="Graduation cap icon" />
+                      <NoteAltOutlinedIcon className={styles.iconActive} />
                       Projects
                     </div>
                   </NavLink>
@@ -88,7 +87,7 @@ const NavigationBar = (): JSX.Element => {
                     end
                   >
                     <div className={styles.tab}>
-                      <img className={styles.iconActive} src={sponsors} alt="Gear icon" />
+                      <HandshakeOutlinedIcon className={styles.iconActive} />
                       Sponsors
                     </div>
                   </NavLink>

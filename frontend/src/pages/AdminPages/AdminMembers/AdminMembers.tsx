@@ -1,6 +1,6 @@
+import { Button, TextField } from '@mui/material';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import NavigationBar from '../../../components/admin/NavigationBar/NavigationBar';
-import { useState, ChangeEvent, FormEvent } from 'react';
-import { Container, Typography, TextField, Button, Grid, Grid2 } from '@mui/material';
 import styles from './AdminMembers.module.css';
 
 interface MemberFormData {
@@ -19,7 +19,7 @@ const AdminMembers = () => {
     pronouns: '',
     avatar: null,
     memberDisplayStatus: '',
-    role: ''
+    role: '',
   });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,25 +41,54 @@ const AdminMembers = () => {
     setFormData({ firstName: '', lastName: '', pronouns: '', avatar: null, memberDisplayStatus: '', role: '' });
   };
 
-
   return (
     <div>
       <NavigationBar />
-      <TextField label="First Name" name="firstName" value={formData.firstName} onChange={handleChange} fullWidth required />
-      <TextField label="Last Name" name="lastName" value={formData.lastName} onChange={handleChange} fullWidth required />
-      <TextField label="Pronouns" name="pronouns" value={formData.pronouns} onChange={handleChange} fullWidth required />
-      <TextField label="Role" name="role" value={formData.role} onChange={handleChange} fullWidth required />
-      <TextField label="Member Display Status" name="memberDisplayStatus" value={formData.memberDisplayStatus} onChange={handleChange} fullWidth required />
+      <div className={styles.rightPane}>
+        <TextField
+          label="First Name"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          label="Last Name"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField
+          label="Pronouns"
+          name="pronouns"
+          value={formData.pronouns}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
+        <TextField label="Role" name="role" value={formData.role} onChange={handleChange} fullWidth required />
+        <TextField
+          label="Member Display Status"
+          name="memberDisplayStatus"
+          value={formData.memberDisplayStatus}
+          onChange={handleChange}
+          fullWidth
+          required
+        />
 
-      <Button variant="contained" component="label">
-        Upload Avatar
-        <input type="file" hidden onChange={handleFileChange} />
-      </Button>
+        <Button variant="contained" component="label">
+          Upload Avatar
+          <input type="file" hidden onChange={handleFileChange} />
+        </Button>
 
-      <Button type="submit" variant="contained" color="primary">Add Member</Button>
-
+        <Button type="submit" variant="contained" color="primary">
+          Add Member
+        </Button>
+      </div>
     </div>
-    
   );
 };
 
