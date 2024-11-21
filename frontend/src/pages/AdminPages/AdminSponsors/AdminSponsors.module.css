@@ -1,0 +1,17 @@
+
+
+.rightPane {
+  width: calc(100% - 250px);
+  height: 100%;
+  float: right;
+  display: flex;
+  flex-direction: column;
+  /* additional positioning for elements in member adding */
+  padding-top: 20px;
+}
+
+/* .formControl {
+  color: blue;
+} */
+
+

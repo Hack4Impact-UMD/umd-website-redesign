@@ -1,4 +1,4 @@
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Select, MenuItem, FormControl, InputLabel, Typography, SelectChangeEvent } from '@mui/material';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import NavigationBar from '../../../components/admin/NavigationBar/NavigationBar';
 import styles from './AdminMembers.module.css';
@@ -8,7 +8,7 @@ interface MemberFormData {
   lastName: string;
   pronouns: string;
   avatar: File | null;
-  memberDisplayStatus: string;
+  memberDisplayStatus: boolean;
   role: string;
 }
 
@@ -18,9 +18,11 @@ const AdminMembers = () => {
     lastName: '',
     pronouns: '',
     avatar: null,
-    memberDisplayStatus: '',
+    memberDisplayStatus: true,
     role: '',
   });
+
+  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -28,65 +30,108 @@ const AdminMembers = () => {
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
+    if (e.target.files && e.target.files[0]) {
       setFormData({ ...formData, avatar: e.target.files[0] });
+      setUploadedFileName(e.target.files[0].name); // Set uploaded file name
     }
+  };
+
+  const handleSelectChange = (e: SelectChangeEvent) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name!]: value });
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    // following line would come from Firebase Utilities
-    // addMemberToDatabase(formData);
+    // Add logic to submit the form data
     alert('Member added successfully!');
-    setFormData({ firstName: '', lastName: '', pronouns: '', avatar: null, memberDisplayStatus: '', role: '' });
+    setFormData({
+      firstName: '',
+      lastName: '',
+      pronouns: '',
+      avatar: null,
+      memberDisplayStatus: true,
+      role: '',
+    });
+    setUploadedFileName(null); // Reset file name
   };
 
   return (
     <div>
       <NavigationBar />
       <div className={styles.rightPane}>
-        <TextField
-          label="First Name"
-          name="firstName"
-          value={formData.firstName}
-          onChange={handleChange}
-          fullWidth
-          required
-        />
-        <TextField
-          label="Last Name"
-          name="lastName"
-          value={formData.lastName}
-          onChange={handleChange}
-          fullWidth
-          required
-        />
-        <TextField
-          label="Pronouns"
-          name="pronouns"
-          value={formData.pronouns}
-          onChange={handleChange}
-          fullWidth
-          required
-        />
-        <TextField label="Role" name="role" value={formData.role} onChange={handleChange} fullWidth required />
-        <TextField
-          label="Member Display Status"
-          name="memberDisplayStatus"
-          value={formData.memberDisplayStatus}
-          onChange={handleChange}
-          fullWidth
-          required
-        />
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label="First Name"
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            fullWidth
+            required
+          />
+          <TextField
+            className={styles.textField}
+            label="Last Name"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            fullWidth
+            required
+          />
+          <TextField
+            label="Pronouns"
+            name="pronouns"
+            value={formData.pronouns}
+            onChange={handleChange}
+            fullWidth
+            required
+          />
+          <FormControl fullWidth className={styles.formControl}>
+            <InputLabel id="display-status-label">Member Display Status</InputLabel>
+            <Select
+              labelId="display-status-label"
+              name="memberDisplayStatus"
+              value={String(formData.memberDisplayStatus)}
+              onChange={(e) =>
+                setFormData({ ...formData, memberDisplayStatus: e.target.value === 'true' })
+              }
+            >
+              <MenuItem value="true">True</MenuItem>
+              <MenuItem value="false">False</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth className={styles.formControl}>
+            <InputLabel id="role-label">Role</InputLabel>
+            <Select
+              labelId="role-label"
+              name="role"
+              value={formData.role}
+              onChange={handleSelectChange}
+            >
+              <MenuItem value="Engineer">Engineer</MenuItem>
+              <MenuItem value="Tech Lead">TL</MenuItem>
+              <MenuItem value="Project Manager">PM</MenuItem>
+              <MenuItem value="Designer">Designer</MenuItem>
+              <MenuItem value="Bootcamp">Bootcamp</MenuItem>
+            </Select>
+          </FormControl>
 
-        <Button variant="contained" component="label">
-          Upload Avatar
-          <input type="file" hidden onChange={handleFileChange} />
-        </Button>
+          <FormControl fullWidth className={styles.formControl}>
+            <Button variant="contained" component="label" className={styles.avatarButton}>
+              Upload Avatar
+              <input type="file" hidden onChange={handleFileChange} />
+            </Button>
+            {uploadedFileName && (
+              <Typography variant="body2" color="textSecondary">
+                Uploaded: {uploadedFileName}
+              </Typography>
+            )}
+          </FormControl>
 
-        <Button type="submit" variant="contained" color="primary">
-          Add Member
-        </Button>
+          <Button type="submit" variant="contained" color="primary" className={styles.submitButton}>
+            Add Member
+          </Button>
+        </form>
       </div>
     </div>
   );
