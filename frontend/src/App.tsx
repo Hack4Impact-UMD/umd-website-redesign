@@ -67,25 +67,25 @@ function App() {
               <Route
                 path="/admin/members"
                 element={
-                  <RequireAuth>
+                  // <RequireAuth>
                     <AdminMembers />
-                  </RequireAuth>
+                  // </RequireAuth>
                 }
               />
               <Route
                 path="/admin/sponsors"
                 element={
-                  <RequireAuth>
+                  // <RequireAuth>
                     <AdminSponsors />
-                  </RequireAuth>
+                  // </RequireAuth>
                 }
               />
               <Route
                 path="/admin/projects"
                 element={
-                  <RequireAuth>
+                  // <RequireAuth>
                     <AdminProjects />
-                  </RequireAuth>
+                  // </RequireAuth>
                 }
               />
             </Routes>

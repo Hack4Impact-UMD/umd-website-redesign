@@ -80,7 +80,7 @@ const AdminProjects = () => {
     <div>
       <NavigationBar />
       <div className={styles.rightPane}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={styles.formContainer}>
           <TextField
             label="Title"
             name="title"
@@ -89,11 +89,6 @@ const AdminProjects = () => {
             fullWidth
             required
           />
-
-          <Button variant="contained" component="label" className={styles.imageButton}>
-            Upload Image
-            <input type="file" hidden onChange={handleFileChange} />
-          </Button>
 
           <FormControl fullWidth>
             <InputLabel>Is Featured</InputLabel>
@@ -126,6 +121,7 @@ const AdminProjects = () => {
             onChange={handleChange}
             fullWidth
           />
+          
           <TextField
             label="Site URL"
             name="siteURL"
@@ -133,6 +129,7 @@ const AdminProjects = () => {
             onChange={handleChange}
             fullWidth
           />
+
           <TextField
             label="Image Alt Text"
             name="imageAltText"
@@ -188,7 +185,6 @@ const AdminProjects = () => {
               input={<OutlinedInput />}
               renderValue={(selected) => selected.join(', ')}
             >
-              {/* made up members for demo - this will be replaced with Firebase member access */}
               {['Member 1', 'Member 2', 'Member 3'].map((member) => (
                 <MenuItem key={member} value={member}>
                   <Checkbox checked={formData.members.includes(member)} />
@@ -203,27 +199,32 @@ const AdminProjects = () => {
             name="summary"
             value={formData.summary}
             onChange={handleChange}
-            fullWidth
             multiline
             rows={3}
+            className={styles.fullWidth}
           />
+
           <TextField
             label="Blurb"
             name="blurb"
             value={formData.blurb}
             onChange={handleChange}
-            fullWidth
             multiline
             rows={2}
+            className={styles.fullWidth}
           />
-          
-          {/* super gross hardcoded break just to look at stuff pre designs */}
-          <br />
+
+          <Button variant="contained" component="label" className={styles.imageButton}>
+            Upload Image
+            <input type="file" hidden onChange={handleFileChange} />
+          </Button>
+
           <Button type="submit" variant="contained" color="primary" className={styles.submitButton}>
             Add Project
           </Button>
         </form>
       </div>
+
     </div>
   );
 };

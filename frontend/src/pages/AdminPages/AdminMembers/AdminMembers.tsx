@@ -60,22 +60,21 @@ const AdminMembers = () => {
     <div>
       <NavigationBar />
       <div className={styles.rightPane}>
-        <form onSubmit={handleSubmit}>
+        <div className={styles.formContainer}>
           <TextField
             label="First Name"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
-            fullWidth
+            className={styles.formControl}
             required
           />
           <TextField
-            className={styles.textField}
             label="Last Name"
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
-            fullWidth
+            className={styles.formControl}
             required
           />
           <TextField
@@ -83,24 +82,22 @@ const AdminMembers = () => {
             name="pronouns"
             value={formData.pronouns}
             onChange={handleChange}
-            fullWidth
+            className={styles.formControl}
             required
           />
-          <FormControl fullWidth className={styles.formControl}>
+          <FormControl className={styles.formControl}>
             <InputLabel id="display-status-label">Member Display Status</InputLabel>
             <Select
               labelId="display-status-label"
               name="memberDisplayStatus"
               value={String(formData.memberDisplayStatus)}
-              onChange={(e) =>
-                setFormData({ ...formData, memberDisplayStatus: e.target.value === 'true' })
-              }
+              onChange={(e) => setFormData({ ...formData, memberDisplayStatus: e.target.value === 'true' })}
             >
               <MenuItem value="true">True</MenuItem>
               <MenuItem value="false">False</MenuItem>
             </Select>
           </FormControl>
-          <FormControl fullWidth className={styles.formControl}>
+          <FormControl className={styles.formControl}>
             <InputLabel id="role-label">Role</InputLabel>
             <Select
               labelId="role-label"
@@ -115,8 +112,7 @@ const AdminMembers = () => {
               <MenuItem value="Bootcamp">Bootcamp</MenuItem>
             </Select>
           </FormControl>
-
-          <FormControl fullWidth className={styles.formControl}>
+          <FormControl className={styles.fullWidth}>
             <Button variant="contained" component="label" className={styles.avatarButton}>
               Upload Avatar
               <input type="file" hidden onChange={handleFileChange} />
@@ -127,12 +123,12 @@ const AdminMembers = () => {
               </Typography>
             )}
           </FormControl>
-
           <Button type="submit" variant="contained" color="primary" className={styles.submitButton}>
             Add Member
           </Button>
-        </form>
+        </div>
       </div>
+
     </div>
   );
 };

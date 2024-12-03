@@ -46,21 +46,7 @@ const AdminSponsors = () => {
     <div>
       <NavigationBar />
       <div className={styles.rightPane}>
-        <form onSubmit={handleSubmit}>
-          <FormControl fullWidth className={styles.formControl}>
-            <Typography variant="body2" color="textSecondary">
-              Please ensure the image maintains visual alignment with other sponsor logos.
-            </Typography>
-            <Button variant="contained" component="label">
-              Upload Image
-              <input type="file" hidden onChange={handleFileChange} />
-            </Button>
-            {uploadedFileName && (
-              <Typography variant="body2" color="textSecondary">
-                Uploaded: {uploadedFileName}
-              </Typography>
-            )}
-          </FormControl>
+        <form onSubmit={handleSubmit} className={styles.formContainer}>
 
           <TextField
             label="Link"
@@ -71,7 +57,7 @@ const AdminSponsors = () => {
             required
           />
 
-          <FormControl fullWidth className={styles.formControl}>
+          <FormControl fullWidth>
             <InputLabel id="tier-label">Tier</InputLabel>
             <Select
               labelId="tier-label"
@@ -87,11 +73,29 @@ const AdminSponsors = () => {
             </Select>
           </FormControl>
 
+          <div className={styles.uploadSection}>
+            <FormControl fullWidth>
+              <Typography variant="body2" color="textSecondary">
+                Please ensure the image maintains visual alignment with other sponsor logos.
+              </Typography>
+              <Button variant="contained" component="label">
+                Upload Image
+                <input type="file" hidden onChange={handleFileChange} />
+              </Button>
+              {uploadedFileName && (
+                <Typography variant="body2" color="textSecondary">
+                  Uploaded: {uploadedFileName}
+                </Typography>
+              )}
+            </FormControl>
+          </div>
+
           <Button type="submit" variant="contained" color="primary" className={styles.submitButton}>
             Add Sponsor
           </Button>
         </form>
       </div>
+
     </div>
   );
 };
