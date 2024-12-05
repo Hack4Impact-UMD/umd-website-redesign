@@ -1,89 +1,150 @@
 #headerDiv {
-    background-image: url(../../components/assets/backgrounds/apply_header.svg);
-    background-size: cover;
-    background-position: bottom;
-    min-width: 100%;
-    min-height: 810px;
-    padding-left: 20px;
-    padding-right: 20px;
+  background-image: url(../../components/assets/backgrounds/apply_header.svg);
+  background-size: cover;
+  background-position: bottom;
+  min-height: 810px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 #headerContent {
-    padding-top: clamp(120px, 18vw, 224px);
+  padding-top: clamp(80px, 12vw, 146px);
 }
 
 #title {
-    text-align: center;
-    margin-bottom: 80px;
+  text-align: center;
+  margin-bottom: 80px;
 }
-  
+
 form {
-    max-width: 672px;
-    margin: auto;
-    font-size: 18px;
+  max-width: 672px;
+  margin: auto;
+  font-size: 18px;
 }
 
 form div {
-    float: left;
-    width: 100%;
-    margin-bottom: 30px;
+  float: left;
+  width: 100%;
+  margin-bottom: 30px;
 }
 
 form div:nth-child(1) {
-    float: left;
-    width: 47%;
+  float: left;
+  width: 47%;
 }
 
 form div:nth-child(2) {
-    float: right;
-    width: 47%;
+  float: right;
+  width: 47%;
 }
 
 ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
-
 
 form label {
-    display: block;
+  display: block;
 }
 
-input, textarea {
-    padding: 1em;
+input,
+textarea {
+  padding: 1em;
 }
 
 textarea {
-    height: 263px;
-    resize: none;
+  height: 263px;
+  resize: none;
 }
 
-input[type=text] {
-    height: 40px;
+input[type='text'] {
+  height: 40px;
 }
 
-input[type=submit] {
-    background-color: #0069CA;
-    color: #FFFFFF;
-    height: 55px;
-    width: 180px;
-    padding: 10px;
-    border: none;
-    border-radius: 100px;
-    transition: color 300ms ease-out;
-    transition: background-color 300ms ease-out;
+input[type='submit'] {
+  background-color: var(--color-h4i-blue);
+  color: #ffffff;
+  height: 55px;
+  width: 180px;
+  padding: 10px;
+  border: none;
+  border-radius: 100px;
+  transition: color 300ms ease-out;
+  transition: background-color 300ms ease-out;
 }
-
-input, textarea {
-    width: 100%;
-    border: 1px solid #657788;
-    border-radius: 5px;
-}
-
 .buttonHolder {
-    text-align: center;
+  text-align: center;
 }
 
 .buttonHolder input {
-    margin-top: 50px;
+  margin-top: 50px;
+}
+
+.submitButton {
+  color: #ffffff;
+  background-color: #0069ca;
+  height: 55px;
+  width: 180px;
+  border: none;
+  border-radius: 100px;
+  transition: color 300ms ease-out;
+  transition: background-color 300ms ease-out;
+}
+
+.submitButton.green {
+  color: #333333;
+  background-color: #80d2c8;
+
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+}
+
+.submitButton.blue {
+  color: #ffffff;
+  background-color: #0069ca;
+
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--color-light-blue-hover);
+  border-radius: 5px;
+}
+
+.buttonHolder {
+  text-align: center;
+}
+
+.buttonHolder input {
+  margin-top: 50px;
+}
+
+@media (hover: hover) {
+  .submitButton.green:hover {
+    background-color: #cbf9f3;
+  }
+
+  .submitButton.blue:hover {
+    background-color: #c2e0fb;
+  }
+
+  .submitButton:hover {
+    color: #657788;
+  }
+
+  .submitButton:hover {
+    color: #ffffff;
+    background-color: #c2e0fb;
+  }
 }

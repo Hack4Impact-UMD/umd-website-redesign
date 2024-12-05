@@ -25,13 +25,13 @@
 .nonprofitApplyHeader {
   background-image: url(../../components/assets/backgrounds/apply_header.svg);
   background-size: cover;
-  background-position: bottom;
   min-width: 100%;
-  min-height: 810px;
+  height: 800px;
+  margin-bottom: 300px;
 }
 
 .nonprofitApplyHeaderContent {
-  padding-top: clamp(120px, 18vw, 224px);
+  padding-top: clamp(80px, 12vw, 150px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,7 +91,6 @@
 @media screen and (min-width: 1200px) {
   .nonprofitApplyHeader {
     background-image: url(../../components/assets/backgrounds/apply_header_desktop.svg);
-    min-height: 989px;
   }
 
   .nonprofitApplyHeader p {
@@ -122,5 +121,4 @@
   .footerDiv {
     margin-top: -420px;
   }
-
 }

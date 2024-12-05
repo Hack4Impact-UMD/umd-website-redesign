@@ -6,10 +6,12 @@ import CloseButton from '../assets/navbar_close_button.svg';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
+  // Use the admin navbar on admin pages
   const location = useLocation();
-  if (location.pathname.startsWith('/admin')) {
+  if (location.pathname.startsWith('/admin/')) {
     return null;
   }
+
   const [isMenuOpen, setMenuOpen] = useState(false);
 
   // if window <= 1000, will toggle hamburger menu
@@ -84,9 +86,6 @@ const Navbar = () => {
             </div>
           </li>
           <li>
-            {/* <a className={styles.navLinks} href={'mailto:umd@hack4impact.org'}>
-              {'Contact Us'}
-            </a> */}
             <Link className={styles.navLinks} to={'/contactus'} onClick={() => toggleOrScroll('/contactus')}>
               {'Contact Us'}
             </Link>

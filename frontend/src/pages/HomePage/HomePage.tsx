@@ -1,6 +1,6 @@
 import Projects from '../../components/projects/Projects';
-import HomePageLower from './HomePageLower';
 import HomePageTop from './HomePageTop';
+import SliderComp from './Slider';
 import Supporters from './Supporters';
 
 const HomePage = () => {
@@ -8,8 +8,11 @@ const HomePage = () => {
     <div>
       <HomePageTop />
       <Projects isFeatured={true} />
-      <HomePageLower />
+
+      <SliderComp />
       <Supporters />
     </div>
   );
 };
+
+export default HomePage;

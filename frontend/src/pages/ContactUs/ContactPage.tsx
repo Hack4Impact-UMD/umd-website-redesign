@@ -107,9 +107,10 @@ function ContactPage() {
             <label>Your message</label>
             <textarea name="message" onChange={handleChange} required></textarea>
           </p>
-          {/* CUSTOM SOPHIE BUTTON CODE!!*/}
           <div className={styles.buttonHolder}>
-            <button type="submit" value="Send Message"></button>
+            <button type="submit" value="Send Message" className={styles.submitButton}>
+              Submit
+            </button>
           </div>
         </form>
       </div>

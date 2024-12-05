@@ -5,7 +5,7 @@
   background-image: url(../../components/assets/footer/footer_background_mobile.svg);
   /* sizing background image. Use mobile background for desktop too. */
   background-size: cover;
-  min-width: 100%;
+  min-width: 95%;
   min-height: 922px;
   z-index: 0;
 
@@ -14,7 +14,7 @@
 }
 
 .Footer p {
-    margin: 0px;
+  margin: 0px;
 }
 
 .FooterContent {
@@ -38,7 +38,7 @@
 }
 
 .FooterInfo a:hover {
-  color: #0069ca;
+  color: var(--color-h4i-blue);
 }
 
 .WordMark {
@@ -82,15 +82,14 @@
 }
 
 .FooterColumn a {
-  color: #657788;
+  color: var(--color-light-blue-hover);
   text-decoration: none;
   transition: color 300ms ease-out;
 }
 
 .FooterColumn a:hover {
-  color: #0069ca;
+  color: var(--color-h4i-blue);
 }
-
 
 /* Desktop Styling */
 @media screen and (min-width: 1000px) {
@@ -133,7 +132,7 @@
 }
 
 @media screen and (min-width: 1200px) {
-    .FooterContent {
-        gap: 93px;
-    }
+  .FooterContent {
+    gap: 93px;
+  }
 }

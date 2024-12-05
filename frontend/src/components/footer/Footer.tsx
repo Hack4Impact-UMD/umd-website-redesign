@@ -95,17 +95,6 @@ function FooterIconsMobile() {
   );
 }
 
-// Column links component.
-function FooterCols() {
-  return (
-    <div className={styles.FooterColumns}>
-      <FooterCol1 />
-      <FooterCol2 />
-      <FooterCol3 />
-    </div>
-  );
-}
-
 function FooterCol1() {
   return (
     <div className={styles.FooterColumn}>

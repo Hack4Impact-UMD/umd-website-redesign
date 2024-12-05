@@ -20,6 +20,7 @@
   display: grid;
   grid-template-columns: 1fr;
   justify-content: center;
+  padding-top: 50px;
 }
 
 .headerImg {
@@ -29,8 +30,10 @@
 
 .headerText {
   text-align: center;
-  margin-top: -55%;
+  height: 100px;
+  padding-top: 300px;
   width: 100%;
+  background-color: #c2e0fb;
 }
 
 .ourMission {
@@ -49,11 +52,11 @@
 }
 
 .ourMission a {
-  color:#333333;
+  color: var(--color-black);
 }
 
 .ourMission a:hover {
-  color:#0069CA;
+  color: var(--color-h4i-blue);
 }
 
 .valuesCardsDiv {
@@ -79,7 +82,8 @@
   gap: 63px;
 }
 
-.execBoardPhotos,.teamMembersPhotos {
+.execBoardPhotos,
+.teamMembersPhotos {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -115,7 +119,8 @@
     gap: 50px;
   }
 
-  .execBoardPhotos, .teamMembersPhotos {
+  .execBoardPhotos,
+  .teamMembersPhotos {
     padding: 0px 10%;
     justify-content: center;
     column-gap: 15px;

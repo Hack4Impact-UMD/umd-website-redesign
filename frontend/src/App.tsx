@@ -8,18 +8,16 @@ import RequireAuth from './components/auth/RequireAuth';
 import ScrollToTopButton from './components/buttons/ScrollToTopButton';
 import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';
-import Projects from './components/projects/Projects';
 import AboutUs from './pages/AboutUsPage/AboutUs';
 import AdminLoginPage from './pages/AdminPages/AdminLogin/AdminLoginPage';
 import AdminMembers from './pages/AdminPages/AdminMembers/AdminMembers';
 import AdminProjects from './pages/AdminPages/AdminProjects/AdminProjects';
 import AdminSponsors from './pages/AdminPages/AdminSponsors/AdminSponsors';
+import AdminTestingPage from './pages/AdminPages/AdminTestingPage/AdminTestingPage';
 import NonprofitApply from './pages/ApplyPages/NonprofitApply';
 import StudentApply from './pages/ApplyPages/StudentApply';
 import ContactPage from './pages/ContactUs/ContactPage';
-import HomePageLower from './pages/HomePage/HomePageLower';
-import HomePageTop from './pages/HomePage/HomePageTop';
-import Supporters from './pages/HomePage/Supporters';
+import HomePage from './pages/HomePage/HomePage';
 import OurWork from './pages/OurWork/OurWork';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import ProjectPage from './pages/Projects/ProjectPage';
@@ -34,17 +32,6 @@ const ScrollToTopWrapper = ({ children }: { children: JSX.Element }) => {
   return children;
 };
 
-function Homepage() {
-  return (
-    <div>
-      <HomePageTop />
-      <Projects isFeatured={true} />
-      <HomePageLower />
-      <Supporters />
-    </div>
-  );
-}
-
 function App() {
   return (
     <AuthProvider>
@@ -54,7 +41,7 @@ function App() {
             <Navbar />
             <Routes>
               <Route path="*" element={<PageNotFound />} />
-              <Route path="/" element={<Homepage />} />
+              <Route path="/" element={<HomePage />} />
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/ourwork" element={<OurWork />} />
               <Route path="/apply-f24" element={<AppsPage />} />
@@ -85,6 +72,14 @@ function App() {
                 element={
                   <RequireAuth>
                     <AdminProjects />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/admin/testing"
+                element={
+                  <RequireAuth>
+                    <AdminTestingPage />
                   </RequireAuth>
                 }
               />

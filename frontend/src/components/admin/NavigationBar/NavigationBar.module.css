@@ -63,7 +63,7 @@
 }
 
 .highlightOn {
-  background-color: #0069ca;
+  background-color: var(--color-h4i-blue);
   border-radius: 0px 20px 20px 0px;
   width: 85%;
 }
@@ -172,7 +172,7 @@
     display: none;
   }
   .highlightOn {
-    background: #0069ca;
+    background: var(--color-h4i-blue);
     width: 100%;
   }
   .linkOptions {

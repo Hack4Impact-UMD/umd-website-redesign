@@ -1,2 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Karla');
 @import url('https://fonts.googleapis.com/css?family=Rubik');
+
+:root {
+  --color-black: #333333;
+  --color-light-blue-hover: #657788;
+  --color-h4i-blue: #0069ca;
+}

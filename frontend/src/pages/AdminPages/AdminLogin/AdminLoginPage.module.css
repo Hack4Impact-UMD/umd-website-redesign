@@ -9,7 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #0069ca;
+  background-color: var(--color-h4i-blue);
 }
 
 .rightSide {
@@ -120,7 +120,7 @@
   transition: color 300ms ease-out;
   transition: background-color 300ms ease-out;
   background: #80d2c8;
-  color: #333333;
+  color: var(--color-black);
 }
 
 .loginButton:hover {

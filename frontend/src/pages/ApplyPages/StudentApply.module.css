@@ -19,13 +19,13 @@
 .studentApplyHeader {
   background-image: url(../../components/assets/backgrounds/apply_header.svg);
   background-size: cover;
-  background-position: bottom;
   min-width: 100%;
-  min-height: 810px;
+  height: 800px;
+  margin-bottom: 300px;
 }
 
 .studentApplyHeaderContent {
-  padding-top: clamp(120px, 18vw, 224px);
+  padding-top: clamp(80px, 12vw, 150px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -95,7 +95,6 @@
 
 /* Small Screen Styles */
 @media screen and (min-width: 800px) {
-
   .studentApplyCards {
     flex-direction: row;
     flex-wrap: wrap;
@@ -103,14 +102,12 @@
     row-gap: 75px;
     justify-content: center;
   }
-
 }
 
 /* Desktop Styles */
 @media screen and (min-width: 1200px) {
   .studentApplyHeader {
     background-image: url(../../components/assets/backgrounds/apply_header_desktop.svg);
-    min-height: 989px;
   }
 
   .studentApplyHeader p {

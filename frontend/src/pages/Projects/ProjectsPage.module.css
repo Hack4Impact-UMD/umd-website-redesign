@@ -43,7 +43,7 @@
 .timeline h1 {
   font-size: 34px;
   line-height: 39.75px;
-  color: #0069ca;
+  color: var(--color-h4i-blue);
 
   margin: 0;
   padding: 0px 10%;
@@ -99,7 +99,7 @@
   justify-content: center;
   text-align: center;
 }
-  
+
 .teamMembersPhotos {
   width: 80%;
   display: flex;
@@ -176,6 +176,3 @@
     margin-top: 105px;
   }
 }
-
-
-

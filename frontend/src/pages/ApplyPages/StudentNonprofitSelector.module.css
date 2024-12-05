@@ -29,7 +29,7 @@
   }
 
   .greyDesktop:hover path:first-child {
-    fill: #657788;
+    fill: var(--color-light-blue-hover);
     fill-opacity: 0.3;
   }
 }
