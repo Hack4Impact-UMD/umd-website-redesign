@@ -1,0 +1,40 @@
+.inputField {
+  margin-bottom: 16px;
+  padding: 8px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.dataGridContainer {
+  height: 80vh;
+  width: 100%;
+}
+
+.dataGrid {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.dataGrid .MuiDataGrid-cell {
+  color: #333;
+  font-size: 14px;
+}
+
+.dataGrid .MuiDataGrid-columnHeaders {
+  background-color: #e0f7fa;
+  font-weight: bold;
+}
+
+.dataGrid .MuiDataGrid-row:hover {
+  background-color: #e3f2fd;
+}
+
+.rightPane {
+  width: calc(100% - 250px);
+  height: 100%;
+  float: right;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  padding-top: 20px;
+}
