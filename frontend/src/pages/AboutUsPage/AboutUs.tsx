@@ -111,7 +111,11 @@ function AboutUs() {
                       key={index}
                       memberName={item['firstName'] + ' ' + item['lastName']}
                       team={''}
-                      role={''}
+                      role={
+                        item['roles'].find((role: any) => role['isDisplayRole'])
+                          ? item['roles'].find((role: any) => role['isDisplayRole'])!['role'].toString()
+                          : ''
+                      }
                       pronouns={item['pronouns']}
                       src={item['image']['downloadURL']}
                     />

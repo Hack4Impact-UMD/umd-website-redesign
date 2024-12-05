@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import React, { useEffect, useState } from 'react';
 import NavigationBar from '../../../components/admin/NavigationBar/NavigationBar';
 import { getMembersData } from '../../../firebaseFunctions/FirebaseCalls';
 import styles from './AdminMembersDisplay.module.css';
@@ -79,9 +79,10 @@ const AdminMembersDisplay = () => {
             <DataGrid
               rows={rows}
               columns={columns}
+              // pageSize={5}
+              // rowsPerPageOptions={[5]}
               className={styles.dataGrid}
               sortingOrder={['asc', 'desc']}
-              autoHeight
             />
           </div>
         </div>

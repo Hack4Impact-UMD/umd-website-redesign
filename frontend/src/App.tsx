@@ -10,7 +10,7 @@ import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';
 import AboutUs from './pages/AboutUsPage/AboutUs';
 import AdminLoginPage from './pages/AdminPages/AdminLogin/AdminLoginPage';
-import AdminMembers from './pages/AdminPages/AdminMembers/AdminMembers';
+import AdminMembersDisplay from './pages/AdminPages/AdminMembers/AdminMembersDisplay';
 import AdminProjects from './pages/AdminPages/AdminProjects/AdminProjects';
 import AdminSponsors from './pages/AdminPages/AdminSponsors/AdminSponsors';
 import AdminTestingPage from './pages/AdminPages/AdminTestingPage/AdminTestingPage';
@@ -21,7 +21,6 @@ import HomePage from './pages/HomePage/HomePage';
 import OurWork from './pages/OurWork/OurWork';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import ProjectPage from './pages/Projects/ProjectPage';
-import AdminMembersDisplay from './pages/AdminPages/AdminMembers/AdminMembersDisplay';
 import AdminProjectsDisplay from './pages/AdminPages/AdminProjects/AdminProjectsDisplay';
 
 // Scrolls to top of
@@ -57,7 +56,7 @@ function App() {
                 path="/admin/addmembers"
                 element={
                   <RequireAuth>
-                    <AdminMembers />
+                    <AdminMembersDisplay />
                   </RequireAuth>
                 }
               />
@@ -67,7 +66,8 @@ function App() {
                   <RequireAuth>
                     <AdminMembersDisplay />
                   </RequireAuth>
-                }/>
+                }
+              />
               <Route
                 path="/admin/sponsors"
                 element={
