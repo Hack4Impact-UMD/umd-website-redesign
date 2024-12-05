@@ -21,6 +21,7 @@ import HomePage from './pages/HomePage/HomePage';
 import OurWork from './pages/OurWork/OurWork';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import ProjectPage from './pages/Projects/ProjectPage';
+import AdminMembersDisplay from './pages/AdminPages/AdminMembers/AdminMembersDisplay';
 
 // Scrolls to top of
 // https://stackoverflow.com/a/70194027
@@ -59,6 +60,13 @@ function App() {
                   </RequireAuth>
                 }
               />
+              <Route 
+                path="/admin/display/members"
+                element={
+                  <RequireAuth>
+                    <AdminMembersDisplay />
+                  </RequireAuth>
+                }/>
               <Route
                 path="/admin/sponsors"
                 element={
