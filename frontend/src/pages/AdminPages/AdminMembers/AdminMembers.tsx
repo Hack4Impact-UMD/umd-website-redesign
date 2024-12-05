@@ -1,16 +1,16 @@
 import {
   Button,
-  TextField,
-  Select,
-  MenuItem,
   FormControl,
   InputLabel,
-  Typography,
+  MenuItem,
+  Select,
   SelectChangeEvent,
+  TextField,
+  Typography,
 } from '@mui/material';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import NavigationBar from '../../../components/admin/NavigationBar/NavigationBar';
-import { addMember, uploadImage } from '../../../firebaseFunctions/firebaseCalls'; // Import your Firebase functions
+import { uploadImage } from '../../../firebaseFunctions/FirebaseCalls'; // Import your Firebase functions
 import styles from './AdminMembers.module.css';
 
 interface MemberFormData {
@@ -63,7 +63,8 @@ const AdminMembers = () => {
 
         // You can now add the member data, including the avatar URL, to Firestore
         // Assuming you have a function to handle adding a member to Firestore (e.g., addMember)
-        await addMember({ ...formData, avatar: avatarUrl });
+
+        //await addMember({ ...formData, avatar: avatarUrl });
 
         alert('Member added successfully!');
         setFormData({
@@ -120,9 +121,7 @@ const AdminMembers = () => {
                 labelId="display-status-label"
                 name="memberDisplayStatus"
                 value={String(formData.memberDisplayStatus)}
-                onChange={(e) =>
-                  setFormData({ ...formData, memberDisplayStatus: e.target.value === 'true' })
-                }
+                onChange={(e) => setFormData({ ...formData, memberDisplayStatus: e.target.value === 'true' })}
               >
                 <MenuItem value="true">True</MenuItem>
                 <MenuItem value="false">False</MenuItem>
@@ -130,12 +129,7 @@ const AdminMembers = () => {
             </FormControl>
             <FormControl className={styles.formControl}>
               <InputLabel id="role-label">Role</InputLabel>
-              <Select
-                labelId="role-label"
-                name="role"
-                value={formData.role}
-                onChange={handleSelectChange}
-              >
+              <Select labelId="role-label" name="role" value={formData.role} onChange={handleSelectChange}>
                 <MenuItem value="Engineer">Engineer</MenuItem>
                 <MenuItem value="Tech Lead">TL</MenuItem>
                 <MenuItem value="Project Manager">PM</MenuItem>
@@ -144,12 +138,7 @@ const AdminMembers = () => {
               </Select>
             </FormControl>
             <FormControl className={styles.fullWidth}>
-              <Button
-                variant="contained"
-                component="label"
-                className={styles.avatarButton}
-                disabled={loading}
-              >
+              <Button variant="contained" component="label" className={styles.avatarButton} disabled={loading}>
                 Upload Avatar
                 <input type="file" hidden onChange={handleFileChange} />
               </Button>

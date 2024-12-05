@@ -7,7 +7,7 @@
 
 #cardImageContainer {
   display: flex;
-  border-color: #333333;
+  border-color: var(--color-black);
   justify-content: center;
   overflow: hidden;
   max-width: 100%;
@@ -63,18 +63,17 @@
 
 #cardLink {
   line-height: 16px;
-  color: #333333;
+  color: var(--color-black);
 }
 
 #cardLink:hover,
 #cardLink:focus,
 #cardLink p:hover {
-  color: #0069ca;
+  color: var(--color-h4i-blue);
   transition: color 300ms ease;
 }
 
 @media screen and (min-width: 700px) {
-
   #cardContainer {
     display: flex;
     flex-direction: row;
@@ -140,5 +139,4 @@
     bottom: 0;
     text-align: left;
   }
-
 }

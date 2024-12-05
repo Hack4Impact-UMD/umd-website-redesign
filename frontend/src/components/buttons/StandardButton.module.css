@@ -8,7 +8,7 @@
 }
 
 .button.green {
-  color: #333333;
+  color: var(--color-black);
   background-color: #80d2c8;
 
   font-family: 'Rubik';
@@ -21,7 +21,7 @@
 
 .button.blue {
   color: #ffffff;
-  background-color: #0069ca;
+  background-color: var(--color-h4i-blue);
 
   font-family: 'Rubik';
   font-style: normal;
@@ -41,6 +41,6 @@
   }
 
   .button:hover {
-    color: #657788;
+    color: var(--color-light-blue-hover);
   }
 }

@@ -1,18 +1,31 @@
-import { getSeason } from '../../HelperFunctions';
+import { useEffect, useState } from 'react';
+import { getProjects } from '../../firebaseFunctions/FirebaseCalls';
+import Project from '../../types/Project';
 import StandardButton from '../buttons/StandardButton';
 import FeaturedProjectCard from './FeaturedProjectCard';
 import styles from './Projects.module.css';
 
 const Projects = (props: any) => {
+  const seasons = {
+    Spring: 1,
+    Summer: 2,
+    Fall: 3,
+    Winter: 4,
+  };
   const res = null;
-  const projects = []!;
+  const [projects, setProjects] = useState([]);
 
-  //check which type of projects were rendering
-  if (props.isFeatured == true) {
-    // fetch featuredProjects from backend
-  } else {
-    //fetch current projects
-  }
+  useEffect(() => {
+    getProjects(props.isFeatured).then((res) => {
+      res.forEach((project: Project) => {
+        project.projectSemesters.sort((a, b) =>
+          a.year == b.year ? seasons[a.season] - seasons[b.season] : a.year - b.year,
+        );
+      });
+      setProjects(res);
+      console.log(res);
+    });
+  }, []);
   // fetch featuredProjects from backend
 
   return (
@@ -22,30 +35,27 @@ const Projects = (props: any) => {
         {props.isFeatured ? null : <h2 id={styles.sectionTitle}>Current Projects</h2>}
         {!projects
           ? projects
-          : projects.map((item, index) => {
-              const startDate = item['attributes']['startDate']
-                ? getSeason((item['attributes']['startDate'] as string).substring(5, 7) as unknown as number) +
-                  ' ' +
-                  (item['attributes']['startDate'] as string).substring(0, 4)
-                : '';
-              const endDate =
-                item['attributes']['Season'] && item['attributes']['Year']
-                  ? ' - ' + item['attributes']['Season'] + ' ' + item['attributes']['Year']
+          : projects.map((item: Project, index) => {
+              let fullDate =
+                item.projectSemesters.length > 0
+                  ? item.projectSemesters[0].season + ' ' + item.projectSemesters[0].year
                   : '';
-              const fullDate = startDate + endDate;
+              if (item.projectSemesters.length > 1) {
+                fullDate +=
+                  ' - ' +
+                  item.projectSemesters[item.projectSemesters.length - 1].season +
+                  ' ' +
+                  item.projectSemesters[item.projectSemesters.length - 1].year;
+              }
               return (
                 <FeaturedProjectCard
                   key={index}
-                  link={'ourwork/' + item['attributes']['path']}
-                  title={item['attributes']['title']}
+                  link={'ourwork/'}
+                  title={item.title}
                   date={fullDate}
-                  summary={item['attributes']['summary']}
-                  image={
-                    item['attributes']['image']['data']
-                      ? item['attributes']['image']['data'][0]['attributes']['url']
-                      : 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png'
-                  }
-                  altText={item['attributes']['imageAltText']}
+                  summary={item.projectSemesters.length > 0 ? item.projectSemesters[0].summary : ''}
+                  image={item.image.downloadURL}
+                  altText={item.title + ' project image'}
                 />
               );
             })}

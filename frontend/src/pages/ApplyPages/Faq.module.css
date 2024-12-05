@@ -47,9 +47,9 @@
 /* If svgs are added in this div in the future; this selector may affect it */
 .question:hover h3,
 .question:hover path {
-  color: #657788;
+  color: var(--color-light-blue-hover);
   /* arrow svg fill color */
-  fill: #657788;
+  fill: var(--color-light-blue-hover);
 }
 
 .answer p {
@@ -57,7 +57,7 @@
   line-height: 21.33px;
   text-align: left;
   margin: 0;
-  padding: 22px 18% 0 20%;
+  padding: 22px 12% 0 12%;
 
   opacity: 0;
   max-height: 0;

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Karla');
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 
-/* Desktop Styling */ 
+/* Desktop Styling */
 .blueBG {
   z-index: -1;
   position: relative;
@@ -14,7 +14,7 @@
 }
 
 .title {
-  display:flex;
+  display: flex;
   justify-content: center;
   z-index: 1;
   width: 100%;
@@ -29,13 +29,13 @@
   text-align: center;
   letter-spacing: -0.02em;
   /* H4I National/Black */
-  color: #333333;
+  color: var(--color-black);
 }
 
 .projectPicture {
   box-sizing: border-box;
   border-radius: 50px;
-  justify-content:center;
+  justify-content: center;
   align-items: center;
   overflow: hidden;
   display: flex;
@@ -46,7 +46,7 @@
   top: 451px;
   padding: 25px 25px;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  background: linear-gradient(116.12deg,#c2e0fb,#cbf9f3);
+  background: linear-gradient(116.12deg, #c2e0fb, #cbf9f3);
 }
 
 .projectPicture img {
@@ -56,7 +56,6 @@
   background: white;
   border-radius: 25px;
 }
-
 
 .projectInfoContainer {
   width: 75vw;
@@ -87,7 +86,7 @@
 
   /* H4I National/Black */
 
-  color: #333333;
+  color: var(--color-black);
 }
 
 .hide {
@@ -99,9 +98,8 @@
   text-align: center;
 }
 
-/* Smaller Screen Styling */ 
-@media (max-width: 1400px){
-
+/* Smaller Screen Styling */
+@media (max-width: 1400px) {
   .blueBG {
     width: 100vw;
     height: 110vh;
@@ -114,12 +112,10 @@
     margin: auto;
     margin-bottom: 3em;
   }
-
 }
 
-@media (max-width:1000px){
-
-  .blueBG{
+@media (max-width: 1000px) {
+  .blueBG {
     width: 100vw;
     height: 100vh auto;
   }
@@ -135,7 +131,3 @@
     width: 100%;
   }
 }
-
-
-
-

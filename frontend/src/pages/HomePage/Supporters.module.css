@@ -9,7 +9,7 @@
 .divider {
   width: 90%;
   text-align: center;
-  border-top: 4px solid #0069ca;
+  border-top: 4px solid var(--color-h4i-blue);
   line-height: 0.1em;
   max-width: 1148px;
   margin: 50px auto;
@@ -18,7 +18,7 @@
 .divider span {
   background: rgb(255, 255, 255);
   padding: 0 15px;
-  color: #0069ca;
+  color: var(--color-h4i-blue);
   font-weight: 700;
   font-size: 24px;
 }
@@ -45,7 +45,7 @@ a {
 }
 
 a:hover {
-  color: #0069ca;
+  color: var(--color-h4i-blue);
 }
 
 /* mobile */

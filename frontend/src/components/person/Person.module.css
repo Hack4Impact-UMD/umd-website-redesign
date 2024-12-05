@@ -4,7 +4,7 @@
   font-family: 'Karla';
   font-size: 24px;
   letter-spacing: -0.02em;
-  color: #333333;
+  color: var(--color-black);
   margin: 0;
   text-align: center;
   line-height: 28px;
@@ -15,7 +15,7 @@
   font-size: 18px;
   line-height: 21.33px;
   letter-spacing: -0.02em;
-  color: #333333;
+  color: var(--color-black);
   white-space: pre-wrap;
   margin: 0;
   text-align: center;
@@ -52,7 +52,7 @@
 }
 
 .team:hover {
-  color: #0069ca;
+  color: var(--color-h4i-blue);
 }
 
 .Pronouns {
@@ -76,4 +76,3 @@
     max-width: unset;
   }
 }
-

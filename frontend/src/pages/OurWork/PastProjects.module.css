@@ -26,7 +26,7 @@
 }
 
 #searchbar {
-  border: 3px solid #657788;
+  border: 3px solid var(--color-light-blue-hover);
   box-sizing: border-box;
   border-radius: 50px;
   font-family: 'Karla';
@@ -77,11 +77,9 @@
   padding-top: 30px;
 }
 
-
-
 #showMore {
-  background-color: #0069CA;
-  color: #FFFFFF;
+  background-color: var(--color-h4i-blue);
+  color: #ffffff;
   height: 55px;
   width: 180px;
   padding: 10px;
@@ -97,21 +95,18 @@
 ::-webkit-scrollbar {
   width: 10px;
   border-radius: 10px;
-
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 10px;
-
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 10px;
-
 }
 
 /* Handle on hover */
