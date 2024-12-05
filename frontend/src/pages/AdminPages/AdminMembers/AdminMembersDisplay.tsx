@@ -27,12 +27,14 @@ const AdminMembersDisplay = () => {
     setSearch(value);
 
     const filtered = members.filter((memberData) => {
-      const { firstName = '', lastName = '', pronouns = '', role = '' } = memberData.member;
+      const { firstName = '', lastName = '', pronouns = '', roles = [] } = memberData.member;
+      const displayRole = roles.find((roleObj: any) => roleObj.isDisplayRole)?.role || 'N/A';
+
       return (
         firstName.toLowerCase().includes(value) ||
         lastName.toLowerCase().includes(value) ||
         pronouns.toLowerCase().includes(value) ||
-        role.toLowerCase().includes(value)
+        displayRole.toLowerCase().includes(value)
       );
     });
 
@@ -47,40 +49,44 @@ const AdminMembersDisplay = () => {
     { field: 'memberDisplayStatus', headerName: 'Display Status', width: 160 },
   ];
 
-  const rows = filteredMembers.map((memberData) => ({
-    id: memberData.id,
-    firstName: memberData.member.firstName,
-    lastName: memberData.member.lastName,
-    pronouns: memberData.member.pronouns,
-    role: memberData.member.role,
-    memberDisplayStatus: memberData.member.memberDisplayStatus,
-  }));
+  const rows = filteredMembers.map((memberData) => {
+    const roles = memberData.member.roles || [];
+    const displayRole = roles.find((roleObj: any) => roleObj.isDisplayRole)?.role || 'No Display Role Assigned';
+
+    return {
+      id: memberData.id,
+      firstName: memberData.member.firstName || 'N/A',
+      lastName: memberData.member.lastName || 'N/A',
+      pronouns: memberData.member.pronouns || 'N/A',
+      role: displayRole,
+      memberDisplayStatus: memberData.member.memberDisplayStatus ? 'Visible' : 'Hidden',
+    };
+  });
 
   return (
     <div>
       <NavigationBar />
-        <div className={styles.rightPane}>
-          <div>
-            <input
-              type="text"
-              placeholder="Search members"
-              value={search}
-              onChange={handleSearchChange}
-              className={styles.inputField}
+      <div className={styles.rightPane}>
+        <div>
+          <input
+            type="text"
+            placeholder="Search members"
+            value={search}
+            onChange={handleSearchChange}
+            className={styles.inputField}
+          />
+          <div className={styles.dataGridContainer}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              className={styles.dataGrid}
+              sortingOrder={['asc', 'desc']}
+              autoHeight
             />
-            <div className={styles.dataGridContainer}>
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                // pageSize={5}
-                // rowsPerPageOptions={[5]}
-                className={styles.dataGrid}
-                sortingOrder={['asc', 'desc']}
-              />
-            </div>
           </div>
         </div>
       </div>
+    </div>
   );
 };
 

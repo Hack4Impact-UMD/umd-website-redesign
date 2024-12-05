@@ -218,6 +218,9 @@ export const addMemberTwo = async (memberData: any) => addDocument(membersCollec
 export const addProjectTwo = async (projectData: any) => addDocument(projectsCollection, projectData);
 export const addSponsorTwo = async (sponsorData: any) => addDocument(sponsorsCollection, sponsorData);
 
+
+
+/* Function to get all member data for datagrid */
 export function getMembersData(): Promise<{ member: any; id: string }[]> {
   const collectionRef = collection(db, 'Members');
   return new Promise((resolve, reject) => {
@@ -226,6 +229,7 @@ export function getMembersData(): Promise<{ member: any; id: string }[]> {
         const allDocuments: { member: any; id: string }[] = [];
         const documents = snapshot.docs.map((doc: any) => {
           const document = doc.data();
+          console.log(doc.data())
           const newMember = { member: document, id: doc.id };
           allDocuments.push(newMember);
         });
@@ -234,5 +238,21 @@ export function getMembersData(): Promise<{ member: any; id: string }[]> {
       .catch((error: any) => {
         reject(error);
       });
+  });
+}
+
+/* Function to get all project data for datagrid */
+export function getProjectsData(): Promise<{ project: any; id: string }[]> {
+  const collectionRef = collection(db, 'Projects');
+  return new Promise((resolve, reject) => {
+    getDocs(collectionRef)
+      .then((snapshot) => {
+        const allProjects: { project: any; id: string }[] = [];
+        snapshot.docs.forEach((doc) => {
+          allProjects.push({ project: doc.data(), id: doc.id });
+        });
+        resolve(allProjects);
+      })
+      .catch((error) => reject(error));
   });
 }
