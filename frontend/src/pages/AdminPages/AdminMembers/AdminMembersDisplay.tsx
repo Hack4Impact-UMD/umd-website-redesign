@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import NavigationBar from '../../../components/admin/NavigationBar/NavigationBar';
-import { getMembersData } from '../../../firebaseFunctions/firebaseCalls';
+import { getMembersData } from '../../../firebaseFunctions/FirebaseCalls';
 import styles from './AdminMembersDisplay.module.css';
 
 const AdminMembersDisplay = () => {
