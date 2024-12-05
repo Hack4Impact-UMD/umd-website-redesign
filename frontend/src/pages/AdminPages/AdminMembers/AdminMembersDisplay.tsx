@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { TextField, Box, FormControl, InputLabel, Select, MenuItem, SelectChangeEvent } from '@mui/material';
-import { getMembersData } from '../../../firebaseFunctions/firebaseCalls';  // Assuming this is where the function is located
+import { useEffect, useState } from 'react';
+import { getMembersData } from '../../../firebaseFunctions/FirebaseCalls'; // Assuming this is where the function is located
 
 interface Member {
   id: string;
@@ -56,9 +55,12 @@ const AdminMembersDisplay = () => {
     { field: 'lastName', headerName: 'Last Name', width: 150 },
     { field: 'pronouns', headerName: 'Pronouns', width: 120 },
     { field: 'role', headerName: 'Role', width: 150 },
-    { field: 'memberDisplayStatus', headerName: 'Display Status', width: 160
-      // , 
-      // valueGetter: (params) => (params.row.memberDisplayStatus ? 'Visible' : 'Hidden') 
+    {
+      field: 'memberDisplayStatus',
+      headerName: 'Display Status',
+      width: 160,
+      // ,
+      // valueGetter: (params) => (params.row.memberDisplayStatus ? 'Visible' : 'Hidden')
     },
   ];
 
