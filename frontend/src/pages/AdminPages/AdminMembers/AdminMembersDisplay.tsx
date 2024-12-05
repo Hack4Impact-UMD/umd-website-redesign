@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import React, { useEffect, useState } from 'react';
 import NavigationBar from '../../../components/admin/NavigationBar/NavigationBar';
-import { getMembersData } from '../../../firebaseFunctions/firebaseCalls';
+import { getMembersData } from '../../../firebaseFunctions/FirebaseCalls';
 import styles from './AdminMembersDisplay.module.css';
 
 const AdminMembersDisplay = () => {
@@ -59,28 +59,28 @@ const AdminMembersDisplay = () => {
   return (
     <div>
       <NavigationBar />
-        <div className={styles.rightPane}>
-          <div>
-            <input
-              type="text"
-              placeholder="Search members"
-              value={search}
-              onChange={handleSearchChange}
-              className={styles.inputField}
+      <div className={styles.rightPane}>
+        <div>
+          <input
+            type="text"
+            placeholder="Search members"
+            value={search}
+            onChange={handleSearchChange}
+            className={styles.inputField}
+          />
+          <div className={styles.dataGridContainer}>
+            <DataGrid
+              rows={rows}
+              columns={columns}
+              // pageSize={5}
+              // rowsPerPageOptions={[5]}
+              className={styles.dataGrid}
+              sortingOrder={['asc', 'desc']}
             />
-            <div className={styles.dataGridContainer}>
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                // pageSize={5}
-                // rowsPerPageOptions={[5]}
-                className={styles.dataGrid}
-                sortingOrder={['asc', 'desc']}
-              />
-            </div>
           </div>
         </div>
       </div>
+    </div>
   );
 };
 

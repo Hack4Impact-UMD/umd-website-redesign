@@ -10,7 +10,7 @@ import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';
 import AboutUs from './pages/AboutUsPage/AboutUs';
 import AdminLoginPage from './pages/AdminPages/AdminLogin/AdminLoginPage';
-import AdminMembers from './pages/AdminPages/AdminMembers/AdminMembers';
+import AdminMembersDisplay from './pages/AdminPages/AdminMembers/AdminMembersDisplay';
 import AdminProjects from './pages/AdminPages/AdminProjects/AdminProjects';
 import AdminSponsors from './pages/AdminPages/AdminSponsors/AdminSponsors';
 import AdminTestingPage from './pages/AdminPages/AdminTestingPage/AdminTestingPage';
@@ -21,7 +21,6 @@ import HomePage from './pages/HomePage/HomePage';
 import OurWork from './pages/OurWork/OurWork';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import ProjectPage from './pages/Projects/ProjectPage';
-import AdminMembersDisplay from './pages/AdminPages/AdminMembers/AdminMembersDisplay';
 
 // Scrolls to top of
 // https://stackoverflow.com/a/70194027
@@ -56,17 +55,18 @@ function App() {
                 path="/admin/members"
                 element={
                   <RequireAuth>
-                    <AdminMembers />
+                    <AdminMembersDisplay />
                   </RequireAuth>
                 }
               />
-              <Route 
+              <Route
                 path="/admin/display/members"
                 element={
                   <RequireAuth>
                     <AdminMembersDisplay />
                   </RequireAuth>
-                }/>
+                }
+              />
               <Route
                 path="/admin/sponsors"
                 element={
