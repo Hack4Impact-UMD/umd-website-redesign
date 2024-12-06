@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Member } from '../../../types/Member';
 
 const AdminTestingPage = () => {
@@ -7,8 +7,6 @@ const AdminTestingPage = () => {
   const [projects, setProjects] = useState<any>([]);
   console.log(strapiData);
   const [num, setNum] = useState(0);
-
-  useEffect(() => {}, []);
 
   return (
     <>

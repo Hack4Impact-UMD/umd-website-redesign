@@ -90,6 +90,7 @@ const AdminMembers = () => {
       <NavigationBar />
       <div className={styles.rightPane}>
         <div className={styles.formContainer}>
+          <h3>Add Member</h3>
           <form onSubmit={handleSubmit}>
             <TextField
               label="First Name"

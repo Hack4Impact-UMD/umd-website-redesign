@@ -5,18 +5,14 @@
   display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  padding-top: 20px;
 }
 
 .formContainer {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  max-width: 600px;
-  background-color: #f9f9f9; /* Light grey background */
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  width: 100%;
+  margin-left: 40px;
 }
 
 .formControl {

@@ -65,12 +65,12 @@
 
 .textBoxPass {
   width: 350px;
-  height: 60px;
+  height: 64px;
   border-radius: 0.25rem;
   border: 1px solid #000000;
-  padding-left: 20px;
   font-family: 'Karla';
   color: #4d4d4d;
+  padding-left: 20px;
 }
 
 .loginBox {
@@ -80,11 +80,15 @@
 .passwordContainer {
   display: flex;
   flex-direction: row;
-  width: 350px;
-  height: 60px;
+  width: 370px;
   border-radius: 0.25rem;
   font-family: 'Karla';
   color: #4d4d4d;
+  border: 1px solid white;
+}
+
+.passwordContainer:focus-within {
+  border: 1px solid #000000;
 }
 
 .errorMessage {
@@ -121,6 +125,7 @@
   transition: background-color 300ms ease-out;
   background: #80d2c8;
   color: var(--color-black);
+  cursor: pointer;
 }
 
 .loginButton:hover {
@@ -135,7 +140,7 @@
  * and button look connected together
  */
 .passwordContainer > input {
-  height: 60px;
+  height: 64px;
   font-family: 'Karla';
   color: #4d4d4d;
   box-sizing: border-box;

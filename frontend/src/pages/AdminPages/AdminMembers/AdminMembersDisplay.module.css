@@ -7,6 +7,30 @@
   align-items: center; /* Center vertically */
   padding-top: 20px;
 }
+.buttonHolder {
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 50px;
+  margin: 10px 0;
+}
+
+.addMemberButton {
+  height: 40px;
+  width: 180px;
+  border: none;
+  border-radius: 100px;
+  transition: color 300ms ease-out;
+  transition: background-color 300ms ease-out;
+  background: var(--color-h4i-blue);
+  color: white;
+  cursor: pointer;
+}
+
+.addMemberButton:hover {
+  background: #1890ff;
+}
 
 .inputField {
   margin-bottom: 16px;
@@ -38,5 +62,3 @@
 .dataGrid .MuiDataGrid-row:hover {
   background-color: #e3f2fd;
 }
-
-

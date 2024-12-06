@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 
@@ -10,6 +9,7 @@ import Footer from './components/footer/Footer';
 import Navbar from './components/navbar/Navbar';
 import AboutUs from './pages/AboutUsPage/AboutUs';
 import AdminLoginPage from './pages/AdminPages/AdminLogin/AdminLoginPage';
+import AdminMembers from './pages/AdminPages/AdminMembers/AdminMembers';
 import AdminMembersDisplay from './pages/AdminPages/AdminMembers/AdminMembersDisplay';
 import AdminProjects from './pages/AdminPages/AdminProjects/AdminProjects';
 import AdminSponsors from './pages/AdminPages/AdminSponsors/AdminSponsors';
@@ -21,7 +21,6 @@ import HomePage from './pages/HomePage/HomePage';
 import OurWork from './pages/OurWork/OurWork';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import ProjectPage from './pages/Projects/ProjectPage';
-import AdminProjectsDisplay from './pages/AdminPages/AdminProjects/AdminProjectsDisplay';
 
 // Scrolls to top of
 // https://stackoverflow.com/a/70194027
@@ -53,14 +52,14 @@ function App() {
               <Route path="ourwork/:projectpath" element={<ProjectPage />} />
               <Route path="/admin/login" element={<AdminLoginPage />} />
               <Route
-                path="/admin/addmembers"
+                path="/admin/members/add"
                 element={
                   <RequireAuth>
-                    <AdminMembersDisplay />
+                    <AdminMembers />
                   </RequireAuth>
                 }
               />
-              <Route 
+              <Route
                 path="/admin/members"
                 element={
                   <RequireAuth>

@@ -13,12 +13,12 @@ const Projects = (props: any) => {
     Winter: 4,
   };
   const res = null;
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState<{ project: Project; id: string }[]>([]);
 
   useEffect(() => {
     getProjects(props.isFeatured).then((res) => {
-      res.forEach((project: Project) => {
-        project.projectSemesters.sort((a, b) =>
+      res.forEach((project: { project: Project; id: string }) => {
+        project.project.projectSemesters.sort((a, b) =>
           a.year == b.year ? seasons[a.season] - seasons[b.season] : a.year - b.year,
         );
       });
@@ -35,7 +35,8 @@ const Projects = (props: any) => {
         {props.isFeatured ? null : <h2 id={styles.sectionTitle}>Current Projects</h2>}
         {!projects
           ? projects
-          : projects.map((item: Project, index) => {
+          : projects.map((proj, index) => {
+              const item: Project = proj.project;
               let fullDate =
                 item.projectSemesters.length > 0
                   ? item.projectSemesters[0].season + ' ' + item.projectSemesters[0].year

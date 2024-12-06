@@ -47,19 +47,14 @@ form label {
   display: block;
 }
 
-input,
-textarea {
-  padding: 1em;
-}
-
 textarea {
   height: 263px;
   resize: none;
 }
 
-input[type='text'] {
+/* input[type='text'] {
   height: 40px;
-}
+} */
 
 input[type='submit'] {
   background-color: var(--color-h4i-blue);
