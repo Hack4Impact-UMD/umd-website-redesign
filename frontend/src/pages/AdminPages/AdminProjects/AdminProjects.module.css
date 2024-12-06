@@ -9,20 +9,19 @@
 }
 
 .formContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
   gap: 20px;
   max-width: 900px;
   width: 100%;
   background-color: #f9f9f9;
   padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .formControl {
-  flex: 1 1 calc(50% - 20px); /* Half-width input fields with a gap */
-  min-width: 220px;
+  /* flex: 1 1 calc(50% - 20px); */
+  width: 500px;
 }
 
 .fullWidth {
@@ -30,12 +29,24 @@
 }
 
 .imageButton {
-  grid-column: span 2;
+  /* grid-column: span 2; */
+  /* align-self: center;
+  justify-self: center; */
   width: fit-content;
 }
 
+.projectInput {
+  height: auto;
+  width: auto;
+}
+
 .submitButton {
-  grid-column: span 2;
+  /* grid-column: span 2; */
   align-self: center;
   justify-self: center;
+  margin: 20px;
 }
+
+/* .textField {
+  background-color: black;
+} */

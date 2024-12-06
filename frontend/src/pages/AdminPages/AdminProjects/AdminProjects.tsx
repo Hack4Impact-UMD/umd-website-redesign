@@ -90,7 +90,7 @@ const AdminProjects = () => {
             required
           />
 
-          <FormControl fullWidth>
+          <FormControl fullWidth className={styles.FormControl}>
             <InputLabel>Is Featured</InputLabel>
             <Select
               name="isFeatured"
@@ -102,7 +102,7 @@ const AdminProjects = () => {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth>
+          <FormControl fullWidth className={styles.FormControl}>
             <InputLabel>Is Current</InputLabel>
             <Select
               name="isCurrent"
@@ -138,7 +138,7 @@ const AdminProjects = () => {
             fullWidth
           />
 
-          <FormControl fullWidth>
+          <FormControl fullWidth className={styles.FormControl}>
             <InputLabel>Project Semesters</InputLabel>
             <Select
               multiple
@@ -156,7 +156,7 @@ const AdminProjects = () => {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth>
+          <FormControl fullWidth className={styles.FormControl}>
             <InputLabel>Season Name</InputLabel>
             <Select
               name="seasonName"
@@ -176,7 +176,7 @@ const AdminProjects = () => {
             fullWidth
           />
 
-          <FormControl fullWidth>
+          <FormControl fullWidth className={styles.FormControl}>
             <InputLabel>Members</InputLabel>
             <Select
               multiple
