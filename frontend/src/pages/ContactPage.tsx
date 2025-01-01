@@ -56,7 +56,7 @@ function ContactPage() {
           setSent(true);
           console.log('SUCCESS!');
         },
-        (error) => {
+        (error: any) => {
           console.log('FAILED...', error);
         },
       );

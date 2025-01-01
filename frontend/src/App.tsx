@@ -50,7 +50,7 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/ourwork" element={<OurWork />} />
-            <Route path="/apply-f24" element={<AppsPage/>}/>
+            {/* <Route path="/apply-f24" element={<AppsPage/>}/> */}
             <Route path="/apply" element={<StudentApply />} />
             <Route path="/apply/student" element={<StudentApply />} />
             <Route path="/apply/nonprofit" element={<NonprofitApply />} />
@@ -65,12 +65,12 @@ function App() {
   );
 }
 
-const AppsPage = () => {
-  useEffect(() => {
-      window.location.href = "https://forms.gle/FmHsAnhaExZZKjm49";
-  }, []);
+// const AppsPage = () => {
+//   useEffect(() => {
+//       window.location.href = "https://bit.ly/h4i-sp25";
+//   }, []);
 
-  return null;
-}
+//   return null;
+// }
 
 export default App;
