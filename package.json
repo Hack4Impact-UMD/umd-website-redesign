@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "@types/react": "^19.0.10",
     "keen-slider": "^6.6.11",
     "nodemon": "^2.0.20",
+    "react": "^19.0.0",
     "react-router-dom": "6",
     "react-scripts": "^5.0.1"
   },
