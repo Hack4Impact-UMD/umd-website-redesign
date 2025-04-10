@@ -1,0 +1,37 @@
+.background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 300px;
+  border: none;
+  box-shadow: 24;
+}
+.header {
+  margin: 40px 0 35px 0;
+  font-size: 1.5rem;
+  font-family: 'DM Serif Text', serif;
+  text-align: center;
+}
+.text {
+  width: 300px;
+  font-family: 'Inter', sans-serif;
+  margin: 20px 0 40px 0;
+  text-align: center;
+}
+.submitButton {
+  background-color: #08529e !important;
+  color: white !important;
+  font-family: 'Source-Serif 4', serif !important;
+  width: 200px;
+}
+
+.center {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: black;
+}

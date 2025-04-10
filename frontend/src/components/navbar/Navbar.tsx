@@ -6,13 +6,13 @@ import CloseButton from '../assets/navbar_close_button.svg';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
   // Use the admin navbar on admin pages
   const location = useLocation();
   if (location.pathname.startsWith('/admin/')) {
     return null;
   }
-
-  const [isMenuOpen, setMenuOpen] = useState(false);
 
   // if window <= 1000, will toggle hamburger menu
   // otherwise, will scroll to top of current page, if current page link was clicked

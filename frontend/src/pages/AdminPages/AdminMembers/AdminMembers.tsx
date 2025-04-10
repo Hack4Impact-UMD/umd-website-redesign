@@ -10,7 +10,6 @@ import {
 } from '@mui/material';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import NavigationBar from '../../../components/admin/NavigationBar/NavigationBar';
-import { uploadImage } from '../../../firebaseFunctions/FirebaseCalls'; // Import your Firebase functions
 import styles from './AdminMembers.module.css';
 
 interface MemberFormData {
@@ -58,7 +57,7 @@ const AdminMembers = () => {
     if (formData.avatar) {
       try {
         // Upload the avatar image first
-        const avatarUrl = await uploadImage(formData.avatar, 'members'); // 'members' as the folder name
+        // const avatarUrl = await uploadImage(formData.avatar, 'members'); // 'members' as the folder name
         // Once uploaded, proceed with adding the member to Firestore
 
         // You can now add the member data, including the avatar URL, to Firestore

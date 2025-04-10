@@ -12,7 +12,8 @@ import AdminLoginPage from './pages/AdminPages/AdminLogin/AdminLoginPage';
 import AdminMembers from './pages/AdminPages/AdminMembers/AdminMembers';
 import AdminMembersDisplay from './pages/AdminPages/AdminMembers/AdminMembersDisplay';
 import AdminProjects from './pages/AdminPages/AdminProjects/AdminProjects';
-import AdminSponsors from './pages/AdminPages/AdminSponsors/AdminSponsors';
+import AddSponsor from './pages/AdminPages/AdminSponsors/AddImage/AddSponsor';
+import AdminSponsorsDisplay from './pages/AdminPages/AdminSponsors/AdminSponsorsDisplay';
 import AdminTestingPage from './pages/AdminPages/AdminTestingPage/AdminTestingPage';
 import NonprofitApply from './pages/ApplyPages/NonprofitApply';
 import StudentApply from './pages/ApplyPages/StudentApply';
@@ -71,7 +72,15 @@ function App() {
                 path="/admin/sponsors"
                 element={
                   <RequireAuth>
-                    <AdminSponsors />
+                    <AdminSponsorsDisplay />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/admin/sponsors/add"
+                element={
+                  <RequireAuth>
+                    <AddSponsor />
                   </RequireAuth>
                 }
               />

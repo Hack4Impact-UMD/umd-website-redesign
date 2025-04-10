@@ -81,31 +81,32 @@ function ContactPage() {
             validateForm(form);
           }}
           method="POST"
+          className={styles.form}
         >
           <div>
             <label>First Name</label>
-            <input type="text" name="firstName" onChange={handleChange} required />
+            <input type="text" name="firstName" onChange={handleChange} required className={styles.input} />
           </div>
           <div>
             <label>Last Name</label>
-            <input type="text" name="lastName" onChange={handleChange} required />
+            <input type="text" name="lastName" onChange={handleChange} required className={styles.input} />
           </div>
 
           <p>
             <label>Subject</label>
-            <input type="text" name="subject" onChange={handleChange} required />
+            <input type="text" name="subject" onChange={handleChange} required className={styles.input} />
           </p>
           <p>
             <label>Email Address</label>
-            <input type="text" name="email" onChange={handleChange} required />
+            <input type="text" name="email" onChange={handleChange} required className={styles.input} />
           </p>
           <p>
             <label>Phone Number</label>
-            <input type="text" name="phoneNumber" onChange={handleChange} required />
+            <input type="text" name="phoneNumber" onChange={handleChange} required className={styles.input} />
           </p>
           <p>
             <label>Your message</label>
-            <textarea name="message" onChange={handleChange} required></textarea>
+            <textarea name="message" onChange={handleChange} required className={styles.textArea}></textarea>
           </p>
           <div className={styles.buttonHolder}>
             <button type="submit" value="Send Message" className={styles.submitButton}>

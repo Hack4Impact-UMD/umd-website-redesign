@@ -1,9 +1,9 @@
 /* this is super broken presently */
 
-import React, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import React, { useEffect, useState } from 'react';
 import NavigationBar from '../../../components/admin/NavigationBar/NavigationBar';
-import { getProjectsData } from '../../../firebaseFunctions/FirebaseCalls'; // Assumes function fetches project data
+import { getProjects } from '../../../firebaseFunctions/FirebaseCalls';
 import styles from './AdminProjectsDisplay.module.css';
 
 const AdminProjectsDisplay = () => {
@@ -14,7 +14,7 @@ const AdminProjectsDisplay = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const allProjects = await getProjectsData();
+        const allProjects = await getProjects(false);
         setProjects(allProjects);
         setFilteredProjects(allProjects);
       } catch (error) {
@@ -68,12 +68,7 @@ const AdminProjectsDisplay = () => {
             className={styles.inputField}
           />
           <div className={styles.dataGridContainer}>
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              className={styles.dataGrid}
-              sortingOrder={['asc', 'desc']}
-            />
+            <DataGrid rows={rows} columns={columns} className={styles.dataGrid} sortingOrder={['asc', 'desc']} />
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ const Supporters = () => {
   const [sponsors, setSponsors] = useState<any[]>([]);
   useEffect(() => {
     getSponsors().then((res) => {
-      setSponsors(res);
+      setSponsors(res.map((sponsorInformation) => sponsorInformation.sponsor));
     });
   }, []);
   return (

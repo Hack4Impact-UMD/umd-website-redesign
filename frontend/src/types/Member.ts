@@ -1,4 +1,20 @@
-// Add projet and sem for roles
+interface Member {
+  firstName: string;
+  lastName: string;
+  pronouns: string;
+  image: { name: string; ref: string; downloadURL: string };
+  alumni: boolean;
+
+  roles: {
+    role: Roles;
+    projectTeamID: string;
+    projectTeamName: string;
+    isDisplayRole: boolean;
+    semester: 'Fall' | 'Spring' | 'Summer' | 'Winter';
+    year: number;
+  }[];
+}
+
 enum Roles {
   'Product Manager',
   'Tech Lead',
@@ -16,15 +32,6 @@ enum Roles {
   'Director of Recruitment',
   'Director of Sourcing',
   'Senior Advisor',
-}
-
-interface Member {
-  firstName: string;
-  lastName: string;
-  pronouns: string;
-  image: { name: string; ref: string; downloadURL: string };
-  alumni: boolean;
-  roles: { role: Roles; projectTeamID?: string; projectTeamName?: string; isDisplayRole: boolean }[];
 }
 
 export { Roles };

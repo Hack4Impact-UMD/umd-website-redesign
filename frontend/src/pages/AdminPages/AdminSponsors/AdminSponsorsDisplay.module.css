@@ -1,0 +1,74 @@
+.rightPane {
+  width: calc(100% - 250px);
+  height: 100%;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 20px;
+}
+.buttonHolder {
+  width: 70%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  height: 50px;
+  margin: 10px 0;
+}
+
+.addMemberButton {
+  height: 40px;
+  width: 180px;
+  border: none;
+  border-radius: 100px;
+  transition: color 300ms ease-out;
+  transition: background-color 300ms ease-out;
+  background: var(--color-h4i-blue);
+  color: white;
+  cursor: pointer;
+}
+
+.addMemberButton:hover {
+  background: #1890ff;
+}
+
+.inputField {
+  margin-bottom: 16px;
+  padding: 8px;
+  width: 100%;
+  font-size: 16px;
+}
+
+.dataGridContainer {
+  height: 80vh;
+  width: 70%;
+}
+
+.dataGrid {
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.dataGrid .MuiDataGrid-cell {
+  color: #333;
+  font-size: 14px;
+}
+
+.dataGrid .MuiDataGrid-columnHeaders {
+  background-color: #e0f7fa;
+  font-weight: bold;
+}
+
+.dataGrid .MuiDataGrid-row:hover {
+  background-color: #e3f2fd;
+}
+
+.errorContainer {
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}

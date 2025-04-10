@@ -3,7 +3,7 @@ import { DataGrid, GridColDef, GridToolbar, GridToolbarQuickFilter } from '@mui/
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavigationBar from '../../../components/admin/NavigationBar/NavigationBar';
-import { getMembersData } from '../../../firebaseFunctions/FirebaseCalls';
+import { getMembers, importStrapiData } from '../../../firebaseFunctions/FirebaseCalls';
 import styles from './AdminMembersDisplay.module.css';
 
 const AdminMembersDisplay = () => {
@@ -14,7 +14,7 @@ const AdminMembersDisplay = () => {
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const allMembers = await getMembersData();
+        const allMembers = await getMembers(false);
         setMembers(allMembers);
         setFilteredMembers(allMembers);
         console.log(members);
@@ -110,6 +110,18 @@ const AdminMembersDisplay = () => {
     <div>
       <NavigationBar />
       <div className={styles.rightPane}>
+        <button
+          onClick={() => {
+            importStrapiData()
+              .then(() => console.log('Done'))
+              .catch((e) => {
+                console.log(e);
+              });
+          }}
+          style={{ color: 'white', backgroundColor: 'black', padding: '10px', borderRadius: '5px' }}
+        >
+          Hi
+        </button>
         <div>
           <div className={styles.buttonHolder}>
             <button className={styles.addMemberButton} onClick={() => navigate('./add')}>

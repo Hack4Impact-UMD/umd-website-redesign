@@ -5,6 +5,37 @@ const { onCall } = require("firebase-functions/v2/https");
 const admin = require("firebase-admin");
 admin.initializeApp();
 const db = admin.firestore();
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+
+require(dotenv).config();
+const nodemailer = require("nodemailer");
+
+const oauth2Client = new OAuth2(
+  process.env.OAUTH_CLIENT_ID, // ClientID
+  process.env.OAUTH_CLIENT_SECRET, // Client Secret
+  "https://developers.google.com/oauthplayground" // Redirect URL
+);
+
+oauth2Client.setCredentials({
+  refresh_token: process.env.OAUTH_REFRESH,
+});
+const accessToken = oauth2Client.getAccessToken();
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    type: "OAuth2",
+    user: "" /* Enter in email here once nodemailer setup is done*/,
+    clientId: process.env.OAUTH_CLIENT_ID,
+    clientSecret: process.env.OAUTH_CLIENT_SECRET,
+    refreshToken: process.env.OAUTH_REFRESH,
+    accessToken: accessToken,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
 
 exports.updateUserEmail = onCall(
   { region: "us-east4", cors: true },

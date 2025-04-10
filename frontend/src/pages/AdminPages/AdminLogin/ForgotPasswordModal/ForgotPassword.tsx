@@ -84,7 +84,6 @@ const ForgotPassword = ({ open, onClose }: forgotModalType): React.ReactElement 
               <h2 className={styles.title}>Reset Password</h2>
               <p className={styles.error}>{errorMessage}</p>
               <input
-                autoFocus
                 className={styles.email}
                 type="email"
                 placeholder="Email"
