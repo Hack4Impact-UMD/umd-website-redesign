@@ -5,19 +5,35 @@ import StandardButton from '../../components/buttons/StandardButton';
 import Faq, { FaqRow } from './Faq';
 import styles from './NonprofitApply.module.css';
 import StudentNonprofitSelector from './StudentNonprofitSelector';
+import { useEffect, useState } from 'react';
+import { getProjects } from '../../firebaseFunctions/FirebaseCalls';
+import Project from '../../types/Project';
 
-import { useAxios } from '../../HelperFunctions';
 import unstoppableLogo from '../../components/assets/npo_files/2unstoppable_logo.svg';
 import arcadiaLogo from '../../components/assets/npo_files/arcadia_logo.svg';
 import cadcLogo from '../../components/assets/npo_files/cadc_logo.svg';
 import hamptonLogo from '../../components/assets/npo_files/hampton_logo.svg';
 
 function NonprofitApply() {
+  const [projects, setProjects] = useState<{ project: Project; id: string }[]>([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const fetchedProjects = await getProjects(true);
+        setProjects(fetchedProjects);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
   return (
     <div className={styles.nonprofitApply}>
-      {/* <Navbar /> */}
       <NonprofitApplyHeader />
-      <Carousel />
+      <Carousel projects={projects} />
       <HowToApply />
       <div className={styles.applyButton}>
         <StandardButton
@@ -51,14 +67,12 @@ function NonprofitApplyHeader() {
   );
 }
 
-function Carousel() {
-  /* adjust scrolling speed with the easing function here */
+function Carousel({ projects }: { projects: { project: Project; id: string }[] }) {
   const animation = { duration: 5000, easing: (t: any) => t / 3 };
   const [ref] = useKeenSlider<HTMLDivElement>({
     loop: true,
     mode: 'free',
-    slides: { origin: 'center', perView: 3, spacing: 30 }, //If adding another image to the carousel, update perView
-    /* next 3 props implement auto scrolling */
+    slides: { origin: 'center', perView: 3, spacing: 30 },
     created(s) {
       s.moveToIdx(4, true, animation);
     },
@@ -70,52 +84,40 @@ function Carousel() {
     },
   });
 
-  // query all projects to be used to find the recent project.
-  const res = useAxios(process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*', 'GET', {});
-  const allProjects: any[] = res.data ? res.data['data'] : [];
-  const cleanedProjects = allProjects.map((x) => x['attributes']);
-  const past_projects = cleanedProjects;
+  const getRecentProject = (organization: string) => {
+    const organizationProjects = projects.filter((p) => p.project.title.includes(organization));
+
+    if (organizationProjects.length > 0) {
+      let recentProject = organizationProjects[0];
+      organizationProjects.forEach((project) => {
+        const recentProjectDate = new Date(recentProject.project.projectSemesters[0].year, 0);
+        const curProjectDate = new Date(project.project.projectSemesters[0].year, 0);
+        if (curProjectDate > recentProjectDate) {
+          recentProject = project;
+        }
+      });
+      return `/ourwork/${recentProject.project.title}`;
+    }
+
+    return '/ourwork/';
+  };
 
   return (
     <div ref={ref} className={`keen-slider ${styles.carousel}`}>
-      {/* <Link to={getRecentProject("Inspire", past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={inspireLogo} />
-      </Link> */}
-      <Link to={getRecentProject('Arcadia', past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={arcadiaLogo} />
+      <Link to={getRecentProject('Arcadia')}>
+        <img className={`keen-slider__slide ${styles.orgLogo}`} src={arcadiaLogo} alt="Arcadia Logo" />
       </Link>
-      <Link to={getRecentProject('WISE-E', past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={hamptonLogo} />
+      <Link to={getRecentProject('WISE-E')}>
+        <img className={`keen-slider__slide ${styles.orgLogo}`} src={hamptonLogo} alt="WISE-E Logo" />
       </Link>
-      <Link to={getRecentProject('CaDC', past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={cadcLogo} />
+      <Link to={getRecentProject('CaDC')}>
+        <img className={`keen-slider__slide ${styles.orgLogo}`} src={cadcLogo} alt="CaDC Logo" />
       </Link>
-      <Link to={getRecentProject('2Unstoppable', past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={unstoppableLogo} />
+      <Link to={getRecentProject('2Unstoppable')}>
+        <img className={`keen-slider__slide ${styles.orgLogo}`} src={unstoppableLogo} alt="2Unstoppable Logo" />
       </Link>
     </div>
   );
-}
-
-/*
-  Get the most recent project from an organization. It will redirect to the 'ourwork' page if organization does not 
-  have any projects in database. 
-*/
-function getRecentProject(organization: string, past_projects: any[]) {
-  let path = '/ourwork/';
-  const organizationProjects = past_projects.filter((project) => (project['title'] as string).includes(organization));
-  if (organizationProjects.length > 0) {
-    let recentProject = organizationProjects[0];
-    organizationProjects.forEach((project) => {
-      const recentProjectDate = new Date(recentProject['startDate'] as string);
-      const curProjectDate = new Date(project['startDate'] as string);
-      if (curProjectDate > recentProjectDate) {
-        recentProject = project;
-      }
-    });
-    path += recentProject['path'] as string;
-  }
-  return path;
 }
 
 function HowToApply() {

@@ -1,5 +1,9 @@
 # Changelog
 
+### v3.5: Summer 2025
+
+- Moving from webpack to vite and completing Firebase transition
+
 ### v3: Fall 2024
 
 - Moved backend from Strapi to Firebase and various frontend changes

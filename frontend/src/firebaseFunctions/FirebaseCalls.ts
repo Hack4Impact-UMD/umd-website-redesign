@@ -199,6 +199,32 @@ export function getMembers(current: boolean): Promise<{ member: Member; id: stri
   });
 }
 
+export function getMembersFromProject(projectId: string): Promise<Member[]> {
+  return new Promise((resolve, reject) => {
+    if (!projectId) {
+      reject(new Error('Project ID is required'));
+      return;
+    }
+
+    const req = query(
+      collection(db, 'Members'),
+      where('roles', 'array-contains', {
+        projectTeamID: projectId,
+      })
+    );
+
+    const members: Member[] = [];
+    getDocs(req)
+      .then((querySnapshot) => {
+        querySnapshot.docs.forEach((doc) => {
+          members.push(doc.data() as Member);
+        });
+        resolve(members);
+      })
+      .catch((e) => reject(e));
+  });
+}
+
 export function updateMember(id: string, newMember: Member): Promise<void> {
   return new Promise((resolve, reject) => {
     updateDoc(doc(db, 'Members', id), { ...newMember })
@@ -298,7 +324,7 @@ export async function importStrapiData(): Promise<void> {
 
     console.log('Adding first page of members');
     await fetch(
-      'https://chapter-website-backend.herokuapp.com/api/members?pagination[page]=1&pagination[pageSize]=100&populate=avatar,componentRolesArr',
+      'https://chapter-website-backend.herokuapp.com/api/members?pagination[page]=1&pagination[pageSize]=100&populate=avatar,componentRolesArr'
     )
       .then((res) => res.json())
       .then(async (data) => {
@@ -342,7 +368,7 @@ export async function importStrapiData(): Promise<void> {
     // Fetch page 2 (page size of 100)
     console.log('Adding second page of members');
     await fetch(
-      'https://chapter-website-backend.herokuapp.com/api/members?pagination[page]=2&pagination[pageSize]=100&populate=avatar,componentRolesArr',
+      'https://chapter-website-backend.herokuapp.com/api/members?pagination[page]=2&pagination[pageSize]=100&populate=avatar,componentRolesArr'
     )
       .then((res) => res.json())
       .then(async (data) => {
@@ -387,7 +413,7 @@ export async function importStrapiData(): Promise<void> {
     // Fetch page 3 (page size of 100)
     console.log('Adding third page of members');
     await fetch(
-      'https://chapter-website-backend.herokuapp.com/api/members?pagination[page]=3&pagination[pageSize]=100&populate=avatar,componentRolesArr',
+      'https://chapter-website-backend.herokuapp.com/api/members?pagination[page]=3&pagination[pageSize]=100&populate=avatar,componentRolesArr'
     )
       .then((res) => res.json())
       .then(async (data) => {

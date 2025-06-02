@@ -5,12 +5,12 @@ import styles from './StudentNonprofitSelector.module.css';
 /* Import as SVG to allow for animation */
 import studentBlueDesktop from '../../components/assets/selector/student_blue_desktop.svg';
 import studentBlueMobile from '../../components/assets/selector/student_blue_mobile.svg';
-import StudentGreyDesktop from '../../components/assets/selector/student_grey_desktop.svg';
+import studentGreyDesktop from '../../components/assets/selector/student_grey_desktop.svg';
 import studentGreyMobile from '../../components/assets/selector/student_grey_mobile.svg';
 
 import nonprofitBlueDesktop from '../../components/assets/selector/nonprofit_blue_desktop.svg';
 import nonprofitBlueMobile from '../../components/assets/selector/nonprofit_blue_mobile.svg';
-import NonprofitGreyDesktop from '../../components/assets/selector/nonprofit_grey_desktop.svg';
+import nonprofitGreyDesktop from '../../components/assets/selector/nonprofit_grey_desktop.svg';
 import nonprofitGreyMobile from '../../components/assets/selector/nonprofit_grey_mobile.svg';
 
 /*
@@ -29,7 +29,7 @@ function StudentNonprofitSelector(props: any) {
     studentDesktop = <img src={studentBlueDesktop} />;
     nonprofitDesktop = (
       <div className={styles.greyDesktop}>
-        <NonprofitGreyDesktop />
+        <img src={nonprofitGreyDesktop} alt="grey desktop" />
       </div>
     );
   } else {
@@ -37,7 +37,7 @@ function StudentNonprofitSelector(props: any) {
     nonprofitMobile = <img src={nonprofitBlueMobile} />;
     studentDesktop = (
       <div className={styles.greyDesktop}>
-        <StudentGreyDesktop />
+        <img src={studentGreyDesktop} />
       </div>
     );
     nonprofitDesktop = <img src={nonprofitBlueDesktop} />;
