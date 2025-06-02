@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as Arrow } from '../../components/assets/faq_arrow.svg';
+import Arrow from '../../components/assets/faq_arrow.svg';
 import styles from './Faq.module.css';
 
 export default function Faq(props: { children: React.ReactNode }) {
@@ -47,7 +47,7 @@ export class FaqRow extends React.Component<RowProps, RowState> {
         <div className={styles.question} onClick={this.toggleShowAnswer}>
           {this.props.question}
           <div className={this.state.showing ? `${styles.arrow} ${styles.rotated}` : styles.arrow}>
-            <Arrow />
+            <img src={Arrow} alt='arrow'/>
           </div>
         </div>
         <div className={this.state.showing ? `${styles.answer} ${styles.showing}` : styles.answer}>

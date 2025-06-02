@@ -1,16 +1,12 @@
 import wordmark from '../assets/h4i_files/h4i_wordmark.svg';
 import styles from './Footer.module.css';
-/*
- * Separate SVGs for mobile/desktop so that styling one doesn't affect the other.
- * Manually added unique IDs in SVG files.
- */
 import { useLocation } from 'react-router-dom';
-import { ReactComponent as FbLogoSvg } from '../assets/footer/fb.svg';
-import { ReactComponent as FbLogoSvg2 } from '../assets/footer/fb2.svg';
-import { ReactComponent as GhLogoSvg } from '../assets/footer/gh.svg';
-import { ReactComponent as GhLogoSvg2 } from '../assets/footer/gh2.svg';
-import { ReactComponent as IgLogoSvg } from '../assets/footer/ig.svg';
-import { ReactComponent as IgLogoSvg2 } from '../assets/footer/ig2.svg';
+import fbLogo from '../assets/footer/fb.svg';
+import fbLogo2 from '../assets/footer/fb2.svg';
+import ghLogo from '../assets/footer/gh.svg';
+import ghLogo2 from '../assets/footer/gh2.svg';
+import igLogo from '../assets/footer/ig.svg';
+import igLogo2 from '../assets/footer/ig2.svg';
 
 function Footer() {
   const location = useLocation();
@@ -34,7 +30,7 @@ function Footer() {
 function FooterInfo() {
   return (
     <div className={styles.FooterInfo}>
-      <img src={wordmark} className={styles.WordMark} />
+      <img src={wordmark} className={styles.WordMark} alt="Hack4Impact Wordmark" />
       <p>
         {"Can't find what you're looking for?"}
         <br />
@@ -56,17 +52,17 @@ function FooterIconsDesktop() {
     <div className={styles.FooterIconsDesktop}>
       <a href={'https://www.instagram.com/hack4impactumd'}>
         <div className={styles.SocialIcon}>
-          <IgLogoSvg />
+          <img src={igLogo} alt="Instagram Logo" />
         </div>
       </a>
       <a href={'https://www.facebook.com/hack4impactumd'}>
         <div className={styles.SocialIcon}>
-          <FbLogoSvg />
+          <img src={fbLogo} alt="Facebook Logo" />
         </div>
       </a>
       <a href={'https://github.com/Hack4Impact-UMD'}>
         <div className={styles.SocialIcon}>
-          <GhLogoSvg />
+          <img src={ghLogo} alt="GitHub Logo" />
         </div>
       </a>
     </div>
@@ -78,17 +74,17 @@ function FooterIconsMobile() {
     <div className={styles.FooterIconsMobile}>
       <a href={'https://www.instagram.com/hack4impactumd'}>
         <div className={styles.SocialIcon}>
-          <IgLogoSvg2 />
+          <img src={igLogo2} alt="Instagram Logo Mobile" />
         </div>
       </a>
       <a href={'https://www.facebook.com/hack4impactumd'}>
         <div className={styles.SocialIcon}>
-          <FbLogoSvg2 />
+          <img src={fbLogo2} alt="Facebook Logo Mobile" />
         </div>
       </a>
       <a href={'https://github.com/Hack4Impact-UMD'}>
         <div className={styles.SocialIcon}>
-          <GhLogoSvg2 />
+          <img src={ghLogo2} alt="GitHub Logo Mobile" />
         </div>
       </a>
     </div>

@@ -5,12 +5,12 @@ import styles from './StudentNonprofitSelector.module.css';
 /* Import as SVG to allow for animation */
 import studentBlueDesktop from '../../components/assets/selector/student_blue_desktop.svg';
 import studentBlueMobile from '../../components/assets/selector/student_blue_mobile.svg';
-import { ReactComponent as StudentGreyDesktop } from '../../components/assets/selector/student_grey_desktop.svg';
+import StudentGreyDesktop from '../../components/assets/selector/student_grey_desktop.svg';
 import studentGreyMobile from '../../components/assets/selector/student_grey_mobile.svg';
 
 import nonprofitBlueDesktop from '../../components/assets/selector/nonprofit_blue_desktop.svg';
 import nonprofitBlueMobile from '../../components/assets/selector/nonprofit_blue_mobile.svg';
-import { ReactComponent as NonprofitGreyDesktop } from '../../components/assets/selector/nonprofit_grey_desktop.svg';
+import NonprofitGreyDesktop from '../../components/assets/selector/nonprofit_grey_desktop.svg';
 import nonprofitGreyMobile from '../../components/assets/selector/nonprofit_grey_mobile.svg';
 
 /*
