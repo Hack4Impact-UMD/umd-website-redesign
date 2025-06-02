@@ -19,20 +19,20 @@
 
 .cardContent {
   align-items: center;
-  height: 400px;
-  width: 275px;
+  height: inherit;
+  width: inherit;
   text-align: center;
 }
 
 .cardContentWrapper {
+  margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   height: inherit;
-  width: inherit;
+  width: 245px;
   flex-direction: column;
   text-align: center;
-  padding: 30px;
 }
 
 .cardFront {
@@ -116,7 +116,7 @@
   .roleCard:hover .cardFront {
     opacity: 0;
   }
-  
+
   .roleCard:hover .cardBack {
     opacity: 1;
   }

@@ -67,9 +67,9 @@ function RoleCard(props: any) {
   return (
     <div className={roleCardClass}>
       <div className={styles.cardContent}>
-        <div className={styles.cardFront} style={{ backgroundImage: `url(${bgMain})` }}>
+        <div className={styles.cardFront} style={{ backgroundImage: `url("${bgMain}")` }}>
           <div className={styles.cardContentWrapper}>
-            <img src={roleLogo} className={styles.logo} />
+            <img src={roleLogo} className={styles.logo} alt={`${props.mainText} role icon`} />
             <br />
             <span className={styles.roleCardTextMain}>
               <h2>{props.mainText}</h2>
@@ -77,7 +77,7 @@ function RoleCard(props: any) {
           </div>
         </div>
 
-        <div className={styles.cardBack} style={{ backgroundImage: `url(${bgHover})` }}>
+        <div className={styles.cardBack} style={{ backgroundImage: `url("${bgHover}")` }}>
           <div className={styles.cardContentWrapper}>
             <span className={styles.roleCardTextSub}>
               <p>{props.hoverText}</p>
