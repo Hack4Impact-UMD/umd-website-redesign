@@ -27,19 +27,11 @@ function StudentNonprofitSelector(props: any) {
     studentMobile = <img src={studentBlueMobile} />;
     nonprofitMobile = <img src={nonprofitGreyMobile} />;
     studentDesktop = <img src={studentBlueDesktop} />;
-    nonprofitDesktop = (
-      <div className={styles.greyDesktop}>
-        <img src={nonprofitGreyDesktop} alt="grey desktop" />
-      </div>
-    );
+    nonprofitDesktop = <img src={nonprofitGreyDesktop} />;
   } else {
     studentMobile = <img src={studentGreyMobile} />;
     nonprofitMobile = <img src={nonprofitBlueMobile} />;
-    studentDesktop = (
-      <div className={styles.greyDesktop}>
-        <img src={studentGreyDesktop} />
-      </div>
-    );
+    studentDesktop = <img src={studentGreyDesktop} />;
     nonprofitDesktop = <img src={nonprofitBlueDesktop} />;
   }
 
