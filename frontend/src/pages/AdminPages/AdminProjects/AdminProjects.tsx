@@ -1,4 +1,15 @@
-import { Button, TextField, Select, MenuItem, FormControl, InputLabel, SelectChangeEvent, Checkbox, ListItemText, OutlinedInput } from '@mui/material';
+import {
+  Button,
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  SelectChangeEvent,
+  Checkbox,
+  ListItemText,
+  OutlinedInput,
+} from '@mui/material';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import NavigationBar from '../../../components/admin/NavigationBar/NavigationBar';
 import styles from './AdminProjects.module.css';
@@ -88,9 +99,10 @@ const AdminProjects = () => {
             onChange={handleChange}
             fullWidth
             required
+            margin="normal"
           />
 
-          <FormControl fullWidth className={styles.FormControl}>
+          <FormControl fullWidth className={styles.FormControl} margin="normal">
             <InputLabel>Is Featured</InputLabel>
             <Select
               name="isFeatured"
@@ -102,7 +114,7 @@ const AdminProjects = () => {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth className={styles.FormControl}>
+          <FormControl fullWidth className={styles.FormControl} margin="normal">
             <InputLabel>Is Current</InputLabel>
             <Select
               name="isCurrent"
@@ -120,14 +132,16 @@ const AdminProjects = () => {
             value={formData.repoURL}
             onChange={handleChange}
             fullWidth
+            margin="normal"
           />
-          
+
           <TextField
             label="Site URL"
             name="siteURL"
             value={formData.siteURL}
             onChange={handleChange}
             fullWidth
+            margin="normal"
           />
 
           <TextField
@@ -136,9 +150,10 @@ const AdminProjects = () => {
             value={formData.imageAltText}
             onChange={handleChange}
             fullWidth
+            margin="normal"
           />
 
-          <FormControl fullWidth className={styles.FormControl}>
+          <FormControl fullWidth className={styles.FormControl} margin="normal">
             <InputLabel>Project Semesters</InputLabel>
             <Select
               multiple
@@ -156,13 +171,9 @@ const AdminProjects = () => {
             </Select>
           </FormControl>
 
-          <FormControl fullWidth className={styles.FormControl}>
+          <FormControl fullWidth className={styles.FormControl} margin="normal">
             <InputLabel>Season Name</InputLabel>
-            <Select
-              name="seasonName"
-              value={formData.seasonName}
-              onChange={(e) => handleSelectChange(e, 'seasonName')}
-            >
+            <Select name="seasonName" value={formData.seasonName} onChange={(e) => handleSelectChange(e, 'seasonName')}>
               <MenuItem value="Fall">Fall</MenuItem>
               <MenuItem value="Spring">Spring</MenuItem>
             </Select>
@@ -174,9 +185,10 @@ const AdminProjects = () => {
             value={formData.seasonYear}
             onChange={handleChange}
             fullWidth
+            margin="normal"
           />
 
-          <FormControl fullWidth className={styles.FormControl}>
+          <FormControl fullWidth className={styles.FormControl} margin="normal">
             <InputLabel>Members</InputLabel>
             <Select
               multiple
@@ -200,8 +212,10 @@ const AdminProjects = () => {
             value={formData.summary}
             onChange={handleChange}
             multiline
-            rows={3}
-            className={styles.fullWidth}
+            rows={5}
+            fullWidth
+            margin="normal"
+            inputProps={{ style: { resize: 'both' } }}
           />
 
           <TextField
@@ -210,21 +224,24 @@ const AdminProjects = () => {
             value={formData.blurb}
             onChange={handleChange}
             multiline
-            rows={2}
-            className={styles.fullWidth}
+            rows={3}
+            fullWidth
+            margin="normal"
+            inputProps={{ style: { resize: 'both' } }}
           />
 
-          <Button variant="contained" component="label" className={styles.imageButton}>
-            Upload Image
-            <input type="file" hidden onChange={handleFileChange} />
-          </Button>
+          <div className={styles.buttonContainer}>
+            <Button variant="contained" component="label" className={styles.imageButton}>
+              Upload Image
+              <input type="file" hidden onChange={handleFileChange} />
+            </Button>
 
-          <Button type="submit" variant="contained" color="primary" className={styles.submitButton}>
-            Add Project
-          </Button>
+            <Button type="submit" variant="contained" color="primary" className={styles.submitButton}>
+              Add Project
+            </Button>
+          </div>
         </form>
       </div>
-
     </div>
   );
 };

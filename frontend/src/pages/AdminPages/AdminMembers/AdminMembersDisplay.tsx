@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { DataGrid, GridColDef, GridToolbar, GridToolbarQuickFilter } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavigationBar from '../../../components/admin/NavigationBar/NavigationBar';
@@ -7,17 +7,23 @@ import { getMembers } from '../../../firebaseFunctions/FirebaseCalls';
 import styles from './AdminMembersDisplay.module.css';
 
 const AdminMembersDisplay = () => {
-  const [members, setMembers] = useState<{ member: any; id: string }[]>([]);
-  const [filteredMembers, setFilteredMembers] = useState<{ member: any; id: string }[]>([]);
-  const [search, setSearch] = useState<string>('');
+  const [members, setMembers] = useState<any[]>([]);
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchMembers = async () => {
       try {
         const allMembers = await getMembers(false);
-        setMembers(allMembers);
-        setFilteredMembers(allMembers);
-        console.log(members);
+        // Flatten the data structure for the DataGrid
+        const flattenedMembers = allMembers.map((member) => ({
+          id: member.id,
+          firstName: member.member.firstName || 'N/A',
+          lastName: member.member.lastName || 'N/A',
+          pronouns: member.member.pronouns || 'N/A',
+          role: member.member.roles || 'N/A',
+          alumni: member.member.alumni ? 'True' : 'False',
+        }));
+        setMembers(flattenedMembers);
       } catch (error) {
         console.error('Error fetching members:', error);
       }
@@ -27,59 +33,31 @@ const AdminMembersDisplay = () => {
 
   const columns: GridColDef[] = [
     {
-      valueGetter: (params: any) => params?.row.member.firstName,
-      type: 'string',
       field: 'firstName',
       headerName: 'First Name',
       width: 150,
-      renderCell: (params) => <div>{params?.row.member.firstName || 'N/A'}</div>,
     },
     {
-      valueGetter: (params: any) => params?.row.member.lastName || 'N/A',
-      type: 'string',
       field: 'lastName',
       headerName: 'Last Name',
       width: 150,
-      renderCell: (params) => <div>{params?.row.member.lastName || 'N/A'}</div>,
     },
     {
-      valueGetter: (params: any) => params?.row.member.pronouns || 'N/A',
-      type: 'string',
       field: 'pronouns',
       headerName: 'Pronouns',
       width: 120,
-      renderCell: (params) => <div>{params?.row.member.pronouns || 'N/A'}</div>,
     },
     {
-      valueGetter: (params: any) => params?.row.member.role || 'N/A',
-      type: 'string',
       field: 'role',
       headerName: 'Role',
       width: 200,
-      renderCell: (params) => <div>{params?.row.member.role || 'N/A'}</div>,
     },
     {
-      valueGetter: (params: any) => (params?.row.member.alumni ? 'True' : 'False'),
-      type: 'string',
       field: 'alumni',
       headerName: 'Alumni',
       width: 120,
-      renderCell: (params) => <div>{params?.row.member.alumni ? 'True' : 'False'}</div>,
     },
   ];
-
-  const QuickSearchToolbar = () => {
-    return (
-      <Box
-        sx={{
-          padding: '5px',
-          backgroundColor: 'rgba(224, 224, 224, 0.75)',
-        }}
-      >
-        <GridToolbarQuickFilter />
-      </Box>
-    );
-  };
 
   const DataGridStyles = {
     border: 10,
@@ -94,7 +72,6 @@ const AdminMembersDisplay = () => {
       borderRadius: 0,
       fontFamily: `"Source-Serif 4", serif`,
     },
-
     '& .MuiDataGrid-footerContainer': {
       backgroundColor: 'rgba(224, 224, 224, 0.75)',
       justifyContent: 'center',
@@ -127,15 +104,10 @@ const AdminMembersDisplay = () => {
               slots={{ toolbar: GridToolbar }}
               slotProps={{
                 toolbar: {
-                  showQuickFilter: true,
+                  showQuickFilter: true, // Enables the search bar in the toolbar
+                  quickFilterProps: { debounceMs: 500 }, // Adds debounce for better performance
                 },
               }}
-              // slots={{ toolbar: QuickSearchToolbar }}
-              // slotProps={{
-              //   toolbar: {
-              //     showQuickFilter: true,
-              //   },
-              // }}
               sx={DataGridStyles}
             />
           </div>

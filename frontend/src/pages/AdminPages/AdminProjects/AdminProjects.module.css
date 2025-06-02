@@ -24,8 +24,9 @@
   width: 500px;
 }
 
-.fullWidth {
-  grid-column: span 2;
+.buttonContainer {
+  display: flex;
+  gap: 10px;
 }
 
 .imageButton {
@@ -41,12 +42,6 @@
 }
 
 .submitButton {
-  /* grid-column: span 2; */
   align-self: center;
   justify-self: center;
-  margin: 20px;
 }
-
-/* .textField {
-  background-color: black;
-} */
