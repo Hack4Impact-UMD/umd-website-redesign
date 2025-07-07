@@ -13,12 +13,15 @@
   transition: 500ms;
   margin: 0 20px;
 }
+
 .slick-list {
   margin: 0 -20px;
 }
+
 .slick-slide > div {
   padding: 0 20px;
 }
+
 .inactiveSlide {
   background-color: gray;
   width: 400px;
@@ -40,7 +43,6 @@
 .slideOutsideContainer {
   width: 100%;
   height: 500px;
-
   justify-items: center;
   background-color: skyblue;
 }
@@ -50,13 +52,12 @@
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: row;
-  padding-top: 150px;
-  padding-left: 10%;
-  height: 800px;
-}
-
-.center {
+  padding-top: 50px;
+  height: 100vh;
+  width: 100vw;
 }
 
 .featuredTitle {

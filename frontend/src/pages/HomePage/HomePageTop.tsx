@@ -4,7 +4,7 @@ import styles from './HomePage.module.css';
 //first div is for background, second div is for left side text
 const HomePageTop = () => {
   return (
-    <div>
+    <>
       <div className={styles.headerContainer}>
         <div className={styles.text}>
           <h1 className={styles.textOne}>
@@ -53,7 +53,7 @@ const HomePageTop = () => {
           to help them better serve their communities.
         </p>
       </div>
-    </div>
+    </>
   );
 };
 

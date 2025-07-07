@@ -6,3 +6,8 @@
   --color-light-blue-hover: #657788;
   --color-h4i-blue: #0069ca;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+}
