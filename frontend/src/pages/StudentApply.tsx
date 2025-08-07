@@ -21,7 +21,7 @@ function StudentApply() {
       <StudentApplyCards />
       <ApplicationTimeline />
       <div className={styles.applyButton}>
-        <StandardButton color="green" text="Apply" externalLink={true} link="https://bit.ly/h4i-sp25" />
+        <StandardButton color="green" text="Apply" externalLink={true} link="https://apply.umd.hack4impact.org/login" />
       </div>
       <div className={styles.faq}>
         <FaqSection />
@@ -195,7 +195,7 @@ function FaqSection() {
         question={<h3>What tech stack is used in your projects?</h3>}
         answer={
           <p>
-            We mainly develop new projects on the MERN (MongoDB, Express.js, React, and Node.js) stack. However, we will
+            We mainly develop new projects on the FERN (Firebase, Express.js, React, and Node.js) stack. However, we will
             also help out nonprofit organizations that have existing websites on other stacks, such as Django, Flask, or
             Ruby on Rails.
           </p>
