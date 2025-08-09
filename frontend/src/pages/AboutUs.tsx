@@ -88,10 +88,10 @@ function ExecBoard() {
     'Director of Engineering',
     'Director of Design',
     'Director of Education',
-    'Director of Finance',
+    'Director of Finance and Sponsorship',
     'Director of Events',
     'Director of Recruitment',
-    'Director of Sourcing',
+    'Director of Public Relations and Outreach',
     'Senior Advisor',
   ];
 
