@@ -1,5 +1,5 @@
 {
     "scripts": {
-        "start": "cd backend && strapi start"
+        "start": "cd backend && npm start"
     }
 }
