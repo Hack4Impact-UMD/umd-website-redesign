@@ -1,7 +1,7 @@
 [build]
-  base = "frontend"
-  command = "npm install --legacy-peer-deps && npm run build"
+  command = "npm run build"
   publish = "build"
+  environment = { NPM_FLAGS = "--legacy-peer-deps" }
 
 [[redirects]]
   from = "/*"
