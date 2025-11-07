@@ -41,11 +41,7 @@ const Projects = (props: any) => {
                   ' ' +
                   (item['attributes']['startDate'] as string).substring(0, 4)
                 : '';
-              const endDate =
-                item['attributes']['Season'] && item['attributes']['Year']
-                  ? ' - ' + item['attributes']['Season'] + ' ' + item['attributes']['Year']
-                  : '';
-              const fullDate = startDate + endDate;
+              const fullDate = startDate;
               return (
                 <FeaturedProjectCard
                   key={index}

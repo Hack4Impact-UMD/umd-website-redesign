@@ -110,8 +110,7 @@ const PastProjects: React.FC = () => {
                 ' ' +
                 (item['startDate'] as string).substring(0, 4)
               : '';
-            const endDate = item['Season'] && item['Year'] ? ' - ' + item['Season'] + ' ' + item['Year'] : '';
-            const fullDate = startDate + endDate;
+            const fullDate = startDate;
             return (
               <PastProjectCard
                 key={index}

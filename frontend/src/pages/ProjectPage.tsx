@@ -16,7 +16,7 @@ function ProjectPage() {
   //query to get project info
   const res = useAxios(
     process.env.REACT_APP_ROOT_URL +
-      '/api/projects?fields[0]=title&fields[1]=startDate&fields[2]=blurb&fields[3]=repoURL&fields[4]=hostedProjectURL&fields[5]=Season&fields[6]=Year&populate[image][fields][0]=url&populate[members][fields][0]=firstName&populate[members][fields][1]=lastName&populate[members][fields][2]=pronouns&populate[members][populate][componentRolesArr][fields][0]=title&populate[members][populate][componentRolesArr][fields][1]=isDisplayRole&populate[members][populate][componentRolesArr][fields][2]=team&populate[members][populate][avatar][fields][0]=url&filters[path][$eq]=' +
+      '/api/projects?fields[0]=title&fields[1]=startDate&fields[2]=blurb&fields[3]=repoURL&fields[4]=hostedProjectURL&populate[image][fields][0]=url&populate[members][fields][0]=firstName&populate[members][fields][1]=lastName&populate[members][fields][2]=pronouns&populate[members][populate][componentRolesArr][fields][0]=title&populate[members][populate][componentRolesArr][fields][1]=isDisplayRole&populate[members][populate][componentRolesArr][fields][2]=team&populate[members][populate][avatar][fields][0]=url&filters[path][$eq]=' +
       params.projectpath,
     'GET',
     {},
@@ -49,11 +49,7 @@ function Header() {
         ' ' +
         (proj['attributes']['startDate'] as string).substring(0, 4)
       : '';
-  const endDate =
-    proj && proj['attributes']['Season'] && proj['attributes']['Year']
-      ? ' - ' + proj['attributes']['Season'] + ' ' + proj['attributes']['Year']
-      : '';
-  const date = startDate + endDate;
+  const date = startDate;
   return (
     <div className={styles.studentApplyHeader}>
       <div className={styles.studentApplyHeaderContent}>
