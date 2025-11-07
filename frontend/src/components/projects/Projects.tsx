@@ -3,39 +3,35 @@ import FeaturedProjectCard from './FeaturedProjectCard';
 import styles from '../../styles/projects/Projects.module.css';
 import { useAxios, getSeason } from '../HelperFunctions';
 import StandardButton from '../buttons/StandardButton';
+import LoadingSpinner from '../LoadingSpinner';
 
 const Projects = (props: any) => {
-  let res = null;
-  let projects = null;
-
   //check which type of projects were rendering
-  if (props.isFeatured == true) {
-    // fetch featuredProjects from backend
-    res = useAxios(
-      process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*&filters[isFeatured][$eq]=true',
-      'GET',
-      {},
-    );
-    projects = res.data ? res.data['data'] : [];
-  } else {
-    //fetch current projects
-    res = useAxios(
-      process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*&filters[isCurrentProject][$eq]=true',
-      'GET',
-      {},
-    );
-    projects = res.data ? res.data['data'] : [];
-  }
-  // fetch featuredProjects from backend
+  const res = props.isFeatured == true
+    ? useAxios(
+        process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*&filters[isFeatured][$eq]=true',
+        'GET',
+        {},
+      )
+    : useAxios(
+        process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*&filters[isCurrentProject][$eq]=true',
+        'GET',
+        {},
+      );
+
+  const projects = res.data ? res.data['data'] : [];
 
   return (
     <div>
       <div className={styles.featuredProjectCards}>
         {/*if display current projects, show current projects title*/}
         {props.isFeatured ? null : <h2 id={styles.sectionTitle}>Current Projects</h2>}
-        {!projects
-          ? projects
-          : projects.map((item, index) => {
+        {!res.loaded ? (
+          <LoadingSpinner />
+        ) : !projects || projects.length === 0 ? (
+          <NoProjects />
+        ) : (
+          projects.map((item, index) => {
               const startDate = item['attributes']['startDate']
                 ? getSeason((item['attributes']['startDate'] as string).substring(5, 7) as unknown as number) +
                   ' ' +
@@ -57,7 +53,8 @@ const Projects = (props: any) => {
                   altText={item['attributes']['imageAltText']}
                 />
               );
-            })}
+            })
+        )}
       </div>
       {/**display see more button if showing featured projects */}
       {props.isFeatured ? (

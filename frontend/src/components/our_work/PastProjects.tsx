@@ -4,14 +4,13 @@ import { past_projects } from './past_projects';
 import styles from '../../styles/our_work/PastProjects.module.css';
 import { useAxios } from '../HelperFunctions';
 import { getSeason } from '../HelperFunctions';
+import LoadingSpinner from '../LoadingSpinner';
 
 const PastProjects: React.FC = () => {
   // query for all projects
   const res = useAxios(process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*', 'GET', {});
   const allProjects = res.data ? res.data['data'] : [];
   const cleanedProjects = allProjects.map((x) => x['attributes']);
-  // TODO: REMOVE, DEBUG STATEMENT
-  // console.log("cleaned projects: ", cleanedProjects);
   const past_projects = cleanedProjects;
 
   // Set up state for search bar functionality
@@ -81,6 +80,15 @@ const PastProjects: React.FC = () => {
       return null;
     }
   });
+
+  if (!res.loaded) {
+    return (
+      <div className={styles.pastProjectsContainer}>
+        <h2 id={styles.sectionTitle}>Past Projects</h2>
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.pastProjectsContainer}>
