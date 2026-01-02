@@ -6,9 +6,11 @@ import { useAxios } from '../HelperFunctions';
 import { getSeason } from '../HelperFunctions';
 import LoadingSpinner from '../LoadingSpinner';
 
+const rootUrl = import.meta.env.VITE_ROOT_URL ?? '';
+
 const PastProjects: React.FC = () => {
   // query for all projects
-  const res = useAxios(process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*', 'GET', {});
+  const res = useAxios(rootUrl + '/api/projects?populate=*', 'GET', {});
   const allProjects = res.data ? res.data['data'] : [];
   const cleanedProjects = allProjects.map((x) => x['attributes']);
   const past_projects = cleanedProjects;

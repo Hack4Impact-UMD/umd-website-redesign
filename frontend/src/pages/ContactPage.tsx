@@ -32,7 +32,6 @@ function ContactPage() {
       contactInfo.message = formProp.value;
     }
   }
-  console.log(process.env.PUBLIC_KEY);
   async function validateForm(event: React.FormEvent<HTMLFormElement>) {
     console.log(contactInfo);
     if (

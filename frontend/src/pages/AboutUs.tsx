@@ -9,6 +9,8 @@ import placeholder from '../components/assets/placeholder.png';
 import { useAxios } from '../components/HelperFunctions';
 import globe from '../components/assets/globe.svg';
 
+const rootUrl = import.meta.env.VITE_ROOT_URL ?? '';
+
 function AboutUs() {
   return (
     <div className={styles.aboutUs}>
@@ -76,7 +78,7 @@ function ValueCardRow() {
 
 function ExecBoard() {
   const res = useAxios(
-    process.env.REACT_APP_ROOT_URL +
+    rootUrl +
       '/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Board Member',
     'GET',
     {},
@@ -141,7 +143,7 @@ function TeamMembers() {
   // fetch data with axios, assign the array of members to members var
   // const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=*", "GET", {});
   const res = useAxios(
-    process.env.REACT_APP_ROOT_URL +
+    rootUrl +
       '/api/members?pagination[page]=1&pagination[pageSize]=100&populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member',
     'GET',
     {},

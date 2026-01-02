@@ -5,16 +5,18 @@ import { useAxios, getSeason } from '../HelperFunctions';
 import StandardButton from '../buttons/StandardButton';
 import LoadingSpinner from '../LoadingSpinner';
 
+const rootUrl = import.meta.env.VITE_ROOT_URL ?? '';
+
 const Projects = (props: any) => {
   //check which type of projects were rendering
   const res = props.isFeatured == true
     ? useAxios(
-        process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*&filters[isFeatured][$eq]=true',
+        rootUrl + '/api/projects?populate=*&filters[isFeatured][$eq]=true',
         'GET',
         {},
       )
     : useAxios(
-        process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*&filters[isCurrentProject][$eq]=true',
+        rootUrl + '/api/projects?populate=*&filters[isCurrentProject][$eq]=true',
         'GET',
         {},
       );

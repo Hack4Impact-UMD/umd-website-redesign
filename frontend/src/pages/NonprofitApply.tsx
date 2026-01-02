@@ -14,6 +14,8 @@ import cadcLogo from '../components/assets/npo_files/cadc_logo.svg';
 import unstoppableLogo from '../components/assets/npo_files/2unstoppable_logo.svg';
 import { useAxios } from '../components/HelperFunctions';
 
+const rootUrl = import.meta.env.VITE_ROOT_URL ?? '';
+
 function NonprofitApply() {
   return (
     <div className={styles.nonprofitApply}>
@@ -73,7 +75,7 @@ function Carousel() {
   });
 
   // query all projects to be used to find the recent project.
-  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*", "GET", {});
+  const res = useAxios(rootUrl + "/api/projects?populate=*", "GET", {});
   const allProjects: any[] = res.data ? res.data["data"] : [];
   const cleanedProjects = allProjects.map(x => x["attributes"]);
   const past_projects = cleanedProjects;

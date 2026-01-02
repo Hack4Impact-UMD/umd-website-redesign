@@ -7,6 +7,8 @@ import Person from '../components/Person';
 import { Params, useParams } from 'react-router-dom';
 import { useAxios, getSeason } from '../components/HelperFunctions';
 
+const rootUrl = import.meta.env.VITE_ROOT_URL ?? '';
+
 let params: Readonly<Params<string>>;
 let proj: null;
 
@@ -15,7 +17,7 @@ function ProjectPage() {
 
   //query to get project info
   const res = useAxios(
-    process.env.REACT_APP_ROOT_URL +
+    rootUrl +
       '/api/projects?fields[0]=title&fields[1]=startDate&fields[2]=blurb&fields[3]=repoURL&fields[4]=hostedProjectURL&populate[image][fields][0]=url&populate[members][fields][0]=firstName&populate[members][fields][1]=lastName&populate[members][fields][2]=pronouns&populate[members][populate][componentRolesArr][fields][0]=title&populate[members][populate][componentRolesArr][fields][1]=isDisplayRole&populate[members][populate][componentRolesArr][fields][2]=team&populate[members][populate][avatar][fields][0]=url&filters[path][$eq]=' +
       params.projectpath,
     'GET',
