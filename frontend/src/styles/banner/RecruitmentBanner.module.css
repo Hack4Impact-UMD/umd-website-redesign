@@ -1,0 +1,126 @@
+/* Banner Container - Fixed positioning below navbar */
+.bannerContainer {
+  position: fixed;
+  top: 70px; /* Height of navbar */
+  left: 0;
+  right: 0;
+  z-index: 45; /* Below navbar (z-index: 50) but above content */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 20px;
+
+  backdrop-filter: blur(6px);
+  background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.95) 32.23%, rgba(203, 249, 243, 0.95) 53.35%);
+  border-bottom: 1px solid rgba(0, 105, 202, 0.1);
+
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.bannerContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+}
+
+.bannerText {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 21px;
+  letter-spacing: -0.02em;
+  color: #333333;
+  text-align: center;
+}
+
+.bannerEmoji {
+  font-size: 18px;
+}
+
+.bannerMessage {
+  display: inline;
+}
+
+.bannerLink {
+  color: #0069CA;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.bannerLink:hover {
+  color: #657788;
+  text-decoration: underline;
+}
+
+.closeButton {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  color: #333333;
+  cursor: pointer;
+  padding: 5px 10px;
+  transition: color 0.3s ease, transform 0.2s ease;
+  font-weight: 300;
+}
+
+.closeButton:hover {
+  color: #657788;
+  transform: scale(1.1);
+}
+
+.closeButton:focus {
+  outline: 2px solid #0069CA;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 850px) {
+  .bannerContainer {
+    padding: 12px 15px;
+  }
+
+  .bannerText {
+    font-size: 14px;
+    line-height: 18px;
+    padding-right: 30px; /* Make room for close button */
+  }
+
+  .bannerEmoji {
+    font-size: 16px;
+  }
+
+  .bannerMessage {
+    display: inline;
+  }
+
+  .closeButton {
+    font-size: 24px;
+    right: 5px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .bannerText {
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .bannerMessage {
+    display: inline;
+  }
+}
