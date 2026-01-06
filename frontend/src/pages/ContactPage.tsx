@@ -2,9 +2,10 @@ import emailjs from '@emailjs/browser';
 import React, { useState } from 'react';
 import styles from '../styles/contact/Contact.module.css';
 import MessageSent from './MessageSent';
+
 function ContactPage() {
   const [sent, setSent] = useState(false);
-  const [contactInfo] = useState({
+  const [contactInfo, setContactInfo] = useState({
     firstName: '',
     lastName: '',
     subject: '',
@@ -12,29 +13,16 @@ function ContactPage() {
     phoneNumber: '',
     message: '',
   });
+
   const handleChange = (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>) => {
     const { value, name } = e.currentTarget;
-    contactInfo[name as keyof typeof contactInfo] = value;
+    setContactInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
-  function updateInfo(event: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>) {
-    const formProp = event.currentTarget;
-    if (formProp.id == 'firstName') {
-      contactInfo.firstName = formProp.value;
-    } else if (formProp.id == 'lastName') {
-      contactInfo.lastName = formProp.value;
-    } else if (formProp.id == 'subject') {
-      contactInfo.subject = formProp.value;
-    } else if (formProp.id == 'email') {
-      contactInfo.email = formProp.value;
-    } else if (formProp.id == 'phoneNumber') {
-      contactInfo.phoneNumber = formProp.value;
-    } else if (formProp.id == 'message') {
-      contactInfo.message = formProp.value;
-    }
-  }
-  console.log(process.env.PUBLIC_KEY);
+
   async function validateForm(event: React.FormEvent<HTMLFormElement>) {
-    console.log(contactInfo);
     if (
       contactInfo.firstName === '' ||
       contactInfo.lastName === '' ||
@@ -47,9 +35,16 @@ function ContactPage() {
       alert('contact information is empty');
       return false;
     }
+
+    // TODO: Move these to environment variables for security
+    // VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_rux8luc';
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_fgd74qw';
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'oqfPTswPuNLGMxG8o';
+
     await emailjs
-      .send('service_rux8luc', 'template_fgd74qw', contactInfo, {
-        publicKey: 'oqfPTswPuNLGMxG8o',
+      .send(serviceId, templateId, contactInfo, {
+        publicKey: publicKey,
       })
       .then(
         () => {
@@ -62,6 +57,7 @@ function ContactPage() {
       );
     return true;
   }
+
   return sent ? (
     <MessageSent />
   ) : (
@@ -109,4 +105,5 @@ function ContactPage() {
     </div>
   );
 }
+
 export default ContactPage;

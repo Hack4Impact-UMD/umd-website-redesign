@@ -31,13 +31,22 @@ export function FaqRow({ question, answer }: RowProps) {
 
   return (
     <div className={styles.faqRow}>
-      <div className={styles.question} onClick={toggleShowAnswer}>
+      <button
+        className={styles.question}
+        onClick={toggleShowAnswer}
+        aria-expanded={showing}
+        type="button"
+      >
         {question}
         <div className={showing ? `${styles.arrow} ${styles.rotated}` : styles.arrow}>
-          <Arrow />
+          <Arrow aria-hidden="true" />
         </div>
-      </div>
-      <div className={showing ? `${styles.answer} ${styles.showing}` : styles.answer}>
+      </button>
+      <div
+        className={showing ? `${styles.answer} ${styles.showing}` : styles.answer}
+        role="region"
+        aria-hidden={!showing}
+      >
         {answer}
       </div>
     </div>
