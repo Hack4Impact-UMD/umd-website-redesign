@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../../styles/apply/Faq.module.css';
-import { ReactComponent as Arrow } from '../assets/faq_arrow.svg';
+import Arrow from '../assets/faq_arrow.svg?react';
 
 export default function Faq(props: { children: React.ReactNode }) {
   return (

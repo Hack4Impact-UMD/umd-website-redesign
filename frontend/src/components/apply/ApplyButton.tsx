@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from '../../styles/apply/ApplyButton.module.css';
-import { ReactComponent as Background } from '../assets/ApplyButton.svg';
+import Background from '../assets/ApplyButton.svg?react';
 
 function ApplyButton() {
   return (

@@ -73,7 +73,7 @@ function Carousel() {
   });
 
   // query all projects to be used to find the recent project.
-  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*", "GET", {});
+  const res = useAxios(import.meta.env.VITE_ROOT_URL + "/api/projects?populate=*", "GET", {});
   const allProjects: any[] = res.data ? res.data["data"] : [];
   const cleanedProjects = allProjects.map(x => x["attributes"]);
   const past_projects = cleanedProjects;
