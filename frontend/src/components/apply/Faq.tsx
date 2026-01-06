@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../styles/apply/Faq.module.css';
-import { ReactComponent as Arrow } from '../assets/faq_arrow.svg';
+import Arrow from '../assets/faq_arrow.svg?react';
 
 export default function Faq(props: { children: React.ReactNode }) {
   return (
@@ -16,44 +16,39 @@ type RowProps = {
   answer: React.ReactNode;
 };
 
-type RowState = {
-  showing: boolean;
-};
-
 /*
  * To be used with Faq.
  * Props:
  * question (JSX): JSX Input containing a <p>
  * answer (JSX): JSX Input containing a <p>
  */
-export class FaqRow extends React.Component<RowProps, RowState> {
-  constructor(props: RowProps) {
-    super(props);
-    this.state = {
-      /* True if the answer is showing, false otherwise */
-      showing: false,
-    };
+export function FaqRow({ question, answer }: RowProps) {
+  const [showing, setShowing] = useState(false);
 
-    this.toggleShowAnswer = this.toggleShowAnswer.bind(this);
-  }
+  const toggleShowAnswer = () => {
+    setShowing(!showing);
+  };
 
-  toggleShowAnswer() {
-    this.setState({ showing: !this.state.showing });
-  }
-
-  render() {
-    return (
-      <div className={styles.faqRow}>
-        <div className={styles.question} onClick={this.toggleShowAnswer}>
-          {this.props.question}
-          <div className={this.state.showing ? `${styles.arrow} ${styles.rotated}` : styles.arrow}>
-            <Arrow />
-          </div>
+  return (
+    <div className={styles.faqRow}>
+      <button
+        className={styles.question}
+        onClick={toggleShowAnswer}
+        aria-expanded={showing}
+        type="button"
+      >
+        {question}
+        <div className={showing ? `${styles.arrow} ${styles.rotated}` : styles.arrow}>
+          <Arrow aria-hidden="true" />
         </div>
-        <div className={this.state.showing ? `${styles.answer} ${styles.showing}` : styles.answer}>
-          {this.props.answer}
-        </div>
+      </button>
+      <div
+        className={showing ? `${styles.answer} ${styles.showing}` : styles.answer}
+        role="region"
+        aria-hidden={!showing}
+      >
+        {answer}
       </div>
-    );
-  }
+    </div>
+  );
 }

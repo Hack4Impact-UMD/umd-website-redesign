@@ -76,7 +76,7 @@ function ValueCardRow() {
 
 function ExecBoard() {
   const res = useAxios(
-    process.env.REACT_APP_ROOT_URL +
+    import.meta.env.VITE_ROOT_URL +
       '/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Board Member',
     'GET',
     {},
@@ -139,9 +139,9 @@ function ExecBoard() {
 
 function TeamMembers() {
   // fetch data with axios, assign the array of members to members var
-  // const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=*", "GET", {});
+  // const res = useAxios(import.meta.env.VITE_ROOT_URL + "/api/members?populate=*", "GET", {});
   const res = useAxios(
-    process.env.REACT_APP_ROOT_URL +
+    import.meta.env.VITE_ROOT_URL +
       '/api/members?pagination[page]=1&pagination[pageSize]=100&populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member',
     'GET',
     {},

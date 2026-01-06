@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import styles from '../../styles/buttons/ScrollToTopButton.module.css';
-import ScrollToTopButtonImg from '../assets/ScrollToTopButton.svg';
-import ScrollToTopButtonHoverImg from '../assets/ScrollToTopButtonHover.svg';
+import React, { useState, useEffect } from 'react';
+import { ArrowUp } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const ScrollToTopButton: React.FC = () => {
   const [visible, setVisible] = useState(false);
 
-  // Controls visibility of scroll up button.
-  const toggleVisible = () => {
-    const scrolled = document.documentElement.scrollTop;
-    if (scrolled > 300) {
-      setVisible(true);
-    } else if (scrolled <= 300) {
-      setVisible(false);
-    }
-  };
+  useEffect(() => {
+    // Controls visibility of scroll up button.
+    const toggleVisible = () => {
+      const scrolled = document.documentElement.scrollTop;
+      setVisible(scrolled > 300);
+    };
+
+    window.addEventListener('scroll', toggleVisible);
+    return () => window.removeEventListener('scroll', toggleVisible);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -23,21 +23,17 @@ const ScrollToTopButton: React.FC = () => {
     });
   };
 
-  window.addEventListener('scroll', toggleVisible);
+  if (!visible) return null;
 
   return (
-    <div className={styles.ScrollToTopButton} onClick={scrollToTop} style={{ display: visible ? 'inline' : 'none' }}>
-      <img 
-        className={styles.ScrollToTopButton}
-        src={ScrollToTopButtonImg} 
-        aria-label="Scroll to Top Button" 
-      />
-      <img
-        className={styles.ScrollToTopButtonHover}
-        src={ScrollToTopButtonHoverImg}
-        aria-label="Scroll to Top Button Hover"
-      />
-    </div>
+    <Button
+      onClick={scrollToTop}
+      className="fixed bottom-8 right-8 z-50 w-14 h-14 rounded-full bg-h4i-blue hover:bg-h4i-blue/90 text-white shadow-lg transition-all hover:scale-110"
+      size="icon"
+      aria-label="Scroll to Top"
+    >
+      <ArrowUp className="w-6 h-6" />
+    </Button>
   );
 };
 

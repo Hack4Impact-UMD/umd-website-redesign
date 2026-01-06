@@ -1,7 +1,7 @@
 [build]
   command = "npm run build"
-  publish = "build"
-  environment = { NPM_FLAGS = "--legacy-peer-deps" }
+  publish = "dist"
+  environment = { NPM_FLAGS = "--legacy-peer-deps", NODE_VERSION = "18" }
 
 [[redirects]]
   from = "/*"

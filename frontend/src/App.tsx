@@ -1,7 +1,5 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Route, BrowserRouter, Routes, useLocation } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 
 import HomePageTop from './components/home_page/HomePageTop';
 import HomePageLower from './components/home_page/HomePageLower';
