@@ -1,7 +1,7 @@
-/* Banner Container - Fixed positioning at bottom of screen */
+/* Banner Container - Fixed positioning at top of screen, under navbar */
 .bannerContainer {
   position: fixed;
-  bottom: 0;
+  top: 70px; /* Height of navbar */
   left: 0;
   right: 0;
   z-index: 45; /* Below navbar (z-index: 50) but above content */
@@ -13,20 +13,20 @@
 
   /* Warm gradient to contrast with cool navbar */
   background: linear-gradient(90deg, #FFF9F0 0%, #FFF4E6 50%, #FFE8CC 100%);
-  border-top: 2px solid rgba(255, 179, 102, 0.6);
-  border-bottom: 1px solid rgba(255, 179, 102, 0.4);
+  border-top: 1px solid rgba(255, 179, 102, 0.4);
+  border-bottom: 2px solid rgba(255, 179, 102, 0.6);
 
-  box-shadow: 0 -3px 10px rgba(255, 140, 0, 0.12);
+  box-shadow: 0 3px 10px rgba(255, 140, 0, 0.12);
 
   opacity: 0;
-  transform: translateY(100%);
-  animation: slideUp 0.4s ease-out forwards;
+  transform: translateY(-100%);
+  animation: slideDown 0.4s ease-out forwards;
 }
 
-@keyframes slideUp {
+@keyframes slideDown {
   from {
     opacity: 0;
-    transform: translateY(100%);
+    transform: translateY(-100%);
   }
   to {
     opacity: 1;
@@ -147,11 +147,11 @@
  * Banner height: ~51px (padding: 15px * 2 + line-height: 21px)
  */
 :global(body.recruitment-banner-visible) {
-  padding-bottom: 51px;
+  padding-top: 121px; /* 70px navbar + 51px banner */
 }
 
 @media screen and (max-width: 850px) {
   :global(body.recruitment-banner-visible) {
-    padding-bottom: 42px; /* Adjusted for mobile padding (12px * 2 + 18px line-height) */
+    padding-top: 112px; /* 70px navbar + 42px banner (adjusted for mobile padding) */
   }
 }
