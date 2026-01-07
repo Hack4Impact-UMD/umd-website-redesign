@@ -12,6 +12,7 @@ import bgm1 from '../assets/rolecard/RoleCardBackgroundMobile1.svg';
 import bgm2 from '../assets/rolecard/RoleCardBackgroundMobile2.svg';
 import bgHover1 from '../assets/rolecard/RoleCardBackgroundHover1.svg';
 import bgHover2 from '../assets/rolecard/RoleCardBackgroundHover2.svg';
+import ImageWithLoading from '../ImageWithLoading';
 
 /*
  * RoleCard Component used in Apply pages.
@@ -71,7 +72,7 @@ function RoleCard(props: any) {
 
         <div className={styles.cardFront} style={{ backgroundImage: `url(${bgMain})` }}>
           <div className={styles.cardContentWrapper}>
-              <img src={roleLogo} className={styles.logo} /><br/>
+              <ImageWithLoading src={roleLogo} className={styles.logo} alt={`${props.mainText} icon`} /><br/>
               <span className={styles.roleCardTextMain}>
                 <h2>{props.mainText}</h2>
               </span>

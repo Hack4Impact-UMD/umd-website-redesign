@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../../styles/apply/StudentNonprofitSelector.module.css';
+import ImageWithLoading from '../ImageWithLoading';
 
 /* Import as SVG to allow for animation */
 import { ReactComponent as StudentGreyDesktop } from '../assets/selector/student_grey_desktop.svg';
@@ -24,23 +25,23 @@ function StudentNonprofitSelector(props: any) {
   let studentDesktop: React.ReactNode;
   let nonprofitDesktop: React.ReactNode;
   if (props.curr == 'student') {
-    studentMobile = <img src={studentBlueMobile} />;
-    nonprofitMobile = <img src={nonprofitGreyMobile} />;
-    studentDesktop = <img src={studentBlueDesktop} />;
+    studentMobile = <ImageWithLoading src={studentBlueMobile} alt="Student selector" />;
+    nonprofitMobile = <ImageWithLoading src={nonprofitGreyMobile} alt="Nonprofit selector" />;
+    studentDesktop = <ImageWithLoading src={studentBlueDesktop} alt="Student selector" />;
     nonprofitDesktop = (
       <div className={styles.greyDesktop}>
         <NonprofitGreyDesktop />
       </div>
     );
   } else {
-    studentMobile = <img src={studentGreyMobile} />;
-    nonprofitMobile = <img src={nonprofitBlueMobile} />;
+    studentMobile = <ImageWithLoading src={studentGreyMobile} alt="Student selector" />;
+    nonprofitMobile = <ImageWithLoading src={nonprofitBlueMobile} alt="Nonprofit selector" />;
     studentDesktop = (
       <div className={styles.greyDesktop}>
         <StudentGreyDesktop />
       </div>
     );
-    nonprofitDesktop = <img src={nonprofitBlueDesktop} />;
+    nonprofitDesktop = <ImageWithLoading src={nonprofitBlueDesktop} alt="Nonprofit selector" />;
   }
 
   return (

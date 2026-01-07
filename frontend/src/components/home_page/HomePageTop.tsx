@@ -3,11 +3,12 @@ import styles from '../../styles/home/HomePageTop.module.css';
 import blueBG from '../assets/backgrounds/blue-bg.svg';
 import graphic from '../assets/graphic.svg';
 import StandardButton from '../buttons/StandardButton';
+import ImageWithLoading from '../ImageWithLoading';
 //first div is for background, second div is for left side text
 const HomePageTop = () => {
   return (
     <div>
-      <img className={styles.blueBG} src={blueBG}></img>
+      <ImageWithLoading className={styles.blueBG} src={blueBG} alt="Background decoration" />
       <div className={styles.header}>
         <div className={styles.text}>
           <h1 className={styles.textOne}>
@@ -22,7 +23,7 @@ const HomePageTop = () => {
             <StandardButton text="Learn More" color="green" link="/aboutus" />
           </div>
         </div>
-        <img className={styles.graphic} src={graphic}></img>
+        <ImageWithLoading className={styles.graphic} src={graphic} alt="Hack4Impact illustration" />
       </div>
       
       <div className={styles.center}>

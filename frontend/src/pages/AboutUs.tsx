@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/about_us/AboutUs.module.css';
 import Person from '../components/Person';
 import ValueCard from '../components/about_us/ValueCard';
@@ -21,12 +21,19 @@ function AboutUs() {
 }
 
 function AboutUsHeader() {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <div className={styles.headerDiv}>
       <picture>
         {/* background image should change when navbar changes */}
         <source srcSet={headerDesktop} media={'(min-width: 700px)'} />
-        <img src={headerMobile} className={styles.headerImg}></img>
+        <img
+          src={headerMobile}
+          className={styles.headerImg}
+          onLoad={() => setImageLoaded(true)}
+          style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+        ></img>
       </picture>
       <div className={styles.headerText}>
         <h1>About Us</h1>
