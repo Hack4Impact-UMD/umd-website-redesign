@@ -24,15 +24,16 @@ function AboutUsHeader() {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <div className={styles.headerDiv}>
+    <div
+      className={styles.headerDiv}
+      style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+    >
       <picture>
-        {/* background image should change when navbar changes */}
         <source srcSet={headerDesktop} media={'(min-width: 700px)'} />
         <img
           src={headerMobile}
           className={styles.headerImg}
           onLoad={() => setImageLoaded(true)}
-          style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
         ></img>
       </picture>
       <div className={styles.headerText}>
