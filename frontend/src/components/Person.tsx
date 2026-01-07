@@ -14,7 +14,12 @@ function Person(props: any) {
   if (props.src == undefined || props.src == null) {
     imageSrc = default_pfp;
   } else {
-    imageSrc = props.src;
+    // If the image URL is relative (starts with /), prepend the backend URL
+    if (props.src.startsWith('/')) {
+      imageSrc = process.env.REACT_APP_ROOT_URL + props.src;
+    } else {
+      imageSrc = props.src;
+    }
   }
 
   return (
