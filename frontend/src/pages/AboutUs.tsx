@@ -105,35 +105,26 @@ function ExecBoard() {
             ? boardMembers
             : boardMembers
                 .sort(
-                  (a, b) =>
-                    execOrder.indexOf(
-                      (a['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                        'title'
-                      ],
-                    ) -
-                    execOrder.indexOf(
-                      (b['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                        'title'
-                      ],
-                    ),
+                  (a, b) => {
+                    const aRole = (a?.attributes?.componentRolesArr as Array<any>)?.find((e) => e?.isDisplayRole === true);
+                    const bRole = (b?.attributes?.componentRolesArr as Array<any>)?.find((e) => e?.isDisplayRole === true);
+                    return execOrder.indexOf(aRole?.title ?? '') - execOrder.indexOf(bRole?.title ?? '');
+                  },
                 )
-                .map((item, index) => (
-                  <Person
-                    key={index}
-                    memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName']}
-                    role={
-                      (item['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                        'title'
-                      ]
-                    }
-                    pronouns={item['attributes']['pronouns']}
-                    src={
-                      item['attributes']['avatar']['data']
-                        ? item['attributes']['avatar']['data']['attributes']['url']
-                        : null
-                    }
-                  />
-                ))}
+                .map((item, index) => {
+                  const displayRole = (item?.attributes?.componentRolesArr as Array<any>)?.find(
+                    (e) => e?.isDisplayRole === true,
+                  );
+                  return (
+                    <Person
+                      key={index}
+                      memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName']}
+                      role={displayRole?.title ?? ''}
+                      pronouns={item['attributes']['pronouns']}
+                      src={item?.attributes?.avatar?.data?.attributes?.url ?? null}
+                    />
+                  );
+                })}
         </div>
       )}
     </div>
@@ -158,28 +149,21 @@ function TeamMembers() {
         <div className={styles.teamMembersPhotos}>
           {!members
             ? members
-            : members.map((item, index) => (
-                <Person
-                  key={index}
-                  memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName']}
-                  team={
-                    (item['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                      'team'
-                    ]
-                  }
-                  role={
-                    (item['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                      'title'
-                    ]
-                  }
-                  pronouns={item['attributes']['pronouns']}
-                  src={
-                    item['attributes']['avatar']['data']
-                      ? item['attributes']['avatar']['data']['attributes']['url']
-                      : null
-                  }
-                />
-              ))}
+            : members.map((item, index) => {
+                const displayRole = (item?.attributes?.componentRolesArr as Array<any>)?.find(
+                  (e) => e?.isDisplayRole === true,
+                );
+                return (
+                  <Person
+                    key={index}
+                    memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName']}
+                    team={displayRole?.team ?? ''}
+                    role={displayRole?.title ?? ''}
+                    pronouns={item['attributes']['pronouns']}
+                    src={item?.attributes?.avatar?.data?.attributes?.url ?? null}
+                  />
+                );
+              })}
         </div>
       )}
     </div>
