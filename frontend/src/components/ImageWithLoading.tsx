@@ -6,10 +6,6 @@ interface ImageWithLoadingProps extends ImgHTMLAttributes<HTMLImageElement> {
   fallbackSrc?: string;
 }
 
-/**
- * Image component with fade-in loading animation to prevent flickering.
- * Follows the same pattern as Person.tsx and other components with image loading states.
- */
 const ImageWithLoading: React.FC<ImageWithLoadingProps> = ({
   src,
   alt,
