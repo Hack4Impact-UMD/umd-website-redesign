@@ -1,7 +1,7 @@
-/* Banner Container - Fixed positioning below navbar */
+/* Banner Container - Fixed positioning at bottom of screen */
 .bannerContainer {
   position: fixed;
-  top: 70px; /* Height of navbar */
+  bottom: 0;
   left: 0;
   right: 0;
   z-index: 45; /* Below navbar (z-index: 50) but above content */
@@ -11,22 +11,26 @@
   align-items: center;
   padding: 15px 20px;
 
-  backdrop-filter: blur(6px);
-  background: linear-gradient(89.4deg, rgba(194, 224, 251, 0.95) 32.23%, rgba(203, 249, 243, 0.95) 53.35%);
-  border-bottom: 1px solid rgba(0, 105, 202, 0.1);
+  /* Warm gradient to contrast with cool navbar */
+  background: linear-gradient(90deg, #FFF9F0 0%, #FFF4E6 50%, #FFE8CC 100%);
+  border-top: 2px solid rgba(255, 179, 102, 0.6);
+  border-bottom: 1px solid rgba(255, 179, 102, 0.4);
 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -3px 10px rgba(255, 140, 0, 0.12);
 
   opacity: 0;
-  animation: fadeIn 0.3s ease-in forwards;
+  transform: translateY(100%);
+  animation: slideUp 0.4s ease-out forwards;
 }
 
-@keyframes fadeIn {
+@keyframes slideUp {
   from {
     opacity: 0;
+    transform: translateY(100%);
   }
   to {
     opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -47,11 +51,11 @@
 
   font-family: 'Rubik';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
   line-height: 21px;
   letter-spacing: -0.02em;
-  color: #333333;
+  color: #2d2d2d;
   text-align: center;
 }
 
@@ -143,11 +147,11 @@
  * Banner height: ~51px (padding: 15px * 2 + line-height: 21px)
  */
 :global(body.recruitment-banner-visible) {
-  padding-top: 51px;
+  padding-bottom: 51px;
 }
 
 @media screen and (max-width: 850px) {
   :global(body.recruitment-banner-visible) {
-    padding-top: 42px; /* Adjusted for mobile padding (12px * 2 + 18px line-height) */
+    padding-bottom: 42px; /* Adjusted for mobile padding (12px * 2 + 18px line-height) */
   }
 }
