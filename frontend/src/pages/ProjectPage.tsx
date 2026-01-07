@@ -69,6 +69,7 @@ function Header() {
                     ? proj['attributes']['image']['data'][0]['attributes']['url']
                     : 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png'
                 }
+                alt={proj ? proj['attributes']['title'] : 'Project'}
                 onLoad={() => setImageLoaded(true)}
                 style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
               />
@@ -81,7 +82,7 @@ function Header() {
               <br />
               {proj && proj['attributes']['repoURL'] ? (
                 <a href={proj['attributes']['repoURL']}>
-                  <img src={githubIcon} />
+                  <img src={githubIcon} alt="GitHub Repository" />
                 </a>
               ) : (
                 ''
@@ -89,7 +90,7 @@ function Header() {
               &nbsp;
               {proj && proj['attributes']['hostedProjectURL'] ? (
                 <a href={proj['attributes']['hostedProjectURL']}>
-                  <img src={internetIcon} />
+                  <img src={internetIcon} alt="Hosted Project" />
                 </a>
               ) : (
                 ''
@@ -128,8 +129,6 @@ function TeamMembers() {
               )
               // render team members
               .map((item, index) => {
-                console.log(item['attributes']['componentRolesArr']);
-                //if this user had no role in the project dont render them
                 if (Array.from(item['attributes']['componentRolesArr']).length == 0) {
                   return null;
                 } else {

@@ -21,6 +21,7 @@ function Person(props: any) {
     <div className={styles.Person}>
       <img
         src={imageError ? default_pfp : imageSrc}
+        alt={props.memberName || 'Team member'}
         onLoad={() => setImageLoaded(true)}
         onError={() => {
           setImageError(true);
