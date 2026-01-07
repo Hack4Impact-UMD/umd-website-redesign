@@ -27,7 +27,7 @@ const Projects = (props: any) => {
         {/*if display current projects, show current projects title*/}
         {props.isFeatured ? null : <h2 id={styles.sectionTitle}>Current Projects</h2>}
         {!res.loaded ? (
-          <LoadingSpinner />
+          <LoadingSpinner text="Loading projects..." />
         ) : !projects || projects.length === 0 ? (
           <NoProjects />
         ) : (

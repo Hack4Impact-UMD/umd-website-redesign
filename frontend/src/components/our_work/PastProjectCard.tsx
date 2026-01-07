@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../styles/our_work/PastProjectCard.module.css';
 
-/* defines the parameters to pass into a project card */
 export interface PastProjectCardData {
   link: string;
   title: string;
@@ -11,11 +10,19 @@ export interface PastProjectCardData {
 }
 
 export const PastProjectCard = ({ link, title, date, image, altText }: PastProjectCardData): JSX.Element => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <div id={styles.cardContainer}>
       <div id={styles.cardImageContainer}>
         <a href={link}>
-          <img src={image} alt={altText} id={styles.cardImage}></img>
+          <img
+            src={image}
+            alt={altText}
+            id={styles.cardImage}
+            onLoad={() => setImageLoaded(true)}
+            style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+          />
         </a>
       </div>
       <div id={styles.cardTextContainer}>

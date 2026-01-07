@@ -1,11 +1,15 @@
 import React from 'react';
 import styles from '../styles/LoadingSpinner.module.css';
 
-const LoadingSpinner = () => {
+interface LoadingSpinnerProps {
+  text?: string;
+}
+
+const LoadingSpinner = ({ text = 'Loading...' }: LoadingSpinnerProps) => {
   return (
     <div className={styles.loadingContainer}>
       <div className={styles.spinner}></div>
-      <p className={styles.loadingText}>Loading projects...</p>
+      <p className={styles.loadingText}>{text}</p>
     </div>
   );
 };

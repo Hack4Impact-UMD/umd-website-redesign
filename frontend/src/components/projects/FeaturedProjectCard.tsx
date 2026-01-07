@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../styles/home/FeaturedProjectCard.module.css';
 
-/* defines the parameters to pass into a project card */
 export interface FeaturedProjectCardData {
   link: string;
   title: string;
@@ -11,13 +10,20 @@ export interface FeaturedProjectCardData {
   altText: string;
 }
 
-/* Splits a Project Card into one div for the image and one for the text */
 const FeaturedProjectCard = ({ link, title, date, summary, image, altText }: FeaturedProjectCardData): JSX.Element => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
     <div id={styles.cardContainer}>
       <div id={styles.cardImageContainer}>
         <a href={link}>
-          <img src={image} alt={altText} id={styles.cardImage}></img>
+          <img
+            src={image}
+            alt={altText}
+            id={styles.cardImage}
+            onLoad={() => setImageLoaded(true)}
+            style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+          />
         </a>
       </div>
       <div id={styles.cardDetailsContainer}>

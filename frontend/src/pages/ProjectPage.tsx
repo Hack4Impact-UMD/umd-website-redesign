@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import stylestwo from '../styles/projects/ProjectsTop.module.css';
 import styles from '../styles/projects/ProjectsPage.module.css';
 import githubIcon from '../components/assets/icons/github_icon.png';
@@ -6,6 +6,7 @@ import internetIcon from '../components/assets/icons/internet_icon.png';
 import Person from '../components/Person';
 import { Params, useParams } from 'react-router-dom';
 import { useAxios, getSeason } from '../components/HelperFunctions';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 let params: Readonly<Params<string>>;
 let proj: null;
@@ -23,8 +24,11 @@ function ProjectPage() {
   );
 
   const project = res.data ? res.data['data'][0] : null;
-  //console.log(project);
   proj = project;
+
+  if (!res.loaded) {
+    return <LoadingSpinner text="Loading project..." />;
+  }
 
   if (proj) {
     return (
@@ -33,16 +37,18 @@ function ProjectPage() {
         <TeamMembers />
       </div>
     );
-  } else
-    return (
-      <div className={styles.studentApplyHeader}>
-        <div className={styles.studentApplyHeaderContent}>
-          <h1>{params ? params.projectpath + '' : ''}</h1>
-        </div>
+  }
+
+  return (
+    <div className={styles.studentApplyHeader}>
+      <div className={styles.studentApplyHeaderContent}>
+        <h1>Project not found</h1>
       </div>
-    );
+    </div>
+  );
 }
 function Header() {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const startDate =
     proj && proj['attributes']['startDate']
       ? getSeason((proj['attributes']['startDate'] as string).substring(5, 7) as unknown as number) +
@@ -63,6 +69,9 @@ function Header() {
                     ? proj['attributes']['image']['data'][0]['attributes']['url']
                     : 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png'
                 }
+                alt={proj ? proj['attributes']['title'] : 'Project'}
+                onLoad={() => setImageLoaded(true)}
+                style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
               />
             </div>
           </div>
@@ -73,7 +82,7 @@ function Header() {
               <br />
               {proj && proj['attributes']['repoURL'] ? (
                 <a href={proj['attributes']['repoURL']}>
-                  <img src={githubIcon} />
+                  <img src={githubIcon} alt="GitHub Repository" />
                 </a>
               ) : (
                 ''
@@ -81,7 +90,7 @@ function Header() {
               &nbsp;
               {proj && proj['attributes']['hostedProjectURL'] ? (
                 <a href={proj['attributes']['hostedProjectURL']}>
-                  <img src={internetIcon} />
+                  <img src={internetIcon} alt="Hosted Project" />
                 </a>
               ) : (
                 ''
@@ -120,8 +129,6 @@ function TeamMembers() {
               )
               // render team members
               .map((item, index) => {
-                console.log(item['attributes']['componentRolesArr']);
-                //if this user had no role in the project dont render them
                 if (Array.from(item['attributes']['componentRolesArr']).length == 0) {
                   return null;
                 } else {
