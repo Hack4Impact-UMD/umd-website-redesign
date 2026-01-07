@@ -16,6 +16,18 @@
   border-bottom: 1px solid rgba(0, 105, 202, 0.1);
 
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  opacity: 0;
+  animation: fadeIn 0.3s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .bannerContent {
@@ -122,5 +134,20 @@
 
   .bannerMessage {
     display: inline;
+  }
+}
+
+/*
+ * Global style to add padding when banner is visible
+ * This prevents content from being hidden behind the fixed banner
+ * Banner height: ~51px (padding: 15px * 2 + line-height: 21px)
+ */
+:global(body.recruitment-banner-visible) {
+  padding-top: 51px;
+}
+
+@media screen and (max-width: 850px) {
+  :global(body.recruitment-banner-visible) {
+    padding-top: 42px; /* Adjusted for mobile padding (12px * 2 + 18px line-height) */
   }
 }

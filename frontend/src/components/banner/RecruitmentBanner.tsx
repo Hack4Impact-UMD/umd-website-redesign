@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../styles/banner/RecruitmentBanner.module.css';
 
+// Update this key each recruitment cycle (e.g., 'winter-2026', 'spring-2026')
+const BANNER_STORAGE_KEY = 'h4i-recruitment-banner-dismissed-winter-2026';
+
 const RecruitmentBanner: React.FC = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     // Check if the banner has been dismissed
-    const dismissed = localStorage.getItem('h4i-winter-recruitment-banner-dismissed');
+    const dismissed = localStorage.getItem(BANNER_STORAGE_KEY);
     if (!dismissed) {
       setVisible(true);
+      // Add class to body to adjust content padding
+      document.body.classList.add('recruitment-banner-visible');
     }
   }, []);
 
   const handleDismiss = () => {
     setVisible(false);
-    localStorage.setItem('h4i-winter-recruitment-banner-dismissed', 'true');
+    localStorage.setItem(BANNER_STORAGE_KEY, 'true');
+    // Remove class from body when dismissed
+    document.body.classList.remove('recruitment-banner-visible');
   };
 
   if (!visible) {
@@ -22,7 +29,7 @@ const RecruitmentBanner: React.FC = () => {
   }
 
   return (
-    <div className={styles.bannerContainer}>
+    <div className={`${styles.bannerContainer} ${visible ? styles.fadeIn : ''}`}>
       <div className={styles.bannerContent}>
         <span className={styles.bannerText}>
           <span className={styles.bannerEmoji}>🎉</span>
