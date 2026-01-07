@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import stylestwo from '../styles/projects/ProjectsTop.module.css';
 import styles from '../styles/projects/ProjectsPage.module.css';
 import githubIcon from '../components/assets/icons/github_icon.png';
@@ -48,6 +48,7 @@ function ProjectPage() {
   );
 }
 function Header() {
+  const [imageLoaded, setImageLoaded] = useState(false);
   const startDate =
     proj && proj['attributes']['startDate']
       ? getSeason((proj['attributes']['startDate'] as string).substring(5, 7) as unknown as number) +
@@ -68,6 +69,8 @@ function Header() {
                     ? proj['attributes']['image']['data'][0]['attributes']['url']
                     : 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png'
                 }
+                onLoad={() => setImageLoaded(true)}
+                style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
               />
             </div>
           </div>
