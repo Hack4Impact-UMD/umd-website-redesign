@@ -85,7 +85,7 @@ const PastProjects: React.FC = () => {
     return (
       <div className={styles.pastProjectsContainer}>
         <h2 id={styles.sectionTitle}>Past Projects</h2>
-        <LoadingSpinner />
+        <LoadingSpinner text="Loading projects..." />
       </div>
     );
   }

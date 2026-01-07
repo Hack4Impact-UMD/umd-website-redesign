@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import stylestwo from '../styles/projects/ProjectsTop.module.css';
 import styles from '../styles/projects/ProjectsPage.module.css';
 import githubIcon from '../components/assets/icons/github_icon.png';
@@ -6,6 +6,7 @@ import internetIcon from '../components/assets/icons/internet_icon.png';
 import Person from '../components/Person';
 import { Params, useParams } from 'react-router-dom';
 import { useAxios, getSeason } from '../components/HelperFunctions';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 let params: Readonly<Params<string>>;
 let proj: null;
@@ -23,8 +24,11 @@ function ProjectPage() {
   );
 
   const project = res.data ? res.data['data'][0] : null;
-  //console.log(project);
   proj = project;
+
+  if (!res.loaded) {
+    return <LoadingSpinner text="Loading project..." />;
+  }
 
   if (proj) {
     return (
@@ -33,14 +37,15 @@ function ProjectPage() {
         <TeamMembers />
       </div>
     );
-  } else
-    return (
-      <div className={styles.studentApplyHeader}>
-        <div className={styles.studentApplyHeaderContent}>
-          <h1>{params ? params.projectpath + '' : ''}</h1>
-        </div>
+  }
+
+  return (
+    <div className={styles.studentApplyHeader}>
+      <div className={styles.studentApplyHeaderContent}>
+        <h1>Project not found</h1>
       </div>
-    );
+    </div>
+  );
 }
 function Header() {
   const startDate =
