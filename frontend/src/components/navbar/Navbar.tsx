@@ -33,9 +33,9 @@ const Navbar = () => {
       <div className={isMenuOpen ? styles.blurOverlay : `${styles.blurOverlay} ${styles.hidden}`}></div>
       <nav className={styles.navbarItems}>
         <Link to="/" onClick={() => scroll('/')}>
-          <img alt="Hack4Impact Logo" className={styles.logo} src={h4iLogo}></img>
+          <img alt="Hack4Impact Logo" className={styles.logo} src={h4iLogo} />
         </Link>
-        <img className={styles.navIcon} src={isMenuOpen ? CloseButton : Hamburger} onClick={toggleMenu}/>
+        <img className={styles.navIcon} src={isMenuOpen ? CloseButton : Hamburger} onClick={toggleMenu} alt="Menu" />
 
         <ul className={isMenuOpen ? styles.navMenu : `${styles.navMenu} ${styles.hidden}`}>
           <li>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from '../../styles/footer/Footer.module.css';
 import wordmark from '../assets/h4i_files/h4i_wordmark.svg';
 /*
@@ -26,11 +26,10 @@ function Footer() {
   );
 }
 
-// Logo, Email blurb, icons
 function FooterInfo() {
   return (
     <div className={styles.FooterInfo}>
-      <img src={wordmark} className={styles.WordMark} />
+      <img src={wordmark} className={styles.WordMark} alt="Hack4Impact wordmark" />
       <p>
         {"Can't find what you're looking for?"}
         <br />
@@ -87,17 +86,6 @@ function FooterIconsMobile() {
           <GhLogoSvg2 />
         </div>
       </a>
-    </div>
-  );
-}
-
-// Column links component.
-function FooterCols() {
-  return (
-    <div className={styles.FooterColumns}>
-      <FooterCol1 />
-      <FooterCol2 />
-      <FooterCol3 />
     </div>
   );
 }

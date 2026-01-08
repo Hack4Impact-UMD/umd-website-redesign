@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../styles/people/Person.module.css';
-import default_pfp from "../components/assets/icons/default_pfp.png"
+import default_pfp from "../components/assets/icons/default_pfp.png";
+import { FADE_IN_TRANSITION } from '../constants/animations';
 
 function Person(props: any) {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -27,7 +28,7 @@ function Person(props: any) {
           setImageError(true);
           setImageLoaded(true);
         }}
-        style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+        style={{ opacity: imageLoaded ? 1 : 0, transition: FADE_IN_TRANSITION }}
       />
       <h2>{props.memberName}</h2>
       <p className={styles.team}>{props.team}</p>

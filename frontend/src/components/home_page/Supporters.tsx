@@ -9,6 +9,7 @@ import doGoodLogo from '../assets/supporters/DoGood.png';
 import smithLogo from '../assets/supporters/SmithSchool.png';
 import acesLogo from '../assets/supporters/ACES.png';
 import { Link } from 'react-router-dom';
+import ImageWithLoading from '../ImageWithLoading';
 
 const Supporters = () => {
   return (
@@ -18,29 +19,29 @@ const Supporters = () => {
         <span>PLATINUM</span>
       </h4>
       <div className={styles.tierContainer}>
-        <img src={microsoftLogo} alt="Microsoft Logo" className={styles.supporterLogo} />
-        <img src={uberLogo} alt="Uber Logo" className={styles.supporterLogo} />
+        <ImageWithLoading src={microsoftLogo} alt="Microsoft Logo" className={styles.supporterLogo} />
+        <ImageWithLoading src={uberLogo} alt="Uber Logo" className={styles.supporterLogo} />
       </div>
       <h4 className={styles.divider}>
         <span>GOLD</span>
       </h4>
       <div className={styles.content}>
-        <img src={codepathLogo} alt="CodePath Logo" className={styles.supporterLogo} />
-        <img src={doGoodLogo} alt="DoGood Logo" className={styles.supporterLogo} />
-        <img src={capitalOneLogo} alt="CapitalOne Logo" className={styles.supporterLogo} />
-        <img src={smithLogo} alt="Smith School Logo" className={styles.supporterLogo} />
+        <ImageWithLoading src={codepathLogo} alt="CodePath Logo" className={styles.supporterLogo} />
+        <ImageWithLoading src={doGoodLogo} alt="DoGood Logo" className={styles.supporterLogo} />
+        <ImageWithLoading src={capitalOneLogo} alt="CapitalOne Logo" className={styles.supporterLogo} />
+        <ImageWithLoading src={smithLogo} alt="Smith School Logo" className={styles.supporterLogo} />
       </div>
       <h4 className={styles.divider}>
         <span>SILVER</span>
       </h4>
       <div className={styles.tierContainer}>
-        <img src={bloombergLogo} alt="Bloomberg Logo" className={styles.supporterLogo} />
+        <ImageWithLoading src={bloombergLogo} alt="Bloomberg Logo" className={styles.supporterLogo} />
       </div>
       <h4 className={styles.divider}>
         <span>BRONZE</span>
       </h4>
       <div className={styles.tierContainer}>
-        <img src={acesLogo} alt="ACES Logo" className={styles.supporterLogo} />
+        <ImageWithLoading src={acesLogo} alt="ACES Logo" className={styles.supporterLogo} />
       </div>
       <Link className={styles.navLinks} to={'/contactus'}>
         {'Interested in partnering? Contact us!'}

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/about_us/AboutUs.module.css';
 import Person from '../components/Person';
 import ValueCard from '../components/about_us/ValueCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { FADE_IN_TRANSITION } from '../constants/animations';
 
 import headerDesktop from '../components/assets/backgrounds/about_us/aboutus_header2023.png';
 import headerMobile from '../components/assets/backgrounds/about_us/aboutus_header_mobile2023.png';
@@ -21,12 +22,20 @@ function AboutUs() {
 }
 
 function AboutUsHeader() {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
-    <div className={styles.headerDiv}>
+    <div
+      className={styles.headerDiv}
+      style={{ opacity: imageLoaded ? 1 : 0, transition: FADE_IN_TRANSITION }}
+    >
       <picture>
-        {/* background image should change when navbar changes */}
         <source srcSet={headerDesktop} media={'(min-width: 700px)'} />
-        <img src={headerMobile} className={styles.headerImg}></img>
+        <img
+          src={headerMobile}
+          className={styles.headerImg}
+          onLoad={() => setImageLoaded(true)}
+        ></img>
       </picture>
       <div className={styles.headerText}>
         <h1>About Us</h1>

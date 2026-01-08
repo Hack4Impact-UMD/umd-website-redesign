@@ -7,6 +7,7 @@ import Person from '../components/Person';
 import { Params, useParams } from 'react-router-dom';
 import { useAxios, getSeason } from '../components/HelperFunctions';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { FADE_IN_TRANSITION } from '../constants/animations';
 
 let params: Readonly<Params<string>>;
 let proj: null;
@@ -71,7 +72,7 @@ function Header() {
                 }
                 alt={proj ? proj['attributes']['title'] : 'Project'}
                 onLoad={() => setImageLoaded(true)}
-                style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+                style={{ opacity: imageLoaded ? 1 : 0, transition: FADE_IN_TRANSITION }}
               />
             </div>
           </div>

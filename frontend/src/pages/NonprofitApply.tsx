@@ -7,6 +7,7 @@ import StandardButton from '../components/buttons/StandardButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
 import { Link } from 'react-router-dom';
 import LoadingSpinner from '../components/LoadingSpinner';
+import ImageWithLoading from '../components/ImageWithLoading';
 
 import arcadiaLogo from '../components/assets/npo_files/arcadia_logo.svg';
 import hamptonLogo from '../components/assets/npo_files/hampton_logo.svg';
@@ -82,16 +83,16 @@ function Carousel() {
   return (
     <div ref={ref} className={`keen-slider ${styles.carousel}`}>
       <Link to={getRecentProject("Arcadia", past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={arcadiaLogo} alt="Arcadia Center for Sustainable Food & Agriculture" />
+        <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={arcadiaLogo} alt="Arcadia Center for Sustainable Food & Agriculture" />
       </Link>
       <Link to={getRecentProject("WISE-E", past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={hamptonLogo} alt="WISE-E (Women in STEM Excellence and Equity)" />
+        <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={hamptonLogo} alt="WISE-E (Women in STEM Excellence and Equity)" />
       </Link>
       <Link to={getRecentProject("CaDC", past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={cadcLogo} alt="Community Action Development Corporation" />
+        <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={cadcLogo} alt="Community Action Development Corporation" />
       </Link>
       <Link to={getRecentProject("2Unstoppable", past_projects)}>
-      <img className={`keen-slider__slide ${styles.orgLogo}`} src={unstoppableLogo} alt="2Unstoppable" />
+      <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={unstoppableLogo} alt="2Unstoppable" />
       </Link>
     </div>
   );
