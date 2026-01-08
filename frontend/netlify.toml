@@ -1,9 +1,0 @@
-[build]
-  command = "npm run build"
-  publish = "dist"
-  environment = { NPM_FLAGS = "--legacy-peer-deps", NODE_VERSION = "18" }
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
