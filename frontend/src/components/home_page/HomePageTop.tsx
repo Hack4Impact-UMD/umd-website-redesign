@@ -3,6 +3,7 @@ import styles from '../../styles/home/HomePageTop.module.css';
 import blueBG from '../assets/backgrounds/blue-bg.svg';
 import graphic from '../assets/graphic.svg';
 import StandardButton from '../buttons/StandardButton';
+import { FADE_IN_TRANSITION } from '../../constants/animations';
 
 const HomePageTop = () => {
   const [bgLoaded, setBgLoaded] = useState(false);
@@ -11,7 +12,7 @@ const HomePageTop = () => {
 
   return (
     <div>
-      <div style={{ opacity: allLoaded ? 1 : 0, transition: 'opacity 0.3s' }}>
+      <div style={{ opacity: allLoaded ? 1 : 0, transition: FADE_IN_TRANSITION }}>
         <img
           className={styles.blueBG}
           src={blueBG}

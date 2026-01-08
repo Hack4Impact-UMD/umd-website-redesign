@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../../styles/home/FeaturedProjectCard.module.css';
+import { FADE_IN_TRANSITION } from '../../constants/animations';
 
 export interface FeaturedProjectCardData {
   link: string;
@@ -22,7 +23,7 @@ const FeaturedProjectCard = ({ link, title, date, summary, image, altText }: Fea
             alt={altText}
             id={styles.cardImage}
             onLoad={() => setImageLoaded(true)}
-            style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+            style={{ opacity: imageLoaded ? 1 : 0, transition: FADE_IN_TRANSITION }}
           />
         </a>
       </div>

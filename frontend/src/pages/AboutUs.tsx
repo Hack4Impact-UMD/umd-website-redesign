@@ -3,6 +3,7 @@ import styles from '../styles/about_us/AboutUs.module.css';
 import Person from '../components/Person';
 import ValueCard from '../components/about_us/ValueCard';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { FADE_IN_TRANSITION } from '../constants/animations';
 
 import headerDesktop from '../components/assets/backgrounds/about_us/aboutus_header2023.png';
 import headerMobile from '../components/assets/backgrounds/about_us/aboutus_header_mobile2023.png';
@@ -26,7 +27,7 @@ function AboutUsHeader() {
   return (
     <div
       className={styles.headerDiv}
-      style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
+      style={{ opacity: imageLoaded ? 1 : 0, transition: FADE_IN_TRANSITION }}
     >
       <picture>
         <source srcSet={headerDesktop} media={'(min-width: 700px)'} />

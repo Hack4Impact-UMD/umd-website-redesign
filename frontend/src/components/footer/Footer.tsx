@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from '../../styles/footer/Footer.module.css';
 import wordmark from '../assets/h4i_files/h4i_wordmark.svg';
-import ImageWithLoading from '../ImageWithLoading';
 /*
  * Separate SVGs for mobile/desktop so that styling one doesn't affect the other.
  * Manually added unique IDs in SVG files.
@@ -30,7 +29,7 @@ function Footer() {
 function FooterInfo() {
   return (
     <div className={styles.FooterInfo}>
-      <ImageWithLoading src={wordmark} className={styles.WordMark} alt="Hack4Impact wordmark" />
+      <img src={wordmark} className={styles.WordMark} alt="Hack4Impact wordmark" />
       <p>
         {"Can't find what you're looking for?"}
         <br />

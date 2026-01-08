@@ -1,4 +1,5 @@
 import React, { useState, ImgHTMLAttributes } from 'react';
+import { FADE_IN_TRANSITION } from '../constants/animations';
 
 interface ImageWithLoadingProps extends ImgHTMLAttributes<HTMLImageElement> {
   src: string;
@@ -29,7 +30,7 @@ const ImageWithLoading: React.FC<ImageWithLoadingProps> = ({
       }}
       style={{
         opacity: imageLoaded ? 1 : 0,
-        transition: 'opacity 0.3s',
+        transition: FADE_IN_TRANSITION,
         ...style
       }}
       {...props}
