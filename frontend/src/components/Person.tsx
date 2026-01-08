@@ -2,26 +2,30 @@ import React, { useState } from 'react';
 import styles from '../styles/people/Person.module.css';
 import default_pfp from "../components/assets/icons/default_pfp.png"
 
-function Person(props: any) {
+interface PersonProps {
+  memberName?: string;
+  team?: string;
+  role?: string;
+  pronouns?: string;
+  src?: string | null;
+}
+
+function Person({ memberName, team, role, pronouns, src }: PersonProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
 
-  let imageSrc: string;
-  if (props.src == undefined || props.src == null) {
-    imageSrc = default_pfp;
-  } else {
-    if (props.src.startsWith('/')) {
-      imageSrc = process.env.REACT_APP_ROOT_URL + props.src;
-    } else {
-      imageSrc = props.src;
-    }
-  }
+  const getImageSrc = () => {
+    if (!src) return default_pfp;
+    return src.startsWith('/') ? `${process.env.REACT_APP_ROOT_URL}${src}` : src;
+  };
+
+  const imageSrc = getImageSrc();
 
   return (
     <div className={styles.Person}>
       <img
         src={imageError ? default_pfp : imageSrc}
-        alt={props.memberName || 'Team member'}
+        alt={memberName || 'Team member'}
         onLoad={() => setImageLoaded(true)}
         onError={() => {
           setImageError(true);
@@ -29,10 +33,10 @@ function Person(props: any) {
         }}
         style={{ opacity: imageLoaded ? 1 : 0, transition: 'opacity 0.3s' }}
       />
-      <h2>{props.memberName}</h2>
-      <p className={styles.team}>{props.team}</p>
-      <p>{props.role}</p>
-      <p className={styles.Pronouns}>{props.pronouns}</p>
+      <h2>{memberName}</h2>
+      <p className={styles.team}>{team}</p>
+      <p>{role}</p>
+      <p className={styles.Pronouns}>{pronouns}</p>
     </div>
   );
 }
