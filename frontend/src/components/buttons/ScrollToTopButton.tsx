@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+const SCROLL_THRESHOLD = 300;
+
 const ScrollToTopButton: React.FC = () => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Controls visibility of scroll up button.
     const toggleVisible = () => {
-      const scrolled = document.documentElement.scrollTop;
-      setVisible(scrolled > 300);
+      setVisible(document.documentElement.scrollTop > SCROLL_THRESHOLD);
     };
 
     window.addEventListener('scroll', toggleVisible);
@@ -17,10 +17,7 @@ const ScrollToTopButton: React.FC = () => {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (!visible) return null;

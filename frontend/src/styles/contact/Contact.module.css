@@ -81,6 +81,16 @@ textarea {
   border-radius: 5px;
 }
 
+.errorMessage {
+  color: #F2594B;
+  padding: 12px;
+  margin-bottom: 16px;
+  background-color: #FFE5E5;
+  border-radius: 4px;
+  border: 1px solid #F2594B;
+  text-align: center;
+}
+
 .buttonHolder {
   text-align: center;
 }

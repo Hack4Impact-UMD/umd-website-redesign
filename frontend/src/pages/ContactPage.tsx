@@ -3,6 +3,13 @@ import React, { useState } from 'react';
 import styles from '../styles/contact/Contact.module.css';
 import MessageSent from './MessageSent';
 
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const ERROR_MESSAGES = {
+  REQUIRED_FIELDS: 'Please fill in all required fields.',
+  INVALID_EMAIL: 'Please enter a valid email address.',
+  SEND_FAILED: 'Failed to send message. Please try again later.',
+} as const;
+
 function ContactPage() {
   const [sent, setSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,61 +23,49 @@ function ContactPage() {
     message: '',
   });
 
-  const handleChange = (e: React.FormEvent<HTMLInputElement> | React.FormEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { value, name } = e.currentTarget;
-    setContactInfo((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-    // Clear error when user starts typing
+    setContactInfo((prev) => ({ ...prev, [name]: value }));
     if (error) setError(null);
   };
 
-  async function validateForm(event: React.FormEvent<HTMLFormElement>) {
+  const validateForm = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setError(null);
 
-    // Check for empty fields
-    if (
-      !contactInfo.firstName.trim() ||
-      !contactInfo.lastName.trim() ||
-      !contactInfo.subject.trim() ||
-      !contactInfo.email.trim() ||
-      !contactInfo.phoneNumber.trim() ||
-      !contactInfo.message.trim()
-    ) {
-      setError('Please fill in all required fields.');
-      return false;
+    const hasEmptyFields = Object.values(contactInfo).some((value) => !value.trim());
+    if (hasEmptyFields) {
+      setError(ERROR_MESSAGES.REQUIRED_FIELDS);
+      return;
     }
 
-    // Basic email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(contactInfo.email)) {
-      setError('Please enter a valid email address.');
-      return false;
+    if (!EMAIL_REGEX.test(contactInfo.email)) {
+      setError(ERROR_MESSAGES.INVALID_EMAIL);
+      return;
     }
 
     setIsSubmitting(true);
 
-    // TODO: Move these to environment variables for security
-    // VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, VITE_EMAILJS_PUBLIC_KEY
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_rux8luc';
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_fgd74qw';
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'oqfPTswPuNLGMxG8o';
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-    try {
-      await emailjs.send(serviceId, templateId, contactInfo, {
-        publicKey: publicKey,
-      });
-      setSent(true);
-    } catch (error: any) {
-      console.error('Failed to send message:', error);
-      setError('Failed to send message. Please try again later.');
+    if (!serviceId || !templateId || !publicKey) {
+      console.error('EmailJS configuration missing');
+      setError('Email service not configured. Please contact support.');
       setIsSubmitting(false);
+      return;
     }
 
-    return true;
-  }
+    try {
+      await emailjs.send(serviceId, templateId, contactInfo, { publicKey });
+      setSent(true);
+    } catch (error) {
+      console.error('Failed to send message:', error);
+      setError(ERROR_MESSAGES.SEND_FAILED);
+      setIsSubmitting(false);
+    }
+  };
 
   return sent ? (
     <MessageSent />
@@ -79,17 +74,7 @@ function ContactPage() {
       <div id={styles.headerContent}>
         <h1 id={styles.title}>Contact Us</h1>
         {error && (
-          <div
-            role="alert"
-            style={{
-              color: '#F2594B',
-              padding: '12px',
-              marginBottom: '16px',
-              backgroundColor: '#FFE5E5',
-              borderRadius: '4px',
-              border: '1px solid #F2594B',
-            }}
-          >
+          <div role="alert" className={styles.errorMessage}>
             {error}
           </div>
         )}
@@ -161,7 +146,7 @@ function ContactPage() {
               onChange={handleChange}
               required
               aria-required="true"
-            ></textarea>
+            />
           </div>
           <div className={styles.buttonHolder}>
             <button

@@ -2,50 +2,44 @@ import React, { useState } from 'react';
 import styles from '../../styles/apply/Faq.module.css';
 import Arrow from '../assets/faq_arrow.svg?react';
 
-export default function Faq(props: { children: React.ReactNode }) {
+interface FaqProps {
+  children: React.ReactNode;
+}
+
+export default function Faq({ children }: FaqProps) {
   return (
     <div className={styles.faq}>
       <h2 className={styles.header}>Frequently Asked Questions</h2>
-      {props.children}
+      {children}
     </div>
   );
 }
 
-type RowProps = {
+interface FaqRowProps {
   question: React.ReactNode;
   answer: React.ReactNode;
-};
+}
 
-/*
- * To be used with Faq.
- * Props:
- * question (JSX): JSX Input containing a <p>
- * answer (JSX): JSX Input containing a <p>
- */
-export function FaqRow({ question, answer }: RowProps) {
-  const [showing, setShowing] = useState(false);
-
-  const toggleShowAnswer = () => {
-    setShowing(!showing);
-  };
+export function FaqRow({ question, answer }: FaqRowProps) {
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className={styles.faqRow}>
       <button
         className={styles.question}
-        onClick={toggleShowAnswer}
-        aria-expanded={showing}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
         type="button"
       >
         {question}
-        <div className={showing ? `${styles.arrow} ${styles.rotated}` : styles.arrow}>
+        <div className={`${styles.arrow} ${isOpen ? styles.rotated : ''}`}>
           <Arrow aria-hidden="true" />
         </div>
       </button>
       <div
-        className={showing ? `${styles.answer} ${styles.showing}` : styles.answer}
+        className={`${styles.answer} ${isOpen ? styles.showing : ''}`}
         role="region"
-        aria-hidden={!showing}
+        aria-hidden={!isOpen}
       >
         {answer}
       </div>
