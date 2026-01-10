@@ -82,6 +82,19 @@ function ValueCardRow() {
   );
 }
 
+const EXEC_ORDER = [
+  'Executive Director',
+  'Director of Product',
+  'Director of Engineering',
+  'Director of Design',
+  'Director of Education',
+  'Director of Finance and Sponsorship',
+  'Director of Events',
+  'Director of Recruitment',
+  'Director of Public Relations and Outreach',
+  'Senior Advisor',
+];
+
 function ExecBoard() {
   const res = useAxios(
     process.env.REACT_APP_ROOT_URL +
@@ -89,19 +102,14 @@ function ExecBoard() {
     'GET',
     {},
   );
-  const boardMembers = res.data ? res.data['data'] : [];
-  const execOrder = [
-    'Executive Director',
-    'Director of Product',
-    'Director of Engineering',
-    'Director of Design',
-    'Director of Education',
-    'Director of Finance and Sponsorship',
-    'Director of Events',
-    'Director of Recruitment',
-    'Director of Public Relations and Outreach',
-    'Senior Advisor',
-  ];
+  const boardMembers = res.data?.data ?? [];
+
+  const sortedMembers = boardMembers
+    .map((item) => {
+      const displayRole = item?.attributes?.componentRolesArr?.find((e) => e?.isDisplayRole === true);
+      return { ...item, displayRole };
+    })
+    .sort((a, b) => EXEC_ORDER.indexOf(a.displayRole?.title ?? '') - EXEC_ORDER.indexOf(b.displayRole?.title ?? ''));
 
   return (
     <div className={styles.execBoardDiv}>
@@ -110,53 +118,30 @@ function ExecBoard() {
         <LoadingSpinner text="Loading executive board..." />
       ) : (
         <div className={styles.execBoardPhotos}>
-          {!boardMembers
-            ? boardMembers
-            : boardMembers
-                .sort(
-                  (a, b) =>
-                    execOrder.indexOf(
-                      (a['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                        'title'
-                      ],
-                    ) -
-                    execOrder.indexOf(
-                      (b['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                        'title'
-                      ],
-                    ),
-                )
-                .map((item, index) => (
-                  <Person
-                    key={index}
-                    memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName']}
-                    role={
-                      (item['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                        'title'
-                      ]
-                    }
-                    pronouns={item['attributes']['pronouns']}
-                    src={
-                      item['attributes']['avatar']['data']
-                        ? item['attributes']['avatar']['data']['attributes']['url']
-                        : null
-                    }
-                  />
-                ))}
+          {sortedMembers.map((item) => (
+            <Person
+              key={item.id}
+              memberName={`${item?.attributes?.firstName ?? ''} ${item?.attributes?.lastName ?? ''}`.trim()}
+              role={item.displayRole?.title ?? ''}
+              pronouns={item?.attributes?.pronouns ?? ''}
+              src={item?.attributes?.avatar?.data?.attributes?.url ?? null}
+            />
+          ))}
         </div>
       )}
     </div>
   );
 }
 
+const MEMBERS_PAGE_SIZE = 100;
+
 function TeamMembers() {
   const res = useAxios(
-    process.env.REACT_APP_ROOT_URL +
-      '/api/members?pagination[page]=1&pagination[pageSize]=100&populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member',
+    `${process.env.REACT_APP_ROOT_URL}/api/members?pagination[page]=1&pagination[pageSize]=${MEMBERS_PAGE_SIZE}&populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member`,
     'GET',
     {},
   );
-  const members = res.data ? res.data['data'] : [];
+  const members = res.data?.data ?? [];
 
   return (
     <div className={styles.teamMembersDiv}>
@@ -165,30 +150,19 @@ function TeamMembers() {
         <LoadingSpinner text="Loading team members..." />
       ) : (
         <div className={styles.teamMembersPhotos}>
-          {!members
-            ? members
-            : members.map((item, index) => (
-                <Person
-                  key={index}
-                  memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName']}
-                  team={
-                    (item['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                      'team'
-                    ]
-                  }
-                  role={
-                    (item['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                      'title'
-                    ]
-                  }
-                  pronouns={item['attributes']['pronouns']}
-                  src={
-                    item['attributes']['avatar']['data']
-                      ? item['attributes']['avatar']['data']['attributes']['url']
-                      : null
-                  }
-                />
-              ))}
+          {members.map((item) => {
+            const displayRole = item?.attributes?.componentRolesArr?.find((e) => e?.isDisplayRole === true);
+            return (
+              <Person
+                key={item.id}
+                memberName={`${item?.attributes?.firstName ?? ''} ${item?.attributes?.lastName ?? ''}`.trim()}
+                team={displayRole?.team ?? ''}
+                role={displayRole?.title ?? ''}
+                pronouns={item?.attributes?.pronouns ?? ''}
+                src={item?.attributes?.avatar?.data?.attributes?.url ?? null}
+              />
+            );
+          })}
         </div>
       )}
     </div>
