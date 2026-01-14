@@ -30,23 +30,23 @@ This document outlines the comprehensive task list for redesigning the homepage 
 
 ---
 
-## Phase 1: Foundation & Setup
+## Phase 1: Foundation & Setup ✅
 
 ### Global Styles & Theme
-- [ ] Update `/frontend/src/index.css` with new CSS variables from STYLING.md
-- [ ] Update `/frontend/tailwind.config.js` with new color tokens and typography
-- [ ] Add font-heading (Karla) and font-body (Rubik) to Tailwind config
-- [ ] Define typography utility classes (text-display, text-h1, text-h2, text-h3, etc.)
+- [x] Update `/frontend/src/index.css` with new CSS variables from STYLING.md
+- [x] Update `/frontend/tailwind.config.js` with new color tokens and typography
+- [x] Add font-heading (Karla) and font-body (Rubik) to Tailwind config
+- [x] Define typography utility classes (text-display, text-h1, text-h2, text-h3, etc.)
 - [ ] Test that shadcn components render correctly with new theme
 
 ### File Structure Prep
-- [ ] Create `/frontend/src/components/home/` directory for new homepage components
-- [ ] Create `/frontend/src/components/layout/` directory for Navbar and Footer
-- [ ] Plan component file naming convention (PascalCase, `.tsx` extension)
+- [x] Create `/frontend/src/components/home/` directory for new homepage components
+- [x] Create `/frontend/src/components/layout/` directory for Navbar and Footer
+- [x] Plan component file naming convention (PascalCase, `.tsx` extension)
 
 ---
 
-## Phase 2: Navbar Redesign
+## Phase 2: Navbar Redesign ✅
 
 ### Component: `/frontend/src/components/layout/Navbar.tsx`
 
@@ -59,29 +59,26 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - Simpler, more minimal styling
 
 ### Tasks
-- [ ] Create new `Navbar.tsx` component using Tailwind + shadcn
-- [ ] Implement logo component with H4I branding
-- [ ] Define navigation link structure (determine actual section names)
-- [ ] Style navbar with new design tokens:
-  - Background: `bg-background` or transparent with blur
-  - Text: Use `text-foreground` for links
-  - Hover states per STYLING.md
-- [ ] Implement sticky/fixed positioning
-- [ ] Add mobile hamburger menu (responsive at 1000px breakpoint)
-- [ ] Implement mobile slide-out menu with new styling
-- [ ] Add dropdown for "Apply" link (For Students / For Nonprofits)
-- [ ] Ensure proper z-index layering (above page content)
-- [ ] Add smooth scroll behavior for anchor links
+- [x] Create new `Navbar.tsx` component using Tailwind + shadcn
+- [x] Implement logo component with H4I branding
+- [x] Define navigation link structure (reusing old: About Us, Our Work, Apply, Contact Us)
+- [x] Style navbar with new design tokens
+- [x] Implement sticky/fixed positioning
+- [x] Add mobile hamburger menu (responsive at 1000px breakpoint)
+- [x] Implement mobile slide-out menu with new styling
+- [x] Add dropdown for "Apply" link (For Students / For Nonprofits)
+- [x] Ensure proper z-index layering (above page content)
+- [x] Add smooth scroll behavior for anchor links
 - [ ] Test keyboard navigation and accessibility
 - [ ] Remove old `/frontend/src/components/navbar/` when complete
 
 ### Navigation Links to Define
-- [ ] Confirm final navigation structure (About Us, Our Work, Apply dropdown, Contact?)
-- [ ] Decide if any new sections need navbar links
+- [x] Confirm final navigation structure (About Us, Our Work, Apply dropdown, Contact Us)
+- [x] Decide if any new sections need navbar links (none needed)
 
 ---
 
-## Phase 3: Hero Section (Carousel)
+## Phase 3: Hero Section (Carousel) ✅
 
 ### Component: `/frontend/src/components/home/HeroCarousel.tsx`
 
@@ -94,28 +91,28 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - Carousel navigation arrows (bottom left)
 
 ### Tasks
-- [ ] Create `HeroCarousel.tsx` component
-- [ ] Implement carousel using Keen Slider (already in dependencies) or shadcn Carousel
-- [ ] Add carousel slide structure with image backgrounds
-- [ ] Style overlay text container with proper contrast
-- [ ] Implement primary button (blue filled): "Button" → determine actual CTA text
-- [ ] Implement secondary button (white outline): "Button" → determine actual CTA text
-- [ ] Add left/right navigation arrows
-- [ ] Add slide indicator dots (optional)
-- [ ] Implement auto-play with pause on hover (optional)
-- [ ] Ensure responsive behavior on mobile
+- [x] Create `HeroCarousel.tsx` component
+- [x] Implement carousel using Keen Slider
+- [x] Add carousel slide structure with image backgrounds
+- [x] Style overlay text container with proper contrast
+- [x] Implement primary button (blue filled): "Learn More" → /aboutus
+- [x] Implement secondary button (white outline): "Apply Now" → /apply/student
+- [x] Add left/right navigation arrows
+- [x] Add slide indicator dots
+- [x] Implement auto-play with pause on hover
+- [x] Ensure responsive behavior on mobile
 - [ ] Add image loading states with fade-in
-- [ ] Source hero images (from assets or CMS?)
+- [x] Source hero images (using existing assets as placeholders)
 - [ ] Remove old `/frontend/src/components/home_page/HomePageTop.tsx` when complete
 
 ### Content to Define
-- [ ] Determine hero carousel images (how many slides?)
-- [ ] Define headline text per slide (same or different?)
-- [ ] Define CTA button text and destinations
+- [x] Determine hero carousel images (2 slides using existing assets)
+- [x] Define headline text per slide (same text)
+- [x] Define CTA button text and destinations
 
 ---
 
-## Phase 4: Nonprofit Partners Map Section (Placeholder)
+## Phase 4: Nonprofit Partners Map Section (Placeholder) ✅
 
 ### Component: `/frontend/src/components/home/NonprofitMapSection.tsx`
 
@@ -128,11 +125,11 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - Popup cards with project info
 
 ### Tasks
-- [ ] Create `NonprofitMapSection.tsx` placeholder component
-- [ ] Add section heading and subtitle styling
-- [ ] Add placeholder image/illustration for map area
-- [ ] Style section container with proper spacing
-- [ ] Add "Coming Soon" or placeholder state
+- [x] Create `NonprofitMapSection.tsx` placeholder component
+- [x] Add section heading and subtitle styling
+- [x] Add placeholder illustration for map area
+- [x] Style section container with proper spacing
+- [x] Add "Coming Soon" placeholder state
 - [ ] Document future implementation requirements:
   - Map library selection (Mapbox, Leaflet, Google Maps)
   - Strapi schema for geolocation data
@@ -140,7 +137,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 
 ---
 
-## Phase 5: Testimonials Section
+## Phase 5: Testimonials Section ✅
 
 ### Component: `/frontend/src/components/home/TestimonialsSection.tsx`
 
@@ -157,24 +154,18 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - Multiple testimonials in row (3 visible in mockup)
 
 ### Tasks
-- [ ] Create `TestimonialsSection.tsx` component
-- [ ] Create `TestimonialCard.tsx` subcomponent
-- [ ] Style section with dark background (`bg-bg-inverse` / `#0F172A`)
-- [ ] Style section title with inverse text color
-- [ ] Implement quote card design:
-  - Quote icon styling (large quotation mark)
-  - Quote text styling
-  - Attribution (person name, org name)
-  - Card background and border
-- [ ] Add hardcoded testimonial data (3-5 testimonials)
-- [ ] Implement horizontal scroll/carousel for mobile
-- [ ] Add responsive grid layout (3 columns desktop, 1 mobile)
-- [ ] Ensure proper contrast and readability on dark background
+- [x] Create `TestimonialsSection.tsx` component
+- [x] Style section with dark background (`#0F172A`)
+- [x] Style section title with inverse text color
+- [x] Implement quote card design with glass-morphism effect
+- [x] Add hardcoded testimonial data (3 testimonials)
+- [x] Add responsive grid layout (3 columns desktop, 1 mobile)
+- [x] Ensure proper contrast and readability on dark background
 
 ### Content to Define
-- [ ] Source actual testimonial quotes
-- [ ] Get nonprofit partner names and organizations
-- [ ] Determine number of testimonials to display
+- [x] Source placeholder testimonial quotes
+- [x] Placeholder nonprofit partner names and organizations
+- [x] 3 testimonials to display
 
 ---
 
