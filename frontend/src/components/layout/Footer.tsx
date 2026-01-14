@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Github, Linkedin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg';
 
 const footerLinks = {
   explore: [
@@ -38,25 +39,12 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           <div className="lg:col-span-1">
-            <Link to="/" className="inline-flex items-center gap-2 mb-6">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="text-h4i-blue"
-              >
-                <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-                <path
-                  d="M8 12L11 15L16 9"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span className="font-heading text-lg font-bold">hack4impact-UMD</span>
+            <Link to="/" className="inline-block mb-6">
+              <img
+                src={h4iLogo}
+                alt="Hack4Impact UMD Logo"
+                className="h-8 w-auto brightness-0 invert"
+              />
             </Link>
 
             <p className="text-sm text-white/60 mb-6 leading-relaxed">

@@ -47,7 +47,8 @@ function App() {
       <ScrollToTopWrapper>
         <div className="min-h-screen flex flex-col">
           <Navbar />
-          <RecruitmentBanner />
+          {/* RecruitmentBanner hidden - uncomment when needed */}
+          {/* <RecruitmentBanner /> */}
           <div className="flex-1">
             <Routes>
               <Route path="/" element={<Homepage />} />

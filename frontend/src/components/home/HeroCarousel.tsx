@@ -83,25 +83,25 @@ export default function HeroCarousel() {
 
       <div className="absolute inset-0 flex items-center">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-xl text-center md:text-left">
-            <h1 className="font-heading text-4xl md:text-5xl lg:text-display font-bold text-white mb-4 tracking-tight">
+          <div className="max-w-xl text-center md:text-left animate-fade-in-up">
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-display font-bold text-white mb-4 tracking-tight drop-shadow-lg">
               Hack4Impact-UMD
             </h1>
-            <p className="font-body text-base md:text-lg text-white/90 mb-8 leading-relaxed max-w-md mx-auto md:mx-0">
+            <p className="font-body text-base md:text-lg text-white/90 mb-8 leading-relaxed max-w-md mx-auto md:mx-0 drop-shadow-md">
               Building powerful nonprofit software as a tool for social good. We connect student
               developers with nonprofits to create technology that drives positive change.
             </p>
             <div className="flex flex-wrap justify-center md:justify-start gap-4">
               <Button
                 asChild
-                className="h-12 px-8 bg-h4i-blue hover:bg-state-primary-hover active:bg-state-primary-active text-white text-base font-medium rounded-md transition-colors"
+                className="h-12 px-8 bg-h4i-blue hover:bg-state-primary-hover active:bg-state-primary-active text-white text-base font-medium rounded-md transition-all hover:scale-105 hover:shadow-lg shadow-md"
               >
                 <Link to="/aboutus">Learn More</Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
-                className="h-12 px-8 border-2 border-white bg-white text-foreground hover:bg-white/90 text-base font-medium rounded-md transition-colors"
+                className="h-12 px-8 border-2 border-white bg-white text-foreground hover:bg-white/90 text-base font-medium rounded-md transition-all hover:scale-105 hover:shadow-lg shadow-md"
               >
                 <Link to="/apply/student">Apply Now</Link>
               </Button>
@@ -111,7 +111,7 @@ export default function HeroCarousel() {
       </div>
 
       {loaded && instanceRef.current && (
-        <div className="absolute bottom-6 left-4 sm:left-8 lg:left-auto lg:right-8 flex items-center">
+        <div className="absolute bottom-6 left-4 sm:left-8 flex items-center">
           <div className="flex items-center gap-1 bg-black/30 backdrop-blur-sm rounded-full p-1">
             <button
               onClick={() => instanceRef.current?.prev()}

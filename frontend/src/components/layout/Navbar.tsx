@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg';
 
 const navLinks = [
   { label: 'About Us', href: '/aboutus' },
@@ -37,30 +38,9 @@ export default function Navbar() {
         <Link
           to="/"
           onClick={() => handleNavClick('/')}
-          className="flex items-center gap-2"
+          className="flex items-center"
         >
-          <div className="flex items-center gap-2">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-h4i-blue"
-            >
-              <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
-              <path
-                d="M8 12L11 15L16 9"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span className="font-heading text-lg font-bold text-foreground">
-              hack4impact-UMD
-            </span>
-          </div>
+          <img src={h4iLogo} alt="Hack4Impact UMD Logo" className="h-8 w-auto" />
         </Link>
 
         <ul className="hidden nav:flex items-center gap-8">

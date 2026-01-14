@@ -12,14 +12,14 @@ export default function CTASection() {
         <div className="flex flex-wrap justify-center gap-4">
           <Button
             asChild
-            className="h-12 px-8 bg-primary hover:bg-state-primary-hover active:bg-state-primary-active text-white font-medium rounded-md"
+            className="h-12 px-8 bg-primary hover:bg-state-primary-hover active:bg-state-primary-active text-white font-medium rounded-md transition-all hover:scale-105 hover:shadow-lg shadow-md"
           >
             <Link to="/apply/student">Join as Student</Link>
           </Button>
           <Button
             asChild
             variant="outline"
-            className="h-12 px-8 border-2 border-primary text-primary hover:bg-primary/5 font-medium rounded-md"
+            className="h-12 px-8 border-2 border-primary text-primary hover:bg-primary/5 font-medium rounded-md transition-all hover:scale-105 hover:shadow-lg"
           >
             <Link to="/apply/nonprofit">Partner With Us</Link>
           </Button>
