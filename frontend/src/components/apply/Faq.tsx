@@ -1,59 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../../styles/apply/Faq.module.css';
-import { ReactComponent as Arrow } from '../assets/faq_arrow.svg';
+import Arrow from '../assets/faq_arrow.svg?react';
 
-export default function Faq(props: { children: React.ReactNode }) {
+interface FaqProps {
+  children: React.ReactNode;
+}
+
+export default function Faq({ children }: FaqProps) {
   return (
     <div className={styles.faq}>
       <h2 className={styles.header}>Frequently Asked Questions</h2>
-      {props.children}
+      {children}
     </div>
   );
 }
 
-type RowProps = {
+interface FaqRowProps {
   question: React.ReactNode;
   answer: React.ReactNode;
-};
+}
 
-type RowState = {
-  showing: boolean;
-};
+export function FaqRow({ question, answer }: FaqRowProps) {
+  const [isOpen, setIsOpen] = useState(false);
 
-/*
- * To be used with Faq.
- * Props:
- * question (JSX): JSX Input containing a <p>
- * answer (JSX): JSX Input containing a <p>
- */
-export class FaqRow extends React.Component<RowProps, RowState> {
-  constructor(props: RowProps) {
-    super(props);
-    this.state = {
-      /* True if the answer is showing, false otherwise */
-      showing: false,
-    };
-
-    this.toggleShowAnswer = this.toggleShowAnswer.bind(this);
-  }
-
-  toggleShowAnswer() {
-    this.setState({ showing: !this.state.showing });
-  }
-
-  render() {
-    return (
-      <div className={styles.faqRow}>
-        <div className={styles.question} onClick={this.toggleShowAnswer}>
-          {this.props.question}
-          <div className={this.state.showing ? `${styles.arrow} ${styles.rotated}` : styles.arrow}>
-            <Arrow />
-          </div>
+  return (
+    <div className={styles.faqRow}>
+      <button
+        className={styles.question}
+        onClick={() => setIsOpen(!isOpen)}
+        aria-expanded={isOpen}
+        type="button"
+      >
+        {question}
+        <div className={`${styles.arrow} ${isOpen ? styles.rotated : ''}`}>
+          <Arrow aria-hidden="true" />
         </div>
-        <div className={this.state.showing ? `${styles.answer} ${styles.showing}` : styles.answer}>
-          {this.props.answer}
-        </div>
+      </button>
+      <div
+        className={`${styles.answer} ${isOpen ? styles.showing : ''}`}
+        role="region"
+        aria-hidden={!isOpen}
+      >
+        {answer}
       </div>
-    );
-  }
+    </div>
+  );
 }

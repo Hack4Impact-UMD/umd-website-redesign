@@ -9,12 +9,12 @@ const Projects = (props: any) => {
   //check which type of projects were rendering
   const res = props.isFeatured == true
     ? useAxios(
-        process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*&filters[isFeatured][$eq]=true',
+        import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*&filters[isFeatured][$eq]=true',
         'GET',
         {},
       )
     : useAxios(
-        process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*&filters[isCurrentProject][$eq]=true',
+        import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*&filters[isCurrentProject][$eq]=true',
         'GET',
         {},
       );
@@ -31,7 +31,7 @@ const Projects = (props: any) => {
         ) : !projects || projects.length === 0 ? (
           <NoProjects />
         ) : (
-          projects.map((item, index) => {
+          projects.map((item: any, index: number) => {
               const startDate = item['attributes']['startDate']
                 ? getSeason((item['attributes']['startDate'] as string).substring(5, 7) as unknown as number) +
                   ' ' +

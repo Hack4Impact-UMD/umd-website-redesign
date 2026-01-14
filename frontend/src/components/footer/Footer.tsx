@@ -5,12 +5,12 @@ import wordmark from '../assets/h4i_files/h4i_wordmark.svg';
  * Separate SVGs for mobile/desktop so that styling one doesn't affect the other.
  * Manually added unique IDs in SVG files.
  */
-import { ReactComponent as IgLogoSvg } from '../assets/footer/ig.svg';
-import { ReactComponent as FbLogoSvg } from '../assets/footer/fb.svg';
-import { ReactComponent as GhLogoSvg } from '../assets/footer/gh.svg';
-import { ReactComponent as IgLogoSvg2 } from '../assets/footer/ig2.svg';
-import { ReactComponent as FbLogoSvg2 } from '../assets/footer/fb2.svg';
-import { ReactComponent as GhLogoSvg2 } from '../assets/footer/gh2.svg';
+import IgLogoSvg from '../assets/footer/ig.svg?react';
+import FbLogoSvg from '../assets/footer/fb.svg?react';
+import GhLogoSvg from '../assets/footer/gh.svg?react';
+import IgLogoSvg2 from '../assets/footer/ig2.svg?react';
+import FbLogoSvg2 from '../assets/footer/fb2.svg?react';
+import GhLogoSvg2 from '../assets/footer/gh2.svg?react';
 
 function Footer() {
   return (

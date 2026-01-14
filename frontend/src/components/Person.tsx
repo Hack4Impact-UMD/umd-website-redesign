@@ -17,7 +17,7 @@ function Person({ memberName, team, role, pronouns, src }: PersonProps) {
 
   const getImageSrc = () => {
     if (!src) return default_pfp;
-    return src.startsWith('/') ? `${process.env.REACT_APP_ROOT_URL}${src}` : src;
+    return src.startsWith('/') ? `${import.meta.env.VITE_ROOT_URL}${src}` : src;
   };
 
   const imageSrc = getImageSrc();

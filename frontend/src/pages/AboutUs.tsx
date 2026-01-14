@@ -97,7 +97,7 @@ const EXEC_ORDER = [
 
 function ExecBoard() {
   const res = useAxios(
-    process.env.REACT_APP_ROOT_URL +
+    import.meta.env.VITE_ROOT_URL +
       '/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Board Member',
     'GET',
     {},
@@ -105,11 +105,11 @@ function ExecBoard() {
   const boardMembers = res.data?.data ?? [];
 
   const sortedMembers = boardMembers
-    .map((item) => {
-      const displayRole = item?.attributes?.componentRolesArr?.find((e) => e?.isDisplayRole === true);
+    .map((item: any) => {
+      const displayRole = item?.attributes?.componentRolesArr?.find((e: any) => e?.isDisplayRole === true);
       return { ...item, displayRole };
     })
-    .sort((a, b) => EXEC_ORDER.indexOf(a.displayRole?.title ?? '') - EXEC_ORDER.indexOf(b.displayRole?.title ?? ''));
+    .sort((a: any, b: any) => EXEC_ORDER.indexOf(a.displayRole?.title ?? '') - EXEC_ORDER.indexOf(b.displayRole?.title ?? ''));
 
   return (
     <div className={styles.execBoardDiv}>
@@ -118,7 +118,7 @@ function ExecBoard() {
         <LoadingSpinner text="Loading executive board..." />
       ) : (
         <div className={styles.execBoardPhotos}>
-          {sortedMembers.map((item) => (
+          {sortedMembers.map((item: any) => (
             <Person
               key={item.id}
               memberName={`${item?.attributes?.firstName ?? ''} ${item?.attributes?.lastName ?? ''}`.trim()}
@@ -137,7 +137,8 @@ const MEMBERS_PAGE_SIZE = 100;
 
 function TeamMembers() {
   const res = useAxios(
-    `${process.env.REACT_APP_ROOT_URL}/api/members?pagination[page]=1&pagination[pageSize]=${MEMBERS_PAGE_SIZE}&populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member`,
+    import.meta.env.VITE_ROOT_URL +
+      `/api/members?pagination[page]=1&pagination[pageSize]=${MEMBERS_PAGE_SIZE}&populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member`,
     'GET',
     {},
   );
@@ -150,8 +151,8 @@ function TeamMembers() {
         <LoadingSpinner text="Loading team members..." />
       ) : (
         <div className={styles.teamMembersPhotos}>
-          {members.map((item) => {
-            const displayRole = item?.attributes?.componentRolesArr?.find((e) => e?.isDisplayRole === true);
+          {members.map((item: any) => {
+            const displayRole = item?.attributes?.componentRolesArr?.find((e: any) => e?.isDisplayRole === true);
             return (
               <Person
                 key={item.id}
