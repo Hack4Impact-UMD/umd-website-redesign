@@ -310,18 +310,30 @@ This document outlines the comprehensive task list for redesigning the homepage 
 
 ## Phase 11: Cleanup & Migration
 
-### Remove Old Files
-- [ ] Delete `/frontend/src/components/home_page/` directory (after verification)
-- [ ] Delete `/frontend/src/components/navbar/` directory (after verification)
-- [ ] Delete `/frontend/src/components/footer/` directory (after verification)
-- [ ] Delete unused CSS files in `/frontend/src/styles/home/`
-- [ ] Delete unused CSS files in `/frontend/src/styles/navbar/`
-- [ ] Delete unused CSS files in `/frontend/src/styles/footer/`
+### ⚠️ DEPRECATED Components (to be removed later)
 
-### Update App.tsx
-- [ ] Update Navbar import path to new location
-- [ ] Update Footer import path to new location
-- [ ] Remove any unused imports
+The following old components are **deprecated** and replaced by new ones. Keep for reference but remove when ready:
+
+| Deprecated Component | Replaced By | Location |
+|---------------------|-------------|----------|
+| `HomePageTop.tsx` | `HeroCarousel.tsx` | `/frontend/src/components/home_page/` |
+| `HomePageLower.tsx` | `CTASection.tsx` | `/frontend/src/components/home_page/` |
+| `Supporters.tsx` | `SponsorsSection.tsx` | `/frontend/src/components/home_page/` |
+| `Navbar.tsx` (old) | `Navbar.tsx` (new) | `/frontend/src/components/navbar/` → `/frontend/src/components/layout/` |
+| `Footer.tsx` (old) | `Footer.tsx` (new) | `/frontend/src/components/footer/` → `/frontend/src/components/layout/` |
+
+### Old Directories to Remove (when ready)
+- [ ] `/frontend/src/components/home_page/` - Old homepage components
+- [ ] `/frontend/src/components/navbar/` - Old navbar
+- [ ] `/frontend/src/components/footer/` - Old footer
+- [ ] `/frontend/src/styles/home/` - Old homepage CSS modules
+- [ ] `/frontend/src/styles/navbar/` - Old navbar CSS modules
+- [ ] `/frontend/src/styles/footer/` - Old footer CSS modules
+
+### Update App.tsx ✅
+- [x] Update Navbar import path to new location
+- [x] Update Footer import path to new location
+- [x] Remove any unused imports
 
 ### Verify No Regressions
 - [ ] Test all navigation links work correctly
