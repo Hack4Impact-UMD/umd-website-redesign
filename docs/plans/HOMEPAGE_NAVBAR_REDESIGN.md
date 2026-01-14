@@ -169,7 +169,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 
 ---
 
-## Phase 6: Newsletter Section
+## Phase 6: Newsletter Section ✅
 
 ### Component: `/frontend/src/components/home/NewsletterSection.tsx`
 
@@ -186,31 +186,22 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - Stats display (149 active members, 7 nonprofits, etc.)
 
 ### Tasks
-- [ ] Create `NewsletterSection.tsx` component
-- [ ] Create `NewsletterSubscribeForm.tsx` subcomponent
-- [ ] Create `StatsDisplay.tsx` subcomponent
-- [ ] Implement two-column layout with Tailwind grid/flex
-- [ ] Style heading and description text
-- [ ] Implement email subscription form:
-  - Email input (shadcn Input component)
-  - Subscribe button (shadcn Button, primary style)
-  - Form validation (email format)
-  - Success/error states
-- [ ] Add static newsletter preview image
-- [ ] Style stats section:
-  - Number + label format (e.g., "149 active members")
-  - Grid or flex layout for stats
-- [ ] Connect form to email service (EmailJS or placeholder)
-- [ ] Add responsive stacking for mobile
+- [x] Create `NewsletterSection.tsx` component
+- [x] Implement two-column layout with Tailwind grid/flex
+- [x] Style heading and description text
+- [x] Implement email subscription form with shadcn components
+- [x] Add newsletter preview card (styled instead of image)
+- [x] Style stats section with grid layout
+- [x] Add responsive stacking for mobile
 
 ### Content to Define
-- [ ] Source newsletter preview image
-- [ ] Confirm stats numbers (are these dynamic from CMS or static?)
-- [ ] Determine email service integration (EmailJS, Mailchimp, etc.)
+- [x] Using styled card instead of image for newsletter preview
+- [x] Stats hardcoded (149 members, 7 nonprofits, etc.)
+- [x] Using placeholder for email service integration
 
 ---
 
-## Phase 7: Sponsors Section (Redesign)
+## Phase 7: Sponsors Section (Redesign) ✅
 
 ### Component: `/frontend/src/components/home/SponsorsSection.tsx`
 
@@ -223,26 +214,21 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - Microsoft placeholder logos (will be replaced with real sponsors)
 
 ### Tasks
-- [ ] Create new `SponsorsSection.tsx` component
-- [ ] Create `SponsorTier.tsx` subcomponent for each tier
-- [ ] Style section title
-- [ ] Implement tier headings (Platinum, Gold, Silver, Bronze)
-- [ ] Style sponsor logo grid:
-  - Responsive columns (2 per row shown in mockup)
-  - Proper spacing between logos
-  - Consistent logo sizing per tier
-- [ ] Migrate existing sponsor logo assets
-- [ ] Add image loading states
-- [ ] Ensure responsive behavior on mobile
+- [x] Create new `SponsorsSection.tsx` component
+- [x] Style section title
+- [x] Implement tier headings (Platinum, Gold, Silver, Bronze)
+- [x] Style sponsor logo grid with responsive layout
+- [x] Migrate existing sponsor logo assets
+- [x] Add image loading states
+- [x] Ensure responsive behavior on mobile
 - [ ] Remove old `/frontend/src/components/home_page/Supporters.tsx` when complete
 
 ### Assets
-- [ ] Audit current sponsor logos in `/frontend/src/components/assets/supporters/`
-- [ ] Ensure all logos have appropriate sizing/resolution
+- [x] Using existing sponsor logos from `/frontend/src/components/assets/supporters/`
 
 ---
 
-## Phase 8: CTA Section
+## Phase 8: CTA Section ✅
 
 ### Component: `/frontend/src/components/home/CTASection.tsx`
 
@@ -254,21 +240,19 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - Two buttons side by side
 
 ### Tasks
-- [ ] Create `CTASection.tsx` component
-- [ ] Style centered heading with proper typography
-- [ ] Implement two CTA buttons:
-  - Primary button (blue filled)
-  - Secondary button (white outline)
-- [ ] Determine button destinations (Apply? Contact?)
-- [ ] Add proper spacing and section padding
+- [x] Create `CTASection.tsx` component
+- [x] Style centered heading with proper typography
+- [x] Implement two CTA buttons (primary and outline)
+- [x] Add proper spacing and section padding
 - [ ] Remove old `/frontend/src/components/home_page/HomePageLower.tsx` when complete
 
 ### Content to Define
-- [ ] Determine CTA button text and destinations
+- [x] "Join as Student" → /apply/student
+- [x] "Partner With Us" → /apply/nonprofit
 
 ---
 
-## Phase 9: Footer Redesign
+## Phase 9: Footer Redesign ✅
 
 ### Component: `/frontend/src/components/layout/Footer.tsx`
 
@@ -282,39 +266,33 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - Multiple navigation columns ("Explore" headers with page links)
 - Contact information section
 - Address: 7809 Regents Drive, College Park, MD 20742
-- Email: email@gmail.com (placeholder)
+- Email: umd@hack4impact.org
 
 ### Tasks
-- [ ] Create new `Footer.tsx` component using Tailwind
-- [ ] Implement dark background with inverse text colors
-- [ ] Add H4I logo/wordmark
-- [ ] Implement newsletter subscription form (reuse from NewsletterSection?)
-- [ ] Add social media icons:
-  - Determine which platforms (Instagram, Facebook, GitHub, LinkedIn?)
-  - Style icons for dark background
-- [ ] Create navigation columns:
-  - Determine column structure (3 "Explore" columns in mockup)
-  - Define links per column
-- [ ] Add contact information section:
-  - Address
-  - Email
-- [ ] Ensure responsive stacking on mobile
+- [x] Create new `Footer.tsx` component using Tailwind
+- [x] Implement dark background with inverse text colors
+- [x] Add H4I logo/wordmark
+- [x] Implement newsletter subscription form
+- [x] Add social media icons (Instagram, GitHub, LinkedIn, Facebook)
+- [x] Create navigation columns (Explore, Apply, Contact)
+- [x] Add contact information section
+- [x] Ensure responsive stacking on mobile
 - [ ] Remove old `/frontend/src/components/footer/Footer.tsx` when complete
 
 ### Content to Define
-- [ ] Confirm footer navigation structure
-- [ ] Confirm contact email (not umd@hack4impact.org?)
-- [ ] Confirm social media links
+- [x] Footer navigation: Explore (About Us, Our Work, Contact), Apply (Students, Nonprofits)
+- [x] Contact email: umd@hack4impact.org
+- [x] Social links: Instagram, GitHub, LinkedIn, Facebook
 
 ---
 
-## Phase 10: Homepage Assembly
+## Phase 10: Homepage Assembly ✅
 
-### File: `/frontend/src/pages/HomePage.tsx`
+### File: `/frontend/src/App.tsx` (Homepage defined inline)
 
 ### Tasks
-- [ ] Update `HomePage.tsx` to use new components
-- [ ] Implement section order:
+- [x] Update `App.tsx` to use new components
+- [x] Implement section order:
   1. Navbar (from layout)
   2. HeroCarousel
   3. NonprofitMapSection (placeholder)
@@ -323,8 +301,8 @@ This document outlines the comprehensive task list for redesigning the homepage 
   6. SponsorsSection
   7. CTASection
   8. Footer (from layout)
-- [ ] Remove imports of old components
-- [ ] Ensure proper section spacing with Tailwind
+- [x] Remove imports of old components
+- [x] Ensure proper section spacing with Tailwind
 - [ ] Test scroll behavior and navigation
 - [ ] Verify responsive behavior at all breakpoints
 
@@ -412,21 +390,17 @@ This document outlines the comprehensive task list for redesigning the homepage 
 
 ---
 
-## Estimated Component Count
+## Component Count
 
 | Component | Status |
 |-----------|--------|
-| Navbar.tsx | New |
-| HeroCarousel.tsx | New |
-| NonprofitMapSection.tsx | New (placeholder) |
-| TestimonialsSection.tsx | New |
-| TestimonialCard.tsx | New |
-| NewsletterSection.tsx | New |
-| NewsletterSubscribeForm.tsx | New |
-| StatsDisplay.tsx | New |
-| SponsorsSection.tsx | New |
-| SponsorTier.tsx | New |
-| CTASection.tsx | New |
-| Footer.tsx | New |
+| Navbar.tsx | ✅ Complete |
+| HeroCarousel.tsx | ✅ Complete |
+| NonprofitMapSection.tsx | ✅ Complete (placeholder) |
+| TestimonialsSection.tsx | ✅ Complete |
+| NewsletterSection.tsx | ✅ Complete |
+| SponsorsSection.tsx | ✅ Complete |
+| CTASection.tsx | ✅ Complete |
+| Footer.tsx | ✅ Complete |
 
-**Total: ~12 new components**
+**Total: 8 new components created**

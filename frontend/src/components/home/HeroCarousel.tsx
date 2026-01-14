@@ -76,32 +76,32 @@ export default function HeroCarousel() {
               alt={slide.alt}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20" />
           </div>
         ))}
       </div>
 
       <div className="absolute inset-0 flex items-center">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-xl">
-            <h1 className="text-display text-white mb-4">
+          <div className="max-w-xl text-center md:text-left">
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-display font-bold text-white mb-4 tracking-tight">
               Hack4Impact-UMD
             </h1>
-            <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed">
+            <p className="font-body text-base md:text-lg text-white/90 mb-8 leading-relaxed max-w-md mx-auto md:mx-0">
               Building powerful nonprofit software as a tool for social good. We connect student
               developers with nonprofits to create technology that drives positive change.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap justify-center md:justify-start gap-4">
               <Button
                 asChild
-                className="bg-primary hover:bg-state-primary-hover active:bg-state-primary-active text-white px-8 py-6 text-base font-medium rounded-md"
+                className="h-12 px-8 bg-h4i-blue hover:bg-state-primary-hover active:bg-state-primary-active text-white text-base font-medium rounded-md transition-colors"
               >
                 <Link to="/aboutus">Learn More</Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
-                className="border-2 border-white bg-transparent hover:bg-white/10 text-white px-8 py-6 text-base font-medium rounded-md"
+                className="h-12 px-8 border-2 border-white bg-white text-foreground hover:bg-white/90 text-base font-medium rounded-md transition-colors"
               >
                 <Link to="/apply/student">Apply Now</Link>
               </Button>
@@ -111,28 +111,32 @@ export default function HeroCarousel() {
       </div>
 
       {loaded && instanceRef.current && (
-        <div className="absolute bottom-8 left-4 sm:left-8 flex items-center gap-2">
-          <button
-            onClick={() => instanceRef.current?.prev()}
-            className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            onClick={() => instanceRef.current?.next()}
-            className="p-2 rounded-full bg-white/20 hover:bg-white/30 text-white transition-colors"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
+        <div className="absolute bottom-6 left-4 sm:left-8 lg:left-auto lg:right-8 flex items-center">
+          <div className="flex items-center gap-1 bg-black/30 backdrop-blur-sm rounded-full p-1">
+            <button
+              onClick={() => instanceRef.current?.prev()}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={() => instanceRef.current?.next()}
+              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </div>
           <div className="ml-4 flex gap-2">
             {heroSlides.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => instanceRef.current?.moveToIdx(idx)}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  currentSlide === idx ? 'bg-white' : 'bg-white/40'
+                className={`w-2.5 h-2.5 rounded-full transition-all ${
+                  currentSlide === idx
+                    ? 'bg-white scale-110'
+                    : 'bg-white/40 hover:bg-white/60'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
