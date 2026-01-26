@@ -1,5 +1,10 @@
 # Homepage & Navbar Redesign Plan
 
+> **STATUS: COMPLETE** ✅
+>
+> **PR:** https://github.com/Hack4Impact-UMD/umd-website-redesign/pull/136
+> **Completed:** January 2026
+
 This document outlines the comprehensive task list for redesigning the homepage and navbar using the new tech stack (Tailwind CSS + shadcn/ui) and design tokens defined in `/docs/STYLING.md`.
 
 **Branch:** `frontend-redesign-tasks-01/13`
@@ -375,16 +380,16 @@ The following old components are **deprecated** and replaced by new ones. Keep f
 
 ---
 
-## Open Questions / TBD
+## Open Questions / TBD - RESOLVED ✅
 
-1. **Navbar Links:** What are the actual navigation items? (Currently showing "Section" placeholders)
-2. **Hero CTAs:** What text and destinations for the two hero buttons?
-3. **Hero Images:** Source for carousel images? How many slides?
-4. **Testimonials:** Need to source actual quotes from nonprofit partners
-5. **Newsletter Stats:** Are these dynamic or hardcoded? (149 members, 7 nonprofits, etc.)
-6. **Footer Email:** Is it still `umd@hack4impact.org` or different?
-7. **Footer Columns:** What links go in each "Explore" column?
-8. **Final CTA Buttons:** Text and destinations?
+1. **Navbar Links:** ✅ About Us, Our Work, Apply (dropdown), Contact Us
+2. **Hero CTAs:** ✅ "Learn More" → /aboutus, "Apply Now" → /apply/student
+3. **Hero Images:** ✅ Using existing assets (h4igroup_photo.jpg, aboutus_header.png)
+4. **Testimonials:** ✅ Hardcoded placeholders (to be replaced with real quotes later)
+5. **Newsletter Stats:** ✅ Hardcoded (149 members, 7 nonprofits, 6 semesters, etc.)
+6. **Footer Email:** ✅ umd@hack4impact.org
+7. **Footer Columns:** ✅ Explore (About Us, Our Work, Contact), Apply (Students, Nonprofits)
+8. **Final CTA Buttons:** ✅ "Join as Student" → /apply/student, "Partner With Us" → /apply/nonprofit
 
 ---
 
@@ -416,3 +421,27 @@ The following old components are **deprecated** and replaced by new ones. Keep f
 | Footer.tsx | ✅ Complete |
 
 **Total: 8 new components created**
+
+---
+
+## Completion Summary
+
+### What Was Built
+- **8 new React components** using Tailwind CSS + shadcn/ui
+- **Design system** with H4I brand tokens (colors, typography)
+- **Responsive design** with mobile hamburger menu at 1000px breakpoint
+- **Animations** including fade-in-up hero animation and button hover effects
+
+### What Remains (Future Work)
+- **Interactive Map:** NonprofitMapSection is a placeholder; needs map library integration
+- **Real Testimonials:** Currently hardcoded; migrate to Strapi CMS
+- **Cleanup:** Remove deprecated old components (see Phase 11)
+- **Testing:** Full responsive, cross-browser, and accessibility testing
+
+### Files Created/Modified
+- `/frontend/src/components/layout/Navbar.tsx` - New navbar
+- `/frontend/src/components/layout/Footer.tsx` - New footer
+- `/frontend/src/components/home/*.tsx` - 6 homepage sections
+- `/frontend/src/index.css` - CSS variables and animations
+- `/frontend/tailwind.config.js` - Design tokens
+- `/docs/STYLING.md` - Design system documentation
