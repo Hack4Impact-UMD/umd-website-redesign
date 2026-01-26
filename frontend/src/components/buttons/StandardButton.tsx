@@ -1,50 +1,40 @@
 import React from 'react';
-import styles from '../../styles/buttons/StandardButton.module.css';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 interface ButtonProps {
   text: string;
   link: string;
-  color: string;
+  color: 'blue' | 'green';
   ariaLabel?: string;
   externalLink?: boolean;
 }
 
-/*
-Color options: blue, green.
-If link is external, set externalLink to true.
-*/
-const StandardButton = (props: ButtonProps) => {
-  let buttonClass: string;
-
-  // Update class so stylesheet can change colors.
-  switch (props.color) {
-    case 'green':
-      buttonClass = `${styles.green}`;
-      break;
-    case 'blue':
-      buttonClass = `${styles.blue}`;
-      break;
-    default:
-      buttonClass = `${styles.blue}`;
-  }
+const StandardButton = ({ text, link, color, ariaLabel, externalLink }: ButtonProps) => {
+  const colorClass = color === 'green'
+    ? 'bg-h4i-mint hover:bg-h4i-mint/90 text-white'
+    : 'bg-h4i-blue hover:bg-h4i-blue/90 text-white';
 
   const buttonComponent = (
-    <button className={`${styles.button} ${buttonClass}`} type={'button'} aria-label={props.ariaLabel}>
-      {props.text}
-    </button>
+    <Button
+      className={cn('rounded-full px-8 py-6 text-base font-medium transition-all', colorClass)}
+      type="button"
+      aria-label={ariaLabel}
+    >
+      {text}
+    </Button>
   );
 
-  // If the link is external, use an <a> tag. Otherwise, use a <Link> tag.
-  if (props.externalLink) {
+  if (externalLink) {
     return (
-      <a href={props.link} target="_blank" rel="noopener noreferrer">
+      <a href={link} target="_blank" rel="noopener noreferrer">
         {buttonComponent}
       </a>
     );
-  } else {
-    return <Link to={props.link}>{buttonComponent}</Link>;
   }
+
+  return <Link to={link}>{buttonComponent}</Link>;
 };
 
 export default StandardButton;

@@ -1,7 +1,5 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 import { Route, BrowserRouter, Routes, useLocation } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 
 import HomePageTop from './components/home_page/HomePageTop';
 import HomePageLower from './components/home_page/HomePageLower';
@@ -17,6 +15,7 @@ import ProjectPage from './pages/ProjectPage';
 import ScrollToTopButton from './components/buttons/ScrollToTopButton';
 import PageNotFound from './pages/PageNotFound';
 import Projects from './components/projects/Projects';
+import RecruitmentBanner from './components/banner/RecruitmentBanner';
 
 // Scrolls to top of
 // https://stackoverflow.com/a/70194027
@@ -45,17 +44,17 @@ function App() {
       <ScrollToTopWrapper>
         <div>
           <Navbar />
+          <RecruitmentBanner />
           <Routes>
-            <Route path="*" element={<PageNotFound />} />
             <Route path="/" element={<Homepage />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/ourwork" element={<OurWork />} />
-            {/* <Route path="/apply-f24" element={<AppsPage/>}/> */}
             <Route path="/apply" element={<StudentApply />} />
             <Route path="/apply/student" element={<StudentApply />} />
             <Route path="/apply/nonprofit" element={<NonprofitApply />} />
             <Route path="/contactus" element={<ContactPage />} />
             <Route path="ourwork/:projectpath" element={<ProjectPage />} />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
           <Footer />
           <ScrollToTopButton />

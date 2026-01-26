@@ -4,6 +4,7 @@ import RoleCard from '../components/apply/RoleCard';
 import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
 import StandardButton from '../components/buttons/StandardButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
+import ImageWithLoading from '../components/ImageWithLoading';
 
 import oneIcon from '../components/assets/icons/one_icon.svg';
 import twoIcon from '../components/assets/icons/two_icon.svg';
@@ -131,24 +132,24 @@ function ApplicationTimeline() {
         the semester starts.
       </p>
       <div className={styles.timelineStep}>
-        <img src={oneIcon} className={styles.mobileTimelineIcon} />
-        <img src={oneIconDesktop} className={styles.desktopTimelineIcon} />
+        <ImageWithLoading src={oneIcon} className={styles.mobileTimelineIcon} alt="Step 1" />
+        <ImageWithLoading src={oneIconDesktop} className={styles.desktopTimelineIcon} alt="Step 1" />
         <div className={styles.timelineStepText}>
           <h3>Application</h3>
           <p>{firstStep}</p>
         </div>
       </div>
       <div className={styles.timelineStep}>
-        <img src={twoIcon} className={styles.mobileTimelineIcon} />
-        <img src={twoIconDesktop} className={styles.desktopTimelineIcon} />
+        <ImageWithLoading src={twoIcon} className={styles.mobileTimelineIcon} alt="Step 2" />
+        <ImageWithLoading src={twoIconDesktop} className={styles.desktopTimelineIcon} alt="Step 2" />
         <div className={styles.timelineStepText}>
           <h3>Interview</h3>
           <p>{secondStep}</p>
         </div>
       </div>
       <div className={styles.timelineStep}>
-        <img src={threeIcon} className={styles.mobileTimelineIcon} />
-        <img src={threeIconDesktop} className={styles.desktopTimelineIcon} />
+        <ImageWithLoading src={threeIcon} className={styles.mobileTimelineIcon} alt="Step 3" />
+        <ImageWithLoading src={threeIconDesktop} className={styles.desktopTimelineIcon} alt="Step 3" />
         <div className={styles.timelineStepText}>
           <h3>Notification of Decision</h3>
           <p>{thirdStep}</p>

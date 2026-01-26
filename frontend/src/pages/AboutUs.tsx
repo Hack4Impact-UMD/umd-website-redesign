@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/about_us/AboutUs.module.css';
 import Person from '../components/Person';
 import ValueCard from '../components/about_us/ValueCard';
+import LoadingSpinner from '../components/LoadingSpinner';
+import { FADE_IN_TRANSITION } from '../constants/animations';
 
 import headerDesktop from '../components/assets/backgrounds/about_us/aboutus_header2023.png';
 import headerMobile from '../components/assets/backgrounds/about_us/aboutus_header_mobile2023.png';
-import placeholder from '../components/assets/placeholder.png';
 import { useAxios } from '../components/HelperFunctions';
-import globe from '../components/assets/globe.svg';
 
 function AboutUs() {
   return (
@@ -22,12 +22,20 @@ function AboutUs() {
 }
 
 function AboutUsHeader() {
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
-    <div className={styles.headerDiv}>
+    <div
+      className={styles.headerDiv}
+      style={{ opacity: imageLoaded ? 1 : 0, transition: FADE_IN_TRANSITION }}
+    >
       <picture>
-        {/* background image should change when navbar changes */}
         <source srcSet={headerDesktop} media={'(min-width: 700px)'} />
-        <img src={headerMobile} className={styles.headerImg}></img>
+        <img
+          src={headerMobile}
+          className={styles.headerImg}
+          onLoad={() => setImageLoaded(true)}
+        ></img>
       </picture>
       <div className={styles.headerText}>
         <h1>About Us</h1>
@@ -74,112 +82,90 @@ function ValueCardRow() {
   );
 }
 
+const EXEC_ORDER = [
+  'Executive Director',
+  'Director of Product',
+  'Director of Engineering',
+  'Director of Design',
+  'Director of Education',
+  'Director of Finance and Sponsorship',
+  'Director of Events',
+  'Director of Recruitment',
+  'Director of Public Relations and Outreach',
+  'Senior Advisor',
+];
+
 function ExecBoard() {
   const res = useAxios(
-    process.env.REACT_APP_ROOT_URL +
+    import.meta.env.VITE_ROOT_URL +
       '/api/members?populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Board Member',
     'GET',
     {},
   );
-  const boardMembers = res.data ? res.data['data'] : [];
-  const execOrder = [
-    'Executive Director',
-    'Director of Product',
-    'Director of Engineering',
-    'Director of Design',
-    'Director of Education',
-    'Director of Finance and Sponsorship',
-    'Director of Events',
-    'Director of Recruitment',
-    'Director of Public Relations and Outreach',
-    'Senior Advisor',
-  ];
+  const boardMembers = res.data?.data ?? [];
+
+  const sortedMembers = boardMembers
+    .map((item: any) => {
+      const displayRole = item?.attributes?.componentRolesArr?.find((e: any) => e?.isDisplayRole === true);
+      return { ...item, displayRole };
+    })
+    .sort((a: any, b: any) => EXEC_ORDER.indexOf(a.displayRole?.title ?? '') - EXEC_ORDER.indexOf(b.displayRole?.title ?? ''));
 
   return (
     <div className={styles.execBoardDiv}>
       <h2>Executive Board</h2>
-      <div className={styles.execBoardPhotos}>
-        {!boardMembers
-          ? boardMembers
-          : boardMembers
-              .sort(
-                (a, b) =>
-                  execOrder.indexOf(
-                    (a['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                      'title'
-                    ],
-                  ) -
-                  execOrder.indexOf(
-                    (b['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                      'title'
-                    ],
-                  ),
-              )
-              .map((item, index) => (
-                <Person
-                  key={index}
-                  memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName']}
-                  role={
-                    (item['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                      'title'
-                    ]
-                  }
-                  pronouns={item['attributes']['pronouns']}
-                  src={
-                    item['attributes']['avatar']['data']
-                      ? item['attributes']['avatar']['data']['attributes']['url']
-                      : null
-                  }
-                />
-              ))}
-      </div>
+      {!res.loaded ? (
+        <LoadingSpinner text="Loading executive board..." />
+      ) : (
+        <div className={styles.execBoardPhotos}>
+          {sortedMembers.map((item: any) => (
+            <Person
+              key={item.id}
+              memberName={`${item?.attributes?.firstName ?? ''} ${item?.attributes?.lastName ?? ''}`.trim()}
+              role={item.displayRole?.title ?? ''}
+              pronouns={item?.attributes?.pronouns ?? ''}
+              src={item?.attributes?.avatar?.data?.attributes?.url ?? null}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
 
+const MEMBERS_PAGE_SIZE = 100;
+
 function TeamMembers() {
-  // fetch data with axios, assign the array of members to members var
-  // const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/members?populate=*", "GET", {});
   const res = useAxios(
-    process.env.REACT_APP_ROOT_URL +
-      '/api/members?pagination[page]=1&pagination[pageSize]=100&populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member',
+    import.meta.env.VITE_ROOT_URL +
+      `/api/members?pagination[page]=1&pagination[pageSize]=${MEMBERS_PAGE_SIZE}&populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=Current Member`,
     'GET',
     {},
   );
-  const members = res.data ? res.data['data'] : [];
-
-  // members.map(item => console.log(item["attributes"]["firstName"]));
+  const members = res.data?.data ?? [];
 
   return (
     <div className={styles.teamMembersDiv}>
       <h2>Team Members</h2>
-      <div className={styles.teamMembersPhotos}>
-        {!members
-          ? members
-          : // render team members
-            members.map((item, index) => (
+      {!res.loaded ? (
+        <LoadingSpinner text="Loading team members..." />
+      ) : (
+        <div className={styles.teamMembersPhotos}>
+          {members.map((item: any) => {
+            const displayRole = item?.attributes?.componentRolesArr?.find((e: any) => e?.isDisplayRole === true);
+            return (
               <Person
-                key={index}
-                memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName']}
-                team={
-                  (item['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                    'team'
-                  ]
-                }
-                role={
-                  (item['attributes']['componentRolesArr'] as Array<any>).find((e) => e['isDisplayRole'] == true)[
-                    'title'
-                  ]
-                }
-                pronouns={item['attributes']['pronouns']}
-                src={
-                  item['attributes']['avatar']['data']
-                    ? item['attributes']['avatar']['data']['attributes']['url']
-                    : null
-                }
+                key={item.id}
+                memberName={`${item?.attributes?.firstName ?? ''} ${item?.attributes?.lastName ?? ''}`.trim()}
+                team={displayRole?.team ?? ''}
+                role={displayRole?.title ?? ''}
+                pronouns={item?.attributes?.pronouns ?? ''}
+                src={item?.attributes?.avatar?.data?.attributes?.url ?? null}
               />
-            ))}
-      </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

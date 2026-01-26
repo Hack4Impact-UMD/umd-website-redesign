@@ -8,9 +8,9 @@ import LoadingSpinner from '../LoadingSpinner';
 
 const PastProjects: React.FC = () => {
   // query for all projects
-  const res = useAxios(process.env.REACT_APP_ROOT_URL + '/api/projects?populate=*', 'GET', {});
+  const res = useAxios(import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*', 'GET', {});
   const allProjects = res.data ? res.data['data'] : [];
-  const cleanedProjects = allProjects.map((x) => x['attributes']);
+  const cleanedProjects = allProjects.map((x: any) => x['attributes']);
   const past_projects = cleanedProjects;
 
   // Set up state for search bar functionality
@@ -38,7 +38,7 @@ const PastProjects: React.FC = () => {
 
   // filters projects based on project title, project data, nonprofit name, project team, season and year.
 
-  const filteredData = past_projects.filter((project) => {
+  const filteredData = past_projects.filter((project: any) => {
     // check if query is similar to a team member's name
     const team_lowercase: string[] = [];
     (project['members']['data'] as Array<any>).forEach((member) => {
@@ -85,7 +85,7 @@ const PastProjects: React.FC = () => {
     return (
       <div className={styles.pastProjectsContainer}>
         <h2 id={styles.sectionTitle}>Past Projects</h2>
-        <LoadingSpinner />
+        <LoadingSpinner text="Loading projects..." />
       </div>
     );
   }
@@ -112,7 +112,7 @@ const PastProjects: React.FC = () => {
       </div>
       {filteredData.length != 0 ? (
         <div id={styles.projectsDisplay}>
-          {filteredData.map((item, index) => {
+          {filteredData.map((item: any, index: number) => {
             const startDate = item['startDate']
               ? getSeason((item['startDate'] as string).substring(5, 7) as unknown as number) +
                 ' ' +

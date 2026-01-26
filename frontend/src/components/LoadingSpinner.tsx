@@ -1,11 +1,22 @@
 import React from 'react';
-import styles from '../styles/LoadingSpinner.module.css';
+import { Loader2 } from 'lucide-react';
 
-const LoadingSpinner = () => {
+const MIN_HEIGHT = 400;
+
+interface LoadingSpinnerProps {
+  message?: string;
+  text?: string;
+}
+
+const LoadingSpinner = ({ message, text }: LoadingSpinnerProps) => {
+  const displayText = message || text || 'Loading...';
   return (
-    <div className={styles.loadingContainer}>
-      <div className={styles.spinner}></div>
-      <p className={styles.loadingText}>Loading projects...</p>
+    <div
+      className="flex flex-col items-center justify-center gap-4"
+      style={{ minHeight: `${MIN_HEIGHT}px` }}
+    >
+      <Loader2 className="w-12 h-12 text-h4i-blue animate-spin" />
+      <p className="text-h4i-gray text-lg">{displayText}</p>
     </div>
   );
 };

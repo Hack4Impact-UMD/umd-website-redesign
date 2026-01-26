@@ -1,29 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/people/Person.module.css';
-import globe from './assets/h4i_files/globe.svg';
-import default_pfp from "../components/assets/icons/default_pfp.png"
+import default_pfp from "../components/assets/icons/default_pfp.png";
+import { FADE_IN_TRANSITION } from '../constants/animations';
 
-/*
- * Person component
- * Props:
- * src: path to image. default to globe if not given.
- * memberName, team, role, pronouns: strings for each field.
- */
-function Person(props: any) {
-  let imageSrc: string;
-  if (props.src == undefined || props.src == null) {
-    imageSrc = default_pfp;
-  } else {
-    imageSrc = props.src;
-  }
+interface PersonProps {
+  memberName?: string;
+  team?: string;
+  role?: string;
+  pronouns?: string;
+  src?: string | null;
+}
+
+function Person({ memberName, team, role, pronouns, src }: PersonProps) {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageError, setImageError] = useState(false);
+
+  const getImageSrc = () => {
+    if (!src) return default_pfp;
+    return src.startsWith('/') ? `${import.meta.env.VITE_ROOT_URL}${src}` : src;
+  };
+
+  const imageSrc = getImageSrc();
 
   return (
     <div className={styles.Person}>
-      <img src={imageSrc} />
-      <h2>{props.memberName}</h2>
-      <p className={styles.team}>{props.team}</p>
-      <p>{props.role}</p>
-      <p className={styles.Pronouns}>{props.pronouns}</p>
+      <img
+        src={imageError ? default_pfp : imageSrc}
+        alt={memberName || 'Team member'}
+        onLoad={() => setImageLoaded(true)}
+        onError={() => {
+          setImageError(true);
+          setImageLoaded(true);
+        }}
+        style={{ opacity: imageLoaded ? 1 : 0, transition: FADE_IN_TRANSITION }}
+      />
+      <h2>{memberName}</h2>
+      <p className={styles.team}>{team}</p>
+      <p>{role}</p>
+      <p className={styles.Pronouns}>{pronouns}</p>
     </div>
   );
 }

@@ -6,8 +6,9 @@ import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelect
 import StandardButton from '../components/buttons/StandardButton';
 import Faq, { FaqRow } from '../components/apply/Faq';
 import { Link } from 'react-router-dom';
+import LoadingSpinner from '../components/LoadingSpinner';
+import ImageWithLoading from '../components/ImageWithLoading';
 
-import inspireLogo from '../components/assets/npo_files/inspire_logo.svg';
 import arcadiaLogo from '../components/assets/npo_files/arcadia_logo.svg';
 import hamptonLogo from '../components/assets/npo_files/hampton_logo.svg';
 import cadcLogo from '../components/assets/npo_files/cadc_logo.svg';
@@ -54,13 +55,16 @@ function NonprofitApplyHeader() {
 }
 
 function Carousel() {
-  /* adjust scrolling speed with the easing function here */
+  const res = useAxios(import.meta.env.VITE_ROOT_URL + "/api/projects?populate=*", "GET", {});
+  const allProjects: any[] = res.data ? res.data["data"] : [];
+  const cleanedProjects = allProjects.map(x => x["attributes"]);
+  const past_projects = cleanedProjects;
+
   const animation = { duration: 5000, easing: (t: any) => t / 3 };
   const [ref] = useKeenSlider<HTMLDivElement>({
     loop: true,
     mode: 'free',
-    slides: { origin: 'center', perView: 3, spacing: 30}, //If adding another image to the carousel, update perView
-    /* next 3 props implement auto scrolling */
+    slides: { origin: 'center', perView: 3, spacing: 30},
     created(s) {
       s.moveToIdx(4, true, animation);
     },
@@ -72,28 +76,23 @@ function Carousel() {
     },
   });
 
-  // query all projects to be used to find the recent project.
-  const res = useAxios(process.env.REACT_APP_ROOT_URL + "/api/projects?populate=*", "GET", {});
-  const allProjects: any[] = res.data ? res.data["data"] : [];
-  const cleanedProjects = allProjects.map(x => x["attributes"]);
-  const past_projects = cleanedProjects;
+  if (!res.loaded) {
+    return <LoadingSpinner text="Loading partner organizations..." />;
+  }
 
   return (
     <div ref={ref} className={`keen-slider ${styles.carousel}`}>
-      {/* <Link to={getRecentProject("Inspire", past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={inspireLogo} />
-      </Link> */}
       <Link to={getRecentProject("Arcadia", past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={arcadiaLogo} />
+        <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={arcadiaLogo} alt="Arcadia Center for Sustainable Food & Agriculture" />
       </Link>
       <Link to={getRecentProject("WISE-E", past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={hamptonLogo} />
+        <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={hamptonLogo} alt="WISE-E (Women in STEM Excellence and Equity)" />
       </Link>
       <Link to={getRecentProject("CaDC", past_projects)}>
-        <img className={`keen-slider__slide ${styles.orgLogo}`} src={cadcLogo} />
+        <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={cadcLogo} alt="Community Action Development Corporation" />
       </Link>
       <Link to={getRecentProject("2Unstoppable", past_projects)}>
-      <img className={`keen-slider__slide ${styles.orgLogo}`} src={unstoppableLogo} />
+      <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={unstoppableLogo} alt="2Unstoppable" />
       </Link>
     </div>
   );
