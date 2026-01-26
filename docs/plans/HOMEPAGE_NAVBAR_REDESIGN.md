@@ -42,7 +42,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Update `/frontend/tailwind.config.js` with new color tokens and typography
 - [x] Add font-heading (Karla) and font-body (Rubik) to Tailwind config
 - [x] Define typography utility classes (text-display, text-h1, text-h2, text-h3, etc.)
-- [ ] Test that shadcn components render correctly with new theme
+- [x] Test that shadcn components render correctly with new theme
 
 ### File Structure Prep
 - [x] Create `/frontend/src/components/home/` directory for new homepage components
@@ -74,8 +74,8 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Add dropdown for "Apply" link (For Students / For Nonprofits)
 - [x] Ensure proper z-index layering (above page content)
 - [x] Add smooth scroll behavior for anchor links
-- [ ] Test keyboard navigation and accessibility
-- [ ] Remove old `/frontend/src/components/navbar/` when complete
+- [ ] Test keyboard navigation and accessibility (future QA)
+- [ ] Remove old `/frontend/src/components/navbar/` (cleanup task)
 
 ### Navigation Links to Define
 - [x] Confirm final navigation structure (About Us, Our Work, Apply dropdown, Contact Us)
@@ -106,9 +106,9 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Add slide indicator dots
 - [x] Implement auto-play with pause on hover
 - [x] Ensure responsive behavior on mobile
-- [ ] Add image loading states with fade-in
+- [ ] Add image loading states with fade-in (enhancement)
 - [x] Source hero images (using existing assets as placeholders)
-- [ ] Remove old `/frontend/src/components/home_page/HomePageTop.tsx` when complete
+- [ ] Remove old `/frontend/src/components/home_page/HomePageTop.tsx` (cleanup task)
 
 ### Content to Define
 - [x] Determine hero carousel images (2 slides using existing assets)
@@ -135,7 +135,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Add placeholder illustration for map area
 - [x] Style section container with proper spacing
 - [x] Add "Coming Soon" placeholder state
-- [ ] Document future implementation requirements:
+- [ ] Document future implementation requirements (future task):
   - Map library selection (Mapbox, Leaflet, Google Maps)
   - Strapi schema for geolocation data
   - Popup card component design
@@ -226,7 +226,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Migrate existing sponsor logo assets
 - [x] Add image loading states
 - [x] Ensure responsive behavior on mobile
-- [ ] Remove old `/frontend/src/components/home_page/Supporters.tsx` when complete
+- [ ] Remove old `/frontend/src/components/home_page/Supporters.tsx` (cleanup task)
 
 ### Assets
 - [x] Using existing sponsor logos from `/frontend/src/components/assets/supporters/`
@@ -249,7 +249,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Style centered heading with proper typography
 - [x] Implement two CTA buttons (primary and outline)
 - [x] Add proper spacing and section padding
-- [ ] Remove old `/frontend/src/components/home_page/HomePageLower.tsx` when complete
+- [ ] Remove old `/frontend/src/components/home_page/HomePageLower.tsx` (cleanup task)
 
 ### Content to Define
 - [x] "Join as Student" → /apply/student
@@ -282,7 +282,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Create navigation columns (Explore, Apply, Contact)
 - [x] Add contact information section
 - [x] Ensure responsive stacking on mobile
-- [ ] Remove old `/frontend/src/components/footer/Footer.tsx` when complete
+- [ ] Remove old `/frontend/src/components/footer/Footer.tsx` (cleanup task)
 
 ### Content to Define
 - [x] Footer navigation: Explore (About Us, Our Work, Contact), Apply (Students, Nonprofits)
@@ -308,8 +308,8 @@ This document outlines the comprehensive task list for redesigning the homepage 
   8. Footer (from layout)
 - [x] Remove imports of old components
 - [x] Ensure proper section spacing with Tailwind
-- [ ] Test scroll behavior and navigation
-- [ ] Verify responsive behavior at all breakpoints
+- [x] Test scroll behavior and navigation
+- [ ] Verify responsive behavior at all breakpoints (QA task)
 
 ---
 
@@ -341,12 +341,12 @@ The following old components are **deprecated** and replaced by new ones. Keep f
 - [x] Remove any unused imports
 
 ### Verify No Regressions
-- [ ] Test all navigation links work correctly
-- [ ] Test Apply dropdown functionality
-- [ ] Test mobile hamburger menu
-- [ ] Test footer links
-- [ ] Verify no console errors
-- [ ] Check network requests work (Strapi API calls if any remain)
+- [x] Test all navigation links work correctly
+- [x] Test Apply dropdown functionality
+- [x] Test mobile hamburger menu
+- [x] Test footer links
+- [x] Verify no console errors
+- [x] Check network requests work (Strapi API calls if any remain)
 
 ---
 
@@ -361,7 +361,7 @@ The following old components are **deprecated** and replaced by new ones. Keep f
 - [ ] Test at 1920px (large desktop)
 
 ### Cross-Browser Testing
-- [ ] Chrome
+- [x] Chrome
 - [ ] Firefox
 - [ ] Safari
 - [ ] Edge
@@ -371,7 +371,7 @@ The following old components are **deprecated** and replaced by new ones. Keep f
 - [ ] Screen reader announces content correctly
 - [ ] Color contrast meets WCAG AA standards
 - [ ] Focus states are visible
-- [ ] Images have alt text
+- [x] Images have alt text
 
 ### Performance
 - [ ] Lighthouse audit (aim for 90+ performance)
