@@ -32,13 +32,22 @@ export default function Navbar() {
     }
   };
 
+  const handleDropdownKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setIsApplyOpen(!isApplyOpen);
+    } else if (e.key === 'Escape') {
+      setIsApplyOpen(false);
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 border-b border-border">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link
           to="/"
           onClick={() => handleNavClick('/')}
-          className="flex items-center"
+          className="flex items-center focus:outline-none focus:ring-2 focus:ring-h4i-blue rounded-sm"
         >
           <img src={h4iLogo} alt="Hack4Impact UMD Logo" className="h-8 w-auto" />
         </Link>
@@ -55,7 +64,10 @@ export default function Navbar() {
                 <Link
                   to={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="flex items-center gap-1 text-body-small text-foreground hover:text-h4i-blue transition-colors"
+                  onKeyDown={handleDropdownKeyDown}
+                  className="flex items-center gap-1 text-body-small text-foreground hover:text-h4i-blue focus:text-h4i-blue focus:outline-none focus:ring-2 focus:ring-h4i-blue focus:ring-offset-2 rounded-sm transition-colors"
+                  aria-expanded={isApplyOpen}
+                  aria-haspopup="true"
                 >
                   {link.label}
                   <ChevronDown className="h-4 w-4" />
@@ -65,6 +77,7 @@ export default function Navbar() {
                     'absolute top-full left-0 mt-2 w-40 rounded-md bg-card border border-border shadow-lg transition-all',
                     isApplyOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
                   )}
+                  role="menu"
                 >
                   <ul className="py-2">
                     {link.dropdown.map((item) => (
@@ -72,7 +85,8 @@ export default function Navbar() {
                         <Link
                           to={item.href}
                           onClick={() => handleNavClick(item.href)}
-                          className="block px-4 py-2 text-body-small text-foreground hover:bg-muted hover:text-h4i-blue transition-colors"
+                          className="block px-4 py-2 text-body-small text-foreground hover:bg-muted hover:text-h4i-blue focus:bg-muted focus:text-h4i-blue focus:outline-none transition-colors"
+                          role="menuitem"
                         >
                           {item.label}
                         </Link>
@@ -86,7 +100,7 @@ export default function Navbar() {
                 <Link
                   to={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-body-small text-foreground hover:text-h4i-blue transition-colors"
+                  className="text-body-small text-foreground hover:text-h4i-blue focus:text-h4i-blue focus:outline-none focus:ring-2 focus:ring-h4i-blue focus:ring-offset-2 rounded-sm transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -96,9 +110,10 @@ export default function Navbar() {
         </ul>
 
         <button
-          className="nav:hidden p-2 text-foreground"
+          className="nav:hidden p-2 text-foreground focus:outline-none focus:ring-2 focus:ring-h4i-blue rounded-sm"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isMenuOpen}
         >
           {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
@@ -117,7 +132,8 @@ export default function Navbar() {
                   <li key={link.label} className="border-b border-border last:border-0">
                     <button
                       onClick={() => setIsApplyOpen(!isApplyOpen)}
-                      className="flex w-full items-center justify-between px-6 py-4 text-lg font-heading font-bold text-foreground"
+                      className="flex w-full items-center justify-between px-6 py-4 text-lg font-heading font-bold text-foreground focus:outline-none focus:bg-muted"
+                      aria-expanded={isApplyOpen}
                     >
                       {link.label}
                       <ChevronDown
@@ -134,7 +150,7 @@ export default function Navbar() {
                             <Link
                               to={item.href}
                               onClick={() => handleNavClick(item.href)}
-                              className="block px-8 py-3 text-base text-foreground hover:text-h4i-blue"
+                              className="block px-8 py-3 text-base text-foreground hover:text-h4i-blue focus:text-h4i-blue focus:outline-none focus:bg-muted"
                             >
                               {item.label}
                             </Link>
@@ -148,7 +164,7 @@ export default function Navbar() {
                     <Link
                       to={link.href}
                       onClick={() => handleNavClick(link.href)}
-                      className="block px-6 py-4 text-lg font-heading font-bold text-foreground hover:text-h4i-blue"
+                      className="block px-6 py-4 text-lg font-heading font-bold text-foreground hover:text-h4i-blue focus:text-h4i-blue focus:outline-none focus:bg-muted"
                     >
                       {link.label}
                     </Link>

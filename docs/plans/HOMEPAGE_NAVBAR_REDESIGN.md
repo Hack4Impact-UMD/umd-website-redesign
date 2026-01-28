@@ -74,8 +74,8 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Add dropdown for "Apply" link (For Students / For Nonprofits)
 - [x] Ensure proper z-index layering (above page content)
 - [x] Add smooth scroll behavior for anchor links
-- [ ] Test keyboard navigation and accessibility (future QA)
-- [ ] Remove old `/frontend/src/components/navbar/` (cleanup task)
+- [x] Test keyboard navigation and accessibility
+- [x] Remove old `/frontend/src/components/navbar/`
 
 ### Navigation Links to Define
 - [x] Confirm final navigation structure (About Us, Our Work, Apply dropdown, Contact Us)
@@ -106,9 +106,9 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Add slide indicator dots
 - [x] Implement auto-play with pause on hover
 - [x] Ensure responsive behavior on mobile
-- [ ] Add image loading states with fade-in (enhancement)
+- [x] Add image loading states with fade-in
 - [x] Source hero images (using existing assets as placeholders)
-- [ ] Remove old `/frontend/src/components/home_page/HomePageTop.tsx` (cleanup task)
+- [x] Remove old `/frontend/src/components/home_page/HomePageTop.tsx`
 
 ### Content to Define
 - [x] Determine hero carousel images (2 slides using existing assets)
@@ -226,7 +226,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Migrate existing sponsor logo assets
 - [x] Add image loading states
 - [x] Ensure responsive behavior on mobile
-- [ ] Remove old `/frontend/src/components/home_page/Supporters.tsx` (cleanup task)
+- [x] Remove old `/frontend/src/components/home_page/Supporters.tsx`
 
 ### Assets
 - [x] Using existing sponsor logos from `/frontend/src/components/assets/supporters/`
@@ -249,7 +249,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Style centered heading with proper typography
 - [x] Implement two CTA buttons (primary and outline)
 - [x] Add proper spacing and section padding
-- [ ] Remove old `/frontend/src/components/home_page/HomePageLower.tsx` (cleanup task)
+- [x] Remove old `/frontend/src/components/home_page/HomePageLower.tsx`
 
 ### Content to Define
 - [x] "Join as Student" → /apply/student
@@ -282,7 +282,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [x] Create navigation columns (Explore, Apply, Contact)
 - [x] Add contact information section
 - [x] Ensure responsive stacking on mobile
-- [ ] Remove old `/frontend/src/components/footer/Footer.tsx` (cleanup task)
+- [x] Remove old `/frontend/src/components/footer/Footer.tsx`
 
 ### Content to Define
 - [x] Footer navigation: Explore (About Us, Our Work, Contact), Apply (Students, Nonprofits)
@@ -313,7 +313,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 
 ---
 
-## Phase 11: Cleanup & Migration
+## Phase 11: Cleanup & Migration ✅
 
 ### ⚠️ DEPRECATED Components (to be removed later)
 
@@ -327,13 +327,13 @@ The following old components are **deprecated** and replaced by new ones. Keep f
 | `Navbar.tsx` (old) | `Navbar.tsx` (new) | `/frontend/src/components/navbar/` → `/frontend/src/components/layout/` |
 | `Footer.tsx` (old) | `Footer.tsx` (new) | `/frontend/src/components/footer/` → `/frontend/src/components/layout/` |
 
-### Old Directories to Remove (when ready)
-- [ ] `/frontend/src/components/home_page/` - Old homepage components
-- [ ] `/frontend/src/components/navbar/` - Old navbar
-- [ ] `/frontend/src/components/footer/` - Old footer
-- [ ] `/frontend/src/styles/home/` - Old homepage CSS modules
-- [ ] `/frontend/src/styles/navbar/` - Old navbar CSS modules
-- [ ] `/frontend/src/styles/footer/` - Old footer CSS modules
+### Old Directories to Remove
+- [x] `/frontend/src/components/home_page/` - Old homepage components
+- [x] `/frontend/src/components/navbar/` - Old navbar
+- [x] `/frontend/src/components/footer/` - Old footer
+- [x] `/frontend/src/styles/home/` - Old homepage CSS modules (removed deprecated files)
+- [x] `/frontend/src/styles/navbar/` - Old navbar CSS modules
+- [x] `/frontend/src/styles/footer/` - Old footer CSS modules
 
 ### Update App.tsx ✅
 - [x] Update Navbar import path to new location
@@ -367,10 +367,10 @@ The following old components are **deprecated** and replaced by new ones. Keep f
 - [ ] Edge
 
 ### Accessibility Testing
-- [ ] Keyboard navigation works throughout
+- [x] Keyboard navigation works throughout
 - [ ] Screen reader announces content correctly
 - [ ] Color contrast meets WCAG AA standards
-- [ ] Focus states are visible
+- [x] Focus states are visible
 - [x] Images have alt text
 
 ### Performance

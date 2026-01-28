@@ -19,6 +19,15 @@ const heroSlides = [
 export default function HeroCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState<boolean[]>(new Array(heroSlides.length).fill(false));
+
+  const handleImageLoad = (index: number) => {
+    setImagesLoaded((prev) => {
+      const newState = [...prev];
+      newState[index] = true;
+      return newState;
+    });
+  };
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
     {
@@ -70,11 +79,14 @@ export default function HeroCarousel() {
     <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden">
       <div ref={sliderRef} className="keen-slider h-full">
         {heroSlides.map((slide, index) => (
-          <div key={index} className="keen-slider__slide relative">
+          <div key={index} className="keen-slider__slide relative bg-gray-200">
             <img
               src={slide.image}
               alt={slide.alt}
-              className="w-full h-full object-cover"
+              className={`w-full h-full object-cover transition-opacity duration-700 ${
+                imagesLoaded[index] ? 'opacity-100' : 'opacity-0'
+              }`}
+              onLoad={() => handleImageLoad(index)}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20" />
           </div>
