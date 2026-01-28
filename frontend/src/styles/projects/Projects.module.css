@@ -22,11 +22,29 @@
   }
   
   @media screen and (min-width: 1200px) {
-  
+
     .featuredProjectCards {
       max-width: 1096px;
       margin-left: auto;
       margin-right: auto;
     }
-  
+
+  }
+
+  .emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    min-height: 300px;
+  }
+
+  .emptyStateText {
+    color: #666666;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    max-width: 500px;
+    line-height: 1.6;
   }

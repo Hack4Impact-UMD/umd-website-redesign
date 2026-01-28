@@ -67,7 +67,13 @@ const Projects = (props: any) => {
 };
 
 const NoProjects = () => {
-  return <h1>Oops! There are currently no projects loaded. Try again later.</h1>;
+  return (
+    <div className={styles.emptyState}>
+      <p className={styles.emptyStateText}>
+        No projects are currently available. Please check back later.
+      </p>
+    </div>
+  );
 };
 
 export default Projects;
