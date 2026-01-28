@@ -5,9 +5,14 @@ import { useAxios, getSeason } from '../HelperFunctions';
 import StandardButton from '../buttons/StandardButton';
 import LoadingSpinner from '../LoadingSpinner';
 
-const Projects = (props: any) => {
+interface ProjectsProps {
+  isFeatured: boolean;
+  containerClassName?: string;
+}
+
+const Projects = ({ isFeatured, containerClassName }: ProjectsProps) => {
   //check which type of projects were rendering
-  const res = props.isFeatured == true
+  const res = isFeatured == true
     ? useAxios(
         import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*&filters[isFeatured][$eq]=true',
         'GET',
@@ -23,9 +28,9 @@ const Projects = (props: any) => {
 
   return (
     <div>
-      <div className={styles.featuredProjectCards}>
+      <div className={[styles.featuredProjectCards, containerClassName].filter(Boolean).join(' ')}>
         {/*if display current projects, show current projects title*/}
-        {props.isFeatured ? null : <h2 id={styles.sectionTitle}>Current Projects</h2>}
+        {isFeatured ? null : <h2 id={styles.sectionTitle}>Current Projects</h2>}
         {!res.loaded ? (
           <LoadingSpinner text="Loading projects..." />
         ) : !projects || projects.length === 0 ? (
@@ -57,7 +62,7 @@ const Projects = (props: any) => {
         )}
       </div>
       {/**display see more button if showing featured projects */}
-      {props.isFeatured ? (
+      {isFeatured ? (
         <div className={styles.seeMore}>
           <StandardButton text="See More" color="blue" link="/ourwork" />
         </div>
