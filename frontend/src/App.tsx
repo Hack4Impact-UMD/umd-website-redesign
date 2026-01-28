@@ -17,7 +17,7 @@ import ProjectPage from './pages/ProjectPage';
 import ScrollToTopButton from './components/buttons/ScrollToTopButton';
 import PageNotFound from './pages/PageNotFound';
 import Projects from './components/projects/Projects';
-import RecruitmentBanner from './components/banner/RecruitmentBanner';
+// import RecruitmentBanner from './components/banner/RecruitmentBanner';
 
 // Scrolls to top of
 // https://stackoverflow.com/a/70194027
@@ -46,7 +46,7 @@ function App() {
       <ScrollToTopWrapper>
         <div>
           <Navbar />
-          <RecruitmentBanner />
+          {/* <RecruitmentBanner /> */}
           <Routes>
             <Route path="*" element={<PageNotFound />} />
             <Route path="/" element={<Homepage />} />
