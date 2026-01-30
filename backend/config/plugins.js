@@ -1,5 +1,4 @@
 module.exports = ({ env }) => {
-  // Parse CLOUDINARY_URL if set (Heroku add-on format: cloudinary://key:secret@cloud_name)
   const cloudinaryUrl = env('CLOUDINARY_URL', '');
   const parsed = cloudinaryUrl.match(/^cloudinary:\/\/([^:]+):([^@]+)@([^/?]+)/);
 
