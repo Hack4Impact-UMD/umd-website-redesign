@@ -38,32 +38,60 @@ export default function HeroCarousel() {
         let timeout: ReturnType<typeof setTimeout>;
         let mouseOver = false;
 
-        function clearNextTimeout() {
+        const clearNextTimeout = () => {
           clearTimeout(timeout);
-        }
+        };
 
-        function nextTimeout() {
+        const nextTimeout = () => {
           clearTimeout(timeout);
           if (mouseOver) return;
           timeout = setTimeout(() => {
             slider.next();
           }, 5000);
-        }
+        };
 
-        slider.on('created', () => {
-          slider.container.addEventListener('mouseover', () => {
-            mouseOver = true;
-            clearNextTimeout();
-          });
-          slider.container.addEventListener('mouseout', () => {
-            mouseOver = false;
-            nextTimeout();
-          });
+        const handleMouseOver = () => {
+          mouseOver = true;
+          clearNextTimeout();
+        };
+
+        const handleMouseOut = () => {
+          mouseOver = false;
           nextTimeout();
-        });
-        slider.on('dragStarted', clearNextTimeout);
-        slider.on('animationEnded', nextTimeout);
-        slider.on('updated', nextTimeout);
+        };
+
+        const handleCreated = () => {
+          slider.container.addEventListener('mouseover', handleMouseOver);
+          slider.container.addEventListener('mouseout', handleMouseOut);
+          nextTimeout();
+        };
+
+        const handleDragStarted = () => {
+          clearNextTimeout();
+        };
+
+        const handleAnimationEnded = () => {
+          nextTimeout();
+        };
+
+        const handleUpdated = () => {
+          nextTimeout();
+        };
+
+        slider.on('created', handleCreated);
+        slider.on('dragStarted', handleDragStarted);
+        slider.on('animationEnded', handleAnimationEnded);
+        slider.on('updated', handleUpdated);
+
+        return () => {
+          clearNextTimeout();
+          slider.container.removeEventListener('mouseover', handleMouseOver);
+          slider.container.removeEventListener('mouseout', handleMouseOut);
+          slider.off?.('created', handleCreated);
+          slider.off?.('dragStarted', handleDragStarted);
+          slider.off?.('animationEnded', handleAnimationEnded);
+          slider.off?.('updated', handleUpdated);
+        };
       },
     ]
   );
