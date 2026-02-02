@@ -298,8 +298,8 @@ function AboutUs() {
 
 ### Cleanup Tasks (deferred - verify usage first)
 - [ ] Verify no other pages use `Person.tsx` before removing
-- [ ] Verify no other pages use `ValueCard.tsx` before removing
-- [ ] Remove deprecated CSS module files
+- [x] Verify no other pages use `ValueCard.tsx` before removing
+- [x] Remove deprecated ValueCard files (`/components/about_us/ValueCard.tsx`, `/styles/about_us/ValueCard.module.css`)
 - [ ] Remove unused asset imports
 - [ ] Clean up any unused dependencies
 
