@@ -2,5 +2,9 @@
     "scripts": {
         "heroku-postbuild": "cd backend && npm install && npm run build",
         "start": "cd backend && npm start"
+    },
+    "engines": {
+        "node": "20.x",
+        "npm": "10.x"
     }
 }
