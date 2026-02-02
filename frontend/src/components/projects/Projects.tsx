@@ -13,17 +13,10 @@ interface ProjectsProps {
 
 const Projects = ({ isFeatured, containerClassName, showSectionTitle = true }: ProjectsProps) => {
   //check which type of projects were rendering
-  const res = isFeatured == true
-    ? useAxios(
-        import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*&filters[isFeatured][$eq]=true',
-        'GET',
-        {},
-      )
-    : useAxios(
-        import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*&filters[isCurrentProject][$eq]=true',
-        'GET',
-        {},
-      );
+  const requestUrl = isFeatured
+    ? import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*&filters[isFeatured][$eq]=true'
+    : import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*&filters[isCurrentProject][$eq]=true';
+  const res = useAxios(requestUrl, 'GET', {});
 
   const projects = res.data ? res.data['data'] : [];
 
