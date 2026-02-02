@@ -4,14 +4,16 @@ import 'keen-slider/keen-slider.min.css';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import h4iGroupPhoto from '@/components/assets/h4igroup_photo.jpg';
+import aboutHeader from '@/components/assets/aboutus_header.png';
 
 const heroSlides = [
   {
-    image: '/src/components/assets/h4igroup_photo.jpg',
+    image: h4iGroupPhoto,
     alt: 'Hack4Impact UMD team photo',
   },
   {
-    image: '/src/components/assets/aboutus_header.png',
+    image: aboutHeader,
     alt: 'Hack4Impact UMD event',
   },
 ];
