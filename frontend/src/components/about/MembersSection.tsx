@@ -27,6 +27,7 @@ interface RoleData {
 }
 
 interface MemberData {
+  id: number;
   attributes: {
     firstName: string;
     lastName: string;
@@ -81,7 +82,7 @@ export default function MembersSection({ title, filterStatus }: MembersSectionPr
 
               return (
                 <PersonCard
-                  key={memberName}
+                  key={member.id}
                   name={memberName}
                   role={displayRole?.title || ''}
                   imageSrc={avatar?.data?.attributes.url}

@@ -8,9 +8,10 @@ import LoadingSpinner from '../LoadingSpinner';
 interface ProjectsProps {
   isFeatured: boolean;
   containerClassName?: string;
+  showSectionTitle?: boolean;
 }
 
-const Projects = ({ isFeatured, containerClassName }: ProjectsProps) => {
+const Projects = ({ isFeatured, containerClassName, showSectionTitle = true }: ProjectsProps) => {
   //check which type of projects were rendering
   const res = isFeatured == true
     ? useAxios(
@@ -30,7 +31,9 @@ const Projects = ({ isFeatured, containerClassName }: ProjectsProps) => {
     <div>
       <div className={[styles.featuredProjectCards, containerClassName].filter(Boolean).join(' ')}>
         {/*if display current projects, show current projects title*/}
-        {isFeatured ? null : <h2 id={styles.sectionTitle}>Current Projects</h2>}
+        {isFeatured || !showSectionTitle ? null : (
+          <h2 id={styles.sectionTitle}>Current Projects</h2>
+        )}
         {!res.loaded ? (
           <LoadingSpinner text="Loading projects..." />
         ) : !projects || projects.length === 0 ? (

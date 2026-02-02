@@ -16,8 +16,12 @@ export default function CurrentProjectsSection() {
             View all projects →
           </Link>
         </div>
-        <div className="[&_#sectionTitle]:hidden [&_h3]:text-inverse-foreground [&_p]:text-inverse-foreground/80 [&_a]:text-inverse-foreground [&_h1]:text-inverse-foreground">
-          <Projects isFeatured={false} containerClassName="!mx-0 !max-w-none" />
+        <div className="[&_h3]:text-inverse-foreground [&_p]:text-inverse-foreground/80 [&_a]:text-inverse-foreground [&_h1]:text-inverse-foreground">
+          <Projects
+            isFeatured={false}
+            showSectionTitle={false}
+            containerClassName="!mx-0 !max-w-none"
+          />
         </div>
       </div>
     </section>
