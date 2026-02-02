@@ -165,6 +165,10 @@ These tokens map to shadcn/ui theme CSS variables. Add to `/frontend/src/index.c
     --input: 209 213 219;                /* #D1D5DB - color-border-muted */
     --ring: 0 105 202;                   /* #0069CA - color-ring-focus */
 
+    /* Inverse */
+    --inverse: 15 23 42;                 /* #0F172A - color-bg-inverse */
+    --inverse-foreground: 255 255 255;   /* #FFFFFF - color-text-inverse */
+
     /* Destructive / Error */
     --destructive: 185 28 28;            /* #B91C1C - color-state-error */
     --destructive-foreground: 255 255 255;
@@ -214,6 +218,14 @@ shadcn/ui components use these CSS variables via Tailwind:
 <div className="border-input" />         {/* Form input border */}
 <div className="ring-ring" />            {/* Focus ring */}
 ```
+
+### Inverse Sections
+
+For dark sections in light mode, use the inverse tokens:
+
+- `bg-inverse` for the section background
+- `text-inverse-foreground` for headings and links
+- `text-inverse-foreground/80` for body copy
 
 ### Custom H4I Colors (Tailwind Config)
 
