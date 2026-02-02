@@ -122,9 +122,9 @@ frontend/src/components/about/
 
 ### Component: `/frontend/src/components/about/ValuesSection.tsx`
 
-**Current state:** 3 gradient flip cards with text only (ValueCard.tsx)
+**Current state:** Implemented with Tailwind CSS - section title with 3 image-based cards in a responsive grid, each displaying a rounded image, title, and description text (static cards, no animations).
 
-**New design (from mockup):**
+**Design (from mockup):**
 - Section title "Our Values" centered
 - 3 image-based cards in a row
 - Each card: rounded image, title below, description text
@@ -298,8 +298,8 @@ function AboutUs() {
 
 ### Cleanup Tasks (deferred - verify usage first)
 - [ ] Verify no other pages use `Person.tsx` before removing
-- [ ] Verify no other pages use `ValueCard.tsx` before removing
-- [ ] Remove deprecated CSS module files
+- [x] Verify no other pages use `ValueCard.tsx` before removing
+- [x] Remove deprecated ValueCard files (`/components/about_us/ValueCard.tsx`, `/styles/about_us/ValueCard.module.css`)
 - [ ] Remove unused asset imports
 - [ ] Clean up any unused dependencies
 
