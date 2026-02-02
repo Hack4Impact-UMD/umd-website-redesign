@@ -78,6 +78,16 @@ export default function HeroCarousel() {
           nextTimeout();
         };
 
+        const removeSliderListener = (
+          event: 'created' | 'dragStarted' | 'animationEnded' | 'updated',
+          handler: () => void
+        ) => {
+          (slider as unknown as { off?: (event: string, handler: () => void) => void }).off?.(
+            event,
+            handler
+          );
+        };
+
         slider.on('created', handleCreated);
         slider.on('dragStarted', handleDragStarted);
         slider.on('animationEnded', handleAnimationEnded);
@@ -87,10 +97,10 @@ export default function HeroCarousel() {
           clearNextTimeout();
           slider.container.removeEventListener('mouseover', handleMouseOver);
           slider.container.removeEventListener('mouseout', handleMouseOut);
-          slider.off?.('created', handleCreated);
-          slider.off?.('dragStarted', handleDragStarted);
-          slider.off?.('animationEnded', handleAnimationEnded);
-          slider.off?.('updated', handleUpdated);
+          removeSliderListener('created', handleCreated);
+          removeSliderListener('dragStarted', handleDragStarted);
+          removeSliderListener('animationEnded', handleAnimationEnded);
+          removeSliderListener('updated', handleUpdated);
         };
       },
     ]
