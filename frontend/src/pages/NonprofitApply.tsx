@@ -12,19 +12,19 @@ import introImage from '@/components/assets/mott_haven_image.jpg';
 const timelineSteps = [
   {
     title: 'Step 1',
-    subtitle: 'Dates',
+    subtitle: 'Jan 15 – Feb 1',
     description:
       'Submit your application so our sourcing team can review your organization’s goals and needs.',
   },
   {
     title: 'Step 2',
-    subtitle: 'Dates',
+    subtitle: 'Feb 2 – Feb 15',
     description:
       'We will reach out within two weeks to schedule a virtual meeting and discuss potential collaboration.',
   },
   {
     title: 'Step 3',
-    subtitle: 'Dates',
+    subtitle: 'Late Feb – Early Mar',
     description:
       'Confirm the project scope, timeline, and next steps for partnership and onboarding.',
   },
@@ -76,7 +76,7 @@ function NonprofitApply() {
         Currently taking Fall 2025 Applications. Apply Now
       </div>
       <ApplyIntro
-        heading="Heading 1"
+        heading="Partner With Us"
         body="At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want to use our software and web development skills to help nonprofits. Our collaborations with nonprofits are semester-long (around 3-4 months), and we will work with you to develop a software product that suits your organization's needs."
         ctaLabel="Apply"
         ctaHref="https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link"

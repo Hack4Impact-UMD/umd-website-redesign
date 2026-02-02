@@ -116,7 +116,7 @@ function StudentApply() {
     <ApplyPageLayout>
       <ApplyHero title="Apply as a Student" backgroundImage={heroImage} />
       <ApplyIntro
-        heading="Heading 1"
+        heading="Join Our Student Community"
         body="At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want to use our software and web development skills to help nonprofits. Our collaborations with nonprofits are semester-long (around 3-4 months), and we will work with you to develop a software product that suits your organization's needs."
         ctaLabel="Apply"
         ctaHref="https://apply.umd.hack4impact.org/login"
