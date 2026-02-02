@@ -1,191 +1,123 @@
-import React from 'react';
-import 'keen-slider/keen-slider.min.css';
-import { useKeenSlider } from 'keen-slider/react';
-import styles from '../styles/apply/NonprofitApply.module.css';
-import StudentNonprofitSelector from '../components/apply/StudentNonprofitSelector';
-import StandardButton from '../components/buttons/StandardButton';
-import Faq, { FaqRow } from '../components/apply/Faq';
-import { Link } from 'react-router-dom';
-import LoadingSpinner from '../components/LoadingSpinner';
-import ImageWithLoading from '../components/ImageWithLoading';
+import ApplyCTA from '@/components/apply/ApplyCTA';
+import ApplyFaq from '@/components/apply/ApplyFAQ';
+import ApplyHero from '@/components/apply/ApplyHero';
+import ApplyIntro from '@/components/apply/ApplyIntro';
+import { ApplyPageLayout, ApplySection, SectionHeader } from '@/components/apply/ApplyPageLayout';
+import ApplyTestimonials from '@/components/apply/ApplyTestimonials';
+import ApplyTimeline from '@/components/apply/ApplyTimeline';
 
-import arcadiaLogo from '../components/assets/npo_files/arcadia_logo.svg';
-import hamptonLogo from '../components/assets/npo_files/hampton_logo.svg';
-import cadcLogo from '../components/assets/npo_files/cadc_logo.svg';
-import unstoppableLogo from '../components/assets/npo_files/2unstoppable_logo.svg';
-import { useAxios } from '../components/HelperFunctions';
+import heroImage from '@/components/assets/h4igroup_photo.jpg';
+import introImage from '@/components/assets/mott_haven_image.jpg';
+
+const timelineSteps = [
+  {
+    title: 'Step 1',
+    subtitle: 'Dates',
+    description:
+      'Submit your application so our sourcing team can review your organization’s goals and needs.',
+  },
+  {
+    title: 'Step 2',
+    subtitle: 'Dates',
+    description:
+      'We will reach out within two weeks to schedule a virtual meeting and discuss potential collaboration.',
+  },
+  {
+    title: 'Step 3',
+    subtitle: 'Dates',
+    description:
+      'Confirm the project scope, timeline, and next steps for partnership and onboarding.',
+  },
+];
+
+const faqItems = [
+  {
+    question: 'What kinds of projects are a good fit?',
+    answer:
+      'We build web applications, data tools, and internal systems that help nonprofits scale their impact.',
+  },
+  {
+    question: 'What does a collaboration cost?',
+    answer:
+      'Projects are free aside from minimal hosting costs, which we keep as low as possible.',
+  },
+  {
+    question: 'How long does a project take?',
+    answer:
+      'Most engagements span one academic semester (approximately 3–4 months).',
+  },
+  {
+    question: 'How involved should my team be?',
+    answer:
+      'We ask for regular feedback and a point of contact so we can build the right solution together.',
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      'Working with Hack4Impact has been great. The students are talented and really have a passion for social good.',
+    name: 'Nonprofit Person',
+    organization: 'Organization Name',
+  },
+  {
+    quote:
+      'Our collaboration was organized and communicative, and the final product delivered real value.',
+    name: 'Nonprofit Person',
+    organization: 'Organization Name',
+  },
+];
 
 function NonprofitApply() {
   return (
-    <div className={styles.nonprofitApply}>
-      {/* <Navbar /> */}
-      <NonprofitApplyHeader />
-      <Carousel />
-      <HowToApply />
-      <div className={styles.applyButton}>
-        <StandardButton
-          color="green"
-          text="Apply"
-          externalLink={true}
-          link="https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link"
-        />
+    <ApplyPageLayout>
+      <ApplyHero title="Apply as a Nonprofit" backgroundImage={heroImage} />
+      <div className="bg-accent px-6 py-3 text-center text-sm font-semibold text-primary">
+        Currently taking Fall 2025 Applications. Apply Now
       </div>
-      <div className={styles.faq}>
-        <FaqSection />
-      </div>
-    </div>
-  );
-}
-
-function NonprofitApplyHeader() {
-  return (
-    <div className={styles.nonprofitApplyHeader}>
-      <div className={styles.nonprofitApplyHeaderContent}>
-        <h1>Apply</h1>
-        <StudentNonprofitSelector curr={'nonprofit'} />
-        <p>
-          At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want to
-          use our software and web development skills to help nonprofits. Our collaborations with nonprofits are
-          semester-long (around 3-4 months), and we will work with you to develop a software product that suits your
-          organization’s needs.
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function Carousel() {
-  const res = useAxios(import.meta.env.VITE_ROOT_URL + "/api/projects?populate=*", "GET", {});
-  const allProjects: any[] = res.data ? res.data["data"] : [];
-  const cleanedProjects = allProjects.map(x => x["attributes"]);
-  const past_projects = cleanedProjects;
-
-  const animation = { duration: 5000, easing: (t: any) => t / 3 };
-  const [ref] = useKeenSlider<HTMLDivElement>({
-    loop: true,
-    mode: 'free',
-    slides: { origin: 'center', perView: 3, spacing: 30},
-    created(s) {
-      s.moveToIdx(4, true, animation);
-    },
-    updated(s) {
-      s.moveToIdx(s.track.details.abs + 5, true, animation);
-    },
-    animationEnded(s) {
-      s.moveToIdx(s.track.details.abs + 5, true, animation);
-    },
-  });
-
-  if (!res.loaded) {
-    return <LoadingSpinner text="Loading partner organizations..." />;
-  }
-
-  return (
-    <div ref={ref} className={`keen-slider ${styles.carousel}`}>
-      <Link to={getRecentProject("Arcadia", past_projects)}>
-        <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={arcadiaLogo} alt="Arcadia Center for Sustainable Food & Agriculture" />
-      </Link>
-      <Link to={getRecentProject("WISE-E", past_projects)}>
-        <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={hamptonLogo} alt="WISE-E (Women in STEM Excellence and Equity)" />
-      </Link>
-      <Link to={getRecentProject("CaDC", past_projects)}>
-        <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={cadcLogo} alt="Community Action Development Corporation" />
-      </Link>
-      <Link to={getRecentProject("2Unstoppable", past_projects)}>
-      <ImageWithLoading className={`keen-slider__slide ${styles.orgLogo}`} src={unstoppableLogo} alt="2Unstoppable" />
-      </Link>
-    </div>
-  );
-}
-
-/*
-  Get the most recent project from an organization. It will redirect to the 'ourwork' page if organization does not 
-  have any projects in database. 
-*/
-function getRecentProject(organization: string, past_projects: any[]) {
-  let path = '/ourwork/';
-  const organizationProjects = past_projects.filter(project => (project['title'] as string).includes(organization));
-  if (organizationProjects.length > 0) {
-    let recentProject = organizationProjects[0];
-    organizationProjects.forEach(project => {
-      const recentProjectDate = new Date(recentProject["startDate"] as string);
-      const curProjectDate = new Date(project["startDate"] as string);
-      if (curProjectDate > recentProjectDate) {
-        recentProject = project;
-      }
-    })
-    path += recentProject["path"] as string
-  }
-  return path
-}
-
-
-function HowToApply() {
-  return (
-    <div className={styles.howToApply}>
-      <h2>How to Apply</h2>
-      <p>
-        Please fill out our application form below, and our sourcing team will reach out to the email provided in the
-        application within 2 weeks of the application being submitted. In this initial email, we will further explain
-        the role of Hack4Impact-UMD and set up a time to virtually meet with your organization. <br /> <br />
-        During the first meeting, we will go over the timeline of working with Hack4Impact-UMD, clarify any questions
-        you may have, and learn more about your work. <br /> <br />
-        We will also discuss any tech needs that your organization may need and potential collaborations that could be
-        done between us. After the initial meeting, we will follow up with whether or not we would like to collaborate
-        on the discussed project and any resulting next steps.
-      </p>
-    </div>
-  );
-}
-
-function FaqSection() {
-  return (
-    <Faq>
-      <FaqRow
-        question={<h3>What types of projects do you undertake?</h3>}
-        answer={
-          <p>
-            Most of the projects we undertake are web applications. Common examples of problems we tackle include 
-            volunteer tracking forms, member directories, and data tracking softwares. Check out our projects page 
-            to see some of our previous work, and feel free to contact us with any project ideas!{' '}
-          </p>
-        }
+      <ApplyIntro
+        heading="Heading 1"
+        body="At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want to use our software and web development skills to help nonprofits. Our collaborations with nonprofits are semester-long (around 3-4 months), and we will work with you to develop a software product that suits your organization's needs."
+        ctaLabel="Apply"
+        ctaHref="https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link"
+        imageSrc={introImage}
+        imageAlt="Hack4Impact students collaborating in a classroom"
       />
-      <FaqRow 
-        question={<h3>How much does this cost?</h3>} 
-        answer={
-          <p>
-            These projects are free or low cost (around $5 to $15 per month) for the website and hosting expenses. We are 
-            building software to better help you serve your community, and we know how tight money can be so we 
-            try to keep these expenses as low as possible.
-          </p>} />
-      <FaqRow 
-        question={<h3>What does the project timeline look like?</h3>} 
-        answer={
-          <p>
-            Most development begins at the start of the academic semseter and continues until around the end of the semester. 
-            Throughout all of this, we will remain in constant contact with you to ensure that we are building an application 
-            that you will want to use.
-          </p>} />
-      <FaqRow 
-        question={<h3>How much involvement is expected from nonprofits?</h3>} 
-        answer={
-          <p>
-            We strongly believe in continuous and transparent communication to ensure that your project is something that you 
-            will be happy with. This means we will be asking for constant feedback throughout the development cycle.
-          </p>} />
-      <FaqRow 
-        question={<h3>How does long term maintenance work?</h3>} 
-        answer={
-          <p>
-            Once we hand the product off to you around the end of the academic semester, we want to give you time to experiment 
-            with it and find anything that needs to be changed. <br /> <br /> 
-            Once we end the semester, we will no longer be able to make 
-            additions as easily due to limited resources on our end. If you encounter bugs on the site, we will attempt to 
-            correct these issues, but cannot guarantee that we will be able to.
-          </p>} />
-      <br/><br/><br/>
-    </Faq>
+
+      <ApplySection variant="muted">
+        <div className="space-y-6">
+          <SectionHeader title="Criteria/Qualifications" />
+          <div className="space-y-4 font-body text-base text-muted-foreground">
+            <p>
+              At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want
+              to use our software and web development skills to help nonprofits. Our collaborations with nonprofits are
+              semester-long (around 3-4 months), and we will work with you to develop a software product that suits your
+              organization’s needs.
+            </p>
+            <p>
+              At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want
+              to use our software and web development skills to help nonprofits. Our collaborations with nonprofits are
+              semester-long (around 3-4 months), and we will work with you to develop a software product that suits your
+              organization’s needs.
+            </p>
+          </div>
+        </div>
+      </ApplySection>
+
+      <ApplyTimeline heading="Application Process & Timeline" steps={timelineSteps} />
+
+      <ApplyTestimonials testimonials={testimonials} />
+
+      <ApplyFaq heading="Frequently Asked Questions" items={faqItems} />
+
+      <ApplyCTA
+        heading="Ready to Work with Us?"
+        primaryLabel="Apply"
+        primaryHref="https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link"
+        secondaryLabel="I'm a Student"
+        secondaryHref="/apply/student"
+      />
+    </ApplyPageLayout>
   );
 }
 
