@@ -66,7 +66,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 ### Tasks
 - [x] Create new `Navbar.tsx` component using Tailwind + shadcn
 - [x] Implement logo component with H4I branding
-- [x] Define navigation link structure (reusing old: About Us, Our Work, Apply, Contact Us)
+- [x] Define navigation link structure (reusing old: About Us, Our Work, Apply)
 - [x] Style navbar with new design tokens
 - [x] Implement sticky/fixed positioning
 - [x] Add mobile hamburger menu (responsive at 1000px breakpoint)
@@ -78,7 +78,7 @@ This document outlines the comprehensive task list for redesigning the homepage 
 - [ ] Remove old `/frontend/src/components/navbar/` (cleanup task)
 
 ### Navigation Links to Define
-- [x] Confirm final navigation structure (About Us, Our Work, Apply dropdown, Contact Us)
+- [x] Confirm final navigation structure (About Us, Our Work, Apply dropdown)
 - [x] Decide if any new sections need navbar links (none needed)
 
 ---
@@ -382,13 +382,13 @@ The following old components are **deprecated** and replaced by new ones. Keep f
 
 ## Open Questions / TBD - RESOLVED ✅
 
-1. **Navbar Links:** ✅ About Us, Our Work, Apply (dropdown), Contact Us
+1. **Navbar Links:** ✅ About Us, Our Work, Apply (dropdown)
 2. **Hero CTAs:** ✅ "Learn More" → /aboutus, "Apply Now" → /apply/student
 3. **Hero Images:** ✅ Using existing assets (h4igroup_photo.jpg, aboutus_header.png)
 4. **Testimonials:** ✅ Hardcoded placeholders (to be replaced with real quotes later)
 5. **Newsletter Stats:** ✅ Hardcoded (149 members, 7 nonprofits, 6 semesters, etc.)
 6. **Footer Email:** ✅ umd@hack4impact.org
-7. **Footer Columns:** ✅ Explore (About Us, Our Work, Contact), Apply (Students, Nonprofits)
+7. **Footer Columns:** ✅ Explore (About Us, Our Work), Apply (Students, Nonprofits)
 8. **Final CTA Buttons:** ✅ "Join as Student" → /apply/student, "Partner With Us" → /apply/nonprofit
 
 ---

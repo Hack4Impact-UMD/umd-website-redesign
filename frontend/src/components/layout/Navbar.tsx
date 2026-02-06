@@ -15,7 +15,6 @@ const navLinks = [
       { label: 'For Nonprofits', href: '/apply/nonprofit' },
     ],
   },
-  { label: 'Contact Us', href: '/contactus' },
 ];
 
 export default function Navbar() {

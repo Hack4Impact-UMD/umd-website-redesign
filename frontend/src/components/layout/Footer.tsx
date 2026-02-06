@@ -9,7 +9,6 @@ const footerLinks = {
   explore: [
     { label: 'About Us', href: '/aboutus' },
     { label: 'Our Work', href: '/ourwork' },
-    { label: 'Contact', href: '/contactus' },
   ],
   apply: [
     { label: 'For Students', href: '/apply/student' },
