@@ -2,7 +2,6 @@ import { useLayoutEffect } from 'react';
 import { Route, BrowserRouter, Routes, useLocation } from 'react-router-dom';
 
 import AboutUs from './pages/AboutUs';
-import ContactPage from './pages/ContactPage';
 import StudentApply from './pages/StudentApply';
 import NonprofitApply from './pages/NonprofitApply';
 import OurWork from './pages/OurWork';
@@ -57,7 +56,6 @@ function App() {
               <Route path="/apply" element={<StudentApply />} />
               <Route path="/apply/student" element={<StudentApply />} />
               <Route path="/apply/nonprofit" element={<NonprofitApply />} />
-              <Route path="/contactus" element={<ContactPage />} />
               <Route path="ourwork/:projectpath" element={<ProjectPage />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>
