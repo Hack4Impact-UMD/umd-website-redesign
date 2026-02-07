@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from '../../styles/our_work/OurWorkHeader.module.css';
 import heroImage from '../assets/h4igroup_photo.jpg';
 
