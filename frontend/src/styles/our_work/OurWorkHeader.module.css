@@ -19,10 +19,16 @@
 .content {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.contentInner {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
   text-align: center;
-  padding: 24px;
 }
 
 .title {
@@ -37,4 +43,16 @@
   font-family: 'Karla';
   font-weight: 700;
   line-height: 1.15;
+}
+
+@media screen and (min-width: 640px) {
+  .contentInner {
+    padding: 0 24px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .contentInner {
+    padding: 0 32px;
+  }
 }

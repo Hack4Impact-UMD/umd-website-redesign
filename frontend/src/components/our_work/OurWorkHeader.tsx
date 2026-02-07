@@ -8,8 +8,10 @@ const OurWorkHeader = () => {
       <img className={styles.heroImage} src={heroImage} alt="Hack4Impact UMD team" />
       <div className={styles.overlay} aria-hidden="true" />
       <div className={styles.content}>
-        <h1 className={styles.title}>Past Project Library</h1>
-        <p className={styles.subtitle}>Building Software for Social Good</p>
+        <div className={styles.contentInner}>
+          <h1 className={styles.title}>Past Project Library</h1>
+          <p className={styles.subtitle}>Building Software for Social Good</p>
+        </div>
       </div>
     </header>
   );
