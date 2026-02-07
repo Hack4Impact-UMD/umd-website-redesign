@@ -34,15 +34,20 @@
 .title {
   color: #ffffff;
   margin: 0;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 .subtitle {
-  margin: 8px 0 0;
-  color: #ffffff;
-  font-size: clamp(20px, 2.2vw, 40px);
-  font-family: 'Karla';
-  font-weight: 700;
-  line-height: 1.15;
+  margin: 12px auto 0;
+  color: #f4f7fb;
+  font-size: clamp(18px, 2.2vw, 28px);
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+  line-height: 1.4;
+  max-width: 720px;
 }
 
 @media screen and (min-width: 640px) {
