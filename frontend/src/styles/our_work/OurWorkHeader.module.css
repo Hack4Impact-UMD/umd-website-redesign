@@ -1,7 +1,6 @@
 .header {
   position: relative;
   height: clamp(240px, 38vw, 410px);
-  margin-top: 70px;
   overflow: hidden;
 }
 
