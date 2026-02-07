@@ -103,7 +103,7 @@ const sortYears = (a: string, b: string) => {
 
 const OurWorkProjectLibrary = () => {
   const projectsRes = useAxios(
-    `${process.env.REACT_APP_ROOT_URL}/api/projects?fields[0]=title&fields[1]=path&fields[2]=startDate&fields[3]=isCurrentProject&fields[4]=imageAltText&populate[image][fields][0]=url&populate[nonprofit][fields][0]=name`,
+    `${import.meta.env.VITE_ROOT_URL}/api/projects?fields[0]=title&fields[1]=path&fields[2]=startDate&fields[3]=isCurrentProject&fields[4]=imageAltText&populate[image][fields][0]=url&populate[nonprofit][fields][0]=name`,
     'GET',
     {},
   );
