@@ -56,7 +56,7 @@ function App() {
               <Route path="/apply" element={<StudentApply />} />
               <Route path="/apply/student" element={<StudentApply />} />
               <Route path="/apply/nonprofit" element={<NonprofitApply />} />
-              <Route path="ourwork/:projectpath" element={<ProjectPage />} />
+              <Route path="/ourwork/:projectpath" element={<ProjectPage />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </div>

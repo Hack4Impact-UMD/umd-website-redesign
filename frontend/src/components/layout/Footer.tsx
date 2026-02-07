@@ -24,13 +24,21 @@ const footerLinks = {
 
 export default function Footer() {
   const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'success'>('idle');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    setStatus('success');
-    setEmail('');
+    setStatus('loading');
+
+    try {
+      // TODO: Replace with the real newsletter subscription API (EmailJS or backend endpoint).
+      await new Promise((resolve) => setTimeout(resolve, 800));
+      setStatus('success');
+      setEmail('');
+    } catch (error) {
+      setStatus('error');
+    }
   };
 
   return (
@@ -61,12 +69,18 @@ export default function Footer() {
               />
               <Button
                 type="submit"
+                disabled={status === 'loading'}
                 className="w-full h-10 bg-white text-[#0F172A] hover:bg-white/90 font-medium"
               >
-                Subscribe
+                {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
               </Button>
               {status === 'success' && (
                 <p className="text-xs text-h4i-mint">Subscribed successfully!</p>
+              )}
+              {status === 'error' && (
+                <p className="text-xs text-state-error">
+                  Something went wrong. Please try again.
+                </p>
               )}
             </form>
 
