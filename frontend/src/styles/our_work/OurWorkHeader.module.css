@@ -13,7 +13,7 @@
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(8, 16, 32, 0.6);
+  background: hsl(var(--inverse) / 0.6);
 }
 
 .content {
@@ -21,20 +21,24 @@
   inset: 0;
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 16px;
 }
 
 .contentInner {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 16px;
-  text-align: center;
+  width: min(100%, 1280px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
-  color: #ffffff;
+  color: hsl(var(--inverse-foreground));
   margin: 0;
-  font-size: clamp(32px, 4vw, 56px);
+  width: 100%;
+  text-align: center;
+  font-size: clamp(32px, 4vw, 52px);
   line-height: 1.05;
   font-weight: 700;
   letter-spacing: -0.01em;
@@ -42,22 +46,23 @@
 
 .subtitle {
   margin: 12px auto 0;
-  color: #f4f7fb;
-  font-size: clamp(18px, 2.2vw, 28px);
-  font-family: 'Rubik', sans-serif;
+  color: hsl(var(--inverse-foreground) / 0.9);
+  width: 100%;
+  text-align: center;
+  font-size: clamp(18px, 2.2vw, 26px);
   font-weight: 500;
   line-height: 1.4;
   max-width: 720px;
 }
 
 @media screen and (min-width: 640px) {
-  .contentInner {
+  .content {
     padding: 0 24px;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .contentInner {
+  .content {
     padding: 0 32px;
   }
 }

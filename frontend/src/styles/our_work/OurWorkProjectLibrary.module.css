@@ -10,7 +10,7 @@
 
 .yearHeading {
   margin: 0 0 34px;
-  color: #333333;
+  color: hsl(var(--foreground));
   font-size: 48px;
   line-height: 1.15;
 }
@@ -22,7 +22,7 @@
 }
 
 .card {
-  background: #ffffff;
+  background: hsl(var(--card));
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
@@ -30,7 +30,7 @@
 
 .imagePanel {
   position: relative;
-  background: #dce8f4;
+  background: hsl(var(--accent));
   height: 314px;
   display: flex;
   justify-content: center;
@@ -46,7 +46,7 @@
   height: 52px;
   object-fit: contain;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.92);
+  background: hsl(var(--card) / 0.92);
   padding: 4px;
 }
 
@@ -60,8 +60,8 @@
 }
 
 .cardFooter {
-  background: #0069ca;
-  color: #ffffff;
+  background: hsl(var(--secondary-foreground));
+  color: hsl(var(--inverse-foreground));
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -98,8 +98,8 @@
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: #4b97df;
-  color: #ffffff;
+  background: hsl(var(--secondary-foreground) / 0.65);
+  color: hsl(var(--inverse-foreground));
   text-decoration: none;
   display: grid;
   place-items: center;
@@ -111,13 +111,14 @@
 
 .arrowButton:hover,
 .arrowButton:focus-visible {
-  background: #72afe6;
-  color: #ffffff;
+  background: hsl(var(--secondary-foreground) / 0.85);
+  color: hsl(var(--inverse-foreground));
   transform: translateX(1px);
 }
 
 .emptyState {
   text-align: center;
+  color: hsl(var(--muted-foreground));
 }
 
 @media screen and (min-width: 640px) {

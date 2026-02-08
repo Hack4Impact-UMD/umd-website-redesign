@@ -1,5 +1,5 @@
 .page {
-  background: #f2f4f7;
+  background: hsl(var(--background));
   min-height: 100vh;
   padding-bottom: 72px;
 }
