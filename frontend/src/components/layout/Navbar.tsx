@@ -69,7 +69,7 @@ export default function Navbar() {
                 </Link>
                 <div
                   className={cn(
-                    'absolute top-full left-0 mt-2 w-40 rounded-md bg-card border border-border shadow-lg transition-all',
+                    'absolute top-full right-0 mt-2 w-40 rounded-md bg-card border border-border shadow-lg transition-all',
                     isApplyOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
                   )}
                 >
