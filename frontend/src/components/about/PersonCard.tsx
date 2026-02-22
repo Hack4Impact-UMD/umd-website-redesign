@@ -6,6 +6,8 @@ interface PersonCardProps {
   role: string;
   imageSrc?: string | null;
   linkedinUrl?: string;
+  showSecondaryPlaceholderIcon?: boolean;
+  showPrimaryPlaceholderWhenNoLink?: boolean;
 }
 
 function resolveImageSrc(src?: string | null) {
@@ -29,8 +31,12 @@ export default function PersonCard({
   role,
   imageSrc,
   linkedinUrl,
+  showSecondaryPlaceholderIcon = false,
+  showPrimaryPlaceholderWhenNoLink = true,
 }: PersonCardProps) {
   const resolvedImageSrc = resolveImageSrc(imageSrc);
+  const hasPrimaryLink = Boolean(linkedinUrl);
+  const showPrimaryPlaceholder = !hasPrimaryLink && showPrimaryPlaceholderWhenNoLink;
 
   return (
     <div className="flex flex-col items-center text-center">
@@ -48,7 +54,7 @@ export default function PersonCard({
       </h3>
       <p className="font-body text-xs text-muted-foreground mt-1">{role}</p>
       <div className="flex gap-2 mt-2">
-        {linkedinUrl ? (
+        {hasPrimaryLink ? (
           <a
             href={linkedinUrl}
             target="_blank"
@@ -58,9 +64,15 @@ export default function PersonCard({
           >
             <Linkedin className="w-5 h-5" />
           </a>
-        ) : (
+        ) : showPrimaryPlaceholder ? (
           <Linkedin className="w-5 h-5 text-muted-foreground/40" />
-        )}
+        ) : null}
+        {showSecondaryPlaceholderIcon ? (
+          <Linkedin
+            className="w-5 h-5 text-muted-foreground/40"
+            aria-hidden="true"
+          />
+        ) : null}
       </div>
     </div>
   );

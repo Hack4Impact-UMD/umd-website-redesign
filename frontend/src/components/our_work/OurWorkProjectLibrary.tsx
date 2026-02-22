@@ -47,6 +47,15 @@ type ProjectItem = {
   isCurrentProject: boolean;
 };
 
+type ProjectLibraryMode = 'library' | 'related';
+
+interface OurWorkProjectLibraryProps {
+  mode?: ProjectLibraryMode;
+  excludePath?: string;
+  limit?: number;
+  title?: string;
+}
+
 const fallbackGallery = [yknotImage, mottHavenImage, twoUnstoppableImage, teamImage];
 
 const getYear = (startDate?: string) => {
@@ -61,7 +70,15 @@ const getProjectPhoto = (path: string, imageUrl?: string) => {
   const hasCmsImage = typeof imageUrl === 'string' && imageUrl.length > 0 && imageUrl !== placeholderImage;
 
   if (hasCmsImage) {
-    return imageUrl;
+    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://') || imageUrl.startsWith('data:')) {
+      return imageUrl;
+    }
+
+    if (imageUrl.startsWith('/')) {
+      return `${import.meta.env.VITE_ROOT_URL}${imageUrl}`;
+    }
+
+    return `${import.meta.env.VITE_ROOT_URL}/${imageUrl}`;
   }
 
   const hash = Array.from(path).reduce((acc, char) => acc + char.charCodeAt(0), 0);
@@ -100,7 +117,21 @@ const sortYears = (a: string, b: string) => {
   return Number(b) - Number(a);
 };
 
-const OurWorkProjectLibrary = () => {
+const sortByStartDateDesc = (a: ProjectItem, b: ProjectItem) => {
+  const aDate = a.startDate ? new Date(a.startDate).getTime() : 0;
+  const bDate = b.startDate ? new Date(b.startDate).getTime() : 0;
+
+  return bDate - aDate;
+};
+
+const OurWorkProjectLibrary = ({
+  mode = 'library',
+  excludePath,
+  limit,
+  title,
+}: OurWorkProjectLibraryProps) => {
+  const shellClassName = mode === 'related' ? styles.relatedShell : styles.sectionShell;
+
   const projectsRes = useAxios(
     `${import.meta.env.VITE_ROOT_URL}/api/projects?fields[0]=title&fields[1]=path&fields[2]=startDate&fields[3]=isCurrentProject&fields[4]=imageAltText&populate[image][fields][0]=url&populate[nonprofit][fields][0]=name`,
     'GET',
@@ -109,7 +140,8 @@ const OurWorkProjectLibrary = () => {
 
   if (!projectsRes.loaded) {
     return (
-      <section className={styles.sectionShell}>
+      <section className={shellClassName}>
+        {mode === 'related' ? <h2 className={styles.relatedHeading}>{title || 'View More of Our Work'}</h2> : null}
         <LoadingSpinner text="Loading projects..." />
       </section>
     );
@@ -125,8 +157,52 @@ const OurWorkProjectLibrary = () => {
 
   if (normalized.length === 0) {
     return (
-      <section className={styles.sectionShell}>
+      <section className={shellClassName}>
+        {mode === 'related' ? <h2 className={styles.relatedHeading}>{title || 'View More of Our Work'}</h2> : null}
         <p className={styles.emptyState}>No past projects are available right now. Please check back soon.</p>
+      </section>
+    );
+  }
+
+  const renderProjectCard = (project: ProjectItem) => (
+    <article
+      key={project.path}
+      className={mode === 'related' ? `${styles.card} ${styles.relatedCard}` : styles.card}
+    >
+      <div className={styles.imagePanel}>
+        <img className={styles.badge} src={h4iLogo} alt="Hack4Impact" />
+        <img
+          className={styles.projectImage}
+          src={project.imageUrl}
+          alt={project.imageAltText || `${project.title} preview`}
+        />
+      </div>
+      <div className={styles.cardFooter}>
+        <div className={styles.contentWrap}>
+          <h3 className={styles.projectTitle}>{project.title}</h3>
+          <p className={styles.projectSubtitle}>{project.nonprofitName}</p>
+        </div>
+        <Link className={styles.arrowButton} to={`/ourwork/${project.path}`} aria-label={`Open ${project.title}`}>
+          <span aria-hidden="true">→</span>
+        </Link>
+      </div>
+    </article>
+  );
+
+  if (mode === 'related') {
+    const filtered = normalized
+      .filter((project) => (excludePath ? project.path !== excludePath : true))
+      .sort(sortByStartDateDesc);
+    const limited = typeof limit === 'number' ? filtered.slice(0, Math.max(limit, 0)) : filtered;
+
+    return (
+      <section className={styles.relatedShell}>
+        <h2 className={styles.relatedHeading}>{title || 'View More of Our Work'}</h2>
+        {limited.length === 0 ? (
+          <p className={styles.emptyState}>No additional projects are available right now.</p>
+        ) : (
+          <div className={`${styles.grid} ${styles.relatedGrid}`}>{limited.map(renderProjectCard)}</div>
+        )}
       </section>
     );
   }
@@ -147,29 +223,7 @@ const OurWorkProjectLibrary = () => {
       {years.map((year) => (
         <section key={year} className={styles.yearSection}>
           <h2 className={styles.yearHeading}>{year} Projects</h2>
-          <div className={styles.grid}>
-            {grouped[year].map((project) => (
-              <article key={project.path} className={styles.card}>
-                <div className={styles.imagePanel}>
-                  <img className={styles.badge} src={h4iLogo} alt="Hack4Impact" />
-                  <img
-                    className={styles.projectImage}
-                    src={project.imageUrl}
-                    alt={project.imageAltText || `${project.title} preview`}
-                  />
-                </div>
-                <div className={styles.cardFooter}>
-                  <div className={styles.contentWrap}>
-                    <h3 className={styles.projectTitle}>{project.title}</h3>
-                    <p className={styles.projectSubtitle}>{project.nonprofitName}</p>
-                  </div>
-                  <Link className={styles.arrowButton} to={`/ourwork/${project.path}`} aria-label={`Open ${project.title}`}>
-                    <span aria-hidden="true">→</span>
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+          <div className={styles.grid}>{grouped[year].map(renderProjectCard)}</div>
         </section>
       ))}
     </div>
