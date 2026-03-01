@@ -1,7 +1,11 @@
 {
     "scripts": {
         "heroku-postbuild": "cd backend && npm install && npm run build",
-        "start": "cd backend && npm start"
+        "start": "cd backend && npm start",
+        "firebase:functions:build": "npm --prefix backend-firebase/functions run build",
+        "firebase:functions:serve": "npm --prefix backend-firebase/functions run serve",
+        "firebase:cms:dev": "npm --prefix backend-firebase/cms run dev",
+        "firebase:cms:build": "npm --prefix backend-firebase/cms run build"
     },
     "engines": {
         "node": "20.x",

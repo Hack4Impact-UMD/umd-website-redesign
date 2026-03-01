@@ -1,5 +1,6 @@
 import { Linkedin } from 'lucide-react';
 import defaultPfp from '@/components/assets/icons/default_pfp.png';
+import { resolveMediaUrl } from '@/lib/media';
 
 interface PersonCardProps {
   name: string;
@@ -10,18 +11,7 @@ interface PersonCardProps {
 
 function resolveImageSrc(src?: string | null) {
   if (!src) return defaultPfp;
-  if (
-    src.startsWith('http://') ||
-    src.startsWith('https://') ||
-    src.startsWith('data:') ||
-    src.startsWith('blob:')
-  ) {
-    return src;
-  }
-  if (src.startsWith('/')) {
-    return `${import.meta.env.VITE_ROOT_URL}${src}`;
-  }
-  return `${import.meta.env.VITE_ROOT_URL}/${src}`;
+  return resolveMediaUrl(src) || defaultPfp;
 }
 
 export default function PersonCard({

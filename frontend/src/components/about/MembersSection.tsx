@@ -1,6 +1,13 @@
-import { useAxios } from '@/components/HelperFunctions';
+import { useCallback } from 'react';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import PersonCard from './PersonCard';
+import { getMembers } from '@/api/compat';
+import { useApiData } from '@/hooks/useApiData';
+import {
+  MemberDisplayStatus,
+  StrapiCollectionResponse,
+  StrapiMemberAttributes,
+} from '@/api/types';
 
 interface MembersSectionProps {
   title: string;
@@ -20,41 +27,35 @@ const EXEC_ORDER = [
   'Senior Advisor',
 ];
 
-interface RoleData {
-  isDisplayRole: boolean;
-  title: string;
-  team?: string;
-}
+const emptyMembersResponse: StrapiCollectionResponse<StrapiMemberAttributes> = {
+  data: [],
+  meta: {
+    pagination: {
+      page: 1,
+      pageSize: 100,
+      pageCount: 1,
+      total: 0,
+    },
+  },
+};
 
-interface MemberData {
-  id: number;
-  attributes: {
-    firstName: string;
-    lastName: string;
-    pronouns?: string;
-    avatar?: {
-      data?: {
-        attributes: {
-          url: string;
-        };
-      };
-    };
-    componentRolesArr: RoleData[];
-  };
-}
-
-function getDisplayRole(roles: RoleData[]): RoleData | undefined {
-  return roles.find((r) => r.isDisplayRole);
+function getDisplayRole(roles: StrapiMemberAttributes['componentRolesArr']) {
+  return roles.find((role) => role.isDisplayRole);
 }
 
 export default function MembersSection({ title, filterStatus }: MembersSectionProps) {
-  const res = useAxios(
-    `${import.meta.env.VITE_ROOT_URL}/api/members?pagination[page]=1&pagination[pageSize]=100&populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=${filterStatus}`,
-    'GET',
-    {}
+  const loader = useCallback(
+    () =>
+      getMembers({
+        filterStatus: filterStatus as MemberDisplayStatus,
+        page: 1,
+        pageSize: 100,
+      }),
+    [filterStatus],
   );
 
-  const members: MemberData[] = res.data?.data || [];
+  const response = useApiData(loader, emptyMembersResponse);
+  const members = response.data.data || [];
 
   const sortedMembers =
     filterStatus === 'Current Board Member'
@@ -71,7 +72,7 @@ export default function MembersSection({ title, filterStatus }: MembersSectionPr
         <h2 className="font-heading text-3xl font-bold text-foreground text-center mb-12">
           {title}
         </h2>
-        {!res.loaded ? (
+        {!response.loaded ? (
           <LoadingSpinner />
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">

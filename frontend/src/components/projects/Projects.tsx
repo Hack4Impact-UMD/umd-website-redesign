@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import FeaturedProjectCard from './FeaturedProjectCard';
 import styles from '../../styles/projects/Projects.module.css';
-import { useAxios, getSeason } from '../HelperFunctions';
+import { getSeason } from '../HelperFunctions';
 import StandardButton from '../buttons/StandardButton';
 import LoadingSpinner from '../LoadingSpinner';
+import { getProjects } from '@/api/compat';
+import { useApiData } from '@/hooks/useApiData';
+import { StrapiCollectionResponse, StrapiProjectAttributes } from '@/api/types';
 
 interface ProjectsProps {
   isFeatured: boolean;
@@ -11,53 +14,66 @@ interface ProjectsProps {
   showSectionTitle?: boolean;
 }
 
-const Projects = ({ isFeatured, containerClassName, showSectionTitle = true }: ProjectsProps) => {
-  //check which type of projects were rendering
-  const requestUrl = isFeatured
-    ? import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*&filters[isFeatured][$eq]=true'
-    : import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*&filters[isCurrentProject][$eq]=true';
-  const res = useAxios(requestUrl, 'GET', {});
+const emptyProjectResponse: StrapiCollectionResponse<StrapiProjectAttributes> = {
+  data: [],
+  meta: {
+    pagination: {
+      page: 1,
+      pageSize: 100,
+      pageCount: 1,
+      total: 0,
+    },
+  },
+};
 
-  const projects = res.data ? res.data['data'] : [];
+const Projects = ({ isFeatured, containerClassName, showSectionTitle = true }: ProjectsProps) => {
+  const loader = useCallback(
+    () =>
+      getProjects({
+        isFeatured: isFeatured ? true : undefined,
+        isCurrentProject: isFeatured ? undefined : true,
+        page: 1,
+        pageSize: 100,
+      }),
+    [isFeatured],
+  );
+
+  const response = useApiData(loader, emptyProjectResponse);
+  const projects = response.data.data || [];
 
   return (
     <div>
       <div className={[styles.featuredProjectCards, containerClassName].filter(Boolean).join(' ')}>
-        {/*if display current projects, show current projects title*/}
         {isFeatured || !showSectionTitle ? null : (
           <h2 id={styles.sectionTitle}>Current Projects</h2>
         )}
-        {!res.loaded ? (
+        {!response.loaded ? (
           <LoadingSpinner text="Loading projects..." />
         ) : !projects || projects.length === 0 ? (
           <NoProjects />
         ) : (
-          projects.map((item: any, index: number) => {
-              const startDate = item['attributes']['startDate']
-                ? getSeason((item['attributes']['startDate'] as string).substring(5, 7) as unknown as number) +
-                  ' ' +
-                  (item['attributes']['startDate'] as string).substring(0, 4)
-                : '';
-              const fullDate = startDate;
-              return (
-                <FeaturedProjectCard
-                  key={index}
-                  link={'ourwork/' + item['attributes']['path']}
-                  title={item['attributes']['title']}
-                  date={fullDate}
-                  summary={item['attributes']['summary']}
-                  image={
-                    item['attributes']['image']['data']
-                      ? item['attributes']['image']['data'][0]['attributes']['url']
-                      : 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png'
-                  }
-                  altText={item['attributes']['imageAltText']}
-                />
-              );
-            })
+          projects.map((item, index: number) => {
+            const startDate = item.attributes.startDate
+              ? `${getSeason(Number((item.attributes.startDate as string).substring(5, 7)))} ${(item.attributes.startDate as string).substring(0, 4)}`
+              : '';
+            const fullDate = startDate;
+            return (
+              <FeaturedProjectCard
+                key={index}
+                link={`ourwork/${item.attributes.path}`}
+                title={item.attributes.title}
+                date={fullDate}
+                summary={item.attributes.summary}
+                image={
+                  item.attributes.image?.data?.[0]?.attributes?.url ||
+                  'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png'
+                }
+                altText={item.attributes.imageAltText || item.attributes.title}
+              />
+            );
+          })
         )}
       </div>
-      {/**display see more button if showing featured projects */}
       {isFeatured ? (
         <div className={styles.seeMore}>
           <StandardButton text="See More" color="blue" link="/ourwork" />

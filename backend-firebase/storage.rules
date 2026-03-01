@@ -1,0 +1,21 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function hasCmsRole() {
+      return request.auth != null
+        && request.auth.token.role in ['admin', 'editor'];
+    }
+
+    match /projects/{allPaths=**} {
+      allow read, write: if hasCmsRole();
+    }
+
+    match /members/{allPaths=**} {
+      allow read, write: if hasCmsRole();
+    }
+
+    match /content/{allPaths=**} {
+      allow read, write: if hasCmsRole();
+    }
+  }
+}

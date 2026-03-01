@@ -1,4 +1,12 @@
+import { useCallback } from 'react';
+import { getAboutContent } from '@/api/content';
+import { defaultAboutContent } from '@/api/defaultContent';
+import { useApiData } from '@/hooks/useApiData';
+
 export default function MissionSection() {
+  const aboutContent = useApiData(useCallback(() => getAboutContent(), []), defaultAboutContent);
+  const mission = aboutContent.data.mission;
+
   return (
     <section className="bg-primary">
       <div className="mx-auto max-w-7xl px-6 py-12 lg:px-16 lg:py-16">
@@ -29,12 +37,10 @@ export default function MissionSection() {
           </svg>
 
           <h2 className="font-heading text-2xl font-bold text-primary-foreground">
-            Our Mission
+            {mission.heading}
           </h2>
           <p className="mt-4 font-body text-base leading-relaxed text-primary-foreground/90 md:text-lg">
-            Our mission is to leverage technology for social good by building impactful
-            software solutions for nonprofit organizations while providing students with
-            real-world, professional experience.
+            {mission.body}
           </p>
         </div>
       </div>

@@ -1,15 +1,20 @@
+import { useCallback } from 'react';
 import { MapPin } from 'lucide-react';
+import { getHomeContent } from '@/api/content';
+import { defaultHomeContent } from '@/api/defaultContent';
+import { useApiData } from '@/hooks/useApiData';
 
 export default function NonprofitMapSection() {
+  const homeContent = useApiData(useCallback(() => getHomeContent(), []), defaultHomeContent);
+  const mapSection = homeContent.data.nonprofitMap;
+
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-h2 text-foreground mb-4">
-            Explore Our Nonprofit Partners
-          </h2>
+          <h2 className="text-h2 text-foreground mb-4">{mapSection.heading}</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            We partner with local and national nonprofits to create impactful technology solutions
+            {mapSection.body}
           </p>
         </div>
 
@@ -38,10 +43,8 @@ export default function NonprofitMapSection() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-h4i-blue/10 mb-4">
               <MapPin className="w-8 h-8 text-h4i-blue" />
             </div>
-            <h3 className="text-h3 text-foreground mb-2">Interactive Map Coming Soon</h3>
-            <p className="text-muted-foreground max-w-md">
-              Explore our nonprofit partners across Maryland and beyond with our interactive project map
-            </p>
+            <h3 className="text-h3 text-foreground mb-2">{mapSection.statusTitle}</h3>
+            <p className="text-muted-foreground max-w-md">{mapSection.statusDescription}</p>
           </div>
         </div>
       </div>

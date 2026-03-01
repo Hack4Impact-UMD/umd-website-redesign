@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { useAxios } from '../HelperFunctions';
 import LoadingSpinner from '../LoadingSpinner';
 import styles from '../../styles/our_work/OurWorkProjectLibrary.module.css';
 import h4iLogo from '../assets/h4i_files/h4i_logo.svg';
@@ -8,34 +7,14 @@ import yknotImage from '../assets/yknot_image.jpg';
 import mottHavenImage from '../assets/mott_haven_image.jpg';
 import twoUnstoppableImage from '../assets/2unstoppable_image.jpg';
 import teamImage from '../assets/h4igroup_photo.jpg';
-
-type RawProject = {
-  attributes?: {
-    title?: string;
-    path?: string;
-    startDate?: string;
-    imageAltText?: string;
-    isCurrentProject?: boolean;
-    image?: {
-      data?: Array<{
-        attributes?: {
-          url?: string;
-        };
-      }>;
-    };
-    nonprofit?: {
-      data?: {
-        attributes?: {
-          name?: string;
-        };
-      };
-    };
-  };
-};
-
-type ProjectsApiResponse = {
-  data?: RawProject[];
-};
+import { useApiData } from '@/hooks/useApiData';
+import { useCallback } from 'react';
+import { getProjects } from '@/api/compat';
+import { resolveMediaUrl } from '@/lib/media';
+import {
+  StrapiCollectionResponse,
+  StrapiProjectAttributes,
+} from '@/api/types';
 
 type ProjectItem = {
   title: string;
@@ -49,6 +28,18 @@ type ProjectItem = {
 
 const fallbackGallery = [yknotImage, mottHavenImage, twoUnstoppableImage, teamImage];
 
+const emptyProjectsResponse: StrapiCollectionResponse<StrapiProjectAttributes> = {
+  data: [],
+  meta: {
+    pagination: {
+      page: 1,
+      pageSize: 200,
+      pageCount: 1,
+      total: 0,
+    },
+  },
+};
+
 const getYear = (startDate?: string) => {
   if (!startDate || startDate.length < 4) {
     return 'Unknown';
@@ -58,18 +49,24 @@ const getYear = (startDate?: string) => {
 };
 
 const getProjectPhoto = (path: string, imageUrl?: string) => {
-  const hasCmsImage = typeof imageUrl === 'string' && imageUrl.length > 0 && imageUrl !== placeholderImage;
+  const resolvedUrl = resolveMediaUrl(imageUrl);
+  const hasCmsImage =
+    typeof resolvedUrl === 'string' &&
+    resolvedUrl.length > 0 &&
+    resolvedUrl !== placeholderImage;
 
   if (hasCmsImage) {
-    return imageUrl;
+    return resolvedUrl;
   }
 
   const hash = Array.from(path).reduce((acc, char) => acc + char.charCodeAt(0), 0);
   return fallbackGallery[hash % fallbackGallery.length];
 };
 
-const mapProject = (rawProject: RawProject): ProjectItem | null => {
-  const attributes = rawProject.attributes;
+const mapProject = (
+  project: { attributes: StrapiProjectAttributes },
+): ProjectItem | null => {
+  const attributes = project.attributes;
 
   if (!attributes?.title || !attributes.path) {
     return null;
@@ -101,13 +98,12 @@ const sortYears = (a: string, b: string) => {
 };
 
 const OurWorkProjectLibrary = () => {
-  const projectsRes = useAxios(
-    `${import.meta.env.VITE_ROOT_URL}/api/projects?fields[0]=title&fields[1]=path&fields[2]=startDate&fields[3]=isCurrentProject&fields[4]=imageAltText&populate[image][fields][0]=url&populate[nonprofit][fields][0]=name`,
-    'GET',
-    {},
+  const projectsResponse = useApiData(
+    useCallback(() => getProjects({ page: 1, pageSize: 200 }), []),
+    emptyProjectsResponse,
   );
 
-  if (!projectsRes.loaded) {
+  if (!projectsResponse.loaded) {
     return (
       <section className={styles.sectionShell}>
         <LoadingSpinner text="Loading projects..." />
@@ -115,8 +111,7 @@ const OurWorkProjectLibrary = () => {
     );
   }
 
-  const apiResponse = projectsRes.data as ProjectsApiResponse | null;
-  const projects = apiResponse?.data || [];
+  const projects = projectsResponse.data.data || [];
 
   const normalized = projects
     .map(mapProject)
@@ -164,7 +159,7 @@ const OurWorkProjectLibrary = () => {
                     <p className={styles.projectSubtitle}>{project.nonprofitName}</p>
                   </div>
                   <Link className={styles.arrowButton} to={`/ourwork/${project.path}`} aria-label={`Open ${project.title}`}>
-                    <span aria-hidden="true">→</span>
+                    <span aria-hidden="true">{'->'}</span>
                   </Link>
                 </div>
               </article>

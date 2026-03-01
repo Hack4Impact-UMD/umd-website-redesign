@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function hasCmsRole() {
+      return request.auth != null
+        && request.auth.token.role in ['admin', 'editor'];
+    }
+
+    // CMS-managed content (direct access allowed only to CMS roles)
+    match /{document=**} {
+      allow read, write: if hasCmsRole();
+    }
+  }
+}

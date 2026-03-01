@@ -1,41 +1,57 @@
-import React, { useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import stylestwo from '../styles/projects/ProjectsTop.module.css';
 import styles from '../styles/projects/ProjectsPage.module.css';
 import githubIcon from '../components/assets/icons/github_icon.png';
 import internetIcon from '../components/assets/icons/internet_icon.png';
 import Person from '../components/Person';
-import { Params, useParams } from 'react-router-dom';
-import { useAxios, getSeason } from '../components/HelperFunctions';
+import { useParams } from 'react-router-dom';
+import { getSeason } from '../components/HelperFunctions';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { FADE_IN_TRANSITION } from '../constants/animations';
+import { getProjects } from '@/api/compat';
+import { useApiData } from '@/hooks/useApiData';
+import { StrapiCollectionResponse, StrapiProjectAttributes } from '@/api/types';
+import { resolveMediaUrl } from '@/lib/media';
 
-let params: Readonly<Params<string>>;
-let proj: null;
+const emptyProjectResponse: StrapiCollectionResponse<StrapiProjectAttributes> = {
+  data: [],
+  meta: {
+    pagination: {
+      page: 1,
+      pageSize: 1,
+      pageCount: 1,
+      total: 0,
+    },
+  },
+};
 
 function ProjectPage() {
-  params = useParams();
+  const params = useParams();
 
-  //query to get project info
-  const res = useAxios(
-    import.meta.env.VITE_ROOT_URL +
-      '/api/projects?fields[0]=title&fields[1]=startDate&fields[2]=blurb&fields[3]=repoURL&fields[4]=hostedProjectURL&populate[image][fields][0]=url&populate[members][fields][0]=firstName&populate[members][fields][1]=lastName&populate[members][fields][2]=pronouns&populate[members][populate][componentRolesArr][fields][0]=title&populate[members][populate][componentRolesArr][fields][1]=isDisplayRole&populate[members][populate][componentRolesArr][fields][2]=team&populate[members][populate][avatar][fields][0]=url&filters[path][$eq]=' +
-      params.projectpath,
-    'GET',
-    {},
-  );
+  const loader = useCallback(() => {
+    if (!params.projectpath) {
+      return Promise.resolve(emptyProjectResponse);
+    }
 
-  const project = res.data ? res.data['data'][0] : null;
-  proj = project;
+    return getProjects({
+      path: params.projectpath,
+      page: 1,
+      pageSize: 1,
+    });
+  }, [params.projectpath]);
 
-  if (!res.loaded) {
+  const response = useApiData(loader, emptyProjectResponse);
+  const project = response.data.data[0] || null;
+
+  if (!response.loaded) {
     return <LoadingSpinner text="Loading project..." />;
   }
 
-  if (proj) {
+  if (project) {
     return (
       <div className={styles.content}>
-        <Header />
-        <TeamMembers />
+        <Header project={project} />
+        <TeamMembers project={project} />
       </div>
     );
   }
@@ -48,49 +64,48 @@ function ProjectPage() {
     </div>
   );
 }
-function Header() {
+
+function Header({ project }: { project: { attributes: StrapiProjectAttributes } }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const startDate =
-    proj && proj['attributes']['startDate']
-      ? getSeason((proj['attributes']['startDate'] as string).substring(5, 7) as unknown as number) +
-        ' ' +
-        (proj['attributes']['startDate'] as string).substring(0, 4)
+    project.attributes.startDate
+      ? `${getSeason(Number((project.attributes.startDate as string).substring(5, 7)))} ${(project.attributes.startDate as string).substring(0, 4)}`
       : '';
-  const date = startDate;
+
+  const imageUrl =
+    resolveMediaUrl(project.attributes.image?.data?.[0]?.attributes?.url) ||
+    'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png';
+
   return (
     <div className={styles.studentApplyHeader}>
       <div className={styles.studentApplyHeaderContent}>
-        <header className={stylestwo.title}>{proj ? proj['attributes']['title'] : ''}</header>
+        <header className={stylestwo.title}>{project.attributes.title}</header>
         <div className={stylestwo.projectInfoContainer}>
           <div className={stylestwo.flexChild}>
             <div className={stylestwo.projectPicture}>
               <img
-                src={
-                  proj && proj['attributes']['image']['data']
-                    ? proj['attributes']['image']['data'][0]['attributes']['url']
-                    : 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png'
-                }
-                alt={proj ? proj['attributes']['title'] : 'Project'}
+                src={imageUrl}
+                alt={project.attributes.title || 'Project'}
                 onLoad={() => setImageLoaded(true)}
                 style={{ opacity: imageLoaded ? 1 : 0, transition: FADE_IN_TRANSITION }}
               />
             </div>
           </div>
           <div className={stylestwo.flexChild}>
-            <div className={stylestwo.date}> {date}</div>
+            <div className={stylestwo.date}> {startDate}</div>
             <p className={stylestwo.projectDescription}>
-              {proj ? proj['attributes']['blurb'] : 'More information about this project is pending.'} <br />
+              {project.attributes.blurb || 'More information about this project is pending.'} <br />
               <br />
-              {proj && proj['attributes']['repoURL'] ? (
-                <a href={proj['attributes']['repoURL']}>
+              {project.attributes.repoURL ? (
+                <a href={project.attributes.repoURL}>
                   <img src={githubIcon} alt="GitHub Repository" />
                 </a>
               ) : (
                 ''
               )}{' '}
               &nbsp;
-              {proj && proj['attributes']['hostedProjectURL'] ? (
-                <a href={proj['attributes']['hostedProjectURL']}>
+              {project.attributes.hostedProjectURL ? (
+                <a href={project.attributes.hostedProjectURL}>
                   <img src={internetIcon} alt="Hosted Project" />
                 </a>
               ) : (
@@ -104,57 +119,53 @@ function Header() {
   );
 }
 
-function TeamMembers() {
-  const members = proj ? proj['attributes']['members']['data'] : [];
+function TeamMembers({ project }: { project: { attributes: StrapiProjectAttributes } }) {
+  const members = project.attributes.members?.data ?? [];
   const teamOrder = ['Product Manager', 'Tech Lead', 'Designer', 'Engineer'];
+
+  const sortedMembers = useMemo(() => {
+    return [...members].sort((a, b) => {
+      const aRole = (a.attributes.componentRolesArr ?? []).find(
+        (role) => role.team && role.team.trim() === project.attributes.title,
+      )?.title;
+      const bRole = (b.attributes.componentRolesArr ?? []).find(
+        (role) => role.team && role.team.trim() === project.attributes.title,
+      )?.title;
+
+      return teamOrder.indexOf(aRole || '') - teamOrder.indexOf(bRole || '');
+    });
+  }, [members, project.attributes.title]);
+
   return (
     <div className={styles.teamMembersDiv}>
       <h2>Team Members</h2>
       <div className={styles.teamMembersPhotos}>
-        {!members
+        {sortedMembers.length === 0
           ? 'Looks like there are no team members here. Check again later?'
-          : // group team members by role
-            members
-              .sort(
-                (a, b) =>
-                  teamOrder.indexOf(
-                    (a['attributes']['componentRolesArr'] as Array<any>).find(
-                      (e) => e['team'] && e['team'].trim() == proj!['attributes']['title'],
-                    )['title'],
-                  ) -
-                  teamOrder.indexOf(
-                    (b['attributes']['componentRolesArr'] as Array<any>).find(
-                      (e) => e['team'] && e['team'].trim() == proj!['attributes']['title'],
-                    )['title'],
-                  ),
-              )
-              // render team members
-              .map((item, index) => {
-                if (Array.from(item['attributes']['componentRolesArr']).length == 0) {
-                  return null;
-                } else {
-                  return (
-                    <Person
-                      key={index}
-                      memberName={item['attributes']['firstName'] + ' ' + item['attributes']['lastName'] || 'Member'}
-                      //if no title exists for the user use "Member"
-                      role={
-                        (item['attributes']['componentRolesArr'] as Array<any>).find(
-                          (e) => e['team'] && e['team'].trim() == proj!['attributes']['title'],
-                        )['title'] || 'Member'
-                      }
-                      //if no pronouns are provided, show nothing for that
-                      pronouns={item['attributes']['pronouns'] || null}
-                      //if no user image exists, return null, a template will be used
-                      src={
-                        item['attributes']['avatar']['data'] != null
-                          ? item['attributes']['avatar']['data']['attributes']['url']
-                          : null
-                      }
-                    />
-                  );
-                }
-              })}
+          : sortedMembers.map((item, index) => {
+              const memberRoles = item.attributes.componentRolesArr ?? [];
+              if (memberRoles.length === 0) {
+                return null;
+              }
+
+              const projectRole = memberRoles.find(
+                (role) => role.team && role.team.trim() === project.attributes.title,
+              );
+
+              if (!projectRole) {
+                return null;
+              }
+
+              return (
+                <Person
+                  key={index}
+                  memberName={`${item.attributes.firstName} ${item.attributes.lastName}` || 'Member'}
+                  role={projectRole.title || 'Member'}
+                  pronouns={item.attributes.pronouns || undefined}
+                  src={item.attributes.avatar?.data?.attributes?.url || null}
+                />
+              );
+            })}
       </div>
     </div>
   );

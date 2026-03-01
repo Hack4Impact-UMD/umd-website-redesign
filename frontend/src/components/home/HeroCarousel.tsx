@@ -1,26 +1,35 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { getHomeContent } from '@/api/content';
+import { defaultHomeContent } from '@/api/defaultContent';
+import { useApiData } from '@/hooks/useApiData';
+import { resolveMediaUrl } from '@/lib/media';
 import h4iGroupPhoto from '@/components/assets/h4igroup_photo.jpg';
 import aboutHeader from '@/components/assets/aboutus_header.png';
 
-const heroSlides = [
-  {
-    image: h4iGroupPhoto,
-    alt: 'Hack4Impact UMD team photo',
-  },
-  {
-    image: aboutHeader,
-    alt: 'Hack4Impact UMD event',
-  },
-];
+const localSlideFallbacks = [h4iGroupPhoto, aboutHeader];
+
+const getSlideImage = (image: string | undefined, index: number) => {
+  const resolved = resolveMediaUrl(image);
+  if (resolved && !resolved.includes('/assets/')) {
+    return resolved;
+  }
+
+  return localSlideFallbacks[index % localSlideFallbacks.length];
+};
 
 export default function HeroCarousel() {
+  const homeContent = useApiData(useCallback(() => getHomeContent(), []), defaultHomeContent);
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loaded, setLoaded] = useState(false);
+
+  const hero = homeContent.data.hero;
+  const heroSlides = hero.slides?.length > 0 ? hero.slides : defaultHomeContent.hero.slides;
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
     {
@@ -80,11 +89,11 @@ export default function HeroCarousel() {
 
         const removeSliderListener = (
           event: 'created' | 'dragStarted' | 'animationEnded' | 'updated',
-          handler: () => void
+          handler: () => void,
         ) => {
           (slider as unknown as { off?: (event: string, handler: () => void) => void }).off?.(
             event,
-            handler
+            handler,
           );
         };
 
@@ -103,16 +112,16 @@ export default function HeroCarousel() {
           removeSliderListener('updated', handleUpdated);
         };
       },
-    ]
+    ],
   );
 
   return (
     <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden">
       <div ref={sliderRef} className="keen-slider h-full">
         {heroSlides.map((slide, index) => (
-          <div key={index} className="keen-slider__slide relative">
+          <div key={`${slide.alt}-${index}`} className="keen-slider__slide relative">
             <img
-              src={slide.image}
+              src={getSlideImage(slide.image, index)}
               alt={slide.alt}
               className="w-full h-full object-cover"
             />
@@ -125,25 +134,24 @@ export default function HeroCarousel() {
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-xl text-center md:text-left animate-fade-in-up">
             <h1 className="font-heading text-4xl md:text-5xl lg:text-display font-bold text-white mb-4 tracking-tight drop-shadow-lg">
-              Hack4Impact-UMD
+              {hero.heading}
             </h1>
             <p className="font-body text-base md:text-lg text-white/90 mb-8 leading-relaxed max-w-md mx-auto md:mx-0 drop-shadow-md">
-              Building powerful nonprofit software as a tool for social good. We connect student
-              developers with nonprofits to create technology that drives positive change.
+              {hero.body}
             </p>
             <div className="flex flex-wrap justify-center md:justify-start gap-4">
               <Button
                 asChild
                 className="h-12 px-8 bg-h4i-blue hover:bg-state-primary-hover active:bg-state-primary-active text-white text-base font-medium rounded-md transition-all hover:scale-105 hover:shadow-lg shadow-md"
               >
-                <Link to="/aboutus">Learn More</Link>
+                <Link to={hero.primaryCta.href}>{hero.primaryCta.label}</Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
                 className="h-12 px-8 border-2 border-white bg-white text-foreground hover:bg-white/90 text-base font-medium rounded-md transition-all hover:scale-105 hover:shadow-lg shadow-md"
               >
-                <Link to="/apply/student">Apply Now</Link>
+                <Link to={hero.secondaryCta.href}>{hero.secondaryCta.label}</Link>
               </Button>
             </div>
           </div>

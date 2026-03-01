@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styles from '../styles/people/Person.module.css';
-import default_pfp from "../components/assets/icons/default_pfp.png";
+import default_pfp from '../components/assets/icons/default_pfp.png';
 import { FADE_IN_TRANSITION } from '../constants/animations';
+import { resolveMediaUrl } from '@/lib/media';
 
 interface PersonProps {
   memberName?: string;
@@ -17,7 +18,8 @@ function Person({ memberName, team, role, pronouns, src }: PersonProps) {
 
   const getImageSrc = () => {
     if (!src) return default_pfp;
-    return src.startsWith('/') ? `${import.meta.env.VITE_ROOT_URL}${src}` : src;
+    const resolved = resolveMediaUrl(src);
+    return resolved || default_pfp;
   };
 
   const imageSrc = getImageSrc();

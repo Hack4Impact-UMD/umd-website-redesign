@@ -1,0 +1,25 @@
+# General
+.DS_Store
+node_modules
+
+# Firebase
+.firebase
+firebase-debug.log
+
+# Build
+functions/lib
+cms/dist
+scripts/dist
+scripts/output
+scripts/output-public-test
+scripts/output*
+
+# Env
+*.local
+.env
+functions/.env
+cms/.env
+scripts/.env
+
+# Secrets
+.secrets

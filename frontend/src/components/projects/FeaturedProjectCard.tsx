@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from '../../styles/projects/FeaturedProjectCard.module.css';
 import { FADE_IN_TRANSITION } from '../../constants/animations';
+import { resolveMediaUrl } from '@/lib/media';
 
 export interface FeaturedProjectCardData {
   link: string;
@@ -13,13 +14,14 @@ export interface FeaturedProjectCardData {
 
 const FeaturedProjectCard = ({ link, title, date, summary, image, altText }: FeaturedProjectCardData): JSX.Element => {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const imageSrc = resolveMediaUrl(image) || image;
 
   return (
     <div id={styles.cardContainer}>
       <div id={styles.cardImageContainer}>
         <a href={link}>
           <img
-            src={image}
+            src={imageSrc}
             alt={altText}
             id={styles.cardImage}
             onLoad={() => setImageLoaded(true)}

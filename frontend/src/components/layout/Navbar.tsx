@@ -1,23 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg';
-
-const navLinks = [
-  { label: 'About Us', href: '/aboutus' },
-  { label: 'Our Work', href: '/ourwork' },
-  {
-    label: 'Apply',
-    href: '/apply/student',
-    dropdown: [
-      { label: 'For Students', href: '/apply/student' },
-      { label: 'For Nonprofits', href: '/apply/nonprofit' },
-    ],
-  },
-];
+import { getSiteSettings } from '@/api/content';
+import { defaultSiteSettings } from '@/api/defaultContent';
+import { useApiData } from '@/hooks/useApiData';
+import { resolveMediaUrl } from '@/lib/media';
 
 export default function Navbar() {
+  const siteSettings = useApiData(useCallback(() => getSiteSettings(), []), defaultSiteSettings);
+  const navLinks = siteSettings.data.navbar.links;
+  const brandingLogo = resolveMediaUrl(siteSettings.data.branding.logo) || h4iLogo;
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isApplyOpen, setIsApplyOpen] = useState(false);
   const location = useLocation();
@@ -47,7 +42,7 @@ export default function Navbar() {
           onClick={() => handleNavClick('/')}
           className="flex items-center"
         >
-          <img src={h4iLogo} alt="Hack4Impact UMD Logo" className="h-8 w-auto" />
+          <img src={brandingLogo} alt="Hack4Impact UMD Logo" className="h-8 w-auto" />
         </Link>
 
         <ul className="hidden nav:flex items-center gap-8">
@@ -70,7 +65,7 @@ export default function Navbar() {
                 <div
                   className={cn(
                     'absolute top-full left-0 mt-2 w-40 rounded-md bg-card border border-border shadow-lg transition-all',
-                    isApplyOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+                    isApplyOpen ? 'opacity-100 visible' : 'opacity-0 invisible',
                   )}
                 >
                   <ul className="py-2">
@@ -98,7 +93,7 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               </li>
-            )
+            ),
           )}
         </ul>
 
@@ -130,7 +125,7 @@ export default function Navbar() {
                       <ChevronDown
                         className={cn(
                           'h-5 w-5 transition-transform',
-                          isApplyOpen && 'rotate-180'
+                          isApplyOpen && 'rotate-180',
                         )}
                       />
                     </button>
@@ -160,7 +155,7 @@ export default function Navbar() {
                       {link.label}
                     </Link>
                   </li>
-                )
+                ),
               )}
             </ul>
           </div>

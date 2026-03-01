@@ -1,28 +1,26 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram, Facebook, Github, Linkedin } from 'lucide-react';
+import { Instagram, Facebook, Github, Linkedin, type LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { getSiteSettings } from '@/api/content';
+import { defaultSiteSettings } from '@/api/defaultContent';
+import { useApiData } from '@/hooks/useApiData';
+import { resolveMediaUrl } from '@/lib/media';
 import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg';
 
-const footerLinks = {
-  explore: [
-    { label: 'About Us', href: '/aboutus' },
-    { label: 'Our Work', href: '/ourwork' },
-  ],
-  apply: [
-    { label: 'For Students', href: '/apply/student' },
-    { label: 'For Nonprofits', href: '/apply/nonprofit' },
-  ],
-  connect: [
-    { label: 'Instagram', href: 'https://instagram.com/hack4impactumd', icon: Instagram },
-    { label: 'GitHub', href: 'https://github.com/Hack4Impact-UMD', icon: Github },
-    { label: 'LinkedIn', href: 'https://linkedin.com/company/hack4impact-umd', icon: Linkedin },
-    { label: 'Facebook', href: 'https://facebook.com/hack4impactumd', icon: Facebook },
-  ],
+const iconMap: Record<string, LucideIcon> = {
+  Instagram,
+  Facebook,
+  Github,
+  Linkedin,
 };
 
 export default function Footer() {
+  const siteSettings = useApiData(useCallback(() => getSiteSettings(), []), defaultSiteSettings);
+  const footer = siteSettings.data.footer;
+  const brandingLogo = resolveMediaUrl(siteSettings.data.branding.logo) || h4iLogo;
+
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
@@ -32,7 +30,7 @@ export default function Footer() {
     setStatus('loading');
 
     try {
-      // TODO: Replace with the real newsletter subscription API (EmailJS or backend endpoint).
+      // Newsletter backend integration is intentionally deferred in this migration.
       await new Promise((resolve) => setTimeout(resolve, 800));
       setStatus('success');
       setEmail('');
@@ -48,14 +46,14 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link to="/" className="inline-block mb-6">
               <img
-                src={h4iLogo}
+                src={brandingLogo}
                 alt="Hack4Impact UMD Logo"
                 className="h-8 w-auto brightness-0 invert"
               />
             </Link>
 
             <p className="text-sm text-white/60 mb-6 leading-relaxed">
-              Subscribe to our newsletter to receive monthly updates.
+              {footer.newsletterPrompt}
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-3">
@@ -85,18 +83,21 @@ export default function Footer() {
             </form>
 
             <div className="flex gap-4 mt-6">
-              {footerLinks.connect.map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
-                  aria-label={item.label}
-                >
-                  <item.icon className="w-5 h-5" />
-                </a>
-              ))}
+              {footer.socialLinks.map((item) => {
+                const Icon = iconMap[item.icon] ?? Linkedin;
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
+                    aria-label={item.label}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 
@@ -105,7 +106,7 @@ export default function Footer() {
               Explore
             </h4>
             <ul className="space-y-3">
-              {footerLinks.explore.map((link) => (
+              {footer.exploreLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     to={link.href}
@@ -123,7 +124,7 @@ export default function Footer() {
               Apply
             </h4>
             <ul className="space-y-3">
-              {footerLinks.apply.map((link) => (
+              {footer.applyLinks.map((link) => (
                 <li key={link.label}>
                   <Link
                     to={link.href}
@@ -142,15 +143,18 @@ export default function Footer() {
             </h4>
             <address className="not-italic space-y-3">
               <p className="text-sm text-white/60">
-                7809 Regents Drive,
-                <br />
-                College Park, MD 20742
+                {footer.contact.addressLines.map((line, index) => (
+                  <span key={index}>
+                    {line}
+                    {index < footer.contact.addressLines.length - 1 ? <br /> : null}
+                  </span>
+                ))}
               </p>
               <a
-                href="mailto:umd@hack4impact.org"
+                href={`mailto:${footer.contact.email}`}
                 className="text-sm text-white/60 hover:text-white transition-colors block"
               >
-                umd@hack4impact.org
+                {footer.contact.email}
               </a>
             </address>
           </div>
