@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function hasCmsRole() {
+      return request.auth != null
+        && request.auth.token.role in ['admin', 'editor'];
+    }
+
+    // Relations are maintained bidirectionally. Disallow deleting either side
+    // until reverse-relation cleanup is implemented.
+    match /projects/{projectId} {
+      allow read, create, update: if hasCmsRole();
+      allow delete: if false;
+    }
+
+    match /members/{memberId} {
+      allow read, create, update: if hasCmsRole();
+      allow delete: if false;
+    }
+
+    // CMS-managed singleton content collections are named content_*.
+    match /{collectionName}/{documentId} {
+      allow read, write: if hasCmsRole()
+        && collectionName.matches('content_.*');
+    }
+  }
+}

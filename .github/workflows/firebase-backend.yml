@@ -1,0 +1,81 @@
+name: Firebase backend
+
+on:
+  pull_request:
+    branches: [dev/redesign]
+    paths:
+      - 'backend-firebase/**'
+      - '.github/workflows/firebase-backend.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            backend-firebase/functions/package-lock.json
+            backend-firebase/cms/package-lock.json
+      - name: Install Functions dependencies
+        run: npm --prefix backend-firebase/functions ci
+      - name: Test and build Functions
+        run: |
+          npm --prefix backend-firebase/functions run lint
+          npm --prefix backend-firebase/functions test
+          npm --prefix backend-firebase/functions run build
+      - name: Install CMS dependencies
+        run: npm --prefix backend-firebase/cms ci
+      - name: Audit production dependencies
+        run: |
+          npm --prefix backend-firebase/functions audit --omit=dev --audit-level=high
+          npm --prefix backend-firebase/cms audit --omit=dev --audit-level=high
+      - name: Test and build CMS
+        env:
+          VITE_FIREBASE_API_KEY: test-api-key
+          VITE_FIREBASE_AUTH_DOMAIN: demo-umd-website.firebaseapp.com
+          VITE_FIREBASE_PROJECT_ID: demo-umd-website
+          VITE_FIREBASE_STORAGE_BUCKET: demo-umd-website.appspot.com
+          VITE_FIREBASE_MESSAGING_SENDER_ID: '1234567890'
+          VITE_FIREBASE_APP_ID: test-app-id
+        run: |
+          npm --prefix backend-firebase/cms run lint
+          npm --prefix backend-firebase/cms test
+          npm --prefix backend-firebase/cms run build
+      - name: Ensure builds did not create tracked changes
+        run: test -z "$(git status --porcelain)"
+
+  emulator-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: |
+            backend-firebase/functions/package-lock.json
+            backend-firebase/cms/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: npm --prefix backend-firebase/functions ci
+      - run: npm --prefix backend-firebase/cms ci
+      - name: Run synthetic emulator suites
+        working-directory: backend-firebase
+        run: |
+          npx --yes firebase-tools@14.1.0 emulators:exec \
+            --project demo-umd-website \
+            --only firestore,storage \
+            "npm --prefix functions run test:emulator"
+          npx --yes firebase-tools@14.1.0 emulators:exec \
+            --project demo-umd-website-relations \
+            --config cms/tests/emulator/firebase.json \
+            --only firestore \
+            "npm --prefix cms run test:emulator"

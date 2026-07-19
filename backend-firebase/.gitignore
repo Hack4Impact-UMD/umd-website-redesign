@@ -1,0 +1,29 @@
+# General
+.DS_Store
+node_modules/
+coverage/
+test-results/
+
+# Firebase and emulator output
+.firebase/
+*-debug.log
+firebase-export/
+
+# Build output
+functions/lib/
+cms/dist/
+scripts/dist/
+scripts/output*/
+
+# Local environment files (examples remain tracked)
+*.local
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Secrets and service-account credentials
+.secrets/
+*service-account*.json
+*serviceAccount*.json
+*adminsdk*.json
