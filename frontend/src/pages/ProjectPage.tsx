@@ -14,10 +14,12 @@ import {
 
 import ApplyLink from '@/components/apply/ApplyLink';
 import PersonCard from '@/components/about/PersonCard';
-import { useAxios } from '@/components/HelperFunctions';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import OurWorkProjectLibrary from '@/components/our_work/OurWorkProjectLibrary';
+import { AsyncError } from '@/components/shared';
 import { Button } from '@/components/ui/button';
+import { getProjects } from '@/api';
+import { useApiResource } from '@/hooks';
 import {
   PROJECT_PAGE_OVERRIDES,
   type TechIconKey,
@@ -51,7 +53,7 @@ const TECH_ICON_MAP: Record<TechIconKey, LucideIcon> = {
 };
 
 type TeamMemberView = {
-  id: number;
+  id: string;
   name: string;
   role: string;
   imageSrc: string | null;
@@ -155,21 +157,24 @@ function ProjectPage() {
   const { projectpath } = useParams<{ projectpath: string }>();
   const slug = projectpath || '';
 
-  const projectRes = useAxios(
-    // TODO: Expand this query to include project page section fields when the backend schema is extended.
-    `${import.meta.env.VITE_ROOT_URL}/api/projects?fields[0]=title&fields[1]=path&fields[2]=startDate&fields[3]=summary&fields[4]=blurb&fields[5]=repoURL&fields[6]=hostedProjectURL&fields[7]=imageAltText&populate[image][fields][0]=url&populate[members][fields][0]=firstName&populate[members][fields][1]=lastName&populate[members][fields][2]=pronouns&populate[members][populate][componentRolesArr][fields][0]=title&populate[members][populate][componentRolesArr][fields][1]=isDisplayRole&populate[members][populate][componentRolesArr][fields][2]=team&populate[members][populate][avatar][fields][0]=url&filters[path][$eq]=${encodeURIComponent(
-      slug,
-    )}`,
-    'GET',
-    {},
+  const projectRes = useApiResource(
+    (signal) => getProjects({ filter: { kind: 'path', value: slug }, signal }),
+    [slug],
   );
 
-  if (!projectRes.loaded) {
+  if (projectRes.status === 'loading') {
     return <LoadingSpinner text="Loading project..." />;
   }
 
-  const apiResponse = projectRes.data as { data?: ProjectApiItem[] } | null;
-  const project = apiResponse?.data?.[0];
+  if (projectRes.status === 'error') {
+    return (
+      <main className="mx-auto max-w-3xl px-6 py-20">
+        <AsyncError message="This project could not be loaded." onRetry={projectRes.retry} />
+      </main>
+    );
+  }
+
+  const project: ProjectApiItem | undefined = projectRes.data?.[0];
 
   if (!project) {
     return (

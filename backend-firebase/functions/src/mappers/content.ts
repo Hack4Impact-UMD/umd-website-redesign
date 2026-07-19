@@ -1,4 +1,5 @@
 import { toPublicMediaUrl } from '../utils/media';
+import { toIsoDateTimeString } from '../utils/date';
 
 const normalizeHome = (data: any): any => {
   if (!data || typeof data !== 'object') return data;
@@ -155,7 +156,15 @@ export const normalizeContentMedia = (contentKey: string, data: any): any => {
   if ('payload' in data && data.payload && typeof data.payload === 'object') {
     return {
       ...data,
+      verifiedAt: toIsoDateTimeString(data.verifiedAt),
       payload: normalizeByContentKey(contentKey, data.payload),
+    };
+  }
+
+  if ('mode' in data) {
+    return {
+      ...data,
+      verifiedAt: toIsoDateTimeString(data.verifiedAt),
     };
   }
 

@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useAxios } from '../HelperFunctions';
+import { getProjects, type ProjectEntity } from '@/api';
+import { useApiResource } from '@/hooks';
+import { resolveMediaUrl } from '@/lib/media';
 import LoadingSpinner from '../LoadingSpinner';
+import { AsyncError } from '../shared';
 import styles from '../../styles/our_work/OurWorkProjectLibrary.module.css';
 import h4iLogo from '../assets/h4i_files/h4i_logo.svg';
 import placeholderImage from '../assets/placeholder.png';
@@ -8,34 +11,6 @@ import yknotImage from '../assets/yknot_image.jpg';
 import mottHavenImage from '../assets/mott_haven_image.jpg';
 import twoUnstoppableImage from '../assets/2unstoppable_image.jpg';
 import teamImage from '../assets/h4igroup_photo.jpg';
-
-type RawProject = {
-  attributes?: {
-    title?: string;
-    path?: string;
-    startDate?: string;
-    imageAltText?: string;
-    isCurrentProject?: boolean;
-    image?: {
-      data?: Array<{
-        attributes?: {
-          url?: string;
-        };
-      }>;
-    };
-    nonprofit?: {
-      data?: {
-        attributes?: {
-          name?: string;
-        };
-      };
-    };
-  };
-};
-
-type ProjectsApiResponse = {
-  data?: RawProject[];
-};
 
 type ProjectItem = {
   title: string;
@@ -70,29 +45,17 @@ const getProjectPhoto = (path: string, imageUrl?: string) => {
   const hasCmsImage = typeof imageUrl === 'string' && imageUrl.length > 0 && imageUrl !== placeholderImage;
 
   if (hasCmsImage) {
-    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://') || imageUrl.startsWith('data:')) {
-      return imageUrl;
-    }
-
-    if (imageUrl.startsWith('/')) {
-      return `${import.meta.env.VITE_ROOT_URL}${imageUrl}`;
-    }
-
-    return `${import.meta.env.VITE_ROOT_URL}/${imageUrl}`;
+    const resolved = resolveMediaUrl(imageUrl);
+    if (resolved) return resolved;
   }
 
   const hash = Array.from(path).reduce((acc, char) => acc + char.charCodeAt(0), 0);
   return fallbackGallery[hash % fallbackGallery.length];
 };
 
-const mapProject = (rawProject: RawProject): ProjectItem | null => {
+const mapProject = (rawProject: ProjectEntity): ProjectItem => {
   const attributes = rawProject.attributes;
-
-  if (!attributes?.title || !attributes.path) {
-    return null;
-  }
-
-  const cmsImage = attributes.image?.data?.[0]?.attributes?.url;
+  const cmsImage = attributes.image.data[0]?.attributes.url;
 
   return {
     title: attributes.title,
@@ -100,8 +63,8 @@ const mapProject = (rawProject: RawProject): ProjectItem | null => {
     startDate: attributes.startDate,
     imageUrl: getProjectPhoto(attributes.path, cmsImage),
     imageAltText: attributes.imageAltText,
-    nonprofitName: attributes.nonprofit?.data?.attributes?.name || 'Nonprofit Partner',
-    isCurrentProject: attributes.isCurrentProject === true,
+    nonprofitName: attributes.nonprofit?.data?.attributes.name || 'Nonprofit Partner',
+    isCurrentProject: attributes.isCurrentProject,
   };
 };
 
@@ -132,13 +95,9 @@ const OurWorkProjectLibrary = ({
 }: OurWorkProjectLibraryProps) => {
   const shellClassName = mode === 'related' ? styles.relatedShell : styles.sectionShell;
 
-  const projectsRes = useAxios(
-    `${import.meta.env.VITE_ROOT_URL}/api/projects?fields[0]=title&fields[1]=path&fields[2]=startDate&fields[3]=isCurrentProject&fields[4]=imageAltText&populate[image][fields][0]=url&populate[nonprofit][fields][0]=name`,
-    'GET',
-    {},
-  );
+  const projectsRes = useApiResource((signal) => getProjects({ signal }), []);
 
-  if (!projectsRes.loaded) {
+  if (projectsRes.status === 'loading') {
     return (
       <section className={shellClassName}>
         {mode === 'related' ? <h2 className={styles.relatedHeading}>{title || 'View More of Our Work'}</h2> : null}
@@ -147,12 +106,19 @@ const OurWorkProjectLibrary = ({
     );
   }
 
-  const apiResponse = projectsRes.data as ProjectsApiResponse | null;
-  const projects = apiResponse?.data || [];
+  if (projectsRes.status === 'error') {
+    return (
+      <section className={shellClassName}>
+        {mode === 'related' ? <h2 className={styles.relatedHeading}>{title || 'View More of Our Work'}</h2> : null}
+        <AsyncError message="Projects are unavailable right now." onRetry={projectsRes.retry} />
+      </section>
+    );
+  }
+
+  const projects = projectsRes.data ?? [];
 
   const normalized = projects
     .map(mapProject)
-    .filter((project): project is ProjectItem => project !== null)
     .filter((project) => !project.isCurrentProject);
 
   if (normalized.length === 0) {

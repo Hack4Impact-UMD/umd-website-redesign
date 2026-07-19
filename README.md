@@ -6,7 +6,16 @@ To further improve the Hack4Impact-UMD chapter website, we have been given the t
 
 Generally, we will be working on making the website more accessible, improving and adding new functionality for things like searching, improving the mobile version, and enhancing the look and feel of the website with new animations and styles.
 
-The chapter website frontend is built in `React` and `TypeScript`, with a `Strapi CMS` `PostgreSQL` database for the backend. The site backend is hosted on heroku, with images stored on heroku with cloudinary. The frontend is hosted on cloudflare with surge. 
+The public website is a React and TypeScript application in `frontend/`. Its
+read-only API, Firestore data, Storage media, and FireCMS editor are in
+`backend-firebase/` and use the shared Firebase project `umd-website-f3e79`.
+Netlify remains the public production host and proxies same-origin `/api/**`
+requests to the Firebase Function. See [backend-firebase/README.md](backend-firebase/README.md)
+for the backend architecture and deployment gates.
+
+The older Strapi application remains in `backend/` only as a migration and
+historical reference. It is not the active backend and should not be started or
+deployed as part of the redesign.
 
 ### Links
 
@@ -24,62 +33,44 @@ The chapter website frontend is built in `React` and `TypeScript`, with a `Strap
 - [CHANGELOG.md](https://github.com/Hack4Impact-UMD/umd-website-redesign/blob/main/CHANGELOG.md): request access! 
 
 # Dependencies, Libraries, Frameworks
-- react-bootstrap
-- keen-slider
-- react-router
-- strapi
-- react
-Did not use any major ui libraries nor frameworks as many components were created from scratch.
+
+- React, TypeScript, Vite, Tailwind CSS, React Router
+- Firebase Functions, Firestore, Storage, and FireCMS
+- Vitest, Testing Library, and Playwright
 
 # How To Run and Deploy Project
 
-How to run frontend, located in `/frontend`: 
+How to run the frontend:
 
-```jsx
-npm install —legacy-peer-deps //installs required dependencies
-npm start //launches the website on the front-end
+```bash
+npm --prefix frontend ci
+npm --prefix frontend run dev
 ```
 
-How to run backend, located in `/backend`:
+The Vite server proxies `/api` to the local Firebase Functions emulator by
+default. Override `DEV_API_PROXY_URL` in an ignored local environment file when
+needed; browser builds use same-origin `/api` unless `VITE_API_URL` is explicitly
+set. Run the Firebase stack and its validation using the commands in
+[backend-firebase/README.md](backend-firebase/README.md).
 
-```jsx
-npm install —legacy-peer-deps //installs required dependencies
-npm start //launches the backend
+```bash
+npm --prefix frontend run typecheck
+npm --prefix frontend test
+npm --prefix frontend run build
+npm --prefix frontend run test:e2e
 ```
 
-# Broad App and Content Structure
+# App and content structure
 
-### App structure:
+- `frontend/src/pages`: route-level composition
+- `frontend/src/components`: page and shared presentation components
+- `frontend/src/api`: runtime-validated, read-only API client
+- `frontend/src/content`: publication modes, page contracts, and safe local defaults
+- `backend-firebase/functions`: public API and media proxy
+- `backend-firebase/cms`: authenticated editor and content collection registry
 
-![app-structure](https://user-images.githubusercontent.com/45301066/204440249-363aea5e-616f-494d-aa22-40eccdd9ee5a.png)
-
-### Content structure:
-
-![content-structure](https://user-images.githubusercontent.com/45301066/204440267-879ee43a-c5c3-4da8-80c0-b837e4efe89c.png)
-
-Notes: 
-
-- Why use a list for roles, with isDisplayRole?
-    - content structure limitations with strapi.
-- why is there startDate, endDate in roles, where are they used?
-    - unsure, actually
-- why is isDisplayRole a field?
-    - sometimes, you can be a board member, but have another role simultaneously
-- an ideal design would be to have a list of roles for a member, and then a field that points to one of those roles called displayRole
-    - can’t do that due to strapi limitations, however
-
-Read more about Strapi content structure here: [https://docs.strapi.io/user-docs/latest/content-types-builder/introduction-to-content-types-builder.html](https://docs.strapi.io/user-docs/latest/content-types-builder/introduction-to-content-types-builder.html)
-
-## Other glossing notes:
-
-### Frontend
-
-`/src` is organized with `components`, `pages`, and `styles`. Both global and local styles are actually in the styles folder, which, as I’m writing this, I realize is not ideal because then you need to sync the organization of the `/components` and `/styles` folders. That’s for another year. 
-
-- Pages and components: pages themselves are a kind of component! And the routing is done in App.tsx in the root folder for these pages. You would add another page in `/page`
-- Media Queries: tbh we selected 1000px arbitrarily for the resize. Probably have to think about what size is better
-- Custom animations: mostly css! tried to avoid heavy javascript
-    - … with the exception of the search bar
-- contact us section: it used to be an email link but now it is a form
-
-refer to the technical pages for more
+Content documents use an atomic `mode`, `verifiedAt`, and `payload` envelope.
+Only a complete, freshly verified `published` payload is displayed. Placeholder
+and legacy documents use a complete local default; hidden documents render no
+page content. This avoids mixing verified remote fields with local fallback
+fields on the same page.

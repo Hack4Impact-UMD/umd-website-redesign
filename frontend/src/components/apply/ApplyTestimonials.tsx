@@ -14,9 +14,9 @@ function ApplyTestimonials({ testimonials }: ApplyTestimonialsProps) {
   return (
     <ApplySection variant="inverse">
       <div className="grid gap-6 md:grid-cols-2">
-        {testimonials.map((testimonial) => (
+        {testimonials.map((testimonial, index) => (
           <div
-            key={testimonial.name}
+            key={`${testimonial.name}-${testimonial.organization}-${index}`}
             className="space-y-4 rounded-2xl bg-card px-6 py-6 text-foreground shadow-sm"
           >
             <span className="text-4xl font-bold text-muted-foreground">“</span>

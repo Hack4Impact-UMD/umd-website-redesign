@@ -1,7 +1,3 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-
 const stats = [
   { value: '149', label: 'active members' },
   { value: '7', label: 'nonprofits supported' },
@@ -12,21 +8,6 @@ const stats = [
 ];
 
 export default function NewsletterSection() {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-
-    setStatus('loading');
-    // Placeholder - would connect to EmailJS or similar
-    setTimeout(() => {
-      setStatus('success');
-      setEmail('');
-    }, 1000);
-  };
-
   return (
     <section className="py-16 md:py-24 bg-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -42,30 +23,20 @@ export default function NewsletterSection() {
 
             <div className="mb-8">
               <h3 className="font-heading text-lg font-bold text-foreground mb-4">
-                Subscribe For Updates
+                Stay Connected
               </h3>
-              <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-                <Input
-                  type="email"
-                  placeholder="Your Email Address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 h-12 px-4 bg-card border-border"
-                  required
-                />
-                <Button
-                  type="submit"
-                  disabled={status === 'loading'}
-                  className="h-12 px-8 bg-foreground hover:bg-foreground/90 text-background font-medium"
-                >
-                  {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
-                </Button>
-              </form>
-              {status === 'success' && (
-                <p className="mt-3 text-sm text-state-success">
-                  Thanks for subscribing! Check your inbox for confirmation.
-                </p>
-              )}
+              <p className="text-sm text-muted-foreground mb-4">
+                Newsletter signup is not currently available on this site. Follow our verified
+                Instagram account for current chapter updates.
+              </p>
+              <a
+                href="https://instagram.com/hack4impactumd"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-12 items-center rounded-md bg-foreground px-8 font-medium text-background hover:bg-foreground/90"
+              >
+                Follow on Instagram
+              </a>
             </div>
           </div>
 

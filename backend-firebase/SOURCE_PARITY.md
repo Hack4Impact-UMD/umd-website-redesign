@@ -61,7 +61,13 @@ node backend-firebase/scripts/verify-live-contract.mjs
 - Public media paths are decoded once, restricted to supported roots, and served only as images.
 - Project/member deletes are disabled until reverse-relation deletion cleanup exists.
 - Reverse relation updates use atomic array transforms so unrelated CMS edits are not overwritten.
-- CMS Hosting is addressable only through the named `cms` target.
+- CMS and proposed public Hosting are independently addressable through named
+  targets. The public target is source configuration only until separately
+  approved site creation and mapping.
+- Content responses retain the six established endpoints but now normalize the
+  `mode`/`verifiedAt`/`payload` envelope. The frontend publishes only complete,
+  freshly verified payloads; placeholders and legacy documents resolve to local
+  defaults, and hidden documents render no page content.
 
 FireCMS saves the primary entity before its post-save reverse-relation batch;
 those two operations are not one Firestore transaction. Target pre-validation,

@@ -1,9 +1,13 @@
 import React from 'react';
 import FeaturedProjectCard from './FeaturedProjectCard';
 import styles from '../../styles/projects/Projects.module.css';
-import { useAxios, getSeason } from '../HelperFunctions';
+import { getProjects } from '@/api';
+import { useApiResource } from '@/hooks';
+import { formatSeason } from '@/lib/date';
+import { resolveMediaUrl } from '@/lib/media';
 import StandardButton from '../buttons/StandardButton';
 import LoadingSpinner from '../LoadingSpinner';
+import { AsyncError } from '../shared';
 
 interface ProjectsProps {
   isFeatured: boolean;
@@ -12,13 +16,18 @@ interface ProjectsProps {
 }
 
 const Projects = ({ isFeatured, containerClassName, showSectionTitle = true }: ProjectsProps) => {
-  //check which type of projects were rendering
-  const requestUrl = isFeatured
-    ? import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*&filters[isFeatured][$eq]=true'
-    : import.meta.env.VITE_ROOT_URL + '/api/projects?populate=*&filters[isCurrentProject][$eq]=true';
-  const res = useAxios(requestUrl, 'GET', {});
+  const res = useApiResource(
+    (signal) =>
+      getProjects({
+        filter: isFeatured
+          ? { kind: 'featured', value: true }
+          : { kind: 'current', value: true },
+        signal,
+      }),
+    [isFeatured],
+  );
 
-  const projects = res.data ? res.data['data'] : [];
+  const projects = res.data ?? [];
 
   return (
     <div>
@@ -27,31 +36,28 @@ const Projects = ({ isFeatured, containerClassName, showSectionTitle = true }: P
         {isFeatured || !showSectionTitle ? null : (
           <h2 id={styles.sectionTitle}>Current Projects</h2>
         )}
-        {!res.loaded ? (
+        {res.status === 'loading' ? (
           <LoadingSpinner text="Loading projects..." />
+        ) : res.status === 'error' ? (
+          <AsyncError message="Projects are unavailable right now." onRetry={res.retry} />
         ) : !projects || projects.length === 0 ? (
           <NoProjects />
         ) : (
-          projects.map((item: any, index: number) => {
-              const startDate = item['attributes']['startDate']
-                ? getSeason((item['attributes']['startDate'] as string).substring(5, 7) as unknown as number) +
-                  ' ' +
-                  (item['attributes']['startDate'] as string).substring(0, 4)
-                : '';
-              const fullDate = startDate;
+          projects.map((item) => {
+              const fullDate = formatSeason(item.attributes.startDate);
               return (
                 <FeaturedProjectCard
-                  key={index}
-                  link={'ourwork/' + item['attributes']['path']}
-                  title={item['attributes']['title']}
+                  key={item.id}
+                  link={'ourwork/' + item.attributes.path}
+                  title={item.attributes.title}
                   date={fullDate}
-                  summary={item['attributes']['summary']}
+                  summary={item.attributes.summary}
                   image={
-                    item['attributes']['image']['data']
-                      ? item['attributes']['image']['data'][0]['attributes']['url']
+                    item.attributes.image.data[0]
+                      ? resolveMediaUrl(item.attributes.image.data[0].attributes.url)
                       : 'https://plugins.jetbrains.com/files/16260/113019/icon/pluginIcon.png'
                   }
-                  altText={item['attributes']['imageAltText']}
+                  altText={item.attributes.imageAltText ?? `${item.attributes.title} project preview`}
                 />
               );
             })

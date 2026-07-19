@@ -1,5 +1,7 @@
-import { useAxios } from '@/components/HelperFunctions';
+import { getMembers, type MemberEntity } from '@/api';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { AsyncError } from '@/components/shared';
+import { useApiResource } from '@/hooks';
 import PersonCard from './PersonCard';
 
 interface MembersSectionProps {
@@ -26,35 +28,17 @@ interface RoleData {
   team?: string;
 }
 
-interface MemberData {
-  id: number;
-  attributes: {
-    firstName: string;
-    lastName: string;
-    pronouns?: string;
-    avatar?: {
-      data?: {
-        attributes: {
-          url: string;
-        };
-      };
-    };
-    componentRolesArr: RoleData[];
-  };
-}
-
 function getDisplayRole(roles: RoleData[]): RoleData | undefined {
   return roles.find((r) => r.isDisplayRole);
 }
 
 export default function MembersSection({ title, filterStatus }: MembersSectionProps) {
-  const res = useAxios(
-    `${import.meta.env.VITE_ROOT_URL}/api/members?pagination[page]=1&pagination[pageSize]=100&populate=avatar,componentRolesArr&filters[memberDisplayStatus][$eq]=${filterStatus}`,
-    'GET',
-    {}
+  const res = useApiResource(
+    (signal) => getMembers({ filterStatus, pageSize: 200, signal }),
+    [filterStatus],
   );
 
-  const members: MemberData[] = res.data?.data || [];
+  const members: MemberEntity[] = res.data ?? [];
 
   const sortedMembers =
     filterStatus === 'Current Board Member'
@@ -71,8 +55,10 @@ export default function MembersSection({ title, filterStatus }: MembersSectionPr
         <h2 className="font-heading text-3xl font-bold text-foreground text-center mb-12">
           {title}
         </h2>
-        {!res.loaded ? (
+        {res.status === 'loading' ? (
           <LoadingSpinner />
+        ) : res.status === 'error' ? (
+          <AsyncError message="Members are unavailable right now." onRetry={res.retry} />
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
             {sortedMembers.map((member) => {
