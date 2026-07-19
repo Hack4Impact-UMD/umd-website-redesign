@@ -29,13 +29,15 @@ const toAvatarData = (member: MemberRecord): StrapiMemberAttributes['avatar'] =>
 export const mapMemberToStrapiEntity = (
   member: MemberRecord,
 ): StrapiEntity<StrapiMemberAttributes> => {
-  const normalizedRoles = (member.componentRolesArr ?? []).map((role) => ({
-    title: role.title,
-    isDisplayRole: role.isDisplayRole,
-    team: role.team,
-    startDate: toIsoDateString(role.startDate),
-    endDate: toIsoDateString(role.endDate),
-  }));
+  const normalizedRoles = (member.componentRolesArr ?? [])
+    .filter((role) => role.title !== null)
+    .map((role) => ({
+      title: role.title,
+      isDisplayRole: role.isDisplayRole,
+      team: role.team,
+      startDate: toIsoDateString(role.startDate),
+      endDate: toIsoDateString(role.endDate),
+    }));
 
   return {
     id: member.id,
