@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Karla');
-@import url('https://fonts.googleapis.com/css?family=Rubik');
 
 html {
   scroll-behavior: auto !important;
@@ -48,7 +47,7 @@ h3 {
 }
 
 p {
-  font-family: 'Rubik';
+  font-family: 'Karla', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;

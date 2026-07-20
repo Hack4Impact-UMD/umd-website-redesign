@@ -1,5 +1,6 @@
 import groupPhoto from '@/components/assets/h4igroup_photo.jpg';
 import campStarfishLogo from '@/components/assets/home/camp-starfish.png';
+import mobileGroupPhoto from '@/components/assets/home/h4igroup-photo-mobile.webp';
 import heroImage from '@/components/assets/home/hero.webp';
 import ACES from '@/components/assets/supporters/ACES.png';
 import Bloomberg from '@/components/assets/supporters/Bloomberg.png';
@@ -18,7 +19,7 @@ export const defaultHomeContent: HomeContent = {
     slides: [
       {
         image: heroImage,
-        mobileImage: groupPhoto,
+        mobileImage: mobileGroupPhoto,
         alt: 'Hack4Impact UMD members gathered together',
       },
       { image: groupPhoto, alt: 'Hack4Impact UMD members gathered at a chapter event' },

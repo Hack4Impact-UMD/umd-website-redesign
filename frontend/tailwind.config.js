@@ -69,9 +69,8 @@ export default {
       },
       fontFamily: {
         heading: ['Karla', 'sans-serif'],
-        body: ['Rubik', 'sans-serif'],
+        body: ['Karla', 'sans-serif'],
         karla: ['Karla', 'sans-serif'],
-        rubik: ['Rubik', 'sans-serif'],
       },
       fontSize: {
         'display': ['48px', { lineHeight: '56px', letterSpacing: '-0.01em', fontWeight: '700' }],

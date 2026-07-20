@@ -9,7 +9,12 @@ import {
 } from './apply';
 import { defaultHomeContent, homeContentSchema, normalizeHomeContent } from './home';
 import { defaultOurWorkContent, normalizeOurWorkContent, ourWorkContentSchema } from './our-work';
-import { defaultSiteSettings, normalizeSiteSettings, siteSettingsSchema } from './site-settings';
+import {
+  defaultSiteSettings,
+  normalizeSiteSettings,
+  resolveSiteSettingsContent,
+  siteSettingsSchema,
+} from './site-settings';
 
 describe('ContentMode', () => {
   it('keeps every local placeholder complete and contract-valid', () => {
@@ -67,6 +72,57 @@ describe('ContentMode', () => {
     });
     expect(result).toMatchObject({ mode: 'placeholder', issue: 'invalid-payload' });
     expect(result.content).toBe(defaultApplyStudentContent);
+  });
+
+  it('rejects unsafe external site settings atomically', () => {
+    const result = normalizeSiteSettings({
+      mode: 'published',
+      verifiedAt: '2026-07-19T12:00:00Z',
+      payload: {
+        ...defaultSiteSettings,
+        footer: {
+          ...defaultSiteSettings.footer,
+          socialLinks: [{ label: 'Unsafe', href: '/internal', icon: 'Instagram' }],
+        },
+      },
+    });
+    expect(result).toMatchObject({ source: 'placeholder', issue: 'invalid-payload' });
+    expect(result.content).toBe(defaultSiteSettings);
+  });
+
+  it('keeps complete shell defaults when published settings remove all navigation', () => {
+    const result = normalizeSiteSettings({
+      mode: 'published',
+      verifiedAt: '2026-07-19T12:00:00Z',
+      payload: { ...defaultSiteSettings, navbar: { links: [] } },
+    });
+    expect(result).toMatchObject({ source: 'placeholder', issue: 'invalid-payload' });
+    expect(result.content).toBe(defaultSiteSettings);
+  });
+
+  it('rejects unsupported social icons atomically', () => {
+    const result = normalizeSiteSettings({
+      mode: 'published',
+      verifiedAt: '2026-07-19T12:00:00Z',
+      payload: {
+        ...defaultSiteSettings,
+        footer: {
+          ...defaultSiteSettings.footer,
+          socialLinks: [{ label: 'Unsupported', href: 'https://example.org', icon: 'Twitter' }],
+        },
+      },
+    });
+    expect(result).toMatchObject({ source: 'placeholder', issue: 'invalid-payload' });
+    expect(result.content).toBe(defaultSiteSettings);
+  });
+
+  it.each([
+    undefined,
+    { navbar: { links: [] } },
+    { mode: 'hidden' },
+    { mode: 'published', verifiedAt: 'invalid', payload: defaultSiteSettings },
+  ])('keeps complete shell defaults for loading, legacy, hidden, or invalid settings', (document) => {
+    expect(resolveSiteSettingsContent(document)).toBe(defaultSiteSettings);
   });
 
   it('keeps Apply placeholders useful without publishing stale campaigns or invented quotes', () => {

@@ -1,77 +1,5 @@
-import { expect, test, type Page } from '@playwright/test';
-
-const project = {
-  id: 'project-001',
-  attributes: {
-    title: 'Fixture Project',
-    path: 'fixture-project',
-    startDate: '2025-09-01',
-    summary: 'Fixture summary',
-    blurb: 'Fixture project details.',
-    isFeatured: true,
-    isCurrentProject: false,
-    repoURL: 'https://github.com/Hack4Impact-UMD',
-    hostedProjectURL: 'https://example.org',
-    imageAltText: 'Fixture project',
-    nonprofit: { data: { id: 'npo-1', attributes: { name: 'Fixture Nonprofit' } } },
-    image: { data: [] },
-    members: { data: [] },
-  },
-};
-
-const member = {
-  id: 'member-001',
-  attributes: {
-    firstName: 'Fixture',
-    lastName: 'Member',
-    memberDisplayStatus: 'Current Member',
-    componentRolesArr: [{ title: 'Engineer', isDisplayRole: true }],
-    avatar: { data: null },
-  },
-};
-
-const envelope = (data: unknown[]) => ({
-  data,
-  meta: { pagination: { page: 1, pageSize: 200, pageCount: 1, total: data.length } },
-});
-
-const aboutContentResponse = {
-  data: { mode: 'placeholder' },
-  meta: { collection: 'content_about', documentId: 'main' },
-};
-
-const installFixtures = async (page: Page) => {
-  await page.route(/\/api\/content\/(home|about)(?:\?|$)/, (route) => {
-    const response = route.request().url().includes('/about')
-      ? aboutContentResponse
-      : {
-          data: null,
-          meta: { collection: 'content_home', documentId: 'main' },
-        };
-    return route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify(response),
-    });
-  });
-  await page.route(/\/api\/content\/apply\/(student|nonprofit)$/, (route) => {
-    const key = route.request().url().endsWith('/student') ? 'student' : 'nonprofit';
-    return route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({
-        data: { mode: 'placeholder' },
-        meta: { collection: `content_apply_${key}`, documentId: 'default' },
-      }),
-    });
-  });
-  await page.route(/\/api\/projects(?:\?|$)/, (route) =>
-    route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(envelope([project])) }),
-  );
-  await page.route(/\/api\/members(?:\?|$)/, (route) =>
-    route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(envelope([member])) }),
-  );
-};
+import { expect, test } from '@playwright/test';
+import { collectionEnvelope, installFixtures, project, publishedSiteSettings } from './fixtures';
 
 for (const [path, heading] of [
   ['/', /Hack4Impact-UMD/i],
@@ -92,6 +20,7 @@ for (const [path, heading] of [
     await expect(page.getByRole('heading', { name: heading }).first()).toBeVisible();
     await expect(page.getByRole('navigation')).toBeVisible();
     await expect(page.getByRole('contentinfo')).toBeVisible();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
     expect(errors).toEqual([]);
   });
 }
@@ -114,7 +43,75 @@ test('home preserves its Figma section order without fabricated live capabilitie
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
+test('mobile navigation and Apply submenu are keyboard-readable and route correctly', async ({ page }) => {
+  await installFixtures(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+  await page.getByRole('button', { name: 'Open menu' }).click();
+  await expect(page.getByRole('button', { name: 'Close menu' })).toHaveAttribute('aria-expanded', 'true');
+  await page.getByRole('button', { name: 'Open Apply submenu' }).click();
+  const nonprofitLink = page.locator('#mobile-navigation').getByRole('link', { name: 'For Nonprofits' });
+  await expect(nonprofitLink).toBeVisible();
+  await nonprofitLink.click();
+  await expect(page).toHaveURL(/\/apply\/nonprofit$/);
+  await expect(page.getByRole('heading', { name: 'Nonprofits' })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
+test('desktop Apply dropdown supports focus and Escape', async ({ page }) => {
+  await installFixtures(page);
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto('/');
+  const applyLink = page.getByRole('link', { name: 'Apply' }).first();
+  await applyLink.focus();
+  await expect(applyLink).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.getByRole('link', { name: 'For Students' }).first()).toBeVisible();
+  await page.keyboard.press('Escape');
+  await expect(applyLink).toHaveAttribute('aria-expanded', 'false');
+});
+
+test('published site settings update shared chrome while legacy and loading states keep defaults', async ({ page }) => {
+  await installFixtures(page, { siteSettings: publishedSiteSettings });
+  await page.goto('/missing-direct-link');
+  await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Go to Home' })).toHaveAttribute('href', '/');
+  await expect(page.getByRole('link', { name: 'Chapter Info' }).first()).toHaveAttribute('href', '/aboutus');
+  await expect(page.getByText('Read our verified monthly chapter notes.')).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Read our newsletter' })).toHaveAttribute(
+    'href',
+    'https://example.org/newsletter',
+  );
+  await expect(page.locator('form')).toHaveCount(0);
+});
+
+test('site chrome renders defaults before a delayed legacy settings response and keeps them afterward', async ({ page }) => {
+  await installFixtures(page);
+  let releaseResponse = () => {};
+  const responseGate = new Promise<void>((resolve) => { releaseResponse = resolve; });
+  await page.route(/\/api\/content\/site-settings(?:\?|$)/, async (route) => {
+    await responseGate;
+    await route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        data: { navbar: { links: [{ label: 'Legacy', href: '/legacy' }] } },
+        meta: { collection: 'content_site_settings', documentId: 'main' },
+      }),
+    });
+  });
+
+  const response = page.waitForResponse(/\/api\/content\/site-settings(?:\?|$)/);
+  await page.goto('/missing');
+  await expect(page.getByRole('link', { name: 'About Us' }).first()).toBeVisible();
+  await expect(page.getByRole('contentinfo')).toBeVisible();
+  releaseResponse();
+  await response;
+  await expect(page.getByRole('link', { name: 'About Us' }).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Legacy' })).toHaveCount(0);
+});
+
 test('project library exposes a real retry path after an API failure', async ({ page }) => {
+  await installFixtures(page);
   let requests = 0;
   let serveSuccess = false;
   await page.route(/\/api\/projects(?:\?|$)/, (route) => {
@@ -125,7 +122,7 @@ test('project library exposes a real retry path after an API failure', async ({ 
     return route.fulfill({
       status: 200,
       contentType: 'application/json',
-      body: JSON.stringify(envelope([project])),
+      body: JSON.stringify(collectionEnvelope([project])),
     });
   });
 
