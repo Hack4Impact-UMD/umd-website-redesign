@@ -1,28 +1,30 @@
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
+import type { HomeContent } from '@/content/home';
+import HomeActionLink from './HomeActionLink';
 
-export default function CTASection() {
+interface CTASectionProps {
+  content: HomeContent['cta'];
+}
+
+export default function CTASection({ content }: CTASectionProps) {
   return (
-    <section className="py-16 md:py-24 bg-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-8">
-          Come Make an Impact With Us!
+    <section aria-labelledby="home-cta-heading" className="bg-white px-4 py-10 sm:px-6 lg:px-24">
+      <div className="mx-auto max-w-[1248px]">
+        <h2 id="home-cta-heading" className="text-[28px] leading-9 text-foreground">
+          {content.heading}
         </h2>
-
-        <div className="flex flex-wrap justify-center gap-4">
-          <Button
-            asChild
-            className="h-12 px-8 bg-primary hover:bg-state-primary-hover active:bg-state-primary-active text-white font-medium rounded-md transition-all hover:scale-105 hover:shadow-lg shadow-md"
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-9">
+          <HomeActionLink
+            href={content.primary.href}
+            className="inline-flex h-10 min-w-[199px] items-center justify-center rounded-lg bg-[#0056A3] px-6 font-heading text-base font-bold text-white transition-colors hover:bg-state-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
           >
-            <Link to="/apply/student">Join as Student</Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="h-12 px-8 border-2 border-primary text-primary hover:bg-primary/5 font-medium rounded-md transition-all hover:scale-105 hover:shadow-lg"
+            {content.primary.label}
+          </HomeActionLink>
+          <HomeActionLink
+            href={content.secondary.href}
+            className="inline-flex h-10 min-w-[207px] items-center justify-center rounded-lg border border-h4i-blue bg-white px-6 font-heading text-base font-bold text-h4i-blue transition-colors hover:bg-state-secondary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
           >
-            <Link to="/apply/nonprofit">Partner With Us</Link>
-          </Button>
+            {content.secondary.label}
+          </HomeActionLink>
         </div>
       </div>
     </section>

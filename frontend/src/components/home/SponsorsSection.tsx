@@ -1,100 +1,69 @@
-import { useState } from 'react';
+import type { HomeContent } from '@/content/home';
+import { resolveMediaUrl } from '@/lib/media';
 
-import Microsoft from '@/components/assets/supporters/Microsoft.png';
-import Uber from '@/components/assets/supporters/Uber.png';
-import CodePath from '@/components/assets/supporters/CodePath.png';
-import DoGood from '@/components/assets/supporters/DoGood.png';
-import CapitalOne from '@/components/assets/supporters/CapitalOne.png';
-import SmithSchool from '@/components/assets/supporters/SmithSchool.png';
-import Bloomberg from '@/components/assets/supporters/Bloomberg.png';
-import ACES from '@/components/assets/supporters/ACES.png';
-
-interface Sponsor {
-  name: string;
-  logo: string;
+interface SponsorsSectionProps {
+  content: HomeContent['sponsors'];
 }
 
-interface SponsorTier {
-  name: string;
-  sponsors: Sponsor[];
-}
+export default function SponsorsSection({ content }: SponsorsSectionProps) {
+  if (content.mode === 'hidden') return null;
 
-const sponsorTiers: SponsorTier[] = [
-  {
-    name: 'Platinum',
-    sponsors: [
-      { name: 'Microsoft', logo: Microsoft },
-      { name: 'Uber', logo: Uber },
-    ],
-  },
-  {
-    name: 'Gold',
-    sponsors: [
-      { name: 'CodePath', logo: CodePath },
-      { name: 'DoGood', logo: DoGood },
-      { name: 'Capital One', logo: CapitalOne },
-      { name: 'Smith School', logo: SmithSchool },
-    ],
-  },
-  {
-    name: 'Silver',
-    sponsors: [{ name: 'Bloomberg', logo: Bloomberg }],
-  },
-  {
-    name: 'Bronze',
-    sponsors: [{ name: 'ACES', logo: ACES }],
-  },
-];
-
-function SponsorLogo({ sponsor }: { sponsor: Sponsor }) {
-  const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState(false);
-
-  if (error) return null;
+  const hasSponsors = content.mode === 'published' && content.tiers.length > 0;
 
   return (
-    <div className="flex items-center justify-center p-4">
-      <img
-        src={sponsor.logo}
-        alt={`${sponsor.name} logo`}
-        className={`max-h-16 md:max-h-20 w-auto object-contain transition-opacity duration-300 ${
-          loaded ? 'opacity-100' : 'opacity-0'
-        }`}
-        onLoad={() => setLoaded(true)}
-        onError={() => setError(true)}
-      />
-    </div>
-  );
-}
+    <section aria-labelledby="sponsors-heading" className="bg-[#F9FAFB] px-4 py-12 sm:px-6 lg:px-24">
+      <div className="mx-auto max-w-[1248px]">
+        <h2 id="sponsors-heading" className="text-center text-[28px] leading-9 text-foreground">
+          {content.heading}
+        </h2>
 
-export default function SponsorsSection() {
-  return (
-    <section className="py-16 md:py-24 bg-muted">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
-            Our sponsors
-          </h2>
-        </div>
+        {hasSponsors ? (
+          <div className="mt-10 space-y-12">
+            {content.tiers.map((tier) => (
+              <section key={tier.name} aria-labelledby={`sponsor-tier-${tier.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                <h3
+                  id={`sponsor-tier-${tier.name.toLowerCase().replace(/\s+/g, '-')}`}
+                  className="text-center text-[22px] leading-[30px] text-text-secondary"
+                >
+                  {tier.name}
+                </h3>
+                <div className="mt-6 grid grid-cols-1 items-center justify-items-center gap-10 sm:grid-cols-2 sm:gap-x-24">
+                  {tier.sponsors.map((sponsor) => {
+                    const logo = (
+                      <img
+                        src={resolveMediaUrl(sponsor.logo)}
+                        alt={`${sponsor.name} logo`}
+                        className="max-h-20 w-full max-w-[280px] object-contain"
+                        loading="lazy"
+                      />
+                    );
 
-        <div className="space-y-12">
-          {sponsorTiers.map((tier) => (
-            <div key={tier.name}>
-              <h3 className="text-center font-heading text-sm font-bold text-muted-foreground uppercase tracking-wider mb-6">
-                {tier.name}
-              </h3>
-              <div
-                className={`flex flex-wrap items-center justify-center gap-8 md:gap-12 ${
-                  tier.name === 'Platinum' ? 'gap-12 md:gap-16' : ''
-                }`}
-              >
-                {tier.sponsors.map((sponsor) => (
-                  <SponsorLogo key={sponsor.name} sponsor={sponsor} />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+                    return sponsor.href ? (
+                      <a
+                        key={sponsor.name}
+                        href={sponsor.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex min-h-24 w-full items-center justify-center rounded-lg p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
+                        aria-label={`Visit ${sponsor.name}`}
+                      >
+                        {logo}
+                      </a>
+                    ) : (
+                      <div key={sponsor.name} className="flex min-h-24 w-full items-center justify-center p-4">
+                        {logo}
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            ))}
+          </div>
+        ) : (
+          <p role="status" className="mx-auto mt-8 max-w-xl text-center text-lg text-text-secondary">
+            {content.placeholderMessage}
+          </p>
+        )}
       </div>
     </section>
   );

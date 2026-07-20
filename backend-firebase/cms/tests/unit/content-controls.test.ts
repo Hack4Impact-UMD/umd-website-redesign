@@ -14,6 +14,23 @@ describe('content collection controls', () => {
     ]);
   });
 
+  it('exposes the fail-closed Home publishing controls', () => {
+    const home = collections.find(({ id }) => id === 'content_home') as unknown as {
+      properties: { payload: { properties: Record<string, any> } };
+    };
+    const payload = home.properties.payload.properties;
+
+    expect(payload.testimonials.properties.mode.enumValues).toEqual(
+      expect.arrayContaining([{ id: 'published', label: 'Published' }]),
+    );
+    expect(payload.testimonials.properties.items.of.properties.verified.dataType).toBe('boolean');
+    expect(payload.newsletter.properties.subscribeSuccessMessage).toBeUndefined();
+    expect(payload.newsletter.properties.subscribeUrl.url).toBe(true);
+    expect(payload.sponsors.properties.tiers.of.properties.sponsors.of.properties.visible.dataType).toBe(
+      'boolean',
+    );
+  });
+
   it('requires verification before first publication', () => {
     expect(() => normalizeContentSave({ mode: 'published', payload: { title: 'Ready' } })).toThrow(
       /fresh verification date/,
