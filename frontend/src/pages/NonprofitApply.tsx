@@ -1,121 +1,98 @@
+import { getContentDocument } from '@/api/content';
 import ApplyCTA from '@/components/apply/ApplyCTA';
 import ApplyFaq from '@/components/apply/ApplyFAQ';
 import ApplyHero from '@/components/apply/ApplyHero';
 import ApplyIntro from '@/components/apply/ApplyIntro';
 import { ApplyPageLayout, ApplySection, SectionHeader } from '@/components/apply/ApplyPageLayout';
+import ApplicationStatusBanner from '@/components/apply/ApplicationStatusBanner';
 import ApplyTestimonials from '@/components/apply/ApplyTestimonials';
 import ApplyTimeline from '@/components/apply/ApplyTimeline';
+import ContentNotice from '@/components/shared/ContentNotice';
+import { normalizeApplyNonprofitContent } from '@/content/apply';
+import { useApiResource } from '@/hooks';
 
-import heroImage from '@/components/assets/h4igroup_photo.jpg';
-import introImage from '@/components/assets/mott_haven_image.jpg';
+const placeholder = normalizeApplyNonprofitContent(null);
 
-const timelineSteps = [
-  {
-    title: 'Step 1',
-    subtitle: 'Jan 15 – Feb 1',
-    description:
-      'Submit your application so our sourcing team can review your organization’s goals and needs.',
-  },
-  {
-    title: 'Step 2',
-    subtitle: 'Feb 2 – Feb 15',
-    description:
-      'We will reach out within two weeks to schedule a virtual meeting and discuss potential collaboration.',
-  },
-  {
-    title: 'Step 3',
-    subtitle: 'Late Feb – Early Mar',
-    description:
-      'Confirm the project scope, timeline, and next steps for partnership and onboarding.',
-  },
-];
-
-const faqItems = [
-  {
-    question: 'What kinds of projects are a good fit?',
-    answer:
-      'We build web applications, data tools, and internal systems that help nonprofits scale their impact.',
-  },
-  {
-    question: 'What does a collaboration cost?',
-    answer:
-      'Projects are free aside from minimal hosting costs, which we keep as low as possible.',
-  },
-  {
-    question: 'How long does a project take?',
-    answer:
-      'Most engagements span one academic semester (approximately 3–4 months).',
-  },
-  {
-    question: 'How involved should my team be?',
-    answer:
-      'We ask for regular feedback and a point of contact so we can build the right solution together.',
-  },
-];
-
-const testimonials = [
-  {
-    quote:
-      'Working with Hack4Impact has been great. The students are talented and really have a passion for social good.',
-    name: 'Nonprofit Person',
-    organization: 'Organization Name',
-  },
-  {
-    quote:
-      'Our collaboration was organized and communicative, and the final product delivered real value.',
-    name: 'Nonprofit Person',
-    organization: 'Organization Name',
-  },
-];
+const loadNonprofitContent = async (signal: AbortSignal) =>
+  normalizeApplyNonprofitContent(await getContentDocument('apply/nonprofit', signal));
 
 function NonprofitApply() {
+  const resource = useApiResource(loadNonprofitContent);
+  const resolved = resource.data ?? placeholder;
+  const content = resolved.content;
+
+  if (!content) {
+    return (
+      <main className="mx-auto min-h-[50vh] max-w-[1248px] px-6 py-16 lg:px-24">
+        <ContentNotice>The nonprofit application page is not currently available.</ContentNotice>
+      </main>
+    );
+  }
+
+  const applicationHref =
+    content.applicationStatus.state === 'open' ? content.applicationStatus.applicationUrl : undefined;
+  const applicationLabel =
+    content.applicationStatus.state === 'open'
+      ? content.intro.ctaLabel
+      : content.applicationStatus.state === 'comingSoon'
+        ? 'Applications coming soon'
+        : 'Applications closed';
+
   return (
     <ApplyPageLayout>
-      <ApplyHero title="Apply as a Nonprofit" backgroundImage={heroImage} />
-      <div className="bg-accent px-6 py-3 text-center text-sm font-semibold text-primary">
-        Currently taking Fall 2025 Applications. Apply Now
-      </div>
-      <ApplyIntro
-        heading="Partner With Us"
-        body="At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want to use our software and web development skills to help nonprofits. Our collaborations with nonprofits are semester-long (around 3-4 months), and we will work with you to develop a software product that suits your organization's needs."
-        ctaLabel="Apply"
-        ctaHref="https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link"
-        imageSrc={introImage}
-        imageAlt="Hack4Impact students collaborating in a classroom"
+      <ApplyHero title={content.hero.title} backgroundImage={content.hero.image} />
+      <ApplicationStatusBanner
+        status={content.applicationStatus}
+        overrideText={content.banner?.enabled ? content.banner.text : undefined}
       />
 
-      <ApplySection variant="muted">
-        <div className="space-y-6">
-          <SectionHeader title="Criteria/Qualifications" />
-          <div className="space-y-4 font-body text-base text-muted-foreground">
-            <p>
-              At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want
-              to use our software and web development skills to help nonprofits. Our collaborations with nonprofits are
-              semester-long (around 3-4 months), and we will work with you to develop a software product that suits your
-              organization’s needs.
-            </p>
-            <p>
-              At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want
-              to use our software and web development skills to help nonprofits. Our collaborations with nonprofits are
-              semester-long (around 3-4 months), and we will work with you to develop a software product that suits your
-              organization’s needs.
-            </p>
-          </div>
+      {resource.error ? (
+        <div className="mx-auto max-w-[1248px] px-6 pt-8 lg:px-24">
+          <ContentNotice>
+            Live application details are temporarily unavailable. Applications remain closed until a verified window is published.
+          </ContentNotice>
         </div>
-      </ApplySection>
+      ) : null}
 
-      <ApplyTimeline heading="Application Process & Timeline" steps={timelineSteps} />
+      <ApplyIntro
+        heading={content.intro.heading}
+        body={content.intro.body}
+        ctaLabel={applicationLabel}
+        ctaHref={applicationHref}
+        imageSrc={content.intro.image}
+        imageAlt={content.intro.imageAlt}
+      />
 
-      <ApplyTestimonials testimonials={testimonials} />
+      {content.criteria.paragraphs.length > 0 ? (
+        <ApplySection variant="muted">
+          <div className="space-y-6">
+            <SectionHeader title={content.criteria.heading} />
+            <div className="space-y-4 font-body text-base leading-6 text-foreground sm:text-lg">
+              {content.criteria.paragraphs.map((paragraph, index) => (
+                <p key={`${paragraph.slice(0, 40)}-${index}`}>{paragraph}</p>
+              ))}
+            </div>
+          </div>
+        </ApplySection>
+      ) : null}
 
-      <ApplyFaq heading="Frequently Asked Questions" items={faqItems} />
+      {content.timeline.steps.length > 0 ? (
+        <ApplyTimeline
+          heading={content.timeline.heading}
+          description={content.timeline.description}
+          steps={content.timeline.steps}
+        />
+      ) : null}
+
+      <ApplyTestimonials testimonials={content.testimonials} />
+      <ApplyFaq heading={content.faq.heading} items={content.faq.items} />
 
       <ApplyCTA
-        heading="Ready to Work with Us?"
-        primaryLabel="Apply"
-        primaryHref="https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link"
-        secondaryLabel="I'm a Student"
-        secondaryHref="/apply/student"
+        heading={content.cta.heading}
+        primaryLabel={applicationLabel}
+        primaryHref={applicationHref}
+        secondaryLabel={content.cta.secondaryLabel}
+        secondaryHref={content.cta.secondaryHref}
       />
     </ApplyPageLayout>
   );

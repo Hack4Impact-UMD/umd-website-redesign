@@ -10,14 +10,12 @@ export type RoleCardProps = {
 
 function RoleCard({ title, description, icon: Icon }: RoleCardProps) {
   return (
-    <Card className="border-border bg-card shadow-sm">
+    <Card className="h-full border-0 bg-card shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
       <CardContent className="space-y-4 p-6">
-        <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-border">
-          <Icon className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
-        </div>
+        <Icon className="h-12 w-12 text-muted-foreground sm:h-16 sm:w-16" aria-hidden="true" />
         <div className="space-y-2">
-          <h3 className="font-heading text-lg font-bold">{title}</h3>
-          <p className="font-body text-sm text-muted-foreground">{description}</p>
+          <h3 className="font-heading text-h3 font-bold">{title}</h3>
+          <p className="font-body text-base leading-6 text-foreground">{description}</p>
         </div>
       </CardContent>
     </Card>

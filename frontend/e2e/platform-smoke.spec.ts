@@ -54,6 +54,17 @@ const installFixtures = async (page: Page) => {
       body: JSON.stringify(response),
     });
   });
+  await page.route(/\/api\/content\/apply\/(student|nonprofit)$/, (route) => {
+    const key = route.request().url().endsWith('/student') ? 'student' : 'nonprofit';
+    return route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        data: { mode: 'placeholder' },
+        meta: { collection: `content_apply_${key}`, documentId: 'default' },
+      }),
+    });
+  });
   await page.route(/\/api\/projects(?:\?|$)/, (route) =>
     route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(envelope([project])) }),
   );
@@ -67,8 +78,8 @@ for (const [path, heading] of [
   ['/aboutus', /About Us/i],
   ['/ourwork', /Past Project Library/i],
   ['/ourwork/fixture-project', /Fixture Project/i],
-  ['/apply/student', /Apply as a Student/i],
-  ['/apply/nonprofit', /Apply as a Nonprofit/i],
+  ['/apply/student', /^Students$/i],
+  ['/apply/nonprofit', /^Nonprofits$/i],
 ] as const) {
   test(`${path} renders with deterministic API fixtures`, async ({ page }) => {
     const errors: string[] = [];

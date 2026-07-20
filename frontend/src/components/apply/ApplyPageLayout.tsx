@@ -22,8 +22,8 @@ export function ApplyPageLayout({ children }: { children: ReactNode }) {
 
 export function ApplySection({ children, className, variant = 'default' }: ApplySectionProps) {
   return (
-    <section className={cn('py-16 px-6 lg:px-16', sectionVariants[variant], className)}>
-      <div className="mx-auto w-full max-w-6xl">{children}</div>
+    <section className={cn('px-6 py-16 lg:px-24', sectionVariants[variant], className)}>
+      <div className="mx-auto w-full max-w-[1248px]">{children}</div>
     </section>
   );
 }
@@ -31,7 +31,7 @@ export function ApplySection({ children, className, variant = 'default' }: Apply
 export function SectionHeader({ title, description }: { title: string; description?: string }) {
   return (
     <div className="space-y-3">
-      <h2 className="font-heading text-3xl font-bold tracking-tight">{title}</h2>
+      <h2 className="font-heading text-h2 font-bold tracking-tight">{title}</h2>
       {description ? <p className="font-body text-lg text-muted-foreground">{description}</p> : null}
     </div>
   );
