@@ -1,6 +1,6 @@
 .header {
   position: relative;
-  height: clamp(240px, 38vw, 410px);
+  height: clamp(240px, 24vw, 264px);
   overflow: hidden;
 }
 
@@ -38,8 +38,8 @@
   margin: 0;
   width: 100%;
   text-align: center;
-  font-size: clamp(32px, 4vw, 52px);
-  line-height: 1.05;
+  font-size: clamp(32px, 3vw, 36px);
+  line-height: 44px;
   font-weight: 700;
   letter-spacing: -0.01em;
 }
@@ -49,8 +49,8 @@
   color: hsl(var(--inverse-foreground) / 0.9);
   width: 100%;
   text-align: center;
-  font-size: clamp(18px, 2.2vw, 26px);
-  font-weight: 500;
+  font-size: clamp(18px, 2vw, 28px);
+  font-weight: 700;
   line-height: 1.4;
   max-width: 720px;
 }
