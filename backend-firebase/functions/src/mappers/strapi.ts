@@ -43,6 +43,7 @@ export const mapMemberToStrapiEntity = (
       firstName: member.firstName,
       lastName: member.lastName,
       pronouns: member.pronouns,
+      linkedinUrl: member.linkedinUrl,
       memberDisplayStatus: member.memberDisplayStatus,
       componentRolesArr: normalizedRoles,
       avatar: toAvatarData(member),

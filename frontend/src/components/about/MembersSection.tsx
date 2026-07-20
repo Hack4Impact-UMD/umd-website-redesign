@@ -22,17 +22,14 @@ const EXEC_ORDER = [
   'Senior Advisor',
 ];
 
-interface RoleData {
-  isDisplayRole: boolean;
-  title: string;
-  team?: string;
-}
+type MemberRole = MemberEntity['attributes']['componentRolesArr'][number];
 
-function getDisplayRole(roles: RoleData[]): RoleData | undefined {
+function getDisplayRole(roles: MemberRole[]): MemberRole | undefined {
   return roles.find((r) => r.isDisplayRole);
 }
 
 export default function MembersSection({ title, filterStatus }: MembersSectionProps) {
+  const headingId = filterStatus === 'Current Board Member' ? 'board-heading' : 'members-heading';
   const res = useApiResource(
     (signal) => getMembers({ filterStatus, pageSize: 200, signal }),
     [filterStatus],
@@ -45,24 +42,36 @@ export default function MembersSection({ title, filterStatus }: MembersSectionPr
       ? [...members].sort((a, b) => {
           const aRole = getDisplayRole(a.attributes.componentRolesArr)?.title || '';
           const bRole = getDisplayRole(b.attributes.componentRolesArr)?.title || '';
-          return EXEC_ORDER.indexOf(aRole) - EXEC_ORDER.indexOf(bRole);
+          const aRank = EXEC_ORDER.indexOf(aRole);
+          const bRank = EXEC_ORDER.indexOf(bRole);
+          const roleOrder =
+            (aRank === -1 ? EXEC_ORDER.length : aRank) -
+            (bRank === -1 ? EXEC_ORDER.length : bRank);
+          if (roleOrder !== 0) return roleOrder;
+          return `${a.attributes.firstName} ${a.attributes.lastName}`.localeCompare(
+            `${b.attributes.firstName} ${b.attributes.lastName}`,
+          );
         })
       : members;
 
   return (
-    <section className="py-16 px-6 lg:px-16 bg-muted/30">
-      <div className="mx-auto max-w-7xl">
-        <h2 className="font-heading text-3xl font-bold text-foreground text-center mb-12">
+    <section className="bg-background px-6 py-12 sm:px-8 lg:px-24" aria-labelledby={headingId}>
+      <div className="mx-auto max-w-[1248px]">
+        <h2 id={headingId} className="mb-10 text-center font-heading text-h2 font-bold text-foreground">
           {title}
         </h2>
         {res.status === 'loading' ? (
           <LoadingSpinner />
         ) : res.status === 'error' ? (
           <AsyncError message="Members are unavailable right now." onRetry={res.retry} />
+        ) : sortedMembers.length === 0 ? (
+          <p className="text-center text-base text-muted-foreground">
+            No board members are published right now.
+          </p>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8 justify-items-center">
+          <div className="grid grid-cols-2 justify-items-center gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-10">
             {sortedMembers.map((member) => {
-              const { firstName, lastName, avatar, componentRolesArr } = member.attributes;
+              const { firstName, lastName, avatar, componentRolesArr, linkedinUrl } = member.attributes;
               const displayRole = getDisplayRole(componentRolesArr);
               const memberName = `${firstName} ${lastName}`;
 
@@ -72,6 +81,8 @@ export default function MembersSection({ title, filterStatus }: MembersSectionPr
                   name={memberName}
                   role={displayRole?.title || ''}
                   imageSrc={avatar?.data?.attributes.url}
+                  linkedinUrl={linkedinUrl}
+                  prominent
                 />
               );
             })}

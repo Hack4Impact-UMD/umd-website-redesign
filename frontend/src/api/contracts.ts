@@ -1,7 +1,16 @@
 import { z } from 'zod';
 
 const nonEmptyString = z.string().trim().min(1);
-const optionalString = z.string().optional();
+const optionalString = z.string().nullish().transform((value) => value ?? undefined);
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === 'object' && value !== null && !Array.isArray(value);
+
+const omitNullTitleRoles = (value: unknown) => {
+  if (!Array.isArray(value)) return value;
+
+  return value.filter((role) => !(isRecord(role) && role.title === null));
+};
 
 export const paginationSchema = z.object({
   page: z.number().int().min(1),
@@ -25,15 +34,19 @@ export const memberAttributesSchema = z.object({
   firstName: nonEmptyString,
   lastName: nonEmptyString,
   pronouns: optionalString,
+  linkedinUrl: optionalString,
   memberDisplayStatus: memberDisplayStatusSchema,
-  componentRolesArr: z.array(
-    z.object({
-      title: nonEmptyString,
-      isDisplayRole: z.boolean(),
-      team: optionalString,
-      startDate: z.string().nullable().optional(),
-      endDate: z.string().nullable().optional(),
-    }),
+  componentRolesArr: z.preprocess(
+    omitNullTitleRoles,
+    z.array(
+      z.object({
+        title: nonEmptyString,
+        isDisplayRole: z.boolean(),
+        team: optionalString,
+        startDate: z.string().nullable().optional(),
+        endDate: z.string().nullable().optional(),
+      }),
+    ),
   ),
   avatar: z.object({ data: mediaEntitySchema.nullable() }),
 });
