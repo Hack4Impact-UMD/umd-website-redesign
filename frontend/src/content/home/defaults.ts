@@ -16,11 +16,15 @@ export const defaultHomeContent: HomeContent = {
     heading: 'Hack4Impact-UMD',
     body: 'Building powerful nonprofit software as a tool for social good. We connect UMD students with nonprofits to create technology that supports their work.',
     slides: [
-      { image: heroImage, alt: 'Hack4Impact UMD Camp Starfish project team' },
+      {
+        image: heroImage,
+        mobileImage: groupPhoto,
+        alt: 'Hack4Impact UMD members gathered together',
+      },
       { image: groupPhoto, alt: 'Hack4Impact UMD members gathered at a chapter event' },
     ],
     primaryCta: { label: 'Learn More', href: '/aboutus' },
-    secondaryCta: { label: 'Explore Our Work', href: '/ourwork' },
+    secondaryCta: { label: 'Apply Now', href: '/apply/student' },
   },
   nonprofitMap: {
     mode: 'placeholder',

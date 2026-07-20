@@ -10,6 +10,14 @@ const publishedDocument = () => ({
 });
 
 describe('normalizeHomeContent', () => {
+  it('provides readable mobile hero art and the application CTA in the verified fallback', () => {
+    expect(defaultHomeContent.hero.slides[0].mobileImage).toBeTruthy();
+    expect(defaultHomeContent.hero.secondaryCta).toEqual({
+      label: 'Apply Now',
+      href: '/apply/student',
+    });
+  });
+
   it('fails closed to the verified fallback for a legacy document', () => {
     const result = normalizeHomeContent({ hero: { heading: 'Legacy' } });
 

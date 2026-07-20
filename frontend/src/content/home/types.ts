@@ -24,7 +24,15 @@ export const homeContentSchema = z.object({
   hero: z.object({
     heading: z.string().trim().min(1),
     body: z.string().trim().min(1),
-    slides: z.array(z.object({ image: safeMediaSchema, alt: z.string().trim().min(1) })).min(1),
+    slides: z
+      .array(
+        z.object({
+          image: safeMediaSchema,
+          mobileImage: safeMediaSchema.optional(),
+          alt: z.string().trim().min(1),
+        }),
+      )
+      .min(1),
     primaryCta: ctaSchema,
     secondaryCta: ctaSchema,
   }),

@@ -29,6 +29,7 @@ export const contentHomeCollection = buildContentCollection({
         } },
         slides: { dataType: 'array', name: 'Slides', of: { dataType: 'map', name: 'Slide', properties: {
           image: imageProperty('Image', 'content/content_home/{entityId}/hero-slides'),
+          mobileImage: imageProperty('Optional mobile image', 'content/content_home/{entityId}/hero-slides'),
           alt: { dataType: 'string', name: 'Alt text' },
         } } },
       },

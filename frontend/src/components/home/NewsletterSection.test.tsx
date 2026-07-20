@@ -6,11 +6,13 @@ import NewsletterSection from './NewsletterSection';
 
 describe('NewsletterSection', () => {
   it('shows an honest placeholder without rendering a fake subscription form', () => {
-    render(<NewsletterSection content={defaultHomeContent.newsletter} />);
+    const { container } = render(<NewsletterSection content={defaultHomeContent.newsletter} />);
 
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
     expect(screen.getByText(/signup is not currently available/i)).toBeInTheDocument();
     expect(screen.queryByText(/subscribed successfully/i)).not.toBeInTheDocument();
+    expect(container.querySelector('img')).toBeNull();
+    expect(screen.queryByText(/149 active members/i)).not.toBeInTheDocument();
   });
 
   it('keeps subscription and latest-issue destinations separate', () => {
@@ -39,5 +41,9 @@ describe('NewsletterSection', () => {
       'href',
       'https://example.org/latest',
     );
+    expect(screen.getByRole('heading', { name: 'Semester recap' })).toBeInTheDocument();
+    expect(screen.getByText('Hack4Impact UMD')).toBeInTheDocument();
+    expect(screen.getByText('Verified chapter highlights.')).toBeInTheDocument();
+    expect(screen.queryByText(/coming soon/i)).not.toBeInTheDocument();
   });
 });

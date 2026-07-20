@@ -88,7 +88,9 @@ test('home preserves its Figma section order without fabricated live capabilitie
   await expect(page.getByRole('heading', { name: 'Check Out Our Recent Newsletter' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Past supporters' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Come Make an Impact With Us!' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Apply Now' })).toHaveAttribute('href', '/apply/student');
   await expect(page.locator('form')).toHaveCount(0);
+  await expect(page.locator('section[aria-labelledby="newsletter-heading"] img')).toHaveCount(0);
   await expect(page.getByText(/signup is not currently available/i)).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });

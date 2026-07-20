@@ -8,4 +8,22 @@ describe('content media normalization', () => {
     });
     expect(content.header.image).toBeNull();
   });
+
+  it('normalizes optional desktop and mobile Home hero media', () => {
+    const content = normalizeContentMedia('home', {
+      hero: {
+        slides: [
+          {
+            image: 'content/content_home/main/hero-slides/desktop.webp',
+            mobileImage: 'content/content_home/main/hero-slides/mobile.webp',
+          },
+        ],
+      },
+    });
+
+    expect(content.hero.slides[0]).toMatchObject({
+      image: '/api/media/content/content_home/main/hero-slides/desktop.webp',
+      mobileImage: '/api/media/content/content_home/main/hero-slides/mobile.webp',
+    });
+  });
 });

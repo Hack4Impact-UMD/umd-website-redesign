@@ -31,12 +31,17 @@ export default function HeroCarousel({ content }: HeroCarouselProps) {
       <div ref={sliderRef} className="keen-slider h-full">
         {content.slides.map((slide, index) => (
           <div key={`${slide.image}-${index}`} className="keen-slider__slide relative">
-            <img
-              src={resolveMediaUrl(slide.image)}
-              alt={slide.alt}
-              className={`h-full w-full object-cover ${index === 0 ? 'object-bottom' : 'object-center'}`}
-              loading={index === 0 ? 'eager' : 'lazy'}
-            />
+            <picture className="block h-full w-full">
+              {slide.mobileImage && (
+                <source media="(max-width: 639px)" srcSet={resolveMediaUrl(slide.mobileImage)} />
+              )}
+              <img
+                src={resolveMediaUrl(slide.image)}
+                alt={slide.alt}
+                className={`h-full w-full object-cover ${index === 0 ? 'object-bottom' : 'object-center'}`}
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/55 to-black/5" />
           </div>
         ))}

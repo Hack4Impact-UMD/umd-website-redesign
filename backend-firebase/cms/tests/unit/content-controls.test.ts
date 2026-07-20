@@ -24,6 +24,9 @@ describe('content collection controls', () => {
       expect.arrayContaining([{ id: 'published', label: 'Published' }]),
     );
     expect(payload.testimonials.properties.items.of.properties.verified.dataType).toBe('boolean');
+    expect(payload.hero.properties.slides.of.properties.mobileImage.storage.storagePath).toContain(
+      'hero-slides',
+    );
     expect(payload.newsletter.properties.subscribeSuccessMessage).toBeUndefined();
     expect(payload.newsletter.properties.subscribeUrl.url).toBe(true);
     expect(payload.sponsors.properties.tiers.of.properties.sponsors.of.properties.visible.dataType).toBe(
