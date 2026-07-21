@@ -8,6 +8,6 @@
 @source "../node_modules/@firecms/**/*.{js,ts,jsx,tsx}";
 
 :root {
-  --color-primary: #0070f4;
-  --color-secondary: #ff5b79;
+  --color-primary: #0069ca;
+  --color-secondary: #80d2c8;
 }
