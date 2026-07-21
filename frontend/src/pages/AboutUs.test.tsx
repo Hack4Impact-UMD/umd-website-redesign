@@ -68,8 +68,8 @@ describe('AboutUs', () => {
     );
 
     expect(await screen.findByRole('heading', { name: 'About Us' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Our Mission' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Our Story' })).toBeInTheDocument();
+    expect(screen.queryByRole('heading', { name: 'Our Mission' })).not.toBeInTheDocument();
+    expect(screen.getByText(/We leverage technology for social good/i)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'At a Glance' })).toBeInTheDocument();
     expect(screen.getByText('Founded at UMD')).toBeInTheDocument();
     expect(await screen.findByRole('heading', { name: 'Verified Project' })).toBeInTheDocument();
@@ -90,7 +90,7 @@ describe('AboutUs', () => {
     );
 
     expect(await screen.findByRole('heading', { name: 'About Us' })).toBeInTheDocument();
-    expect(screen.getByText(/student-led organization at the University of Maryland/i)).toBeInTheDocument();
+    expect(screen.getByText(/See how we’ve grown from vision to impact/i)).toBeInTheDocument();
   });
 
   it('keeps published legacy content when supplemental story content is absent', async () => {
@@ -107,7 +107,6 @@ describe('AboutUs', () => {
       </MemoryRouter>,
     );
 
-    expect(await screen.findByRole('heading', { name: 'Our Story' })).toBeInTheDocument();
-    expect(screen.getByText(/student-led organization at the University of Maryland/i)).toBeInTheDocument();
+    expect(await screen.findByText(/We leverage technology for social good/i)).toBeInTheDocument();
   });
 });

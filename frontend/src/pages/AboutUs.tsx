@@ -3,7 +3,6 @@ import {
   AboutHeader,
   StoryTimelineSection,
   HighlightsSection,
-  MissionSection,
   ValuesSection,
   CurrentProjectsSection,
   MembersSection,
@@ -30,7 +29,6 @@ export default function AboutUs() {
 
   const {
     header,
-    mission,
     story = defaultAboutContent.story,
     highlights = defaultAboutContent.highlights,
     values,
@@ -40,7 +38,6 @@ export default function AboutUs() {
   return (
     <main className="flex flex-col bg-background font-karla">
       <AboutHeader {...header} />
-      <MissionSection {...mission} />
       <StoryTimelineSection {...story} />
       <HighlightsSection {...highlights} />
       <ValuesSection {...values} />

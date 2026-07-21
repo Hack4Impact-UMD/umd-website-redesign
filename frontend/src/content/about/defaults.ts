@@ -21,7 +21,7 @@ export const defaultAboutContent = {
   story: {
     heading: 'Our Story',
     intro:
-      'We began with a shared belief that student talent and thoughtful technology can help mission-driven organizations do more.',
+      'We leverage technology for social good by building impactful software solutions for nonprofit organizations while providing students with real-world, professional experience. See how we’ve grown from vision to impact.',
     items: [
       {
         label: 'Fall 2020',
