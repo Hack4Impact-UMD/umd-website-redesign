@@ -107,6 +107,7 @@ export const buildContentCollection = ({
     path: id,
     customId: true,
     icon,
+    permissions: { read: true, create: false, edit: true, delete: false },
     propertiesOrder: ['mode', 'verifiedAt', 'payload'],
     properties: {
       mode: {
@@ -129,6 +130,7 @@ export const buildContentCollection = ({
       payload: {
         dataType: 'map',
         name: 'Page content',
+        hideFromCollection: true,
         properties: payloadProperties,
       },
     },

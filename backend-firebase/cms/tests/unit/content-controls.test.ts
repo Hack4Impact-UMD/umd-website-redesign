@@ -14,6 +14,16 @@ describe('content collection controls', () => {
     ]);
   });
 
+  it('keeps singleton content collections to the live main document', () => {
+    const home = collections.find(({ id }) => id === 'content_home') as unknown as {
+      permissions: { read: boolean; create: boolean; edit: boolean; delete: boolean };
+      properties: { payload: { hideFromCollection?: boolean } };
+    };
+
+    expect(home.permissions).toEqual({ read: true, create: false, edit: true, delete: false });
+    expect(home.properties.payload.hideFromCollection).toBe(true);
+  });
+
   it('exposes the fail-closed Home publishing controls', () => {
     const home = collections.find(({ id }) => id === 'content_home') as unknown as {
       properties: { payload: { properties: Record<string, any> } };
