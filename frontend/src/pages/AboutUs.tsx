@@ -1,13 +1,15 @@
 import { getContentDocument } from '@/api';
 import {
   AboutHeader,
+  StoryTimelineSection,
+  HighlightsSection,
   MissionSection,
   ValuesSection,
   CurrentProjectsSection,
   MembersSection,
 } from '@/components/about';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import { normalizeAboutContent } from '@/content/about';
+import { defaultAboutContent, normalizeAboutContent } from '@/content/about';
 import { useApiResource } from '@/hooks';
 
 export default function AboutUs() {
@@ -26,12 +28,21 @@ export default function AboutUs() {
   );
   if (!resolved.content) return null;
 
-  const { header, mission, values, currentProjects } = resolved.content;
+  const {
+    header,
+    mission,
+    story = defaultAboutContent.story,
+    highlights = defaultAboutContent.highlights,
+    values,
+    currentProjects,
+  } = resolved.content;
 
   return (
-    <main className="flex flex-col gap-6 bg-background font-karla">
+    <main className="flex flex-col bg-background font-karla">
       <AboutHeader {...header} />
       <MissionSection {...mission} />
+      <StoryTimelineSection {...story} />
+      <HighlightsSection {...highlights} />
       <ValuesSection {...values} />
       <CurrentProjectsSection {...currentProjects} />
       <MembersSection title="Meet the Board" filterStatus="Current Board Member" />

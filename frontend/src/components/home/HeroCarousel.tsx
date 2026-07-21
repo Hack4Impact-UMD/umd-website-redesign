@@ -26,7 +26,7 @@ export default function HeroCarousel({ content }: HeroCarouselProps) {
   return (
     <section
       aria-labelledby="home-hero-heading"
-      className="relative mt-6 h-[560px] w-full overflow-hidden md:h-[620px] lg:h-[671px]"
+      className="relative mt-6 h-[560px] w-full overflow-hidden md:h-[620px] lg:h-[763px]"
     >
       <div ref={sliderRef} className="keen-slider h-full">
         {content.slides.map((slide, index) => (
@@ -38,7 +38,7 @@ export default function HeroCarousel({ content }: HeroCarouselProps) {
               <img
                 src={resolveMediaUrl(slide.image)}
                 alt={slide.alt}
-                className={`h-full w-full object-cover ${index === 0 ? 'object-bottom' : 'object-center'}`}
+                className="h-full w-full object-cover object-center"
                 loading={index === 0 ? 'eager' : 'lazy'}
               />
             </picture>

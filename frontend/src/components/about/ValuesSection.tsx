@@ -7,19 +7,19 @@ export default function ValuesSection({ heading, items }: ValuesSectionProps) {
   if (items.length === 0) return null;
 
   return (
-    <section className="px-6 py-12 sm:px-8 lg:px-24" aria-labelledby="about-values-heading">
+    <section className="px-6 py-12 sm:px-8 sm:py-16 lg:px-24 lg:py-20" aria-labelledby="about-values-heading">
       <div className="mx-auto max-w-[1248px]">
         <h2 id="about-values-heading" className="mb-10 text-center font-heading text-h2 font-bold text-foreground">
           {heading}
         </h2>
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-10">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 lg:gap-10">
           {items.map((value) => (
             <div key={value.title}>
               {resolveMediaUrl(value.image) ? (
                 <img
                   src={resolveMediaUrl(value.image) ?? undefined}
                   alt={value.imageAlt}
-                  className="aspect-[385/347] w-full rounded-lg object-cover"
+                  className="aspect-[385/347] w-full rounded-lg object-cover object-center shadow-sm"
                   loading="lazy"
                 />
               ) : null}

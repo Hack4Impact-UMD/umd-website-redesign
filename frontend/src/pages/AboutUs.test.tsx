@@ -69,6 +69,9 @@ describe('AboutUs', () => {
 
     expect(await screen.findByRole('heading', { name: 'About Us' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Our Mission' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Our Story' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'At a Glance' })).toBeInTheDocument();
+    expect(screen.getByText('Founded at UMD')).toBeInTheDocument();
     expect(await screen.findByRole('heading', { name: 'Verified Project' })).toBeInTheDocument();
     expect(await screen.findByRole('heading', { name: 'Test Member' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /test member's linkedin/i })).toHaveAttribute(
@@ -87,6 +90,24 @@ describe('AboutUs', () => {
     );
 
     expect(await screen.findByRole('heading', { name: 'About Us' })).toBeInTheDocument();
+    expect(screen.getByText(/student-led organization at the University of Maryland/i)).toBeInTheDocument();
+  });
+
+  it('keeps published legacy content when supplemental story content is absent', async () => {
+    const { story: _story, highlights: _highlights, ...legacyPayload } = defaultAboutContent;
+    mockedGetContent.mockResolvedValueOnce({
+      mode: 'published',
+      verifiedAt: '2026-07-20T12:00:00Z',
+      payload: legacyPayload,
+    });
+
+    render(
+      <MemoryRouter>
+        <AboutUs />
+      </MemoryRouter>,
+    );
+
+    expect(await screen.findByRole('heading', { name: 'Our Story' })).toBeInTheDocument();
     expect(screen.getByText(/student-led organization at the University of Maryland/i)).toBeInTheDocument();
   });
 });
