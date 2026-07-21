@@ -1,5 +1,5 @@
 import styles from '../../styles/our_work/OurWorkHeader.module.css';
-import heroImage from '../assets/h4igroup_photo.jpg';
+import heroImage from '../assets/project-library-hero.webp';
 
 const OurWorkHeader = () => {
   return (
