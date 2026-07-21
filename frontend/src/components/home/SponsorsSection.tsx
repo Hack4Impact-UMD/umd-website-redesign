@@ -5,6 +5,18 @@ interface SponsorsSectionProps {
   content: HomeContent['sponsors'];
 }
 
+const logoSizeClass = (sponsorName: string) => {
+  if (sponsorName === 'CodePath' || sponsorName === 'Bloomberg') {
+    return 'max-h-12 max-w-[240px]';
+  }
+
+  if (sponsorName === 'Microsoft' || sponsorName === 'Capital One' || sponsorName === 'Robert H. Smith School of Business') {
+    return 'max-h-14 max-w-[210px]';
+  }
+
+  return 'max-h-16 max-w-[128px]';
+};
+
 export default function SponsorsSection({ content }: SponsorsSectionProps) {
   if (content.mode === 'hidden') return null;
 
@@ -18,26 +30,26 @@ export default function SponsorsSection({ content }: SponsorsSectionProps) {
         </h2>
 
         {hasSponsors ? (
-          <div className="mt-10 space-y-10">
+          <div className="mt-10 space-y-12">
             {content.tiers.map((tier) => (
               <section
                 key={tier.name}
                 aria-labelledby={`sponsor-tier-${tier.name.toLowerCase().replace(/\s+/g, '-')}`}
-                className="space-y-4"
+                className="space-y-6"
               >
                 <h3
                   id={`sponsor-tier-${tier.name.toLowerCase().replace(/\s+/g, '-')}`}
-                  className="text-center text-label font-bold text-text-secondary"
+                  className="flex items-center gap-4 text-label font-bold text-h4i-blue before:h-px before:flex-1 before:bg-h4i-blue/35 after:h-px after:flex-1 after:bg-h4i-blue/35"
                 >
-                  {tier.name}
+                  <span>{tier.name}</span>
                 </h3>
-                <div className="flex flex-wrap justify-center gap-4 sm:gap-8">
+                <div className="flex flex-wrap justify-center gap-x-8 gap-y-6 sm:gap-x-12 sm:gap-y-8">
                   {tier.sponsors.map((sponsor) => {
                     const logo = (
                       <img
                         src={resolveMediaUrl(sponsor.logo)}
                         alt={`${sponsor.name} logo`}
-                        className="h-12 w-[225px] max-w-full object-contain"
+                        className={`h-auto w-auto object-contain ${logoSizeClass(sponsor.name)}`}
                         loading="lazy"
                       />
                     );
@@ -48,7 +60,7 @@ export default function SponsorsSection({ content }: SponsorsSectionProps) {
                         href={sponsor.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex h-[72px] w-full max-w-[289px] items-center justify-center rounded-xl bg-card px-8 py-3 shadow-[0_1px_2px_1px_rgba(0,0,0,0.1)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
+                        className="group flex h-24 w-full max-w-[240px] items-center justify-center px-4 transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
                         aria-label={`Visit ${sponsor.name}`}
                       >
                         {logo}
@@ -56,7 +68,7 @@ export default function SponsorsSection({ content }: SponsorsSectionProps) {
                     ) : (
                       <div
                         key={sponsor.name}
-                        className="flex h-[72px] w-full max-w-[289px] items-center justify-center rounded-xl bg-card px-8 py-3 shadow-[0_1px_2px_1px_rgba(0,0,0,0.1)]"
+                        className="flex h-24 w-full max-w-[240px] items-center justify-center px-4"
                       >
                         {logo}
                       </div>
