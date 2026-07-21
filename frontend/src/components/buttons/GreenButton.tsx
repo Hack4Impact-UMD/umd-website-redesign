@@ -15,6 +15,6 @@ const GreenButton: React.FC = () => {
   );
 };
 
-// white text ffffff, font is Rubik, Size is 18px
+// White text, Karla, 18px.
 
 export default GreenButton;

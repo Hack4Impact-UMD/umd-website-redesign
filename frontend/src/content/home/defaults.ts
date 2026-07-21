@@ -1,6 +1,7 @@
 import groupPhoto from '@/components/assets/h4igroup_photo.jpg';
 import campStarfishLogo from '@/components/assets/home/camp-starfish.png';
-import heroImage from '@/components/assets/home/hero.webp';
+import mobileGroupPhoto from '@/components/assets/home/h4igroup-photo-mobile.webp';
+import classroomPhoto from '@/components/assets/apply/apply-classroom.jpg';
 import ACES from '@/components/assets/supporters/ACES.png';
 import Bloomberg from '@/components/assets/supporters/Bloomberg.png';
 import CapitalOne from '@/components/assets/supporters/CapitalOne.png';
@@ -17,11 +18,10 @@ export const defaultHomeContent: HomeContent = {
     body: 'Building powerful nonprofit software as a tool for social good. We connect UMD students with nonprofits to create technology that supports their work.',
     slides: [
       {
-        image: heroImage,
-        mobileImage: groupPhoto,
-        alt: 'Hack4Impact UMD members gathered together',
+        image: classroomPhoto,
+        mobileImage: mobileGroupPhoto,
+        alt: 'Hack4Impact UMD students collaborating at a laptop workshop',
       },
-      { image: groupPhoto, alt: 'Hack4Impact UMD members gathered at a chapter event' },
     ],
     primaryCta: { label: 'Learn More', href: '/aboutus' },
     secondaryCta: { label: 'Apply Now', href: '/apply/student' },

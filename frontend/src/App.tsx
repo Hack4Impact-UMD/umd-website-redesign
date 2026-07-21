@@ -1,6 +1,8 @@
 import { useLayoutEffect } from 'react';
 import { Route, BrowserRouter, Routes, useLocation } from 'react-router-dom';
 
+import { getContentDocument } from './api/content';
+
 import AboutUs from './pages/AboutUs';
 import StudentApply from './pages/StudentApply';
 import NonprofitApply from './pages/NonprofitApply';
@@ -12,6 +14,10 @@ import Home from './pages/Home';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ScrollToTopButton from './components/buttons/ScrollToTopButton';
+import { defaultSiteSettings, resolveSiteSettingsContent } from './content/site-settings';
+import { useApiResource } from './hooks';
+
+const loadSiteSettings = (signal: AbortSignal) => getContentDocument('site-settings', signal);
 
 const ScrollToTopWrapper = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();
@@ -22,11 +28,16 @@ const ScrollToTopWrapper = ({ children }: { children: JSX.Element }) => {
 };
 
 function App() {
+  const { data, status } = useApiResource(loadSiteSettings);
+  const siteSettings = status === 'success'
+    ? resolveSiteSettingsContent(data)
+    : defaultSiteSettings;
+
   return (
     <BrowserRouter>
       <ScrollToTopWrapper>
         <div className="min-h-screen flex flex-col">
-          <Navbar />
+          <Navbar settings={siteSettings} />
           <div className="flex-1">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -39,7 +50,7 @@ function App() {
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </div>
-          <Footer />
+          <Footer settings={siteSettings} />
           <ScrollToTopButton />
         </div>
       </ScrollToTopWrapper>

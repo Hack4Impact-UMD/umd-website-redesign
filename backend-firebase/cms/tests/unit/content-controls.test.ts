@@ -34,6 +34,19 @@ describe('content collection controls', () => {
     );
   });
 
+  it('constrains shared social settings to supported icons and URL inputs', () => {
+    const settings = collections.find(({ id }) => id === 'content_site_settings') as unknown as {
+      properties: { payload: { properties: Record<string, any> } };
+    };
+    const navLinks = settings.properties.payload.properties.navbar.properties.links;
+    const social = settings.properties.payload.properties.footer.properties.socialLinks.of.properties;
+    expect(navLinks.validation).toEqual({ required: true, min: 1 });
+    expect(social.href.url).toBe(true);
+    expect(social.icon.enumValues.map(({ id }: { id: string }) => id)).toEqual([
+      'Instagram', 'Github', 'Linkedin', 'Facebook',
+    ]);
+  });
+
   it('requires verification before first publication', () => {
     expect(() => normalizeContentSave({ mode: 'published', payload: { title: 'Ready' } })).toThrow(
       /fresh verification date/,

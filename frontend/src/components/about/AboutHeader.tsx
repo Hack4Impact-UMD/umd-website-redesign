@@ -7,26 +7,28 @@ export default function AboutHeader({ title, paragraphs, image, imageAlt }: Abou
   const imageSrc = resolveMediaUrl(image);
 
   return (
-    <section className="px-6 py-10 sm:px-8 lg:px-24" aria-labelledby="about-title">
-      <div className="mx-auto max-w-[1248px]">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,599px)_minmax(0,1fr)] lg:gap-20">
-          <div>
-            <h1 id="about-title" className="mb-2 font-heading text-h1 font-bold text-foreground">
-              {title}
-            </h1>
-            <div className="space-y-4 font-karla text-body text-foreground">
-              {paragraphs.map((paragraph) => (
-                <p key={paragraph}>{paragraph}</p>
-              ))}
-            </div>
+    <section aria-labelledby="about-title">
+      <div className="relative isolate flex min-h-[160px] items-center justify-center overflow-hidden bg-inverse px-6 py-10 sm:min-h-[208px] sm:px-8 lg:px-24">
+        {imageSrc ? (
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
+          />
+        ) : null}
+        <div className="absolute inset-0 -z-10 bg-inverse/55" aria-hidden="true" />
+        <h1 id="about-title" className="text-center font-heading text-h1 font-bold text-inverse-foreground sm:text-display">
+          {title}
+        </h1>
+      </div>
+
+      <div className="px-6 py-12 sm:px-8 sm:py-16 lg:px-24 lg:py-20">
+        <div className="mx-auto max-w-[880px] text-center">
+          <div className="space-y-5 font-karla text-body text-foreground">
+            {paragraphs.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </div>
-          {imageSrc ? (
-            <img
-              src={imageSrc}
-              alt={imageAlt}
-              className="aspect-[569/387] w-full rounded-lg object-cover"
-            />
-          ) : null}
         </div>
       </div>
     </section>

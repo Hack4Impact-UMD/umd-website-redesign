@@ -1,119 +1,121 @@
+import { Facebook, Github, Instagram, Linkedin, type LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Instagram, Facebook, Github, Linkedin } from 'lucide-react';
-import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg';
+import footerMark from '@/components/assets/h4i-footer-mark.png';
+import { defaultSiteSettings, type SiteSettings } from '@/content/site-settings';
 
-const footerLinks = {
-  explore: [
-    { label: 'About Us', href: '/aboutus' },
-    { label: 'Our Work', href: '/ourwork' },
-  ],
-  apply: [
-    { label: 'For Students', href: '/apply/student' },
-    { label: 'For Nonprofits', href: '/apply/nonprofit' },
-  ],
-  connect: [
-    { label: 'Instagram', href: 'https://instagram.com/hack4impactumd', icon: Instagram },
-    { label: 'GitHub', href: 'https://github.com/Hack4Impact-UMD', icon: Github },
-    { label: 'LinkedIn', href: 'https://linkedin.com/company/hack4impact-umd', icon: Linkedin },
-    { label: 'Facebook', href: 'https://facebook.com/hack4impactumd', icon: Facebook },
-  ],
+const socialIcons: Partial<Record<string, LucideIcon>> = {
+  facebook: Facebook,
+  github: Github,
+  instagram: Instagram,
+  linkedin: Linkedin,
 };
 
-export default function Footer() {
+const FooterLink = ({ href, label }: { href: string; label: string }) =>
+  href.startsWith('/') ? (
+    <Link to={href} className="rounded-sm text-base leading-6 text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]">
+      {label}
+    </Link>
+  ) : (
+    <a href={href} className="rounded-sm text-base leading-6 text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]">
+      {label}
+    </a>
+  );
+
+interface FooterProps {
+  settings?: SiteSettings;
+}
+
+export default function Footer({ settings = defaultSiteSettings }: FooterProps) {
+  const { footer } = settings;
+  const socialLinks = footer.socialLinks.flatMap((item) => {
+    const Icon = socialIcons[item.icon.toLowerCase()];
+    return Icon ? [{ ...item, Icon }] : [];
+  });
+
   return (
     <footer className="bg-[#0F172A] text-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
-          <div className="lg:col-span-1">
-            <Link to="/" className="inline-block mb-6">
+      <div className="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 lg:px-24">
+        <h2 className="sr-only">Hack4Impact UMD site links</h2>
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(240px,300px)_1fr] md:justify-between lg:gap-20">
+          <div className="max-w-[300px]">
+            <Link to="/" className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]">
               <img
-                src={h4iLogo}
-                alt="Hack4Impact UMD Logo"
-                className="h-8 w-auto brightness-0 invert"
+                src={footerMark}
+                alt="Hack4Impact UMD"
+                className="h-16 w-16 object-contain"
               />
             </Link>
 
-            <p className="text-sm text-white/60 mb-6 leading-relaxed">
-              Follow our verified social channels for chapter and project updates.
-            </p>
-
-            <div className="flex gap-4">
-              {footerLinks.connect.map((item) => (
+            <p className="mt-4 text-base leading-6 text-white/90">{footer.newsletterPrompt}</p>
+            {footer.newsletterUrl && (
+              <div className="mt-4">
                 <a
-                  key={item.label}
-                  href={item.href}
+                  href={footer.newsletterUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors"
-                  aria-label={item.label}
+                  className="inline-flex min-h-10 items-center justify-center rounded-lg border border-white px-6 py-2 text-label font-bold transition-colors hover:bg-white hover:text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]"
                 >
-                  <item.icon className="w-5 h-5" />
+                  Read our newsletter
                 </a>
-              ))}
-            </div>
+              </div>
+            )}
+
+            {socialLinks.length > 0 && (
+              <ul aria-label="Social media" className="mt-5 flex flex-wrap gap-2">
+                {socialLinks.map(({ Icon, href, label }) => (
+                  <li key={`${label}-${href}`}>
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex h-10 w-10 items-center justify-center rounded-lg text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                      aria-label={label}
+                    >
+                      <Icon aria-hidden="true" className="h-6 w-6" strokeWidth={1.75} />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
-          <div>
-            <h4 className="font-heading font-bold text-sm uppercase tracking-wider text-white/80 mb-4">
-              Explore
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.explore.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-white/60 hover:text-white transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div className="grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-8">
+            <section aria-labelledby="footer-explore-heading">
+              <h3 id="footer-explore-heading" className="text-[22px] font-bold leading-[30px]">Explore</h3>
+              <ul className="mt-3 space-y-2">
+                {footer.exploreLinks.map((item) => (
+                  <li key={`${item.label}-${item.href}`}><FooterLink {...item} /></li>
+                ))}
+              </ul>
+            </section>
 
-          <div>
-            <h4 className="font-heading font-bold text-sm uppercase tracking-wider text-white/80 mb-4">
-              Apply
-            </h4>
-            <ul className="space-y-3">
-              {footerLinks.apply.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-white/60 hover:text-white transition-colors"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <section aria-labelledby="footer-apply-heading">
+              <h3 id="footer-apply-heading" className="text-[22px] font-bold leading-[30px]">Apply</h3>
+              <ul className="mt-3 space-y-2">
+                {footer.applyLinks.map((item) => (
+                  <li key={`${item.label}-${item.href}`}><FooterLink {...item} /></li>
+                ))}
+              </ul>
+            </section>
 
-          <div>
-            <h4 className="font-heading font-bold text-sm uppercase tracking-wider text-white/80 mb-4">
-              Contact Us
-            </h4>
-            <address className="not-italic space-y-3">
-              <p className="text-sm text-white/60">
-                7809 Regents Drive,
-                <br />
-                College Park, MD 20742
-              </p>
-              <a
-                href="mailto:umd@hack4impact.org"
-                className="text-sm text-white/60 hover:text-white transition-colors block"
-              >
-                umd@hack4impact.org
-              </a>
-            </address>
+            <section aria-labelledby="footer-contact-heading">
+              <h3 id="footer-contact-heading" className="text-[22px] font-bold leading-[30px]">Contact Us</h3>
+              <address className="mt-3 not-italic text-base leading-6 text-white/80">
+                {footer.contact.addressLines.map((line) => <div key={line}>{line}</div>)}
+                <a
+                  href={`mailto:${footer.contact.email}`}
+                  className="mt-2 inline-block rounded-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]"
+                >
+                  {footer.contact.email}
+                </a>
+              </address>
+            </section>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 text-center">
-          <p className="text-sm text-white/40">
-            © {new Date().getFullYear()} Hack4Impact UMD. All rights reserved.
-          </p>
-        </div>
+        <p className="mt-12 border-t border-white/15 pt-6 text-center text-sm leading-5 text-white/60">
+          © {new Date().getFullYear()} Hack4Impact UMD. All rights reserved.
+        </p>
       </div>
     </footer>
   );

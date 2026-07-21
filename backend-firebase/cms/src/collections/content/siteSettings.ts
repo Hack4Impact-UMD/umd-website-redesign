@@ -13,7 +13,7 @@ export const contentSiteSettingsCollection = buildContentCollection({
   icon: 'settings',
   payloadProperties: {
     navbar: { dataType: 'map', name: 'Navbar', properties: {
-      links: { dataType: 'array', name: 'Links', of: { dataType: 'map', name: 'Nav link', properties: {
+      links: { dataType: 'array', name: 'Links', validation: { required: true, min: 1 }, of: { dataType: 'map', name: 'Nav link', properties: {
         label: { dataType: 'string', name: 'Label' },
         href: { dataType: 'string', name: 'Href' },
         dropdown: { dataType: 'array', name: 'Dropdown links', of: linkProperty('Dropdown link') },
@@ -25,8 +25,14 @@ export const contentSiteSettingsCollection = buildContentCollection({
       exploreLinks: { dataType: 'array', name: 'Explore links', of: linkProperty('Explore link') },
       applyLinks: { dataType: 'array', name: 'Apply links', of: linkProperty('Apply link') },
       socialLinks: { dataType: 'array', name: 'Social links', of: { dataType: 'map', name: 'Social link', properties: {
-        label: { dataType: 'string', name: 'Label' }, href: { dataType: 'string', name: 'Href' },
-        icon: { dataType: 'string', name: 'Icon' },
+        label: { dataType: 'string', name: 'Label' },
+        href: { dataType: 'string', name: 'Href', url: true },
+        icon: { dataType: 'string', name: 'Icon', enumValues: [
+          { id: 'Instagram', label: 'Instagram' },
+          { id: 'Github', label: 'GitHub' },
+          { id: 'Linkedin', label: 'LinkedIn' },
+          { id: 'Facebook', label: 'Facebook' },
+        ] },
       } } },
       contact: { dataType: 'map', name: 'Contact', properties: {
         addressLines: { dataType: 'array', name: 'Address lines', of: { dataType: 'string', name: 'Address line' } },

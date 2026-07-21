@@ -3,6 +3,8 @@ import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 
 import { defaultHomeContent } from '@/content/home';
+import CommunityEventsSection from './CommunityEventsSection';
+import ImpactSection from './ImpactSection';
 import NonprofitMapSection from './NonprofitMapSection';
 import SponsorsSection from './SponsorsSection';
 import TestimonialsSection from './TestimonialsSection';
@@ -35,5 +37,20 @@ describe('Home sections', () => {
 
     expect(screen.getByRole('heading', { name: 'Past supporters' })).toBeInTheDocument();
     expect(screen.getByAltText('Microsoft logo')).toBeInTheDocument();
+  });
+
+  it('renders the Figma impact row and event mosaic using local images', () => {
+    const { container } = render(
+      <>
+        <ImpactSection />
+        <CommunityEventsSection />
+      </>,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Our Impact' })).toBeInTheDocument();
+    expect(screen.getByText('10+')).toBeInTheDocument();
+    expect(screen.getByText('$150K')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /student-led community events/i })).toBeInTheDocument();
+    expect(container.querySelectorAll('img')).toHaveLength(7);
   });
 });

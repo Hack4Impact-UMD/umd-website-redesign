@@ -17,7 +17,7 @@ export const defaultSiteSettings: SiteSettings = {
     ],
   },
   footer: {
-    newsletterPrompt: 'Follow our verified social channels for chapter updates.',
+    newsletterPrompt: 'Follow our verified social channels for chapter and project updates.',
     exploreLinks: [
       { label: 'About Us', href: '/aboutus' },
       { label: 'Our Work', href: '/ourwork' },
@@ -30,6 +30,7 @@ export const defaultSiteSettings: SiteSettings = {
       { label: 'Instagram', href: 'https://instagram.com/hack4impactumd', icon: 'Instagram' },
       { label: 'GitHub', href: 'https://github.com/Hack4Impact-UMD', icon: 'Github' },
       { label: 'LinkedIn', href: 'https://linkedin.com/company/hack4impact-umd', icon: 'Linkedin' },
+      { label: 'Facebook', href: 'https://facebook.com/hack4impactumd', icon: 'Facebook' },
     ],
     contact: {
       addressLines: ['7809 Regents Drive', 'College Park, MD 20742'],

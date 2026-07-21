@@ -1,7 +1,8 @@
 import { getContentDocument } from '@/api/content';
-import AsyncError from '@/components/shared/AsyncError';
 import CTASection from '@/components/home/CTASection';
+import CommunityEventsSection from '@/components/home/CommunityEventsSection';
 import HeroCarousel from '@/components/home/HeroCarousel';
+import ImpactSection from '@/components/home/ImpactSection';
 import NewsletterSection from '@/components/home/NewsletterSection';
 import NonprofitMapSection from '@/components/home/NonprofitMapSection';
 import SponsorsSection from '@/components/home/SponsorsSection';
@@ -12,7 +13,7 @@ import { useApiResource } from '@/hooks';
 const loadHomeContent = (signal: AbortSignal) => getContentDocument('home', signal);
 
 export default function Home() {
-  const { data, status, retry } = useApiResource(loadHomeContent);
+  const { data, status } = useApiResource(loadHomeContent);
   const resolved = status === 'success' ? normalizeHomeContent(data) : null;
   const content = resolved?.source === 'hidden' ? null : (resolved?.content ?? defaultHomeContent);
 
@@ -24,16 +25,15 @@ export default function Home() {
     <main className="bg-background">
       {status === 'loading' && <p className="sr-only" role="status">Loading current home content.</p>}
       {status === 'error' && (
-        <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
-          <AsyncError
-            message="Current home content is unavailable. Showing the verified site fallback."
-            onRetry={retry}
-          />
-        </div>
+        <p className="sr-only" role="status">
+          Current home content is unavailable. Showing the verified site fallback.
+        </p>
       )}
       <HeroCarousel content={content.hero} />
+      <ImpactSection />
       <NonprofitMapSection content={content.nonprofitMap} />
       <TestimonialsSection content={content.testimonials} />
+      <CommunityEventsSection />
       <NewsletterSection content={content.newsletter} />
       <SponsorsSection content={content.sponsors} />
       <CTASection content={content.cta} />
