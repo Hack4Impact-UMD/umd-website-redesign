@@ -20,9 +20,13 @@ describe('loadRuntimeConfig', () => {
     });
   });
 
-  it('fails closed for browser origins when the allowlist is missing or blank', () => {
-    expect(loadRuntimeConfig({ ...productionEnvironment, ALLOWED_ORIGINS: undefined }).allowedOrigins).toEqual([]);
-    expect(loadRuntimeConfig({ ...productionEnvironment, ALLOWED_ORIGINS: '  ' }).allowedOrigins).toEqual([]);
+  it('fails fast when the production browser-origin allowlist is missing or blank', () => {
+    expect(() =>
+      loadRuntimeConfig({ ...productionEnvironment, ALLOWED_ORIGINS: undefined }),
+    ).toThrow(/ALLOWED_ORIGINS is required/);
+    expect(() =>
+      loadRuntimeConfig({ ...productionEnvironment, ALLOWED_ORIGINS: '  ' }),
+    ).toThrow(/ALLOWED_ORIGINS is required/);
   });
 
   it('provides explicit demo defaults only in the emulator', () => {

@@ -69,7 +69,9 @@ const readAllowedOrigins = (
   const rawOrigins = environment.ALLOWED_ORIGINS;
   if (rawOrigins === undefined || rawOrigins.trim() === '') {
     if (isEmulator) return ['http://localhost:3000'];
-    return [];
+    throw new Error(
+      'ALLOWED_ORIGINS is required outside the emulator and must include each browser origin that calls the API',
+    );
   }
 
   return Array.from(

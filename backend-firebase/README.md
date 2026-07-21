@@ -119,5 +119,7 @@ not create or map it as an incidental development step.
 Before any approved live deployment, capture the active Function revision,
 Hosting release, rulesets, CORS configuration, and the live contract baseline so
 each resource has a tested rollback path. Set `ALLOWED_ORIGINS` to the intended
-exact website/CMS browser origins before deploying the Function; the currently
-deployed Function has no such value and this source deliberately fails closed.
+exact website browser origins before deploying the Function. The source fails
+fast during startup when this required production setting is absent, so a
+misconfigured deployment cannot leave browser clients with a silently unusable
+API.
