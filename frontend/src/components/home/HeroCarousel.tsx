@@ -1,189 +1,105 @@
 import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import h4iGroupPhoto from '@/components/assets/h4igroup_photo.jpg';
-import aboutHeader from '@/components/assets/aboutus_header.png';
 
-const heroSlides = [
-  {
-    image: h4iGroupPhoto,
-    alt: 'Hack4Impact UMD team photo',
-  },
-  {
-    image: aboutHeader,
-    alt: 'Hack4Impact UMD event',
-  },
-];
+import type { HomeContent } from '@/content/home';
+import { resolveMediaUrl } from '@/lib/media';
+import HomeActionLink from './HomeActionLink';
 
-export default function HeroCarousel() {
+interface HeroCarouselProps {
+  content: HomeContent['hero'];
+}
+
+export default function HeroCarousel({ content }: HeroCarouselProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [loaded, setLoaded] = useState(false);
+  const [ready, setReady] = useState(false);
+  const hasMultipleSlides = content.slides.length > 1;
 
-  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
-    {
-      initial: 0,
-      slideChanged(slider) {
-        setCurrentSlide(slider.track.details.rel);
-      },
-      created() {
-        setLoaded(true);
-      },
-      loop: true,
-    },
-    [
-      (slider) => {
-        let timeout: ReturnType<typeof setTimeout>;
-        let mouseOver = false;
-
-        const clearNextTimeout = () => {
-          clearTimeout(timeout);
-        };
-
-        const nextTimeout = () => {
-          clearTimeout(timeout);
-          if (mouseOver) return;
-          timeout = setTimeout(() => {
-            slider.next();
-          }, 5000);
-        };
-
-        const handleMouseOver = () => {
-          mouseOver = true;
-          clearNextTimeout();
-        };
-
-        const handleMouseOut = () => {
-          mouseOver = false;
-          nextTimeout();
-        };
-
-        const handleCreated = () => {
-          slider.container.addEventListener('mouseover', handleMouseOver);
-          slider.container.addEventListener('mouseout', handleMouseOut);
-          nextTimeout();
-        };
-
-        const handleDragStarted = () => {
-          clearNextTimeout();
-        };
-
-        const handleAnimationEnded = () => {
-          nextTimeout();
-        };
-
-        const handleUpdated = () => {
-          nextTimeout();
-        };
-
-        const removeSliderListener = (
-          event: 'created' | 'dragStarted' | 'animationEnded' | 'updated',
-          handler: () => void
-        ) => {
-          (slider as unknown as { off?: (event: string, handler: () => void) => void }).off?.(
-            event,
-            handler
-          );
-        };
-
-        slider.on('created', handleCreated);
-        slider.on('dragStarted', handleDragStarted);
-        slider.on('animationEnded', handleAnimationEnded);
-        slider.on('updated', handleUpdated);
-
-        return () => {
-          clearNextTimeout();
-          slider.container.removeEventListener('mouseover', handleMouseOver);
-          slider.container.removeEventListener('mouseout', handleMouseOut);
-          removeSliderListener('created', handleCreated);
-          removeSliderListener('dragStarted', handleDragStarted);
-          removeSliderListener('animationEnded', handleAnimationEnded);
-          removeSliderListener('updated', handleUpdated);
-        };
-      },
-    ]
-  );
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+    initial: 0,
+    loop: hasMultipleSlides,
+    slideChanged: (slider) => setCurrentSlide(slider.track.details.rel),
+    created: () => setReady(true),
+  });
 
   return (
-    <section className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden">
+    <section
+      aria-labelledby="home-hero-heading"
+      className="relative mt-6 h-[560px] w-full overflow-hidden md:h-[620px] lg:h-[671px]"
+    >
       <div ref={sliderRef} className="keen-slider h-full">
-        {heroSlides.map((slide, index) => (
-          <div key={index} className="keen-slider__slide relative">
-            <img
-              src={slide.image}
-              alt={slide.alt}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/20" />
+        {content.slides.map((slide, index) => (
+          <div key={`${slide.image}-${index}`} className="keen-slider__slide relative">
+            <picture className="block h-full w-full">
+              {slide.mobileImage && (
+                <source media="(max-width: 639px)" srcSet={resolveMediaUrl(slide.mobileImage)} />
+              )}
+              <img
+                src={resolveMediaUrl(slide.image)}
+                alt={slide.alt}
+                className={`h-full w-full object-cover ${index === 0 ? 'object-bottom' : 'object-center'}`}
+                loading={index === 0 ? 'eager' : 'lazy'}
+              />
+            </picture>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/55 to-black/5" />
           </div>
         ))}
       </div>
 
-      <div className="absolute inset-0 flex items-center">
-        <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-xl text-center md:text-left animate-fade-in-up">
-            <h1 className="font-heading text-4xl md:text-5xl lg:text-display font-bold text-white mb-4 tracking-tight drop-shadow-lg">
-              Hack4Impact-UMD
+      <div className="absolute inset-0">
+        <div className="mx-auto flex h-full max-w-[1440px] flex-col justify-center px-6 pb-24 sm:px-10 lg:px-24">
+          <div className="max-w-3xl text-white">
+            <h1
+              id="home-hero-heading"
+              className="font-heading text-4xl font-bold leading-[44px] tracking-tight text-white sm:text-5xl sm:leading-[56px]"
+            >
+              {content.heading}
             </h1>
-            <p className="font-body text-base md:text-lg text-white/90 mb-8 leading-relaxed max-w-md mx-auto md:mx-0 drop-shadow-md">
-              Building powerful nonprofit software as a tool for social good. We connect student
-              developers with nonprofits to create technology that drives positive change.
+            <p className="mt-4 max-w-[813px] font-heading text-base leading-6 text-white sm:text-lg">
+              {content.body}
             </p>
-            <div className="flex flex-wrap justify-center md:justify-start gap-4">
-              <Button
-                asChild
-                className="h-12 px-8 bg-h4i-blue hover:bg-state-primary-hover active:bg-state-primary-active text-white text-base font-medium rounded-md transition-all hover:scale-105 hover:shadow-lg shadow-md"
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-8">
+              <HomeActionLink
+                href={content.primaryCta.href}
+                className="inline-flex h-11 min-w-[199px] items-center justify-center rounded-lg bg-[#0056A3] px-6 font-heading text-base font-bold text-white transition-colors hover:bg-state-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               >
-                <Link to="/aboutus">Learn More</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="h-12 px-8 border-2 border-white bg-white text-foreground hover:bg-white/90 text-base font-medium rounded-md transition-all hover:scale-105 hover:shadow-lg shadow-md"
+                {content.primaryCta.label}
+              </HomeActionLink>
+              <HomeActionLink
+                href={content.secondaryCta.href}
+                className="inline-flex h-11 min-w-[207px] items-center justify-center rounded-lg border border-h4i-blue bg-white px-6 font-heading text-base font-bold text-h4i-blue transition-colors hover:bg-state-secondary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
               >
-                <Link to="/apply/student">Apply Now</Link>
-              </Button>
+                {content.secondaryCta.label}
+              </HomeActionLink>
             </div>
           </div>
+
+          {ready && hasMultipleSlides && (
+            <div className="absolute bottom-8 flex items-center gap-4">
+              <button
+                type="button"
+                onClick={() => instanceRef.current?.prev()}
+                className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/30 text-white transition-colors hover:bg-white/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                aria-label="Previous hero image"
+              >
+                <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                onClick={() => instanceRef.current?.next()}
+                className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-white/30 text-white transition-colors hover:bg-white/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+                aria-label="Next hero image"
+              >
+                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+              </button>
+              <span className="sr-only" aria-live="polite">
+                Image {currentSlide + 1} of {content.slides.length}
+              </span>
+            </div>
+          )}
         </div>
       </div>
-
-      {loaded && instanceRef.current && (
-        <div className="absolute bottom-6 left-4 sm:left-8 flex items-center">
-          <div className="flex items-center gap-1 bg-black/30 backdrop-blur-sm rounded-full p-1">
-            <button
-              onClick={() => instanceRef.current?.prev()}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={() => instanceRef.current?.next()}
-              className="w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </div>
-          <div className="ml-4 flex gap-2">
-            {heroSlides.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => instanceRef.current?.moveToIdx(idx)}
-                className={`w-2.5 h-2.5 rounded-full transition-all ${
-                  currentSlide === idx
-                    ? 'bg-white scale-110'
-                    : 'bg-white/40 hover:bg-white/60'
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
-          </div>
-        </div>
-      )}
     </section>
   );
 }

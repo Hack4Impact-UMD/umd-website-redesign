@@ -8,6 +8,9 @@ const normalizeHome = (data: any): any => {
     ? data.hero.slides.map((slide: any) => ({
         ...slide,
         image: toPublicMediaUrl(slide?.image),
+        mobileImage: slide?.mobileImage
+          ? toPublicMediaUrl(slide.mobileImage)
+          : slide?.mobileImage,
       }))
     : data.hero?.slides;
 

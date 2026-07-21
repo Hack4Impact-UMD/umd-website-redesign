@@ -36,6 +36,16 @@ const envelope = (data: unknown[]) => ({
 });
 
 const installFixtures = async (page: Page) => {
+  await page.route(/\/api\/content\//, (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({
+        data: null,
+        meta: { collection: 'content_fixture', documentId: 'main' },
+      }),
+    }),
+  );
   await page.route(/\/api\/projects(?:\?|$)/, (route) =>
     route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(envelope([project])) }),
   );
@@ -66,6 +76,24 @@ for (const [path, heading] of [
     expect(errors).toEqual([]);
   });
 }
+
+test('home preserves its Figma section order without fabricated live capabilities', async ({ page }) => {
+  await installFixtures(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+
+  await expect(page.getByRole('heading', { name: 'Hack4Impact-UMD' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Explore Our Nonprofit Partners' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Testimonials from Our Nonprofit Partners' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Check Out Our Recent Newsletter' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Past supporters' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Come Make an Impact With Us!' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Apply Now' })).toHaveAttribute('href', '/apply/student');
+  await expect(page.locator('form')).toHaveCount(0);
+  await expect(page.locator('section[aria-labelledby="newsletter-heading"] img')).toHaveCount(0);
+  await expect(page.getByText(/signup is not currently available/i)).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
 
 test('project library exposes a real retry path after an API failure', async ({ page }) => {
   let requests = 0;

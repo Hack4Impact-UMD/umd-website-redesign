@@ -1,99 +1,109 @@
-const stats = [
-  { value: '149', label: 'active members' },
-  { value: '7', label: 'nonprofits supported' },
-  { value: '6', label: 'semesters running' },
-  { value: '15', label: 'team-building events' },
-  { value: '160', label: 'students and guests attended Hack4Impact Free Showcase' },
-  { value: '200+', label: 'applicants' },
-];
+import type { HomeContent } from '@/content/home';
+import HomeActionLink from './HomeActionLink';
 
-export default function NewsletterSection() {
+interface NewsletterSectionProps {
+  content: HomeContent['newsletter'];
+}
+
+export default function NewsletterSection({ content }: NewsletterSectionProps) {
+  if (content.mode === 'hidden') return null;
+
+  const latestIssue = content.mode === 'externalLink' ? content.latestIssue : undefined;
+  const subscribeUrl = content.mode === 'externalLink' ? content.subscribeUrl : undefined;
+
   return (
-    <section className="py-16 md:py-24 bg-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Check Out Our Recent Newsletter
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              Stay updated with the latest news from Hack4Impact UMD. Get insights into our projects,
-              events, and the impact we're making in the community.
-            </p>
+    <section aria-labelledby="newsletter-heading" className="bg-[#F9FAFB] px-4 py-16 sm:px-6 lg:px-24 lg:py-0">
+      <div className="mx-auto grid max-w-[1248px] items-center gap-12 lg:grid-cols-[400px_minmax(0,1fr)] lg:gap-[88px]">
+        <div>
+          <h2 id="newsletter-heading" className="text-[28px] leading-9 text-foreground">
+            {content.heading}
+          </h2>
+          <p className="mt-3 text-lg leading-6 text-text-secondary">{content.body}</p>
 
-            <div className="mb-8">
-              <h3 className="font-heading text-lg font-bold text-foreground mb-4">
-                Stay Connected
+          {(content.mode !== 'externalLink' || subscribeUrl) && (
+            <div className="mt-10 max-w-[302px]">
+              <h3 className="text-[22px] leading-[30px] text-text-secondary">
+                {content.subscribeHeading}
               </h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                Newsletter signup is not currently available on this site. Follow our verified
-                Instagram account for current chapter updates.
-              </p>
-              <a
-                href="https://instagram.com/hack4impactumd"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-12 items-center rounded-md bg-foreground px-8 font-medium text-background hover:bg-foreground/90"
-              >
-                Follow on Instagram
-              </a>
+
+              {content.mode === 'externalLink' && subscribeUrl ? (
+                <div className="mt-3 space-y-3">
+                  <a
+                    href={subscribeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex h-10 w-full items-center justify-center rounded-lg bg-[#0056A3] px-6 font-heading text-base font-bold text-white transition-colors hover:bg-state-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
+                  >
+                    {content.linkLabel ?? 'Subscribe'}
+                  </a>
+                </div>
+              ) : (
+                <p
+                  role="status"
+                  className="mt-3 rounded-md border border-input bg-white px-4 py-3 text-base leading-5 text-muted-foreground"
+                >
+                  {content.placeholderMessage}
+                </p>
+              )}
             </div>
-          </div>
+          )}
 
-          <div className="relative">
-            <div className="bg-card rounded-2xl border border-border shadow-lg overflow-hidden">
-              <div className="bg-h4i-blue px-6 py-4">
-                <p className="text-xs text-white/70 mb-1">January 5, 2025</p>
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-                    <span className="text-white text-xs font-bold">H</span>
-                  </div>
-                  <span className="text-white text-sm font-medium">Hack4Impact-UMD</span>
+          {content.stats.length > 0 && (
+            <dl className="mt-8 grid grid-cols-2 gap-4">
+              {content.stats.map((stat) => (
+                <div key={`${stat.value}-${stat.label}`}>
+                  <dt className="text-sm text-muted-foreground">{stat.label}</dt>
+                  <dd className="font-heading text-2xl font-bold text-h4i-blue">{stat.value}</dd>
                 </div>
-                <h4 className="font-heading text-xl font-bold text-white">
-                  Fall Semester Recap Newsletter
-                </h4>
-              </div>
-
-              <div className="p-6">
-                <div className="border-b border-border pb-4 mb-4">
-                  <h5 className="font-heading font-bold text-foreground mb-2">
-                    End of Semester Recap
-                  </h5>
-                  <p className="text-sm text-muted-foreground">
-                    Here's our summary of what happened recently this fall semester!
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  {stats.slice(0, 4).map((stat, index) => (
-                    <div key={index} className="flex items-baseline gap-2">
-                      <span className="font-heading text-2xl font-bold text-h4i-blue">
-                        {stat.value}
-                      </span>
-                      <span className="text-sm text-muted-foreground">{stat.label}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-h4i-mint/20 rounded-full blur-2xl -z-10" />
-            <div className="absolute -top-4 -left-4 w-24 h-24 bg-h4i-blue/20 rounded-full blur-2xl -z-10" />
-          </div>
+              ))}
+            </dl>
+          )}
         </div>
 
-        <div className="mt-16 pt-12 border-t border-border">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-8">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <p className="font-heading text-3xl md:text-4xl font-bold text-h4i-blue mb-1">
-                  {stat.value}
+        <div className="relative flex h-[430px] items-center justify-center overflow-hidden bg-[#D1D5DB] p-6 sm:h-[560px] sm:p-12 lg:h-[758px]">
+          {latestIssue ? (
+            <article className="w-full max-w-[520px] overflow-hidden rounded-xl bg-white shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+              <header className="bg-[#0056A3] px-6 py-5 text-white sm:px-8 sm:py-7">
+                {latestIssue.dateLabel && (
+                  <p className="font-heading text-sm leading-5 text-white/80">{latestIssue.dateLabel}</p>
+                )}
+                <p className="mt-2 font-heading text-base font-bold leading-5 text-white">
+                  {latestIssue.sender}
                 </p>
-                <p className="text-sm text-muted-foreground">{stat.label}</p>
+                <h3 className="mt-3 text-[22px] leading-[30px] text-white">{latestIssue.title}</h3>
+              </header>
+              <div className="space-y-6 px-6 py-7 sm:px-8 sm:py-9">
+                <p className="text-lg leading-6 text-text-secondary">{latestIssue.summary}</p>
+                {latestIssue.href && (
+                  <HomeActionLink
+                    href={latestIssue.href}
+                    className="inline-flex h-10 items-center justify-center rounded-lg border border-h4i-blue bg-white px-6 font-heading text-base font-bold text-h4i-blue transition-colors hover:bg-state-secondary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
+                  >
+                    Read the Latest Issue
+                  </HomeActionLink>
+                )}
               </div>
-            ))}
-          </div>
+            </article>
+          ) : (
+            <div className="relative h-[72%] w-full max-w-[560px]" aria-hidden="true">
+              <div className="absolute right-0 top-0 h-[70%] w-[70%] rounded-lg bg-white/75 shadow-[0_4px_12px_rgba(0,0,0,0.08)]">
+                <div className="h-16 rounded-t-lg bg-[#0056A3]/30" />
+                <div className="space-y-4 p-6">
+                  <div className="h-3 w-2/3 rounded-full bg-slate-300" />
+                  <div className="h-3 w-full rounded-full bg-slate-200" />
+                  <div className="h-3 w-4/5 rounded-full bg-slate-200" />
+                </div>
+              </div>
+              <div className="absolute bottom-0 left-0 h-[58%] w-[62%] rounded-lg bg-white shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
+                <div className="h-12 rounded-t-lg bg-[#0056A3]/70" />
+                <div className="grid grid-cols-2 gap-3 p-5">
+                  <div className="h-20 rounded bg-slate-200" />
+                  <div className="h-20 rounded bg-slate-100" />
+                  <div className="col-span-2 h-3 rounded-full bg-slate-200" />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
