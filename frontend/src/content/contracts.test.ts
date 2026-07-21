@@ -68,4 +68,13 @@ describe('ContentMode', () => {
     expect(result).toMatchObject({ mode: 'placeholder', issue: 'invalid-payload' });
     expect(result.content).toBe(defaultApplyStudentContent);
   });
+
+  it('keeps Apply placeholders useful without publishing stale campaigns or invented quotes', () => {
+    expect(defaultApplyStudentContent.roles).toHaveLength(6);
+    expect(defaultApplyStudentContent.timeline.steps).toHaveLength(3);
+    expect(defaultApplyStudentContent.testimonials).toEqual([]);
+    expect(defaultApplyNonprofitContent.testimonials).toEqual([]);
+    expect(defaultApplyNonprofitContent.banner).toEqual({ enabled: false, text: '' });
+    expect(JSON.stringify([defaultApplyStudentContent, defaultApplyNonprofitContent])).not.toContain('Fall 2025');
+  });
 });

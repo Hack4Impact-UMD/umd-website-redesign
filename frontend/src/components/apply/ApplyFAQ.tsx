@@ -13,6 +13,8 @@ type ApplyFaqProps = {
 };
 
 function ApplyFaq({ heading, items }: ApplyFaqProps) {
+  if (items.length === 0) return null;
+
   return (
     <ApplySection>
       <div className="space-y-8">
@@ -20,10 +22,10 @@ function ApplyFaq({ heading, items }: ApplyFaqProps) {
         <Accordion type="single" collapsible className="w-full">
           {items.map((item, index) => (
             <AccordionItem key={item.question} value={`faq-${index}`}>
-              <AccordionTrigger className="text-left font-heading text-base font-bold">
+              <AccordionTrigger className="py-7 text-left font-heading text-base font-bold sm:text-lg">
                 {item.question}
               </AccordionTrigger>
-              <AccordionContent className="font-body text-sm text-muted-foreground">
+              <AccordionContent className="font-body text-base leading-6 text-muted-foreground">
                 {item.answer}
               </AccordionContent>
             </AccordionItem>

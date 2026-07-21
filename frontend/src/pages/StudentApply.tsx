@@ -1,152 +1,122 @@
 import {
+  BookOpen,
   Brush,
-  ClipboardList,
+  ClipboardPen,
   Code2,
-  GraduationCap,
   Search,
   Wrench,
+  type LucideIcon,
 } from 'lucide-react';
 
+import { getContentDocument } from '@/api/content';
 import ApplyCTA from '@/components/apply/ApplyCTA';
 import ApplyFaq from '@/components/apply/ApplyFAQ';
 import ApplyHero from '@/components/apply/ApplyHero';
 import ApplyIntro from '@/components/apply/ApplyIntro';
 import { ApplyPageLayout, ApplySection, SectionHeader } from '@/components/apply/ApplyPageLayout';
+import ApplicationStatusBanner from '@/components/apply/ApplicationStatusBanner';
 import ApplyTestimonials from '@/components/apply/ApplyTestimonials';
 import ApplyTimeline from '@/components/apply/ApplyTimeline';
 import RoleCard from '@/components/apply/RoleCard';
+import ContentNotice from '@/components/shared/ContentNotice';
+import { normalizeApplyStudentContent } from '@/content/apply';
+import { useApiResource } from '@/hooks';
 
-import heroImage from '@/components/assets/h4igroup_photo.jpg';
-import introImage from '@/components/assets/mott_haven_image.jpg';
+const roleIcons: Record<string, LucideIcon> = {
+  engineer: Code2,
+  designer: Brush,
+  'tech-lead': Wrench,
+  techlead: Wrench,
+  sourcing: Search,
+  'product-manager': ClipboardPen,
+  productmanager: ClipboardPen,
+  bootcamp: BookOpen,
+};
 
-const roles = [
-  {
-    title: 'Engineer',
-    description:
-      'Build and ship product features while pairing with designers and product managers on each sprint.',
-    icon: Code2,
-  },
-  {
-    title: 'Designer',
-    description: 'Translate nonprofit needs into elegant UX flows, wireframes, and visual systems.',
-    icon: Brush,
-  },
-  {
-    title: 'Tech Lead',
-    description: 'Guide technical direction, architecture decisions, and mentorship for the engineering team.',
-    icon: Wrench,
-  },
-  {
-    title: 'Sourcing',
-    description: 'Identify and onboard nonprofit partners while managing outreach and relationship building.',
-    icon: Search,
-  },
-  {
-    title: 'Product Manager',
-    description: 'Scope the roadmap, plan sprints, and keep teams aligned on impact-driven outcomes.',
-    icon: ClipboardList,
-  },
-  {
-    title: 'Bootcamp',
-    description: 'Learn foundational web development and prep to join a project team next semester.',
-    icon: GraduationCap,
-  },
-];
+const placeholder = normalizeApplyStudentContent(null);
 
-const timelineSteps = [
-  {
-    title: 'Step 1',
-    subtitle: 'Dates',
-    description:
-      'Submit the online application so our sourcing team can review your goals and interests.',
-  },
-  {
-    title: 'Step 2',
-    subtitle: 'Dates',
-    description:
-      'Selected applicants meet with a board member to discuss fit, expectations, and team placement.',
-  },
-  {
-    title: 'Step 3',
-    subtitle: 'Dates',
-    description:
-      'Receive your decision and onboarding details so you can start building with your team.',
-  },
-];
-
-const faqItems = [
-  {
-    question: 'What is the weekly time commitment?',
-    answer: 'Most members spend 3–5 hours per week, including a team sync and async project work.',
-  },
-  {
-    question: 'Do I need prior technical experience?',
-    answer:
-      'No. We welcome all skill levels and place newer developers in Bootcamp to build confidence.',
-  },
-  {
-    question: 'Which tech stack do teams use?',
-    answer:
-      'Most teams work in React, Node.js, and modern cloud tools, but we adapt to project needs.',
-  },
-  {
-    question: 'Can I apply for multiple roles?',
-    answer:
-      'Yes. Share your interests in the application and we will help identify the best fit.',
-  },
-];
-
-const testimonials = [
-  {
-    quote:
-      'Hack4Impact helped me grow as a developer while working on a mission-driven product with an amazing team.',
-    name: 'Student Member',
-    organization: 'Hack4Impact-UMD',
-  },
-  {
-    quote:
-      'I loved collaborating with designers and PMs to deliver real impact for a local nonprofit.',
-    name: 'Student Lead',
-    organization: 'Hack4Impact-UMD',
-  },
-];
+const loadStudentContent = async (signal: AbortSignal) =>
+  normalizeApplyStudentContent(await getContentDocument('apply/student', signal));
 
 function StudentApply() {
+  const resource = useApiResource(loadStudentContent);
+  const resolved = resource.data ?? placeholder;
+  const content = resolved.content;
+
+  if (!content) {
+    return (
+      <main className="mx-auto min-h-[50vh] max-w-[1248px] px-6 py-16 lg:px-24">
+        <ContentNotice>The student application page is not currently available.</ContentNotice>
+      </main>
+    );
+  }
+
+  const applicationHref =
+    content.applicationStatus.state === 'open' ? content.applicationStatus.applicationUrl : undefined;
+  const applicationLabel =
+    content.applicationStatus.state === 'open'
+      ? content.intro.ctaLabel
+      : content.applicationStatus.state === 'comingSoon'
+        ? 'Applications coming soon'
+        : 'Applications closed';
+
   return (
     <ApplyPageLayout>
-      <ApplyHero title="Apply as a Student" backgroundImage={heroImage} />
+      <ApplyHero title={content.hero.title} backgroundImage={content.hero.image} />
+      <ApplicationStatusBanner status={content.applicationStatus} />
+
+      {resource.error ? (
+        <div className="mx-auto max-w-[1248px] px-6 pt-8 lg:px-24">
+          <ContentNotice>
+            Live application details are temporarily unavailable. Applications remain closed until a verified window is published.
+          </ContentNotice>
+        </div>
+      ) : null}
+
       <ApplyIntro
-        heading="Join Our Student Community"
-        body="At Hack4Impact, we understand that nonprofit organizations are a valuable asset to our community. We want to use our software and web development skills to help nonprofits. Our collaborations with nonprofits are semester-long (around 3-4 months), and we will work with you to develop a software product that suits your organization's needs."
-        ctaLabel="Apply"
-        ctaHref="https://apply.umd.hack4impact.org/login"
-        imageSrc={introImage}
-        imageAlt="Hack4Impact students collaborating in a classroom"
+        heading={content.intro.heading}
+        body={content.intro.body}
+        ctaLabel={applicationLabel}
+        ctaHref={applicationHref}
+        imageSrc={content.intro.image}
+        imageAlt={content.intro.imageAlt}
       />
 
-      <ApplySection>
-        <div className="space-y-8">
-          <SectionHeader title="Roles" />
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {roles.map((role) => (
-              <RoleCard key={role.title} {...role} />
-            ))}
+      {content.roles.length > 0 ? (
+        <ApplySection variant="muted">
+          <div className="space-y-8">
+            <SectionHeader title="Roles" />
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {content.roles.map((role) => (
+                <RoleCard
+                  key={role.title}
+                  title={role.title}
+                  description={role.description}
+                  icon={roleIcons[role.icon.toLowerCase()] ?? Code2}
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </ApplySection>
+        </ApplySection>
+      ) : null}
 
-      <ApplyTimeline heading="Application Process & Timeline" steps={timelineSteps} />
+      {content.timeline.steps.length > 0 ? (
+        <ApplyTimeline
+          heading={content.timeline.heading}
+          description={content.timeline.description}
+          steps={content.timeline.steps}
+        />
+      ) : null}
 
-      <ApplyTestimonials testimonials={testimonials} />
-
-      <ApplyFaq heading="Frequently Asked Questions" items={faqItems} />
+      <ApplyTestimonials testimonials={content.testimonials} />
+      <ApplyFaq heading={content.faq.heading} items={content.faq.items} />
 
       <ApplyCTA
-        heading="Ready to Work with Us?"
-        primaryLabel="Apply"
-        primaryHref="https://apply.umd.hack4impact.org/login"
-        secondaryLabel="View Projects"
-        secondaryHref="/ourwork"
+        heading={content.cta.heading}
+        primaryLabel={applicationLabel}
+        primaryHref={applicationHref}
+        secondaryLabel={content.cta.secondaryLabel}
+        secondaryHref={content.cta.secondaryHref}
       />
     </ApplyPageLayout>
   );
