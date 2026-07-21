@@ -1,0 +1,33 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    function hasCmsRole() {
+      return request.auth != null
+        && request.auth.token.role in ['admin', 'editor'];
+    }
+
+    function validImageUpload() {
+      return request.resource != null
+        && request.resource.size <= 10 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    match /projects/{allPaths=**} {
+      allow read: if hasCmsRole();
+      allow create, update: if hasCmsRole() && validImageUpload();
+      allow delete: if hasCmsRole();
+    }
+
+    match /members/{allPaths=**} {
+      allow read: if hasCmsRole();
+      allow create, update: if hasCmsRole() && validImageUpload();
+      allow delete: if hasCmsRole();
+    }
+
+    match /content/{allPaths=**} {
+      allow read: if hasCmsRole();
+      allow create, update: if hasCmsRole() && validImageUpload();
+      allow delete: if hasCmsRole();
+    }
+  }
+}
