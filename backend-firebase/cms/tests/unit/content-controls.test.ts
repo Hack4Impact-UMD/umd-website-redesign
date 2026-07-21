@@ -14,6 +14,16 @@ describe('content collection controls', () => {
     ]);
   });
 
+  it('keeps singleton content collections to the live main document', () => {
+    const home = collections.find(({ id }) => id === 'content_home') as unknown as {
+      permissions: { read: boolean; create: boolean; edit: boolean; delete: boolean };
+      properties: { payload: { hideFromCollection?: boolean } };
+    };
+
+    expect(home.permissions).toEqual({ read: true, create: false, edit: true, delete: false });
+    expect(home.properties.payload.hideFromCollection).toBe(true);
+  });
+
   it('exposes the fail-closed Home publishing controls', () => {
     const home = collections.find(({ id }) => id === 'content_home') as unknown as {
       properties: { payload: { properties: Record<string, any> } };
@@ -45,6 +55,24 @@ describe('content collection controls', () => {
     expect(social.icon.enumValues.map(({ id }: { id: string }) => id)).toEqual([
       'Instagram', 'Github', 'Linkedin', 'Facebook',
     ]);
+  });
+
+  it('keeps project and member collection indexes focused on scannable fields', () => {
+    const projects = collections.find(({ id }) => id === 'projects') as unknown as {
+      properties: Record<string, { hideFromCollection?: boolean; columnWidth?: number }>;
+    };
+    const members = collections.find(({ id }) => id === 'members') as unknown as {
+      properties: Record<string, { hideFromCollection?: boolean; columnWidth?: number }>;
+    };
+
+    expect(projects.properties.title.columnWidth).toBe(240);
+    expect(projects.properties.summary.hideFromCollection).toBe(true);
+    expect(projects.properties.blurb.hideFromCollection).toBe(true);
+    expect(projects.properties.memberIds.hideFromCollection).toBe(true);
+    expect(projects.properties.image.hideFromCollection).toBe(true);
+    expect(members.properties.memberDisplayStatus.columnWidth).toBe(220);
+    expect(members.properties.projectIds.hideFromCollection).toBe(true);
+    expect(members.properties.componentRolesArr.hideFromCollection).toBe(true);
   });
 
   it('requires verification before first publication', () => {

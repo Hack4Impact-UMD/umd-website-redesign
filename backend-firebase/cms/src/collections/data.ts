@@ -61,20 +61,21 @@ export const projectsCollection = buildCollection({
     'nonprofitName', 'memberIds', 'image',
   ],
   properties: {
-    title: { dataType: 'string', name: 'Title', validation: { required: true } },
-    path: { dataType: 'string', name: 'Path', validation: { required: true } },
-    startDate: { dataType: 'date', name: 'Start date' },
-    summary: { dataType: 'string', name: 'Summary', validation: { required: true }, multiline: true },
-    blurb: { dataType: 'string', name: 'Blurb', validation: { required: true }, markdown: true },
-    isFeatured: { dataType: 'boolean', name: 'Featured', validation: { required: true } },
-    isCurrentProject: { dataType: 'boolean', name: 'Current project', validation: { required: true } },
-    repoURL: { dataType: 'string', name: 'Repository URL', url: true },
-    hostedProjectURL: { dataType: 'string', name: 'Hosted URL', url: true },
-    imageAltText: { dataType: 'string', name: 'Image alt text' },
-    nonprofitName: { dataType: 'string', name: 'Nonprofit name' },
+    title: { dataType: 'string', name: 'Title', columnWidth: 240, validation: { required: true } },
+    path: { dataType: 'string', name: 'Path', columnWidth: 180, validation: { required: true } },
+    startDate: { dataType: 'date', name: 'Start date', columnWidth: 140 },
+    summary: { dataType: 'string', name: 'Summary', hideFromCollection: true, validation: { required: true }, multiline: true },
+    blurb: { dataType: 'string', name: 'Blurb', hideFromCollection: true, validation: { required: true }, markdown: true },
+    isFeatured: { dataType: 'boolean', name: 'Featured', columnWidth: 112, validation: { required: true } },
+    isCurrentProject: { dataType: 'boolean', name: 'Current project', columnWidth: 138, validation: { required: true } },
+    repoURL: { dataType: 'string', name: 'Repository URL', hideFromCollection: true, url: true },
+    hostedProjectURL: { dataType: 'string', name: 'Hosted URL', hideFromCollection: true, url: true },
+    imageAltText: { dataType: 'string', name: 'Image alt text', hideFromCollection: true },
+    nonprofitName: { dataType: 'string', name: 'Nonprofit name', columnWidth: 220 },
     memberIds: {
       dataType: 'array',
       name: 'Members',
+      hideFromCollection: true,
       description: 'Search and select members by name.',
       Preview: membersPreview,
       of: {
@@ -85,7 +86,7 @@ export const projectsCollection = buildCollection({
         includeId: false,
       },
     },
-    image: { dataType: 'array', name: 'Project images', of: mediaMapProperty('projects/{entityId}') },
+    image: { dataType: 'array', name: 'Project images', hideFromCollection: true, of: mediaMapProperty('projects/{entityId}') },
   },
   callbacks: {
     onFetch: async ({ entity }) => ({
@@ -126,9 +127,9 @@ export const membersCollection = buildCollection({
     'componentRolesArr', 'avatar', 'linkedinUrl', 'pronouns',
   ],
   properties: {
-    firstName: { dataType: 'string', name: 'First name', validation: { required: true } },
-    lastName: { dataType: 'string', name: 'Last name', validation: { required: true } },
-    pronouns: { dataType: 'string', name: 'Pronouns' },
+    firstName: { dataType: 'string', name: 'First name', columnWidth: 160, validation: { required: true } },
+    lastName: { dataType: 'string', name: 'Last name', columnWidth: 180, validation: { required: true } },
+    pronouns: { dataType: 'string', name: 'Pronouns', hideFromCollection: true },
     memberDisplayStatus: {
       dataType: 'string',
       name: 'Member display status',
@@ -137,13 +138,15 @@ export const membersCollection = buildCollection({
         { id: 'Current Board Member', label: 'Current Board Member' },
         { id: 'Former Member or Board Member', label: 'Former Member or Board Member' },
       ],
+      columnWidth: 220,
       validation: { required: true },
     },
-    avatar: mediaMapProperty('members/{entityId}', 'Avatar'),
-    linkedinUrl: { dataType: 'string', name: 'LinkedIn URL', url: true },
+    avatar: { ...mediaMapProperty('members/{entityId}', 'Avatar'), hideFromCollection: true },
+    linkedinUrl: { dataType: 'string', name: 'LinkedIn URL', hideFromCollection: true, url: true },
     projectIds: {
       dataType: 'array',
       name: 'Projects',
+      hideFromCollection: true,
       description: 'Search and select projects by title.',
       Preview: projectsPreview,
       of: {
@@ -157,6 +160,7 @@ export const membersCollection = buildCollection({
     componentRolesArr: {
       dataType: 'array',
       name: 'Roles',
+      hideFromCollection: true,
       of: {
         dataType: 'map',
         name: 'Role',
