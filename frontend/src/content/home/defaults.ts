@@ -56,7 +56,7 @@ export const defaultHomeContent: HomeContent = {
   },
   sponsors: {
     mode: 'published',
-    heading: 'Past supporters',
+    heading: 'Our Sponsors',
     placeholderMessage: 'Sponsor information is being updated.',
     tiers: [
       {
