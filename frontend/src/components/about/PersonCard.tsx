@@ -7,7 +7,8 @@ interface PersonCardProps {
   name: string;
   role: string;
   imageSrc?: string | null;
-  linkedinUrl?: string;
+  linkedinUrl?: string | null;
+  prominent?: boolean;
   showSecondaryPlaceholderIcon?: boolean;
   showPrimaryPlaceholderWhenNoLink?: boolean;
 }
@@ -16,34 +17,46 @@ function resolveImageSrc(src?: string | null) {
   return resolveMediaUrl(src) || defaultPfp;
 }
 
+function isSafeLinkedinUrl(value: string) {
+  if (!isSafeHttpsUrl(value)) return false;
+  const hostname = new URL(value).hostname.toLowerCase();
+  return hostname === 'linkedin.com' || hostname.endsWith('.linkedin.com');
+}
+
 export default function PersonCard({
   name,
   role,
   imageSrc,
   linkedinUrl,
+  prominent = false,
   showSecondaryPlaceholderIcon = false,
-  showPrimaryPlaceholderWhenNoLink = true,
+  showPrimaryPlaceholderWhenNoLink = false,
 }: PersonCardProps) {
   const resolvedImageSrc = resolveImageSrc(imageSrc);
-  const safeLinkedinUrl = linkedinUrl && isSafeHttpsUrl(linkedinUrl) ? linkedinUrl : undefined;
+  const safeLinkedinUrl = linkedinUrl && isSafeLinkedinUrl(linkedinUrl) ? linkedinUrl : undefined;
   const hasPrimaryLink = Boolean(safeLinkedinUrl);
   const showPrimaryPlaceholder = !hasPrimaryLink && showPrimaryPlaceholderWhenNoLink;
 
   return (
-    <div className="flex flex-col items-center text-center">
+    <article className={prominent ? 'flex w-full max-w-72 flex-col items-center text-center' : 'flex flex-col items-center text-center'}>
       <img
         src={resolvedImageSrc}
         alt={`${name} headshot`}
-        className="w-32 h-32 rounded-xl object-cover bg-muted"
+        className={prominent ? 'aspect-square w-full rounded-lg bg-muted object-cover' : 'h-32 w-32 rounded-xl bg-muted object-cover'}
+        loading="lazy"
         onError={(event) => {
           event.currentTarget.onerror = null;
           event.currentTarget.src = defaultPfp;
         }}
       />
-      <h3 className="font-heading text-sm font-bold text-foreground mt-3">
+      <h3 className={prominent ? 'mt-3 font-heading text-h3 font-bold text-foreground' : 'mt-3 font-heading text-sm font-bold text-foreground'}>
         {name}
       </h3>
-      <p className="font-body text-xs text-muted-foreground mt-1">{role}</p>
+      {role ? (
+        <p className={prominent ? 'mt-1 font-heading text-label font-bold text-muted-foreground' : 'mt-1 font-body text-xs text-muted-foreground'}>
+          {role}
+        </p>
+      ) : null}
       <div className="flex gap-2 mt-2">
         {hasPrimaryLink ? (
           <a
@@ -65,6 +78,6 @@ export default function PersonCard({
           />
         ) : null}
       </div>
-    </div>
+    </article>
   );
 }

@@ -35,17 +35,25 @@ const envelope = (data: unknown[]) => ({
   meta: { pagination: { page: 1, pageSize: 200, pageCount: 1, total: data.length } },
 });
 
+const aboutContentResponse = {
+  data: { mode: 'placeholder' },
+  meta: { collection: 'content_about', documentId: 'main' },
+};
+
 const installFixtures = async (page: Page) => {
-  await page.route(/\/api\/content\//, (route) =>
-    route.fulfill({
+  await page.route(/\/api\/content\/(home|about)(?:\?|$)/, (route) => {
+    const response = route.request().url().includes('/about')
+      ? aboutContentResponse
+      : {
+          data: null,
+          meta: { collection: 'content_home', documentId: 'main' },
+        };
+    return route.fulfill({
       status: 200,
       contentType: 'application/json',
-      body: JSON.stringify({
-        data: null,
-        meta: { collection: 'content_fixture', documentId: 'main' },
-      }),
-    }),
-  );
+      body: JSON.stringify(response),
+    });
+  });
   await page.route(/\/api\/projects(?:\?|$)/, (route) =>
     route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(envelope([project])) }),
   );

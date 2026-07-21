@@ -109,6 +109,7 @@ export interface StrapiMemberAttributes {
   firstName: string;
   lastName: string;
   pronouns?: string;
+  linkedinUrl?: string;
   memberDisplayStatus: MemberDisplayStatus;
   componentRolesArr: Array<{
     title: string;

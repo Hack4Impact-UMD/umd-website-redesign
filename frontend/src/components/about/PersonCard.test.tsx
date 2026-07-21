@@ -17,7 +17,7 @@ describe('PersonCard link safety', () => {
     );
   });
 
-  it.each(['javascript:alert(1)', 'http://linkedin.com/in/test', 'https://user:pass@linkedin.com/in/test'])(
+  it.each(['javascript:alert(1)', 'http://linkedin.com/in/test', 'https://user:pass@linkedin.com/in/test', 'https://example.com/in/test'])(
     'does not anchor unsafe member URL %s',
     (linkedinUrl) => {
       render(<PersonCard name="Test Member" role="Engineer" linkedinUrl={linkedinUrl} />);

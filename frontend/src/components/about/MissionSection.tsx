@@ -1,41 +1,33 @@
-export default function MissionSection() {
+import missionCornerEnd from '@/components/assets/about/mission-corner-end.svg';
+import missionCornerStart from '@/components/assets/about/mission-corner-start.svg';
+import type { AboutContent } from '@/content/about';
+
+type MissionSectionProps = AboutContent['mission'];
+
+export default function MissionSection({ heading, body }: MissionSectionProps) {
   return (
     <section className="bg-primary">
-      <div className="mx-auto max-w-7xl px-6 py-12 lg:px-16 lg:py-16">
-        <div className="relative mx-auto max-w-3xl">
-          <svg
-            className="pointer-events-none absolute -left-8 -top-8 hidden h-12 w-12 text-primary-foreground/90 sm:block md:h-14 md:w-14"
-            viewBox="49.5 77.5 117 116"
+      <div className="mx-auto max-w-[1440px] px-6 py-12 sm:px-8 lg:px-24">
+        <div className="relative mx-auto flex min-h-[220px] max-w-[1248px] items-center px-8 py-12 sm:px-16 lg:px-28">
+          <img
+            src={missionCornerStart}
+            alt=""
             aria-hidden="true"
-          >
-            <path
-              d="M64.3389 193.5V92.1904H166.5V77.5H49.5V193.5H64.3389Z"
-              fill="currentColor"
-              stroke="currentColor"
-              strokeWidth="3"
-            />
-          </svg>
-          <svg
-            className="pointer-events-none absolute -bottom-8 -right-8 hidden h-12 w-12 text-primary-foreground/90 sm:block md:h-14 md:w-14"
-            viewBox="169.5 243.5 117 116"
+            className="pointer-events-none absolute left-0 top-0 h-[72px] w-[72px] sm:h-[96px] sm:w-[96px]"
+          />
+          <img
+            src={missionCornerEnd}
+            alt=""
             aria-hidden="true"
-          >
-            <path
-              d="M271.661 243.5V344.81H169.5V359.5H286.5V243.5H271.661Z"
-              fill="currentColor"
-              stroke="currentColor"
-              strokeWidth="3"
-            />
-          </svg>
+            className="pointer-events-none absolute bottom-0 right-0 h-[72px] w-[72px] sm:h-[96px] sm:w-[96px]"
+          />
 
-          <h2 className="font-heading text-2xl font-bold text-primary-foreground">
-            Our Mission
-          </h2>
-          <p className="mt-4 font-body text-base leading-relaxed text-primary-foreground/90 md:text-lg">
-            Our mission is to leverage technology for social good by building impactful
-            software solutions for nonprofit organizations while providing students with
-            real-world, professional experience.
-          </p>
+          <div className="relative z-10">
+            <h2 className="font-heading text-h2 font-bold text-primary-foreground">{heading}</h2>
+            <p className="mt-2 font-heading text-lg font-bold leading-7 text-primary-foreground sm:text-h3 sm:leading-[30px]">
+              {body}
+            </p>
+          </div>
         </div>
       </div>
     </section>

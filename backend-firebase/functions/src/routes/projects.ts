@@ -90,7 +90,7 @@ const toMemberRecord = (id: string, raw: FirebaseFirestore.DocumentData): Member
   componentRolesArr: Array.isArray(raw.componentRolesArr) ? raw.componentRolesArr : [],
   memberDisplayStatus: raw.memberDisplayStatus ?? 'Current Member',
   projectIds: normalizeRelationIds(raw.projectIds),
-  linkedinUrl: raw.linkedinUrl,
+  linkedinUrl: typeof raw.linkedinUrl === 'string' ? raw.linkedinUrl : undefined,
   createdAt: raw.createdAt,
   updatedAt: raw.updatedAt,
 });
