@@ -32,10 +32,10 @@ describe('Home sections', () => {
     expect(screen.queryByText(/organization name/i)).not.toBeInTheDocument();
   });
 
-  it('labels legacy sponsor assets as past supporters', () => {
+  it('presents legacy sponsor assets in the Figma sponsor section', () => {
     render(<SponsorsSection content={defaultHomeContent.sponsors} />);
 
-    expect(screen.getByRole('heading', { name: 'Past supporters' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Our Sponsors' })).toBeInTheDocument();
     expect(screen.getByAltText('Microsoft logo')).toBeInTheDocument();
   });
 

@@ -36,7 +36,7 @@ test('home preserves its Figma section order without fabricated live capabilitie
   await expect(page.getByRole('heading', { name: 'Testimonials from Our Nonprofit Partners' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Participate in Student-Led Community Events' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Check Out Our Recent Newsletter' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Past supporters' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Our Sponsors' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Come Make an Impact With Us!' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Apply Now' })).toHaveAttribute('href', '/apply/student');
   await expect(page.locator('form')).toHaveCount(0);
