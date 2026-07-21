@@ -2,53 +2,13 @@ import {
   DEFAULT_STATIC_CONTENT,
   ProjectPageStaticContent,
 } from '@/components/project_page/projectPageContent';
+import type { MemberEntity, ProjectEntity } from '@/api';
+import { formatSeason } from '@/lib/date';
+import { resolveMediaUrl } from '@/lib/media';
+import { isSafeHttpsUrl } from '@/lib/urls';
 
-type MemberRole = {
-  title?: string;
-  team?: string;
-  isDisplayRole?: boolean;
-};
-
-export type ProjectMember = {
-  id: number;
-  attributes?: {
-    firstName?: string;
-    lastName?: string;
-    pronouns?: string;
-    avatar?: {
-      data?: {
-        attributes?: {
-          url?: string;
-        };
-      } | null;
-    };
-    componentRolesArr?: MemberRole[];
-  };
-};
-
-export type ProjectApiItem = {
-  id: number;
-  attributes?: {
-    title?: string;
-    path?: string;
-    startDate?: string;
-    summary?: string;
-    blurb?: string;
-    repoURL?: string;
-    hostedProjectURL?: string;
-    imageAltText?: string;
-    image?: {
-      data?: Array<{
-        attributes?: {
-          url?: string;
-        };
-      }>;
-    };
-    members?: {
-      data?: ProjectMember[];
-    };
-  };
-};
+export type ProjectMember = MemberEntity;
+export type ProjectApiItem = ProjectEntity;
 
 export interface ProjectPageViewModel extends ProjectPageStaticContent {
   title: string;
@@ -61,49 +21,6 @@ export interface ProjectPageViewModel extends ProjectPageStaticContent {
   heroImageSrc: string;
   heroImageAlt: string;
   members: ProjectMember[];
-}
-
-function resolveAssetUrl(src?: string): string {
-  if (!src) {
-    return '';
-  }
-
-  if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('data:')) {
-    return src;
-  }
-
-  if (src.startsWith('/')) {
-    return `${import.meta.env.VITE_ROOT_URL}${src}`;
-  }
-
-  return `${import.meta.env.VITE_ROOT_URL}/${src}`;
-}
-
-function seasonFromDate(startDate?: string): string {
-  if (!startDate || startDate.length < 7) {
-    return '';
-  }
-
-  const month = Number(startDate.substring(5, 7));
-  const year = startDate.substring(0, 4);
-
-  if (Number.isNaN(month)) {
-    return year;
-  }
-
-  if (month >= 2 && month <= 5) {
-    return `Spring ${year}`;
-  }
-
-  if (month >= 6 && month <= 7) {
-    return `Summer ${year}`;
-  }
-
-  if (month >= 8 && month <= 11) {
-    return `Fall ${year}`;
-  }
-
-  return `Winter ${year}`;
 }
 
 function normalizeRichText(input?: string): string {
@@ -126,7 +43,7 @@ export function buildProjectPageViewModel(
   projectApiItem: ProjectApiItem,
   staticOverride?: Partial<ProjectPageStaticContent>,
 ): ProjectPageViewModel {
-  const attributes = projectApiItem.attributes ?? {};
+  const attributes = projectApiItem.attributes;
 
   const blurbText = normalizeRichText(attributes.blurb);
   const mergedStatic: ProjectPageStaticContent = {
@@ -159,7 +76,7 @@ export function buildProjectPageViewModel(
   }
 
   const heroImageSrc =
-    resolveAssetUrl(attributes.image?.data?.[0]?.attributes?.url) ||
+    resolveMediaUrl(attributes.image.data[0]?.attributes.url) ||
     mergedStatic.solutionScreenshotSrc;
 
   const heroImageAlt =
@@ -168,15 +85,18 @@ export function buildProjectPageViewModel(
 
   return {
     ...mergedStatic,
-    title: attributes.title || 'Project',
-    path: attributes.path || '',
-    seasonLabel: seasonFromDate(attributes.startDate),
-    summary: attributes.summary || '',
+    title: attributes.title,
+    path: attributes.path,
+    seasonLabel: formatSeason(attributes.startDate),
+    summary: attributes.summary,
     blurb: blurbText,
-    repoURL: attributes.repoURL,
-    hostedProjectURL: attributes.hostedProjectURL,
+    repoURL: attributes.repoURL && isSafeHttpsUrl(attributes.repoURL) ? attributes.repoURL : undefined,
+    hostedProjectURL:
+      attributes.hostedProjectURL && isSafeHttpsUrl(attributes.hostedProjectURL)
+        ? attributes.hostedProjectURL
+        : undefined,
     heroImageSrc,
     heroImageAlt,
-    members: attributes.members?.data || [],
+    members: attributes.members.data,
   };
 }

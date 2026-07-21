@@ -41,3 +41,12 @@ results
 node_modules
 .node_history
 CLAUDE.md
+
+# Local environment and generated builds
+.env
+.env.*
+!.env.example
+!**/.env.example
+**/dist/
+**/test-results/
+**/playwright-report/

@@ -36,6 +36,11 @@ export const toIsoDateString = (value: unknown): string | null => {
   return date.toISOString().slice(0, 10);
 };
 
+export const toIsoDateTimeString = (value: unknown): string | null => {
+  const date = toDate(value);
+  return date ? date.toISOString() : null;
+};
+
 export const toDateSortKey = (value: unknown): number | null => {
   const date = toDate(value);
   if (!date) return null;

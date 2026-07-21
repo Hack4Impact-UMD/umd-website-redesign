@@ -1,8 +1,5 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Github, Linkedin } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg';
 
 const footerLinks = {
@@ -23,24 +20,6 @@ const footerLinks = {
 };
 
 export default function Footer() {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-    setStatus('loading');
-
-    try {
-      // TODO: Replace with the real newsletter subscription API (EmailJS or backend endpoint).
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      setStatus('success');
-      setEmail('');
-    } catch (error) {
-      setStatus('error');
-    }
-  };
-
   return (
     <footer className="bg-[#0F172A] text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 md:py-16">
@@ -55,36 +34,10 @@ export default function Footer() {
             </Link>
 
             <p className="text-sm text-white/60 mb-6 leading-relaxed">
-              Subscribe to our newsletter to receive monthly updates.
+              Follow our verified social channels for chapter and project updates.
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-3">
-              <Input
-                type="email"
-                placeholder="Your Email Address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="h-10 bg-white/5 border-white/10 text-white placeholder:text-white/40 focus:border-h4i-blue"
-                required
-              />
-              <Button
-                type="submit"
-                disabled={status === 'loading'}
-                className="w-full h-10 bg-white text-[#0F172A] hover:bg-white/90 font-medium"
-              >
-                {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
-              </Button>
-              {status === 'success' && (
-                <p className="text-xs text-h4i-mint">Subscribed successfully!</p>
-              )}
-              {status === 'error' && (
-                <p className="text-xs text-state-error">
-                  Something went wrong. Please try again.
-                </p>
-              )}
-            </form>
-
-            <div className="flex gap-4 mt-6">
+            <div className="flex gap-4">
               {footerLinks.connect.map((item) => (
                 <a
                   key={item.label}

@@ -2,10 +2,10 @@ name: Firebase backend
 
 on:
   pull_request:
-    branches: [dev/redesign]
     paths:
       - 'backend-firebase/**'
       - '.github/workflows/firebase-backend.yml'
+      - '.github/workflows/frontend-platform.yml'
 
 permissions:
   contents: read

@@ -1,0 +1,31 @@
+import { z } from 'zod';
+import { safeCtaSchema, safeMediaSchema } from '../shared';
+
+export const aboutContentSchema = z.object({
+  header: z.object({
+    title: z.string().min(1),
+    paragraphs: z.array(z.string().min(1)),
+    image: safeMediaSchema,
+    imageAlt: z.string().min(1),
+  }),
+  mission: z.object({ heading: z.string().min(1), body: z.string().min(1) }),
+  values: z.object({
+    heading: z.string().min(1),
+    items: z.array(
+      z.object({
+        title: z.string().min(1),
+        description: z.string().min(1),
+        image: safeMediaSchema,
+        imageAlt: z.string().min(1),
+      }),
+    ),
+  }),
+  currentProjects: z.object({
+    heading: z.string().min(1),
+    linkLabel: z.string().min(1),
+    linkHref: safeCtaSchema,
+    projectPaths: z.array(z.string().min(1)).default([]),
+  }),
+});
+
+export type AboutContent = z.infer<typeof aboutContentSchema>;

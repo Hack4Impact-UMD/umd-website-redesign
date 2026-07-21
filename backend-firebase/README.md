@@ -12,9 +12,10 @@ production data.
 - `scripts/verify-live-contract.mjs`: unauthenticated, GET-only live parity check
 - `SOURCE_PARITY.md`: captured baseline, intentional differences, and known uncertainty
 
-The live project is `umd-website-f3e79`. The default Hosting site remains the
-CMS and is mapped to the named target `cms`. PR 1 does not define a public
-frontend Hosting target.
+The live project is `umd-website-f3e79`. Source config defines separate `cms`
+and `public` Hosting targets. The proposed public site ID is
+`umd-website-f3e79-public`; it has not been created, mapped, previewed, or
+deployed. Netlify remains the public production host.
 
 ## Local setup
 
@@ -89,7 +90,12 @@ requires an authenticated Firebase user whose custom `role` claim is `admin` or
 - Project/member deletion is disabled until reverse cleanup is implemented.
 - Media uploads are restricted to images at or below 10 MB under `projects/`,
   `members/`, or `content/`.
-- Content edits are immediately live; there is no draft/publish workflow.
+- Every content document uses an atomic `mode`, `verifiedAt`, and `payload`
+  envelope. `published` requires a complete valid payload and fresh verification;
+  editing a published payload in FireCMS downgrades it to `placeholder` and clears
+  verification. `placeholder` uses the complete local frontend default and
+  `hidden` renders no page content. Legacy documents without the envelope are
+  treated as placeholders.
 - Newsletter integration remains deferred.
 
 ## Deployment gate
@@ -105,6 +111,10 @@ firebase deploy --only functions:api --project umd-website-f3e79
 firebase deploy --only firestore:rules,storage --project umd-website-f3e79
 firebase deploy --only hosting:cms --project umd-website-f3e79
 ```
+
+The `public` target additionally requires an explicitly approved site creation
+and target mapping before `firebase deploy --only hosting:public` can work. Do
+not create or map it as an incidental development step.
 
 Before any approved live deployment, capture the active Function revision,
 Hosting release, rulesets, CORS configuration, and the live contract baseline so

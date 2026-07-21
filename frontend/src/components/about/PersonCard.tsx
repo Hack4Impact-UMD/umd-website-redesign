@@ -1,5 +1,7 @@
 import { Linkedin } from 'lucide-react';
 import defaultPfp from '@/components/assets/icons/default_pfp.png';
+import { resolveMediaUrl } from '@/lib/media';
+import { isSafeHttpsUrl } from '@/lib/urls';
 
 interface PersonCardProps {
   name: string;
@@ -11,19 +13,7 @@ interface PersonCardProps {
 }
 
 function resolveImageSrc(src?: string | null) {
-  if (!src) return defaultPfp;
-  if (
-    src.startsWith('http://') ||
-    src.startsWith('https://') ||
-    src.startsWith('data:') ||
-    src.startsWith('blob:')
-  ) {
-    return src;
-  }
-  if (src.startsWith('/')) {
-    return `${import.meta.env.VITE_ROOT_URL}${src}`;
-  }
-  return `${import.meta.env.VITE_ROOT_URL}/${src}`;
+  return resolveMediaUrl(src) || defaultPfp;
 }
 
 export default function PersonCard({
@@ -35,7 +25,8 @@ export default function PersonCard({
   showPrimaryPlaceholderWhenNoLink = true,
 }: PersonCardProps) {
   const resolvedImageSrc = resolveImageSrc(imageSrc);
-  const hasPrimaryLink = Boolean(linkedinUrl);
+  const safeLinkedinUrl = linkedinUrl && isSafeHttpsUrl(linkedinUrl) ? linkedinUrl : undefined;
+  const hasPrimaryLink = Boolean(safeLinkedinUrl);
   const showPrimaryPlaceholder = !hasPrimaryLink && showPrimaryPlaceholderWhenNoLink;
 
   return (
@@ -56,7 +47,7 @@ export default function PersonCard({
       <div className="flex gap-2 mt-2">
         {hasPrimaryLink ? (
           <a
-            href={linkedinUrl}
+            href={safeLinkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${name}'s LinkedIn`}
