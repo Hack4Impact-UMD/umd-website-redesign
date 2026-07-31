@@ -45,6 +45,15 @@ test('home preserves its Figma section order without fabricated live capabilitie
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
+test('about highlights stay within a mobile viewport', async ({ page }) => {
+  await installFixtures(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/aboutus');
+
+  await expect(page.getByRole('heading', { name: 'About Us' })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
 test('mobile navigation and Apply submenu are keyboard-readable and route correctly', async ({ page }) => {
   await installFixtures(page);
   await page.setViewportSize({ width: 390, height: 844 });

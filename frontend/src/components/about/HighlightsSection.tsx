@@ -12,7 +12,9 @@ export default function HighlightsSection({ heading, items }: HighlightsSectionP
         <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-10 text-center sm:grid-cols-3 sm:gap-x-16 lg:mt-14 lg:gap-x-24 lg:gap-y-14">
           {items.map((item) => (
             <div key={`${item.value}-${item.label}`} className="min-w-0">
-              <dt className="font-heading text-display font-bold leading-none sm:text-[44px]">{item.value}</dt>
+              <dt className="font-heading text-[clamp(28px,4vw,44px)] font-bold leading-none [overflow-wrap:anywhere]">
+                {item.value}
+              </dt>
               <dd className="mx-auto mt-3 max-w-[180px] font-karla text-body-small text-inverse-foreground/80">
                 {item.label}
               </dd>
