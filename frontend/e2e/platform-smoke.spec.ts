@@ -6,6 +6,7 @@ for (const [path, heading] of [
   ['/aboutus', /About Us/i],
   ['/ourwork', /Past Project Library/i],
   ['/ourwork/fixture-project', /Fixture Project/i],
+  ['/apply', /^Students$/i],
   ['/apply/student', /^Students$/i],
   ['/apply/nonprofit', /^Nonprofits$/i],
 ] as const) {
@@ -18,6 +19,7 @@ for (const [path, heading] of [
     await installFixtures(page);
     await page.goto(path);
     await expect(page.getByRole('heading', { name: heading }).first()).toBeVisible();
+    await expect(page.getByRole('main')).toHaveCount(1);
     await expect(page.getByRole('navigation')).toBeVisible();
     await expect(page.getByRole('contentinfo')).toBeVisible();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
