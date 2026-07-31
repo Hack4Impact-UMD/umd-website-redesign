@@ -17,7 +17,7 @@ const sectionVariants: Record<SectionVariant, string> = {
 };
 
 export function ApplyPageLayout({ children }: { children: ReactNode }) {
-  return <div className="bg-background text-foreground">{children}</div>;
+  return <main className="bg-background text-foreground">{children}</main>;
 }
 
 export function ApplySection({ children, className, variant = 'default' }: ApplySectionProps) {
