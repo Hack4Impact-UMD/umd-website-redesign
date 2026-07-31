@@ -13,6 +13,10 @@ Netlify remains the public production host and proxies same-origin `/api/**`
 requests to the Firebase Function. See [backend-firebase/README.md](backend-firebase/README.md)
 for the backend architecture and deployment gates.
 
+Maintainers should also use the repository-owned
+[website handoff runbook](docs/HANDOFF_RUNBOOK.md) for provider ownership,
+onboarding, access acceptance, release, verification, and rollback procedures.
+
 The older Strapi application remains in `backend/` only as a migration and
 historical reference. It is not the active backend and should not be started or
 deployed as part of the redesign.
