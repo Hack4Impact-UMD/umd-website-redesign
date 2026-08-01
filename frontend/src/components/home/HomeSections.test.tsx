@@ -39,18 +39,39 @@ describe('Home sections', () => {
     expect(screen.getByAltText('Microsoft logo')).toBeInTheDocument();
   });
 
-  it('renders the Figma impact row and event mosaic using local images', () => {
+  it('shows a safe placeholder instead of unverified impact claims', () => {
     const { container } = render(
       <>
-        <ImpactSection />
+        <ImpactSection content={defaultHomeContent.impact} />
         <CommunityEventsSection />
       </>,
     );
 
     expect(screen.getByRole('heading', { name: 'Our Impact' })).toBeInTheDocument();
-    expect(screen.getByText('10+')).toBeInTheDocument();
-    expect(screen.getByText('$150K')).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent(/verified impact metrics/i);
+    expect(screen.queryByText('150+')).not.toBeInTheDocument();
+    expect(screen.queryByText('$150K')).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /student-led community events/i })).toBeInTheDocument();
     expect(container.querySelectorAll('img')).toHaveLength(7);
+  });
+
+  it('renders only verified published impact metrics', () => {
+    render(
+      <ImpactSection
+        content={{
+          mode: 'published',
+          heading: 'Verified Impact',
+          placeholderMessage: 'Metrics unavailable.',
+          stats: [
+            { value: '32', label: 'Projects', verified: true },
+            { value: '999', label: 'Unverified claim', verified: false },
+          ],
+        }}
+      />,
+    );
+
+    expect(screen.getByRole('heading', { name: 'Verified Impact' })).toBeInTheDocument();
+    expect(screen.getByText('32')).toBeInTheDocument();
+    expect(screen.queryByText('999')).not.toBeInTheDocument();
   });
 });

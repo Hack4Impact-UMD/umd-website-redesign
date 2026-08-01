@@ -53,7 +53,6 @@ export const projectsCollection = buildCollection({
   titleProperty: 'title',
   customId: true,
   hideIdFromCollection: true,
-  hideIdFromForm: true,
   initialSort: ['title', 'asc'],
   propertiesOrder: [
     'title', 'path', 'startDate', 'summary', 'blurb', 'isFeatured',
@@ -120,7 +119,6 @@ export const membersCollection = buildCollection({
   titleProperty: 'lastName',
   customId: true,
   hideIdFromCollection: true,
-  hideIdFromForm: true,
   initialSort: ['lastName', 'asc'],
   propertiesOrder: [
     'firstName', 'lastName', 'memberDisplayStatus', 'projectIds',

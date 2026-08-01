@@ -34,6 +34,16 @@ export const contentHomeCollection = buildContentCollection({
         } } },
       },
     },
+    impact: { dataType: 'map', name: 'Impact metrics', properties: {
+      mode: sectionModeProperty(publishedSectionModes),
+      heading: { dataType: 'string', name: 'Heading' },
+      placeholderMessage: { dataType: 'string', name: 'Placeholder message', multiline: true },
+      stats: { dataType: 'array', name: 'Verified metrics', of: { dataType: 'map', name: 'Metric', properties: {
+        value: { dataType: 'string', name: 'Value' },
+        label: { dataType: 'string', name: 'Label' },
+        verified: { dataType: 'boolean', name: 'Verified' },
+      } } },
+    } },
     nonprofitMap: { dataType: 'map', name: 'Nonprofit map', properties: {
       mode: sectionModeProperty([
         { id: 'placeholder', label: 'Static preview' },

@@ -1,11 +1,11 @@
-import teamPhoto from '@/components/assets/h4igroup_photo.jpg';
+import projectLibraryHero from '@/components/assets/project-library-hero.webp';
 import type { OurWorkContent } from './types';
 
 export const defaultOurWorkContent: OurWorkContent = {
   header: {
-    title: 'Our work',
-    subtitle: 'Technology projects built with nonprofit partners.',
-    image: teamPhoto,
+    title: 'Past Project Library',
+    subtitle: 'Building Software for Social Good',
+    image: projectLibraryHero,
     imageAlt: 'Hack4Impact UMD team',
   },
 };

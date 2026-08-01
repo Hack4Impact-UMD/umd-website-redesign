@@ -13,6 +13,13 @@ const verifiedStatSchema = z.object({
   verified: z.boolean(),
 });
 
+const impactSectionSchema = z.object({
+  mode: sectionModeSchema,
+  heading: z.string().trim().min(1),
+  placeholderMessage: z.string().trim().min(1),
+  stats: z.array(verifiedStatSchema),
+});
+
 const sponsorSchema = z.object({
   name: z.string().trim().min(1),
   logo: safeMediaSchema,
@@ -36,6 +43,7 @@ export const homeContentSchema = z.object({
     primaryCta: ctaSchema,
     secondaryCta: ctaSchema,
   }),
+  impact: impactSectionSchema,
   nonprofitMap: z.object({
     mode: z.enum(['placeholder', 'hidden']),
     heading: z.string().trim().min(1),

@@ -26,6 +26,12 @@ export const defaultHomeContent: HomeContent = {
     primaryCta: { label: 'Learn More', href: '/aboutus' },
     secondaryCta: { label: 'Apply Now', href: '/apply/student' },
   },
+  impact: {
+    mode: 'placeholder',
+    heading: 'Our Impact',
+    placeholderMessage: 'Verified impact metrics are being updated.',
+    stats: [],
+  },
   nonprofitMap: {
     mode: 'placeholder',
     heading: 'Explore Our Nonprofit Partners',

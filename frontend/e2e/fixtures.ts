@@ -72,17 +72,19 @@ export const collectionEnvelope = (data: unknown[]) => ({
 
 interface FixtureOptions {
   siteSettings?: unknown;
+  ourWork?: unknown;
 }
 
 export const installFixtures = async (page: Page, options: FixtureOptions = {}) => {
   const contentDocuments: Record<string, unknown> = {
     home: null,
     about: { mode: 'placeholder' },
+    'our-work': options.ourWork ?? { mode: 'placeholder' },
     'site-settings': options.siteSettings ?? { mode: 'placeholder' },
   };
 
-  await page.route(/\/api\/content\/(home|about|site-settings)(?:\?|$)/, (route) => {
-    const key = route.request().url().match(/\/content\/(home|about|site-settings)/)?.[1] ?? 'home';
+  await page.route(/\/api\/content\/(home|about|our-work|site-settings)(?:\?|$)/, (route) => {
+    const key = route.request().url().match(/\/content\/(home|about|our-work|site-settings)/)?.[1] ?? 'home';
     return route.fulfill({
       status: 200,
       contentType: 'application/json',

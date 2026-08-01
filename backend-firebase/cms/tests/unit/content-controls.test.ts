@@ -33,6 +33,10 @@ describe('content collection controls', () => {
     expect(payload.testimonials.properties.mode.enumValues).toEqual(
       expect.arrayContaining([{ id: 'published', label: 'Published' }]),
     );
+    expect(payload.impact.properties.mode.enumValues).toEqual(
+      expect.arrayContaining([{ id: 'published', label: 'Published' }]),
+    );
+    expect(payload.impact.properties.stats.of.properties.verified.dataType).toBe('boolean');
     expect(payload.testimonials.properties.items.of.properties.verified.dataType).toBe('boolean');
     expect(payload.hero.properties.slides.of.properties.mobileImage.storage.storagePath).toContain(
       'hero-slides',
@@ -73,6 +77,24 @@ describe('content collection controls', () => {
     expect(members.properties.memberDisplayStatus.columnWidth).toBe(220);
     expect(members.properties.projectIds.hideFromCollection).toBe(true);
     expect(members.properties.componentRolesArr.hideFromCollection).toBe(true);
+  });
+
+  it('keeps custom IDs available when creating projects and members', () => {
+    const projects = collections.find(({ id }) => id === 'projects') as unknown as {
+      permissions: { create: boolean };
+      customId: boolean | string;
+      hideIdFromForm?: boolean;
+    };
+    const members = collections.find(({ id }) => id === 'members') as unknown as {
+      permissions: { create: boolean };
+      customId: boolean | string;
+      hideIdFromForm?: boolean;
+    };
+
+    expect(projects).toMatchObject({ permissions: { create: true }, customId: true });
+    expect(members).toMatchObject({ permissions: { create: true }, customId: true });
+    expect(projects.hideIdFromForm).not.toBe(true);
+    expect(members.hideIdFromForm).not.toBe(true);
   });
 
   it('requires verification before first publication', () => {

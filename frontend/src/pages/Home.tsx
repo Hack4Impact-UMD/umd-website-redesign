@@ -30,7 +30,7 @@ export default function Home() {
         </p>
       )}
       <HeroCarousel content={content.hero} />
-      <ImpactSection />
+      <ImpactSection content={content.impact} />
       <NonprofitMapSection content={content.nonprofitMap} />
       <TestimonialsSection content={content.testimonials} />
       <CommunityEventsSection />

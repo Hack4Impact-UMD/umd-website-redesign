@@ -5,7 +5,28 @@ import { homeContentSchema, type HomeContent } from './types';
 const hasNewsletterDestination = (content: HomeContent['newsletter']) =>
   Boolean(content.subscribeUrl || content.latestIssue?.href);
 
+const addLegacyImpactFallback = (document: unknown): unknown => {
+  if (!document || typeof document !== 'object') return document;
+  const candidate = document as { payload?: unknown };
+  if (!candidate.payload || typeof candidate.payload !== 'object' || 'impact' in candidate.payload) {
+    return document;
+  }
+
+  return {
+    ...candidate,
+    payload: {
+      ...candidate.payload,
+      impact: defaultHomeContent.impact,
+    },
+  };
+};
+
 const sanitizePublishedContent = (content: HomeContent): HomeContent => {
+  const verifiedImpactStats = content.impact.stats.filter((stat) => stat.verified);
+  const impactMode =
+    content.impact.mode === 'published' && verifiedImpactStats.length === 0
+      ? 'placeholder'
+      : content.impact.mode;
   const verifiedTestimonials = content.testimonials.items.filter((item) => item.verified);
   const testimonialMode =
     content.testimonials.mode === 'published' && verifiedTestimonials.length === 0
@@ -31,6 +52,11 @@ const sanitizePublishedContent = (content: HomeContent): HomeContent => {
 
   return {
     ...content,
+    impact: {
+      ...content.impact,
+      mode: impactMode,
+      stats: impactMode === 'published' ? verifiedImpactStats : [],
+    },
     testimonials: {
       ...content.testimonials,
       mode: testimonialMode,
@@ -50,7 +76,11 @@ const sanitizePublishedContent = (content: HomeContent): HomeContent => {
 };
 
 export const normalizeHomeContent = (document: unknown): ResolvedContent<HomeContent> => {
-  const resolved = resolveContentDocument(document, homeContentSchema, defaultHomeContent);
+  const resolved = resolveContentDocument(
+    addLegacyImpactFallback(document),
+    homeContentSchema,
+    defaultHomeContent,
+  );
   if (!resolved.content || resolved.source !== 'published') return resolved;
   return { ...resolved, content: sanitizePublishedContent(resolved.content) };
 };

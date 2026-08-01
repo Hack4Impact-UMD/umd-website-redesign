@@ -1,15 +1,17 @@
+import type { OurWorkContent } from '@/content/our-work';
 import styles from '../../styles/our_work/OurWorkHeader.module.css';
-import heroImage from '../assets/project-library-hero.webp';
 
-const OurWorkHeader = () => {
+type OurWorkHeaderProps = OurWorkContent['header'];
+
+const OurWorkHeader = ({ title, subtitle, image, imageAlt }: OurWorkHeaderProps) => {
   return (
     <header className={styles.header}>
-      <img className={styles.heroImage} src={heroImage} alt="Hack4Impact UMD team" />
+      <img className={styles.heroImage} src={image} alt={imageAlt} />
       <div className={styles.overlay} aria-hidden="true" />
       <div className={styles.content}>
         <div className={styles.contentInner}>
-          <h1 className={styles.title}>Past Project Library</h1>
-          <p className={styles.subtitle}>Building Software for Social Good</p>
+          <h1 className={styles.title}>{title}</h1>
+          <p className={styles.subtitle}>{subtitle}</p>
         </div>
       </div>
     </header>

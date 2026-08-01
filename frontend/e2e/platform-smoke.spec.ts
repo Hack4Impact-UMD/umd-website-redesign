@@ -157,3 +157,26 @@ test('project library exposes a real retry path after an API failure', async ({ 
   expect(failedRequests).toBeGreaterThanOrEqual(2);
   expect(requests).toBeGreaterThan(failedRequests);
 });
+
+test('published Our Work content replaces the local header fallback', async ({ page }) => {
+  await installFixtures(page, {
+    ourWork: {
+      mode: 'published',
+      verifiedAt: '2026-08-01T12:00:00.000Z',
+      payload: {
+        header: {
+          title: 'Verified Project Archive',
+          subtitle: 'Current CMS-managed copy',
+          image: '/assets/fixture-logo.svg',
+          imageAlt: 'Verified archive artwork',
+        },
+      },
+    },
+  });
+
+  await page.goto('/ourwork');
+  await expect(page.getByRole('heading', { name: 'Verified Project Archive' })).toBeVisible();
+  await expect(page.getByText('Current CMS-managed copy')).toBeVisible();
+  await expect(page.getByAltText('Verified archive artwork')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Past Project Library' })).toHaveCount(0);
+});

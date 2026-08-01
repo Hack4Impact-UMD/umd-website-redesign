@@ -35,6 +35,21 @@ describe('ContentMode', () => {
     expect(result).toMatchObject({ mode: 'published', source: 'published', content: defaultHomeContent });
   });
 
+  it('keeps legacy published Home payloads safe when impact metrics are absent', () => {
+    const { impact: _impact, ...legacyPayload } = defaultHomeContent;
+    const result = normalizeHomeContent({
+      mode: 'published',
+      verifiedAt: '2026-07-19T12:00:00Z',
+      payload: legacyPayload,
+    });
+
+    expect(result).toMatchObject({
+      mode: 'published',
+      source: 'published',
+      content: { impact: defaultHomeContent.impact },
+    });
+  });
+
   it('atomically uses the complete placeholder for an invalid published payload', () => {
     const result = normalizeHomeContent({
       mode: 'published',
