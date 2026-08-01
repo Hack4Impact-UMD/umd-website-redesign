@@ -104,7 +104,7 @@ export default function Footer({ settings = defaultSiteSettings }: FooterProps) 
                 {footer.contact.addressLines.map((line) => <div key={line}>{line}</div>)}
                 <a
                   href={`mailto:${footer.contact.email}`}
-                  className="mt-2 inline-block rounded-sm transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]"
+                  className="mt-2 inline-block max-w-full rounded-sm [overflow-wrap:anywhere] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]"
                 >
                   {footer.contact.email}
                 </a>

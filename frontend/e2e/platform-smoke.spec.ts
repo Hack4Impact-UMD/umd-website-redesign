@@ -56,6 +56,15 @@ test('about highlights stay within a mobile viewport', async ({ page }) => {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
+test('footer contact details stay within the tablet viewport', async ({ page }) => {
+  await installFixtures(page);
+  await page.setViewportSize({ width: 780, height: 900 });
+  await page.goto('/');
+
+  await expect(page.getByRole('contentinfo')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
 test('mobile navigation and Apply submenu are keyboard-readable and route correctly', async ({ page }) => {
   await installFixtures(page);
   await page.setViewportSize({ width: 390, height: 844 });
