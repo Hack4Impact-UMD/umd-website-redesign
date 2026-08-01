@@ -13,9 +13,31 @@ Netlify remains the public production host and proxies same-origin `/api/**`
 requests to the Firebase Function. See [backend-firebase/README.md](backend-firebase/README.md)
 for the backend architecture and deployment gates.
 
+## Production services map
+
+| Service | Production location | Source and configuration |
+| --- | --- | --- |
+| Public frontend | Netlify project `umd-h4i` at [umd.hack4impact.org](https://umd.hack4impact.org/) | App: `frontend/`; build and API proxy: `netlify.toml` |
+| FireCMS editor | Firebase Hosting at [umd-website-f3e79.web.app](https://umd-website-f3e79.web.app/) | App: `backend-firebase/cms/`; Hosting targets: `backend-firebase/.firebaserc` and `backend-firebase/firebase.json` |
+| Public API | Firebase Gen 2 Function `api` in `us-central1` at `https://us-central1-umd-website-f3e79.cloudfunctions.net/api` | Code: `backend-firebase/functions/`; deployment config: `backend-firebase/firebase.json`; Netlify proxy: `netlify.toml` |
+| Content database | Default Firestore database in Firebase project `umd-website-f3e79` | Rules: `backend-firebase/firestore.rules`; API and CMS data access: `backend-firebase/functions/` and `backend-firebase/cms/` |
+| Media storage | Firebase Storage bucket `umd-website-f3e79.firebasestorage.app` | Rules: `backend-firebase/storage.rules`; media API: `backend-firebase/functions/src/routes/media.ts` |
+| CMS sign-in | Firebase Authentication in project `umd-website-f3e79` | Client setup and authorization: `backend-firebase/cms/src/firebaseConfig.ts` and `backend-firebase/cms/src/App.tsx` |
+| Domain and DNS | Domain registered with Namecheap; DNS hosted in Cloudflare | Managed in the provider consoles; the repository does not contain registrar or DNS credentials |
+
+The redesign does not currently use a separate analytics platform, form
+processor, or application email-delivery service. Application and newsletter
+destinations are content-managed links, while contact links use `mailto:`.
+For Firebase deployment commands and safety gates, see
+[backend-firebase/README.md](backend-firebase/README.md). For the recorded live
+resource inventory and parity checks, see
+[backend-firebase/SOURCE_PARITY.md](backend-firebase/SOURCE_PARITY.md).
+
 The older Strapi application remains in `backend/` only as a migration and
 historical reference. It is not the active backend and should not be started or
-deployed as part of the redesign.
+deployed as part of the redesign; its former Heroku and Cloudinary integrations
+are not production dependencies for the redesign.
+
 
 ### Links
 
