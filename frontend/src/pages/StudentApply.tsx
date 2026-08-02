@@ -95,7 +95,9 @@ function StudentApply() {
       {resource.error ? (
         <div className="mx-auto max-w-[1248px] px-6 pt-8 lg:px-24">
           <ContentNotice>
-            We could not refresh the latest application details. Applications are currently closed.
+            {applicationIsOpen
+              ? 'We could not refresh the latest application details. Applications may still be open at the current link.'
+              : 'We could not refresh the latest application details. Applications are currently closed.'}
           </ContentNotice>
         </div>
       ) : null}
