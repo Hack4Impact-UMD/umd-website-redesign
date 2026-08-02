@@ -19,7 +19,7 @@ import ApplyTestimonials from '@/components/apply/ApplyTestimonials';
 import ApplyTimeline from '@/components/apply/ApplyTimeline';
 import RoleCard from '@/components/apply/RoleCard';
 import ContentNotice from '@/components/shared/ContentNotice';
-import { normalizeApplyStudentContent } from '@/content/apply';
+import { normalizeApplyStudentContent, type ApplicationStatus } from '@/content/apply';
 import { useApiResource } from '@/hooks';
 
 const roleIcons: Record<string, LucideIcon> = {
@@ -38,6 +38,11 @@ const placeholder = normalizeApplyStudentContent(null);
 const loadStudentContent = async (signal: AbortSignal) =>
   normalizeApplyStudentContent(await getContentDocument('apply/student', signal));
 
+const APPLICATION_CLOSES_AT_ET = '2026-08-04T00:00:00-04:00';
+
+const isStudentApplicationOpen = (status: ApplicationStatus) =>
+  status.state === 'open' && Date.now() < new Date(APPLICATION_CLOSES_AT_ET).getTime();
+
 function StudentApply() {
   const resource = useApiResource(loadStudentContent);
   const resolved = resource.data ?? placeholder;
@@ -51,10 +56,10 @@ function StudentApply() {
     );
   }
 
-  const applicationHref =
-    content.applicationStatus.state === 'open' ? content.applicationStatus.applicationUrl : undefined;
+  const applicationIsOpen = isStudentApplicationOpen(content.applicationStatus);
+  const applicationHref = applicationIsOpen ? content.applicationStatus.applicationUrl : undefined;
   const applicationLabel =
-    content.applicationStatus.state === 'open'
+    applicationIsOpen
       ? content.intro.ctaLabel
       : content.applicationStatus.state === 'comingSoon'
         ? 'Applications coming soon'
@@ -63,7 +68,9 @@ function StudentApply() {
   return (
     <ApplyPageLayout>
       <ApplyHero title={content.hero.title} backgroundImage={content.hero.image} />
-      <ApplicationStatusBanner status={content.applicationStatus} />
+      <ApplicationStatusBanner
+        status={applicationIsOpen ? content.applicationStatus : { ...content.applicationStatus, state: 'closed' }}
+      />
 
       {resource.error ? (
         <div className="mx-auto max-w-[1248px] px-6 pt-8 lg:px-24">
