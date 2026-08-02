@@ -1,0 +1,213 @@
+.sectionShell {
+  max-width: 1294px;
+  margin: 0 auto;
+  padding: 88px 24px 0;
+}
+
+.relatedShell {
+  width: 100%;
+}
+
+.relatedHeading {
+  margin: 0 0 24px;
+  color: hsl(var(--foreground));
+  font-size: 28px;
+  line-height: 1.3;
+}
+
+.yearSection {
+  margin-bottom: 84px;
+}
+
+.yearHeading {
+  margin: 0 0 32px;
+  color: hsl(var(--foreground));
+  font-size: 28px;
+  line-height: 36px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: hsl(var(--card));
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+.relatedGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.relatedCard .imagePanel {
+  aspect-ratio: auto;
+  height: clamp(220px, 26vw, 302px);
+}
+
+.relatedCard .projectTitle {
+  font-size: 24px;
+}
+
+.relatedCard .projectSubtitle {
+  font-size: 17px;
+}
+
+.imagePanel {
+  position: relative;
+  background: hsl(var(--accent));
+  aspect-ratio: 392 / 302;
+  overflow: hidden;
+}
+
+.projectImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.imageFallback {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  background: hsl(var(--accent));
+}
+
+.imageFallback img {
+  display: block;
+  width: min(32%, 124px);
+  height: auto;
+  opacity: 0.55;
+}
+
+.cardFooter {
+  background: hsl(var(--secondary-foreground));
+  color: hsl(var(--inverse-foreground));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 98px;
+  padding: 16px 21px 17px;
+}
+
+.contentWrap {
+  min-width: 0;
+}
+
+.projectTitle {
+  margin: 0;
+  color: inherit;
+  font-family: 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.projectSubtitle {
+  margin: 5px 0 0;
+  color: inherit;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+  letter-spacing: 0.02px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.arrowButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 0;
+  background: transparent;
+  color: hsl(var(--inverse-foreground));
+  text-decoration: none;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.arrowButton:hover,
+.arrowButton:focus-visible {
+  color: hsl(var(--inverse-foreground));
+  transform: translateX(3px) scaleX(1.08);
+}
+
+.arrowButton:focus-visible {
+  outline: 2px solid hsl(var(--inverse-foreground));
+  outline-offset: 2px;
+}
+
+.emptyState {
+  text-align: center;
+  color: hsl(var(--muted-foreground));
+}
+
+@media screen and (min-width: 640px) {
+  .sectionShell {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .sectionShell {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .grid {
+    gap: 24px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .relatedGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .sectionShell {
+    padding: 52px 16px 0;
+  }
+
+  .yearSection {
+    margin-bottom: 54px;
+  }
+
+  .yearHeading {
+    margin-bottom: 22px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .imagePanel {
+    aspect-ratio: 392 / 302;
+  }
+}

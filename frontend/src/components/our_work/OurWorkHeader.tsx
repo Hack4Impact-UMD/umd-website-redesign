@@ -1,18 +1,20 @@
-import React from 'react';
+import type { OurWorkContent } from '@/content/our-work';
 import styles from '../../styles/our_work/OurWorkHeader.module.css';
 
-const OurWorkHeader = () => {
+type OurWorkHeaderProps = OurWorkContent['header'];
+
+const OurWorkHeader = ({ title, subtitle, image, imageAlt }: OurWorkHeaderProps) => {
   return (
-    <div id={styles.headerDiv}>
-      <div id={styles.headerContent}>
-        <h1 id={styles.title}>Our Work</h1>
-        <p id={styles.headerText}>
-          We partner with national and local nonprofit organizations to develop products that help their technical
-          needs. Our chapter focuses on web development, and in the past, we&apos;ve built websites and web applications
-          for organizations such as Y-KNOT and 2Unstoppable. Check out our current and past projects!
-        </p>
+    <header className={styles.header}>
+      <img className={styles.heroImage} src={image} alt={imageAlt} />
+      <div className={styles.overlay} aria-hidden="true" />
+      <div className={styles.content}>
+        <div className={styles.contentInner}>
+          <h1 className={styles.title}>{title}</h1>
+          <p className={styles.subtitle}>{subtitle}</p>
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 

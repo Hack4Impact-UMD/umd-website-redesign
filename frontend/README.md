@@ -1,73 +1,101 @@
-# Getting Started with Create React App
+# Hack4Impact UMD frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The public site is a React 18 + TypeScript + Vite application. It reads projects,
+members, shared site settings, and page content from the Firebase Function API.
+The checked-in content defaults render immediately and are also used whenever a
+Firebase content document is loading, hidden, legacy, invalid, or unavailable.
 
-## Available Scripts
+## Requirements
 
-In the project directory, you can run:
+- Node.js 20
+- npm
+- Firebase CLI only when running emulators or performing an explicitly approved deployment
 
-### Setting Up
-1. run npm install
+Install the frontend and Firebase workspaces from the repository root:
 
-### `npm start`
+```bash
+npm --prefix frontend ci
+npm --prefix backend-firebase/functions ci
+npm --prefix backend-firebase/cms ci
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Local development
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The safest full local setup uses Firebase's `demo-*` emulator project and cannot
+write to the live project:
 
-### `npm test`
+```bash
+cd backend-firebase
+npx firebase-tools@14.1.0 emulators:start --project demo-umd-website
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+In another terminal:
 
-### `npm run build`
+```bash
+npm --prefix frontend run dev
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Vite runs at <http://localhost:3000> and proxies `/api/**` to the local Functions
+emulator. `frontend/.env.example` documents the two optional overrides:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `DEV_API_PROXY_URL` changes only the development proxy target.
+- `VITE_API_URL` changes the browser API base. Leave it unset for same-origin `/api`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Do not put Firebase Admin credentials or service-account JSON in the frontend.
 
-### `npm run eject`
+## Validation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Run the complete frontend gate from the repository root:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm --prefix frontend run typecheck
+npm --prefix frontend test
+npm --prefix frontend run build
+npm --prefix frontend run test:e2e
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Playwright starts its own Vite server and uses deterministic API fixtures; it
+does not require live Firebase data. Read-only live API parity is checked with:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+node backend-firebase/scripts/verify-live-contract.mjs
+```
 
-## Learn More
+Backend and CMS validation commands are documented in
+[`backend-firebase/README.md`](../backend-firebase/README.md).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Firebase configuration
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The live Firebase project is `umd-website-f3e79`. When a live Firebase CLI
+operation has been explicitly approved, select both the project and the owning
+account on every command:
 
-### Code Splitting
+```bash
+--project umd-website-f3e79 --account umd-tech@hack4impact.org
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The FireCMS production build requires all `VITE_FIREBASE_*` values listed in
+`backend-firebase/cms/.env.example`. Before a Functions deployment,
+`ALLOWED_ORIGINS` must contain the exact public website and CMS origins; the
+source intentionally rejects browser origins that are not listed.
 
-### Analyzing the Bundle Size
+Netlify remains the public host and proxies `/api/**` to the Firebase Function.
+Firebase Hosting currently maps only the `cms` target. The `public` target is
+deliberately unmapped: creating a second Hosting site or mapping a public target
+requires separate approval.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Deployment safety
 
-### Making a Progressive Web App
+Building or merging does not authorize a deployment. After explicit approval,
+deploy one tested resource at a time; never run a bare `firebase deploy`:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+cd backend-firebase
+firebase deploy --only functions:api --project umd-website-f3e79 --account umd-tech@hack4impact.org
+firebase deploy --only firestore:rules,storage --project umd-website-f3e79 --account umd-tech@hack4impact.org
+firebase deploy --only hosting:cms --project umd-website-f3e79 --account umd-tech@hack4impact.org
+```
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The public site deploys through its existing Netlify workflow. Do not run
+`firebase deploy --only hosting:public` until a public Hosting site is explicitly
+created, mapped, reviewed, and approved.

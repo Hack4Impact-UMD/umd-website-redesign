@@ -1,0 +1,47 @@
+{
+  "name": "backend-firebase-cms",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "tsc --noEmit",
+    "preview": "vite preview",
+    "test": "vitest run tests/unit",
+    "test:emulator": "vitest run --config vitest.emulator.config.ts tests/emulator"
+  },
+  "dependencies": {
+    "@firecms/core": "^3.1.0",
+    "@firecms/firebase": "^3.1.0",
+    "firebase": "12.16.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.12",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.1.12",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  },
+  "overrides": {
+    "@firecms/firebase": {
+      "@firebase/auth": "1.13.3"
+    },
+    "fdir": {
+      "picomatch": "4.0.5"
+    },
+    "tinyglobby": {
+      "picomatch": "4.0.5"
+    },
+    "vite": {
+      "picomatch": "4.0.5"
+    }
+  }
+}

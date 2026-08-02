@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "umd-website-f3e79"
+  },
+  "targets": {
+    "umd-website-f3e79": {
+      "hosting": {
+        "cms": [
+          "umd-website-f3e79"
+        ]
+      }
+    }
+  }
+}

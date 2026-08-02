@@ -1,29 +1,68 @@
-#headerDiv {
-  background-image: url(../../components/assets/backgrounds/apply_header.svg);
-  background-size: cover;
-  background-position: bottom;
-  min-width: 100%;
-  min-height: 810px;
+.header {
+  position: relative;
+  height: clamp(240px, 24vw, 264px);
+  overflow: hidden;
 }
 
-#headerContent {
-  padding-top: clamp(120px, 18vw, 224px);
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-#title {
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--inverse) / 0.6);
+}
+
+.content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  margin-bottom: 60px;
+  padding: 0 16px;
 }
 
-#headerText {
-  text-align: center;
+.contentInner {
+  width: min(100%, 1280px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  color: hsl(var(--inverse-foreground));
   margin: 0;
-  padding: 0 22%;
+  width: 100%;
+  text-align: center;
+  font-size: clamp(32px, 3vw, 36px);
+  line-height: 44px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
-@media screen and (min-width: 1200px) {
-  #headerDiv {
-    background-image: url(../../components/assets/backgrounds/apply_header_desktop.svg);
-    min-height: 989px;
+.subtitle {
+  margin: 12px auto 0;
+  color: hsl(var(--inverse-foreground) / 0.9);
+  width: 100%;
+  text-align: center;
+  font-size: clamp(18px, 2vw, 28px);
+  font-weight: 700;
+  line-height: 1.4;
+  max-width: 720px;
+}
+
+@media screen and (min-width: 640px) {
+  .content {
+    padding: 0 24px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .content {
+    padding: 0 32px;
   }
 }

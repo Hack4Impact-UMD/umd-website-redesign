@@ -1,7 +1,0 @@
-.btnBackground {
-  transition: fill 300ms ease-out;
-}
-
-.btnBackground:hover {
-  fill: #cbf9f3;
-}

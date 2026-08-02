@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from '../../styles/home/FeaturedProjectCard.module.css';
+import styles from '../../styles/projects/FeaturedProjectCard.module.css';
 import { FADE_IN_TRANSITION } from '../../constants/animations';
 
 export interface FeaturedProjectCardData {

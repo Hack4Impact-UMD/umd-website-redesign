@@ -1,26 +1,5 @@
-.navBarDiv {
-  position: fixed;
-  z-index: 100;
-  width: 100%;
-  height: 70px;
-  top: 0;
-}
-
-#OurWorkPage {
-  justify-content: center;
-}
-
-.currentProjects {
-  margin-top: -100px;
-  padding: 0 2%;
-}
-
-.pastProjects {
-  padding: 0 10%;
-}
-
-@media screen and (min-width: 1000px){
-  .currentProjects {
-    padding: 0 12%;
-  }
+.page {
+  background: hsl(var(--background));
+  min-height: 100vh;
+  padding-bottom: 72px;
 }
