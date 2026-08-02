@@ -64,6 +64,24 @@ test('about highlights stay within a mobile viewport', async ({ page }) => {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
+test('contact page keeps every real contact path in its mobile redesign', async ({ page }) => {
+  await installFixtures(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/contactus');
+
+  const main = page.getByRole('main');
+  await expect(main.getByRole('heading', { name: 'Contact Us', level: 1 })).toBeVisible();
+  await expect(main.getByRole('img', { name: /student team gathered after a project presentation/i })).toBeVisible();
+  await expect(main.getByRole('link', { name: 'umd@hack4impact.org' })).toHaveAttribute(
+    'href',
+    'mailto:umd@hack4impact.org',
+  );
+  await expect(main.getByText('7809 Regents Drive')).toBeVisible();
+  await expect(main.getByRole('list', { name: 'Chapter links' }).getByRole('link')).toHaveCount(5);
+  await expect(main.locator('form')).toHaveCount(0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
 test('footer contact details stay within the tablet viewport', async ({ page }) => {
   await installFixtures(page);
   await page.setViewportSize({ width: 780, height: 900 });
