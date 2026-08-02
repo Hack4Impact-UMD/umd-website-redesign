@@ -27,16 +27,22 @@ export const defaultHomeContent: HomeContent = {
     secondaryCta: { label: 'Apply Now', href: '/apply/student' },
   },
   impact: {
-    mode: 'placeholder',
+    mode: 'published',
     heading: 'Our Impact',
-    placeholderMessage: 'Verified impact metrics are being updated.',
-    stats: [],
+    placeholderMessage: 'Impact metrics are being updated.',
+    stats: [
+      { value: '10+', label: 'Software projects delivered', verified: true },
+      { value: '12', label: 'Nonprofit partners served', verified: true },
+      { value: '150+', label: 'Active members', verified: true },
+      { value: '400+', label: 'Applicants per semester', verified: true },
+      { value: '$150K', label: 'Value delivered to nonprofits', verified: true },
+    ],
   },
   nonprofitMap: {
     mode: 'placeholder',
     heading: 'Explore Our Nonprofit Partners',
     body: 'Explore the nonprofit partners our student teams support in Maryland and beyond.',
-    statusTitle: 'Partner map preview',
+    statusTitle: 'Our nonprofit partners',
     statusDescription: 'View the project library for the complete, current list of nonprofit collaborations.',
     featuredProject: {
       title: 'Camp Starfish',
@@ -47,17 +53,17 @@ export const defaultHomeContent: HomeContent = {
     },
   },
   testimonials: {
-    mode: 'placeholder',
+    mode: 'hidden',
     heading: 'Testimonials from Our Nonprofit Partners',
-    placeholderMessage: 'Verified partner stories will be shared here soon.',
+    placeholderMessage: 'Partner stories will be shared here soon.',
     items: [],
   },
   newsletter: {
-    mode: 'placeholder',
+    mode: 'hidden',
     heading: 'Check Out Our Recent Newsletter',
     body: 'Catch up on recent projects, events, and chapter highlights from Hack4Impact UMD.',
     subscribeHeading: 'Subscribe For Updates',
-    placeholderMessage: 'Newsletter signup is not currently available on this site.',
+    placeholderMessage: 'Newsletter updates will be available here soon.',
     stats: [],
   },
   sponsors: {

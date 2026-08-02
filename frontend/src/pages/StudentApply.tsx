@@ -68,7 +68,7 @@ function StudentApply() {
       {resource.error ? (
         <div className="mx-auto max-w-[1248px] px-6 pt-8 lg:px-24">
           <ContentNotice>
-            Live application details are temporarily unavailable. Applications remain closed until a verified window is published.
+            We could not refresh the latest application details. Applications are currently closed.
           </ContentNotice>
         </div>
       ) : null}

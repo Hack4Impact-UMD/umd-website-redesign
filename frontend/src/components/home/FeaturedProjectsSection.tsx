@@ -49,7 +49,7 @@ export default function FeaturedProjectsSection() {
           </div>
         ) : (result.data ?? []).length === 0 ? (
           <p className="rounded-lg bg-white px-6 py-8 text-center text-base text-muted-foreground">
-            No featured projects are published right now. Explore the full project library instead.
+            No featured projects are available right now. Explore the full project library instead.
           </p>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">

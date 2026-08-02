@@ -71,7 +71,7 @@ export default function CurrentProjectsSection({
           </div>
         ) : projects.length === 0 ? (
           <p className="rounded-lg bg-card px-6 py-8 text-center text-base text-muted-foreground">
-            No current project teams are published right now.
+            No current project teams are available right now.
           </p>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 sm:gap-8 xl:grid-cols-3 xl:gap-10">

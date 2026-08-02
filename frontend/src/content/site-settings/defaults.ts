@@ -18,7 +18,7 @@ export const defaultSiteSettings: SiteSettings = {
     ],
   },
   footer: {
-    newsletterPrompt: 'Follow our verified social channels for chapter and project updates.',
+    newsletterPrompt: 'Follow our social channels for chapter and project updates.',
     exploreLinks: [
       { label: 'About Us', href: '/aboutus' },
       { label: 'Our Work', href: '/ourwork' },

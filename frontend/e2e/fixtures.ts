@@ -64,7 +64,7 @@ export const publishedSiteSettings = {
       ],
     },
     footer: {
-      newsletterPrompt: 'Read our verified monthly chapter notes.',
+      newsletterPrompt: 'Read our monthly chapter notes.',
       newsletterUrl: 'https://example.org/newsletter',
       exploreLinks: [
         { label: 'Chapter Info', href: '/aboutus' },

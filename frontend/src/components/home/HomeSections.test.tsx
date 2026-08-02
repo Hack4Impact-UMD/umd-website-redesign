@@ -24,10 +24,10 @@ describe('Home sections', () => {
     );
   });
 
-  it('does not render fabricated testimonial people in placeholder mode', () => {
+  it('does not render testimonial placeholders when stories are unavailable', () => {
     render(<TestimonialsSection content={defaultHomeContent.testimonials} />);
 
-    expect(screen.getByRole('status')).toHaveTextContent(/verified partner stories/i);
+    expect(screen.queryByRole('heading', { name: /testimonials/i })).not.toBeInTheDocument();
     expect(screen.queryByText(/nonprofit person/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/organization name/i)).not.toBeInTheDocument();
   });
@@ -47,7 +47,7 @@ describe('Home sections', () => {
     );
   });
 
-  it('shows a safe placeholder instead of unverified impact claims', () => {
+  it('restores the retained impact metrics', () => {
     const { container } = render(
       <>
         <ImpactSection content={defaultHomeContent.impact} />
@@ -56,9 +56,11 @@ describe('Home sections', () => {
     );
 
     expect(screen.getByRole('heading', { name: 'Our Impact' })).toBeInTheDocument();
-    expect(screen.getByRole('status')).toHaveTextContent(/verified impact metrics/i);
-    expect(screen.queryByText('150+')).not.toBeInTheDocument();
-    expect(screen.queryByText('$150K')).not.toBeInTheDocument();
+    expect(screen.getByText('10+')).toBeInTheDocument();
+    expect(screen.getByText('12')).toBeInTheDocument();
+    expect(screen.getByText('150+')).toBeInTheDocument();
+    expect(screen.getByText('400+')).toBeInTheDocument();
+    expect(screen.getByText('$150K')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /student-led community events/i })).toBeInTheDocument();
     expect(container.querySelectorAll('img')).toHaveLength(7);
   });

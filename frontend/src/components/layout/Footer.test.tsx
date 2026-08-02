@@ -9,7 +9,7 @@ describe('Footer', () => {
     render(<MemoryRouter><Footer /></MemoryRouter>);
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /newsletter/i })).not.toBeInTheDocument();
-    expect(screen.getByText(/verified social channels/i)).toBeInTheDocument();
+    expect(screen.getByText(/follow our social channels/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Facebook' })).toHaveAttribute(
       'href',
       'https://facebook.com/hack4impactumd',

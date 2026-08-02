@@ -71,8 +71,8 @@ export default function MembersSection({ title, filterStatus }: MembersSectionPr
         ) : sortedMembers.length === 0 ? (
           <p className="text-center text-base text-muted-foreground">
             {filterStatus === 'Current Board Member'
-              ? 'No board members are published right now.'
-              : 'No current members are published right now.'}
+              ? 'No board members are available right now.'
+              : 'No current members are available right now.'}
           </p>
         ) : (
           <div className="grid grid-cols-2 justify-items-center gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-10">

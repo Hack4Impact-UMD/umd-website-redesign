@@ -4,7 +4,7 @@ import type { ApplyNonprofitContent, ApplyStudentContent } from './types';
 
 const closedStatus = (applicationUrl: string) => ({
   state: 'closed' as const,
-  label: 'Applications are currently closed. Check back for a verified application window.',
+  label: 'Applications are currently closed. Check back for the next application cycle.',
   applicationUrl,
 });
 
@@ -56,7 +56,7 @@ export const defaultApplyStudentContent: ApplyStudentContent = {
   ],
   timeline: {
     heading: 'Application Process & Timeline',
-    description: 'We recruit new members in both the fall and spring. Exact dates are published here only after they are confirmed.',
+    description: 'We recruit new members in both the fall and spring. Check this page for dates for the next application cycle.',
     steps: [
       {
         title: 'Step 1',
@@ -115,7 +115,7 @@ export const defaultApplyNonprofitContent: ApplyNonprofitContent = {
   criteria: { heading: 'Partnership criteria', paragraphs: [] },
   timeline: {
     heading: 'Application Process & Timeline',
-    description: 'Exact application dates are published here only after they are confirmed.',
+    description: 'Application dates and deadlines will appear here when the next cycle opens.',
     steps: [
       {
         title: 'Step 1',

@@ -34,7 +34,7 @@ const scrubApplicationCampaign = (payload, section) => {
   const next = clone(payload);
   next.applicationStatus = {
     state: 'closed',
-    label: 'Applications are currently closed. Check back for a verified application window.',
+    label: 'Applications are currently closed. Check back for the next application cycle.',
     applicationUrl,
   };
   next.testimonials = [];

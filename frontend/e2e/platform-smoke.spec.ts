@@ -35,17 +35,20 @@ test('home preserves its Figma section order without fabricated live capabilitie
 
   await expect(page.getByRole('heading', { name: 'Hack4Impact-UMD' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Our Impact' })).toBeVisible();
+  await expect(page.getByText('10+')).toBeVisible();
+  await expect(page.getByText('12', { exact: true })).toBeVisible();
+  await expect(page.getByText('150+')).toBeVisible();
+  await expect(page.getByText('400+')).toBeVisible();
+  await expect(page.getByText('$150K')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Explore Our Nonprofit Partners' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Featured Projects' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Testimonials from Our Nonprofit Partners' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Testimonials from Our Nonprofit Partners' })).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Participate in Student-Led Community Events' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Check Out Our Recent Newsletter' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Check Out Our Recent Newsletter' })).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Our Sponsors' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Come Make an Impact With Us!' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Apply Now' })).toHaveAttribute('href', '/apply/student');
   await expect(page.locator('form')).toHaveCount(0);
-  await expect(page.locator('section[aria-labelledby="newsletter-heading"] img')).toHaveCount(0);
-  await expect(page.getByText(/signup is not currently available/i)).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
@@ -105,7 +108,7 @@ test('published site settings update shared chrome while legacy and loading stat
     'href',
     'https://terplink.umd.edu/organization/hack4impact',
   );
-  await expect(page.getByText('Read our verified monthly chapter notes.')).toBeVisible();
+  await expect(page.getByText('Read our monthly chapter notes.')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Read our newsletter' })).toHaveAttribute(
     'href',
     'https://example.org/newsletter',
