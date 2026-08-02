@@ -13,12 +13,16 @@ export const NONPROFIT_APPLICATION_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link';
 
 export const defaultApplyStudentContent: ApplyStudentContent = {
-  applicationStatus: closedStatus(STUDENT_APPLICATION_URL),
+  applicationStatus: {
+    state: 'open',
+    label: 'Applications are open.',
+    applicationUrl: STUDENT_APPLICATION_URL,
+  },
   hero: { title: 'Students', image: teamPhoto },
   intro: {
     heading: 'Build technology for social impact',
     body: 'We prepare students for socially conscious roles in technology while building a supportive community. Members develop real-world experience with agile teams made up of product managers, designers, tech leads, and engineers.',
-    ctaLabel: 'Applications closed',
+    ctaLabel: 'Apply now',
     image: classroomPhoto,
     imageAlt: 'Hack4Impact UMD students gathered in a lecture hall',
   },
