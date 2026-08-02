@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { inspectContentEnvelope } from './content-contract.mjs';
+import { inspectContentDocument, inspectContentEnvelope } from './content-contract.mjs';
 import {
   planContentDocumentMigration,
   planContentMigration,
@@ -19,9 +19,23 @@ test('legacy content is wrapped as an editable placeholder without claiming veri
 });
 
 test('existing envelopes are never overwritten by the legacy migration', () => {
-  const source = { mode: 'published', verifiedAt: '2026-08-01T12:00:00Z', payload: {} };
+  const source = {
+    mode: 'published',
+    verifiedAt: '2026-08-01T12:00:00Z',
+    payload: { header: {}, mission: {}, values: {}, currentProjects: {} },
+  };
   assert.deepEqual(planContentDocumentMigration('about', source), {
     action: 'unchanged',
+    document: source,
+  });
+});
+
+test('incomplete published payloads are surfaced for review instead of reported unchanged', () => {
+  const source = { mode: 'published', verifiedAt: '2026-08-01T12:00:00Z', payload: {} };
+  assert.deepEqual(planContentDocumentMigration('about', source), {
+    action: 'needs-review',
+    issue: 'invalid-payload',
+    path: 'header',
     document: source,
   });
 });
@@ -79,4 +93,15 @@ test('live verification rejects root-level legacy documents', () => {
     valid: false,
     issue: 'legacy-document',
   });
+});
+
+test('live verification rejects a published page with a missing required section', () => {
+  assert.deepEqual(
+    inspectContentDocument('home', {
+      mode: 'published',
+      verifiedAt: '2026-08-01T12:00:00Z',
+      payload: { hero: {} },
+    }),
+    { valid: false, issue: 'invalid-payload', path: 'impact' },
+  );
 });

@@ -81,9 +81,10 @@ const validateConfiguredValue = (
   optionalPaths: Set<string>,
   allowEmptyStringPaths: Set<string>,
 ): string | null => {
-  if (value === undefined || value === null) {
+  if (value === undefined) {
     return optionalPaths.has(path) ? null : `${path} is required`;
   }
+  if (value === null) return `${path} cannot be null`;
 
   if (property.dataType === 'map') {
     if (!isRecord(value)) return `${path} must be an object`;

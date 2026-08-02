@@ -195,6 +195,24 @@ describe('content collection controls', () => {
     ).not.toThrow();
   });
 
+  it('rejects null optional values that the frontend contract cannot render', () => {
+    expect(() =>
+      validateContentPayload(
+        { card: { title: 'Ready', image: null } },
+        {
+          card: {
+            dataType: 'map',
+            properties: {
+              title: { dataType: 'string' },
+              image: { dataType: 'string' },
+            },
+          },
+        },
+        { optionalPaths: ['card.image'] },
+      ),
+    ).toThrow(/card\.image cannot be null/);
+  });
+
   it.each([
     [
       { link: 'javascript:alert(1)' },

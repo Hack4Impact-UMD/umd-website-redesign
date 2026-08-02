@@ -1,16 +1,9 @@
 import { readFile } from 'node:fs/promises';
 import { pathToFileURL } from 'node:url';
 
-import { inspectContentEnvelope } from './content-contract.mjs';
+import { CONTENT_SECTIONS, inspectContentDocument } from './content-contract.mjs';
 
-export const CONTENT_SECTIONS = [
-  'home',
-  'about',
-  'our-work',
-  'apply/student',
-  'apply/nonprofit',
-  'site-settings',
-];
+export { CONTENT_SECTIONS };
 
 const STUDENT_APPLICATION_URL = 'https://apply.umd.hack4impact.org/login';
 const NONPROFIT_APPLICATION_URL =
@@ -80,12 +73,17 @@ export const planContentDocumentMigration = (section, document) => {
   if (!isRecord(document)) {
     return { action: 'needs-review', issue: 'invalid-document', document: clone(document) };
   }
-  const inspection = inspectContentEnvelope(document);
+  const inspection = inspectContentDocument(section, document);
   if (inspection.valid) {
     return { action: 'unchanged', document: clone(document) };
   }
   if (inspection.issue !== 'legacy-document') {
-    return { action: 'needs-review', issue: inspection.issue, document: clone(document) };
+    return {
+      action: 'needs-review',
+      issue: inspection.issue,
+      ...(inspection.path ? { path: inspection.path } : {}),
+      document: clone(document),
+    };
   }
 
   let payload = clone(document);
