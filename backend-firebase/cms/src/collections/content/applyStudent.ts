@@ -4,6 +4,7 @@ import { buildContentCollection } from './shared';
 export const contentApplyStudentCollection = buildContentCollection({
   id: 'content_apply_student',
   name: 'Content: Apply Student',
+  optionalPayloadPaths: ['applicationStatus.applicationUrl', 'timeline.description'],
   payloadProperties: {
     ...applyCommonProperties('content_apply_student'),
     roles: { dataType: 'array', name: 'Roles', of: { dataType: 'map', name: 'Role', properties: {

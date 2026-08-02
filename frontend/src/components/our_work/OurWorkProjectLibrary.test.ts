@@ -1,18 +1,22 @@
 import { describe, expect, it } from 'vitest';
 
 import type { ProjectEntity } from '@/api';
-import { getProjectYear, mapProject, sortProjects } from './OurWorkProjectLibrary';
+import { getProjectYear, mapProject, matchesProjectSearch, sortProjects } from './OurWorkProjectLibrary';
 
 const project = ({
   title,
   path,
   startDate,
   isCurrentProject = false,
+  partnerName,
+  memberName,
 }: {
   title: string;
   path: string;
   startDate?: string;
   isCurrentProject?: boolean;
+  partnerName?: string;
+  memberName?: string;
 }): ProjectEntity => ({
   id: path,
   attributes: {
@@ -24,7 +28,17 @@ const project = ({
     isFeatured: false,
     isCurrentProject,
     image: { data: [] },
-    members: { data: [] },
+    nonprofit: partnerName ? { data: { id: `npo-${path}`, attributes: { name: partnerName } } } : undefined,
+    members: { data: memberName ? [{
+      id: `member-${path}`,
+      attributes: {
+        firstName: memberName.split(' ')[0],
+        lastName: memberName.split(' ').slice(1).join(' '),
+        memberDisplayStatus: 'Current Member',
+        componentRolesArr: [],
+        avatar: { data: null },
+      },
+    }] : [] },
   },
 });
 
@@ -34,6 +48,23 @@ describe('project library mapping', () => {
 
     expect(result.partnerName).toBeUndefined();
     expect(result.imageUrl).toBeUndefined();
+  });
+
+  it('searches by project, nonprofit, member, season, and year', () => {
+    const item = mapProject(project({
+      title: 'Community Portal',
+      path: 'community-portal',
+      startDate: '2025-09-01',
+      partnerName: 'Example Nonprofit',
+      memberName: 'Taylor Terp',
+    }));
+
+    expect(matchesProjectSearch(item, 'community')).toBe(true);
+    expect(matchesProjectSearch(item, 'example nonprofit')).toBe(true);
+    expect(matchesProjectSearch(item, 'taylor')).toBe(true);
+    expect(matchesProjectSearch(item, 'fall 2025')).toBe(true);
+    expect(matchesProjectSearch(item, '2025')).toBe(true);
+    expect(matchesProjectSearch(item, 'missing')).toBe(false);
   });
 
   it('groups missing and valid dates predictably', () => {

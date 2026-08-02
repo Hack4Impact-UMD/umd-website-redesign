@@ -52,7 +52,11 @@ export default function MembersSection({ title, filterStatus }: MembersSectionPr
             `${b.attributes.firstName} ${b.attributes.lastName}`,
           );
         })
-      : members;
+      : [...members].sort((a, b) =>
+          `${a.attributes.firstName} ${a.attributes.lastName}`.localeCompare(
+            `${b.attributes.firstName} ${b.attributes.lastName}`,
+          ),
+        );
 
   return (
     <section className="bg-background px-6 py-12 sm:px-8 lg:px-24" aria-labelledby={headingId}>
@@ -66,12 +70,14 @@ export default function MembersSection({ title, filterStatus }: MembersSectionPr
           <AsyncError message="Members are unavailable right now." onRetry={res.retry} />
         ) : sortedMembers.length === 0 ? (
           <p className="text-center text-base text-muted-foreground">
-            No board members are published right now.
+            {filterStatus === 'Current Board Member'
+              ? 'No board members are published right now.'
+              : 'No current members are published right now.'}
           </p>
         ) : (
           <div className="grid grid-cols-2 justify-items-center gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-3 lg:grid-cols-4 lg:gap-x-10">
             {sortedMembers.map((member) => {
-              const { firstName, lastName, avatar, componentRolesArr, linkedinUrl } = member.attributes;
+              const { firstName, lastName, pronouns, avatar, componentRolesArr, linkedinUrl } = member.attributes;
               const displayRole = getDisplayRole(componentRolesArr);
               const memberName = `${firstName} ${lastName}`;
 
@@ -80,9 +86,11 @@ export default function MembersSection({ title, filterStatus }: MembersSectionPr
                   key={member.id}
                   name={memberName}
                   role={displayRole?.title || ''}
+                  pronouns={pronouns}
+                  team={displayRole?.team}
                   imageSrc={avatar?.data?.attributes.url}
                   linkedinUrl={linkedinUrl}
-                  prominent
+                  prominent={filterStatus === 'Current Board Member'}
                 />
               );
             })}

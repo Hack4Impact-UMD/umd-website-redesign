@@ -90,6 +90,10 @@ export const defaultHomeContent: HomeContent = {
         sponsors: [{ name: 'ACES', logo: ACES, visible: true }],
       },
     ],
+    contactCta: {
+      label: 'Interested in sponsoring or partnering? Contact us',
+      href: '/contactus',
+    },
   },
   cta: {
     heading: 'Come Make an Impact With Us!',

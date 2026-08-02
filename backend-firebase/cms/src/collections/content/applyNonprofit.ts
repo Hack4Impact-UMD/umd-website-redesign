@@ -4,6 +4,8 @@ import { buildContentCollection } from './shared';
 export const contentApplyNonprofitCollection = buildContentCollection({
   id: 'content_apply_nonprofit',
   name: 'Content: Apply Nonprofit',
+  optionalPayloadPaths: ['applicationStatus.applicationUrl', 'timeline.description', 'banner'],
+  allowEmptyStringPaths: ['banner.text'],
   payloadProperties: {
     ...applyCommonProperties('content_apply_nonprofit'),
     banner: { dataType: 'map', name: 'Banner', properties: {

@@ -17,6 +17,7 @@ export const aboutContentSchema = z.object({
         label: z.string().min(1),
         title: z.string().min(1),
         description: z.string().min(1),
+        links: z.array(z.object({ label: z.string().min(1), href: safeCtaSchema })).optional(),
         image: safeMediaSchema.optional(),
         imageAlt: z.string().min(1).optional(),
       }),

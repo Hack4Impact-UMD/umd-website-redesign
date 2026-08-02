@@ -33,7 +33,24 @@ export default function StoryTimelineSection({ intro, items }: StoryTimelineSect
                   <div className={`flex gap-4 ${isLeft ? 'md:flex-row-reverse' : ''}`}>
                     <div className="min-w-0 flex-1">
                       <h3 className="font-heading text-h3 font-bold text-foreground">{item.label}</h3>
+                      <p className="mt-1 font-heading text-label font-bold text-h4i-blue">{item.title}</p>
                       <p className="mt-2 font-karla text-body text-foreground">{item.description}</p>
+                      {item.links && item.links.length > 0 ? (
+                        <ul className={`mt-3 flex flex-wrap gap-x-4 gap-y-2 ${isLeft ? 'md:justify-end' : ''}`}>
+                          {item.links.map((link) => (
+                            <li key={`${link.label}-${link.href}`}>
+                              <a
+                                href={link.href}
+                                target={link.href.startsWith('https://') ? '_blank' : undefined}
+                                rel={link.href.startsWith('https://') ? 'noreferrer' : undefined}
+                                className="font-heading text-label font-bold text-h4i-blue underline underline-offset-4 hover:text-state-primary-hover"
+                              >
+                                {link.label}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : null}
                     </div>
                     {imageSrc ? (
                       <img

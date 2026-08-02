@@ -14,6 +14,7 @@ export const defaultSiteSettings: SiteSettings = {
           { label: 'For Nonprofits', href: '/apply/nonprofit' },
         ],
       },
+      { label: 'Contact Us', href: '/contactus' },
     ],
   },
   footer: {
@@ -21,6 +22,8 @@ export const defaultSiteSettings: SiteSettings = {
     exploreLinks: [
       { label: 'About Us', href: '/aboutus' },
       { label: 'Our Work', href: '/ourwork' },
+      { label: 'Contact Us', href: '/contactus' },
+      { label: 'TerpLink', href: 'https://terplink.umd.edu/organization/hack4impact' },
     ],
     applyLinks: [
       { label: 'For Students', href: '/apply/student' },

@@ -30,6 +30,20 @@ export const member = {
   },
 };
 
+export const currentProject = {
+  ...project,
+  id: 'project-002',
+  attributes: {
+    ...project.attributes,
+    title: 'Current Community Tool',
+    path: 'current-community-tool',
+    startDate: '2026-01-15',
+    isCurrentProject: true,
+    nonprofit: { data: { id: 'npo-2', attributes: { name: 'Current Partner' } } },
+    members: { data: [member] },
+  },
+};
+
 export const publishedSiteSettings = {
   mode: 'published',
   verifiedAt: '2026-07-20T12:00:00.000Z',
@@ -38,6 +52,7 @@ export const publishedSiteSettings = {
       links: [
         { label: 'Chapter Info', href: '/aboutus' },
         { label: 'Projects', href: '/ourwork' },
+        { label: 'Contact Us', href: '/contactus' },
         {
           label: 'Apply',
           href: '/apply/student',
@@ -51,7 +66,11 @@ export const publishedSiteSettings = {
     footer: {
       newsletterPrompt: 'Read our verified monthly chapter notes.',
       newsletterUrl: 'https://example.org/newsletter',
-      exploreLinks: [{ label: 'Chapter Info', href: '/aboutus' }],
+      exploreLinks: [
+        { label: 'Chapter Info', href: '/aboutus' },
+        { label: 'Contact Us', href: '/contactus' },
+        { label: 'TerpLink', href: 'https://terplink.umd.edu/organization/hack4impact' },
+      ],
       applyLinks: [{ label: 'For Students', href: '/apply/student' }],
       socialLinks: [
         { label: 'GitHub', href: 'https://github.com/Hack4Impact-UMD', icon: 'Github' },
@@ -73,6 +92,7 @@ export const collectionEnvelope = (data: unknown[]) => ({
 interface FixtureOptions {
   siteSettings?: unknown;
   ourWork?: unknown;
+  projects?: unknown[];
 }
 
 export const installFixtures = async (page: Page, options: FixtureOptions = {}) => {
@@ -109,7 +129,11 @@ export const installFixtures = async (page: Page, options: FixtureOptions = {}) 
     });
   });
   await page.route(/\/api\/projects(?:\?|$)/, (route) =>
-    route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(collectionEnvelope([project])) }),
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify(collectionEnvelope(options.projects ?? [project, currentProject])),
+    }),
   );
   await page.route(/\/api\/members(?:\?|$)/, (route) =>
     route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify(collectionEnvelope([member])) }),

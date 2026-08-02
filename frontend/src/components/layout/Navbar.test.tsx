@@ -11,6 +11,7 @@ describe('Navbar', () => {
     expect(screen.getByRole('navigation', { name: 'Primary navigation' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'About Us' })).toHaveAttribute('href', '/aboutus');
     expect(screen.getByRole('link', { name: 'Our Work' })).toHaveAttribute('href', '/ourwork');
+    expect(screen.getByRole('link', { name: 'Contact Us' })).toHaveAttribute('href', '/contactus');
     expect(screen.getByRole('button', { name: 'Open menu' })).toHaveAttribute('aria-expanded', 'false');
   });
 

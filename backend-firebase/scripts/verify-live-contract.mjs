@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { inspectContentEnvelope } from './content-contract.mjs';
 
 const DEFAULT_BASE_URL =
   'https://us-central1-umd-website-f3e79.cloudfunctions.net/api';
@@ -73,6 +74,10 @@ const verifyContent = async () => {
       payload.meta?.documentId !== 'main'
     ) {
       throw new Error(`content/${section} did not match ${collection}/main`);
+    }
+    const inspection = inspectContentEnvelope(payload.data);
+    if (!inspection.valid) {
+      throw new Error(`content/${section} has ${inspection.issue}; run and review the content migration plan`);
     }
   }
   return sections.size;

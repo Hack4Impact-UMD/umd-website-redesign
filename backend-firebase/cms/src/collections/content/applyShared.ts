@@ -14,7 +14,7 @@ export const applicationStatusProperty = {
       ],
     },
     label: { dataType: 'string' as const, name: 'Status message', multiline: true },
-    applicationUrl: { dataType: 'string' as const, name: 'Verified application URL', url: true },
+    applicationUrl: { dataType: 'string' as const, name: 'Verified application URL', url: true, contentValidation: 'https' as const },
   },
 };
 
@@ -28,7 +28,6 @@ export const applyCommonProperties = (collectionId: string) => ({
     heading: { dataType: 'string' as const, name: 'Heading' },
     body: { dataType: 'string' as const, name: 'Body', multiline: true },
     ctaLabel: { dataType: 'string' as const, name: 'CTA label' },
-    ctaHref: { dataType: 'string' as const, name: 'CTA href' },
     image: imageProperty('Image', `content/${collectionId}/{entityId}/intro`),
     imageAlt: { dataType: 'string' as const, name: 'Image alt' },
   } },
@@ -58,8 +57,7 @@ export const applyCommonProperties = (collectionId: string) => ({
   cta: { dataType: 'map' as const, name: 'CTA', properties: {
     heading: { dataType: 'string' as const, name: 'Heading' },
     primaryLabel: { dataType: 'string' as const, name: 'Primary label' },
-    primaryHref: { dataType: 'string' as const, name: 'Primary href' },
     secondaryLabel: { dataType: 'string' as const, name: 'Secondary label' },
-    secondaryHref: { dataType: 'string' as const, name: 'Secondary href' },
+    secondaryHref: { dataType: 'string' as const, name: 'Secondary href', contentValidation: 'cta' as const },
   } },
 });

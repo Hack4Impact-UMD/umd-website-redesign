@@ -6,6 +6,8 @@ import { isSafeHttpsUrl } from '@/lib/urls';
 interface PersonCardProps {
   name: string;
   role: string;
+  pronouns?: string | null;
+  team?: string | null;
   imageSrc?: string | null;
   linkedinUrl?: string | null;
   prominent?: boolean;
@@ -26,6 +28,8 @@ function isSafeLinkedinUrl(value: string) {
 export default function PersonCard({
   name,
   role,
+  pronouns,
+  team,
   imageSrc,
   linkedinUrl,
   prominent = false,
@@ -52,10 +56,14 @@ export default function PersonCard({
       <h3 className={prominent ? 'mt-3 font-heading text-h3 font-bold text-foreground' : 'mt-3 font-heading text-sm font-bold text-foreground'}>
         {name}
       </h3>
+      {pronouns ? <p className="mt-0.5 text-xs text-muted-foreground">{pronouns}</p> : null}
       {role ? (
         <p className={prominent ? 'mt-1 font-heading text-label font-bold text-muted-foreground' : 'mt-1 font-body text-xs text-muted-foreground'}>
           {role}
         </p>
+      ) : null}
+      {team && team !== role ? (
+        <p className="mt-0.5 font-body text-xs text-muted-foreground">{team}</p>
       ) : null}
       <div className="flex gap-2 mt-2">
         {hasPrimaryLink ? (

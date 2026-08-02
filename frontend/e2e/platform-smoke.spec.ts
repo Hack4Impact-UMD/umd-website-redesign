@@ -4,11 +4,12 @@ import { collectionEnvelope, installFixtures, project, publishedSiteSettings } f
 for (const [path, heading] of [
   ['/', /Hack4Impact-UMD/i],
   ['/aboutus', /About Us/i],
-  ['/ourwork', /Past Project Library/i],
+  ['/ourwork', /Project Library/i],
   ['/ourwork/fixture-project', /Fixture Project/i],
   ['/apply', /^Students$/i],
   ['/apply/student', /^Students$/i],
   ['/apply/nonprofit', /^Nonprofits$/i],
+  ['/contactus', /^Contact Us$/i],
 ] as const) {
   test(`${path} renders with deterministic API fixtures`, async ({ page }) => {
     const errors: string[] = [];
@@ -35,6 +36,7 @@ test('home preserves its Figma section order without fabricated live capabilitie
   await expect(page.getByRole('heading', { name: 'Hack4Impact-UMD' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Our Impact' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Explore Our Nonprofit Partners' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Featured Projects' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Testimonials from Our Nonprofit Partners' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Participate in Student-Led Community Events' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Check Out Our Recent Newsletter' })).toBeVisible();
@@ -98,6 +100,11 @@ test('published site settings update shared chrome while legacy and loading stat
   await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Go to Home' })).toHaveAttribute('href', '/');
   await expect(page.getByRole('link', { name: 'Chapter Info' }).first()).toHaveAttribute('href', '/aboutus');
+  await expect(page.getByRole('link', { name: 'Contact Us' }).first()).toHaveAttribute('href', '/contactus');
+  await expect(page.getByRole('link', { name: 'TerpLink' })).toHaveAttribute(
+    'href',
+    'https://terplink.umd.edu/organization/hack4impact',
+  );
   await expect(page.getByText('Read our verified monthly chapter notes.')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Read our newsletter' })).toHaveAttribute(
     'href',
@@ -158,6 +165,19 @@ test('project library exposes a real retry path after an API failure', async ({ 
   expect(requests).toBeGreaterThan(failedRequests);
 });
 
+test('project library restores current projects and searchable project discovery', async ({ page }) => {
+  await installFixtures(page);
+  await page.goto('/ourwork');
+
+  await expect(page.getByRole('heading', { name: 'Current Projects' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Current Community Tool' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: '2025 Projects' })).toBeVisible();
+
+  await page.getByRole('searchbox', { name: 'Search all projects' }).fill('Fixture Member');
+  await expect(page.getByRole('heading', { name: 'Current Community Tool' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Fixture Project' })).toHaveCount(0);
+});
+
 test('published Our Work content replaces the local header fallback', async ({ page }) => {
   await installFixtures(page, {
     ourWork: {
@@ -178,5 +198,5 @@ test('published Our Work content replaces the local header fallback', async ({ p
   await expect(page.getByRole('heading', { name: 'Verified Project Archive' })).toBeVisible();
   await expect(page.getByText('Current CMS-managed copy')).toBeVisible();
   await expect(page.getByAltText('Verified archive artwork')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Past Project Library' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Project Library' })).toHaveCount(0);
 });

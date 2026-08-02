@@ -1,5 +1,6 @@
 import type { HomeContent } from '@/content/home';
 import { resolveMediaUrl } from '@/lib/media';
+import HomeActionLink from './HomeActionLink';
 
 interface SponsorsSectionProps {
   content: HomeContent['sponsors'];
@@ -83,6 +84,17 @@ export default function SponsorsSection({ content }: SponsorsSectionProps) {
             {content.placeholderMessage}
           </p>
         )}
+
+        {content.contactCta ? (
+          <div className="mt-10 text-center">
+            <HomeActionLink
+              href={content.contactCta.href}
+              className="inline-flex min-h-10 items-center justify-center rounded-lg border border-h4i-blue px-6 py-2 font-heading text-label font-bold text-h4i-blue transition-colors hover:bg-h4i-blue hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
+            >
+              {content.contactCta.label}
+            </HomeActionLink>
+          </div>
+        ) : null}
       </div>
     </section>
   );

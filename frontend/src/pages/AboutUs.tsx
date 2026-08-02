@@ -43,6 +43,7 @@ export default function AboutUs() {
       <ValuesSection {...values} />
       <CurrentProjectsSection {...currentProjects} />
       <MembersSection title="Meet the Board" filterStatus="Current Board Member" />
+      <MembersSection title="Meet the Team" filterStatus="Current Member" />
     </main>
   );
 }

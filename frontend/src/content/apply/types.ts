@@ -23,7 +23,6 @@ const introSchema = z.object({
   heading: z.string().min(1),
   body: z.string().min(1),
   ctaLabel: z.string().min(1),
-  ctaHref: safeCtaSchema,
   image: safeMediaSchema,
   imageAlt: z.string().min(1),
 });
@@ -38,7 +37,6 @@ const faqSchema = z.object({ heading: z.string().min(1), items: z.array(faqItemS
 const finalCtaSchema = z.object({
   heading: z.string().min(1),
   primaryLabel: z.string().min(1),
-  primaryHref: safeCtaSchema,
   secondaryLabel: z.string().min(1),
   secondaryHref: safeCtaSchema,
 });

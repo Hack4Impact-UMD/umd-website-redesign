@@ -33,10 +33,18 @@ describe('Home sections', () => {
   });
 
   it('presents legacy sponsor assets in the Figma sponsor section', () => {
-    render(<SponsorsSection content={defaultHomeContent.sponsors} />);
+    render(
+      <MemoryRouter>
+        <SponsorsSection content={defaultHomeContent.sponsors} />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByRole('heading', { name: 'Our Sponsors' })).toBeInTheDocument();
     expect(screen.getByAltText('Microsoft logo')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /interested in sponsoring or partnering/i })).toHaveAttribute(
+      'href',
+      '/contactus',
+    );
   });
 
   it('shows a safe placeholder instead of unverified impact claims', () => {

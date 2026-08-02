@@ -27,7 +27,12 @@ export const defaultAboutContent = {
         label: 'Fall 2020',
         title: 'A new chapter at UMD',
         description:
-          'Hack4Impact-UMD was founded at the University of Maryland, College Park as a student organization focused on technology for social good.',
+          'Hack4Impact-UMD was founded by Lydia Hu, Simin Li, and Abbie Tran at the University of Maryland, College Park as a student organization focused on technology for social good.',
+        links: [
+          { label: 'Lydia Hu', href: 'https://www.linkedin.com/in/lydia-hu/' },
+          { label: 'Simin Li', href: 'https://www.linkedin.com/in/simin-li-88088b/' },
+          { label: 'Abbie Tran', href: 'https://www.linkedin.com/in/abbie-tran-a47893153/' },
+        ],
         image: teamPhoto,
         imageAlt: 'Hack4Impact UMD members at a project showcase',
       },
