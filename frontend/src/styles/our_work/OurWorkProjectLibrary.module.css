@@ -4,6 +4,35 @@
   padding: 88px 24px 0;
 }
 
+.searchShell {
+  margin: 0 0 48px;
+}
+
+.searchLabel {
+  display: block;
+  margin-bottom: 10px;
+  color: hsl(var(--foreground));
+  font-family: var(--font-heading, inherit);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.searchInput {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  background: hsl(var(--card));
+  color: hsl(var(--foreground));
+  padding: 12px 16px;
+  font-size: 16px;
+}
+
+.searchInput:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
 .relatedShell {
   width: 100%;
 }

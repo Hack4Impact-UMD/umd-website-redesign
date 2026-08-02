@@ -5,7 +5,9 @@ import {
   applyStudentContentSchema,
   defaultApplyNonprofitContent,
   defaultApplyStudentContent,
+  NONPROFIT_APPLICATION_URL,
   normalizeApplyStudentContent,
+  STUDENT_APPLICATION_URL,
 } from './apply';
 import { defaultHomeContent, homeContentSchema, normalizeHomeContent } from './home';
 import { defaultOurWorkContent, normalizeOurWorkContent, ourWorkContentSchema } from './our-work';
@@ -147,5 +149,13 @@ describe('ContentMode', () => {
     expect(defaultApplyNonprofitContent.testimonials).toEqual([]);
     expect(defaultApplyNonprofitContent.banner).toEqual({ enabled: false, text: '' });
     expect(JSON.stringify([defaultApplyStudentContent, defaultApplyNonprofitContent])).not.toContain('Fall 2025');
+    expect(defaultApplyStudentContent.applicationStatus).toMatchObject({
+      state: 'closed',
+      applicationUrl: STUDENT_APPLICATION_URL,
+    });
+    expect(defaultApplyNonprofitContent.applicationStatus).toMatchObject({
+      state: 'closed',
+      applicationUrl: NONPROFIT_APPLICATION_URL,
+    });
   });
 });

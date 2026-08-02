@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { normalizeContentSave } from '../../src/collections/content/shared';
+import { normalizeContentSave, validateContentPayload } from '../../src/collections/content/shared';
 import { collections } from '../../src/collections';
 
 describe('content collection controls', () => {
@@ -54,8 +54,11 @@ describe('content collection controls', () => {
     };
     const navLinks = settings.properties.payload.properties.navbar.properties.links;
     const social = settings.properties.payload.properties.footer.properties.socialLinks.of.properties;
+    const contact = settings.properties.payload.properties.footer.properties.contact.properties;
     expect(navLinks.validation).toEqual({ required: true, min: 1 });
     expect(social.href.url).toBe(true);
+    expect(social.href.contentValidation).toBe('https');
+    expect(contact.email.contentValidation).toBe('email');
     expect(social.icon.enumValues.map(({ id }: { id: string }) => id)).toEqual([
       'Instagram', 'Github', 'Linkedin', 'Facebook',
     ]);
@@ -141,5 +144,97 @@ describe('content collection controls', () => {
         payload: { applicationStatus: { state: 'open', label: 'Applications open' } },
       }),
     ).toThrow(/safe HTTPS application URL/);
+  });
+
+  it('rejects a published payload that is missing a configured page section', () => {
+    const validatePayload = (payload: unknown) =>
+      validateContentPayload(payload, {
+        header: { dataType: 'map', properties: { title: { dataType: 'string' } } },
+        footer: { dataType: 'map', properties: { email: { dataType: 'string' } } },
+      });
+    expect(() =>
+      normalizeContentSave(
+        {
+          mode: 'published',
+          verifiedAt: new Date('2026-07-19T12:00:00Z'),
+          payload: { header: { title: 'Only a header' } },
+        },
+        undefined,
+        validatePayload,
+      ),
+    ).toThrow(/footer is required/);
+  });
+
+  it('rejects malformed nested values even when every top-level section exists', () => {
+    expect(() =>
+      validateContentPayload(
+        { header: {}, footer: { email: '' } },
+        {
+          header: { dataType: 'map', properties: { title: { dataType: 'string' } } },
+          footer: { dataType: 'map', properties: { email: { dataType: 'string' } } },
+        },
+      ),
+    ).toThrow(/header\.title is required/);
+  });
+
+  it('supports explicitly optional fields without weakening required siblings', () => {
+    expect(() =>
+      validateContentPayload(
+        { card: { title: 'Ready' } },
+        {
+          card: {
+            dataType: 'map',
+            properties: {
+              title: { dataType: 'string' },
+              image: { dataType: 'string' },
+            },
+          },
+        },
+        { optionalPaths: ['card.image'] },
+      ),
+    ).not.toThrow();
+  });
+
+  it('rejects null optional values that the frontend contract cannot render', () => {
+    expect(() =>
+      validateContentPayload(
+        { card: { title: 'Ready', image: null } },
+        {
+          card: {
+            dataType: 'map',
+            properties: {
+              title: { dataType: 'string' },
+              image: { dataType: 'string' },
+            },
+          },
+        },
+        { optionalPaths: ['card.image'] },
+      ),
+    ).toThrow(/card\.image cannot be null/);
+  });
+
+  it.each([
+    [
+      { link: 'javascript:alert(1)' },
+      { link: { dataType: 'string', contentValidation: 'cta' } },
+      /safe internal, HTTPS, or email link/,
+    ],
+    [
+      { email: 'not-an-email' },
+      { email: { dataType: 'string', contentValidation: 'email' } },
+      /valid email address/,
+    ],
+    [
+      { website: 'mailto:chapter@example.org' },
+      { website: { dataType: 'string', contentValidation: 'https' } },
+      /safe HTTPS URL/,
+    ],
+    [
+      { image: '../private.png' },
+      { image: { dataType: 'string', contentValidation: 'media' } },
+      /safe media path/,
+    ],
+  ])('rejects frontend-invalid semantic strings before publication', (payload, properties, message) => {
+    expect(() => validateContentPayload(payload, properties)).toThrow(message);
   });
 });

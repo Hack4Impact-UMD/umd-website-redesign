@@ -10,6 +10,7 @@ production data.
 - `cms/`: authenticated FireCMS application for admin/editor content management
 - `firestore.rules` and `storage.rules`: direct CMS access controls
 - `scripts/verify-live-contract.mjs`: unauthenticated, GET-only live parity check
+- `scripts/plan-content-migration.mjs`: deterministic, file-based dry run for legacy content envelopes
 - `SOURCE_PARITY.md`: captured baseline, intentional differences, and known uncertainty
 
 The live project is `umd-website-f3e79`. Source config defines separate `cms`
@@ -63,6 +64,21 @@ Run the read-only live verification separately:
 ```bash
 node backend-firebase/scripts/verify-live-contract.mjs
 ```
+
+Legacy content must be reviewed before any production write. Export the six live
+documents into a local JSON object keyed by `home`, `about`, `our-work`,
+`apply/student`, `apply/nonprofit`, and `site-settings`, then generate a plan:
+
+```bash
+node backend-firebase/scripts/plan-content-migration.mjs legacy-content.json
+node --test backend-firebase/scripts/content-migration.test.mjs
+```
+
+The planner writes only to stdout. It wraps root-level documents as
+`placeholder`, clears verification, disables stale application campaigns, and
+retains the known application/contact destinations for editor review. Malformed
+modern envelopes are reported as `needs-review` and are never rewritten. Applying
+that plan to production requires separate explicit authorization.
 
 ## Public API
 

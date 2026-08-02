@@ -1,6 +1,7 @@
 import { getContentDocument } from '@/api/content';
 import CTASection from '@/components/home/CTASection';
 import CommunityEventsSection from '@/components/home/CommunityEventsSection';
+import FeaturedProjectsSection from '@/components/home/FeaturedProjectsSection';
 import HeroCarousel from '@/components/home/HeroCarousel';
 import ImpactSection from '@/components/home/ImpactSection';
 import NewsletterSection from '@/components/home/NewsletterSection';
@@ -24,14 +25,10 @@ export default function Home() {
   return (
     <main className="bg-background">
       {status === 'loading' && <p className="sr-only" role="status">Loading current home content.</p>}
-      {status === 'error' && (
-        <p className="sr-only" role="status">
-          Current home content is unavailable. Showing the verified site fallback.
-        </p>
-      )}
       <HeroCarousel content={content.hero} />
       <ImpactSection content={content.impact} />
       <NonprofitMapSection content={content.nonprofitMap} />
+      <FeaturedProjectsSection />
       <TestimonialsSection content={content.testimonials} />
       <CommunityEventsSection />
       <NewsletterSection content={content.newsletter} />

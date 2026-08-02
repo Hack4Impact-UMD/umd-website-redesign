@@ -5,11 +5,13 @@ import { defaultHomeContent } from '@/content/home';
 import NewsletterSection from './NewsletterSection';
 
 describe('NewsletterSection', () => {
-  it('shows an honest placeholder without rendering a fake subscription form', () => {
+  it('shows a production-ready placeholder without a fake signup control', () => {
     const { container } = render(<NewsletterSection content={defaultHomeContent.newsletter} />);
 
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
-    expect(screen.getByText(/signup is not currently available/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Check Out Our Recent Newsletter' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Newsletter updates' })).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent(/preparing a public archive/i);
     expect(screen.queryByText(/subscribed successfully/i)).not.toBeInTheDocument();
     expect(container.querySelector('img')).toBeNull();
     expect(screen.queryByText(/149 active members/i)).not.toBeInTheDocument();

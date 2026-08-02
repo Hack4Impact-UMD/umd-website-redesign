@@ -2,19 +2,23 @@ import teamPhoto from '@/components/assets/apply/apply-team.jpg';
 import classroomPhoto from '@/components/assets/apply/apply-classroom.jpg';
 import type { ApplyNonprofitContent, ApplyStudentContent } from './types';
 
-const closedStatus = {
+const closedStatus = (applicationUrl: string) => ({
   state: 'closed' as const,
-  label: 'Applications are currently closed. Check back for a verified application window.',
-};
+  label: 'Applications are currently closed. Check back for the next application cycle.',
+  applicationUrl,
+});
+
+export const STUDENT_APPLICATION_URL = 'https://apply.umd.hack4impact.org/login';
+export const NONPROFIT_APPLICATION_URL =
+  'https://docs.google.com/forms/d/e/1FAIpQLSfaeqcwOGt3QR0h4Lmo-fwW4mA108jpeb0p06upiivwxpDArw/viewform?usp=sf_link';
 
 export const defaultApplyStudentContent: ApplyStudentContent = {
-  applicationStatus: closedStatus,
+  applicationStatus: closedStatus(STUDENT_APPLICATION_URL),
   hero: { title: 'Students', image: teamPhoto },
   intro: {
     heading: 'Build technology for social impact',
     body: 'We prepare students for socially conscious roles in technology while building a supportive community. Members develop real-world experience with agile teams made up of product managers, designers, tech leads, and engineers.',
     ctaLabel: 'Applications closed',
-    ctaHref: '/apply/student',
     image: classroomPhoto,
     imageAlt: 'Hack4Impact UMD students gathered in a lecture hall',
   },
@@ -52,7 +56,7 @@ export const defaultApplyStudentContent: ApplyStudentContent = {
   ],
   timeline: {
     heading: 'Application Process & Timeline',
-    description: 'We recruit new members in both the fall and spring. Exact dates are published here only after they are confirmed.',
+    description: 'We recruit new members in both the fall and spring. Check this page for dates for the next application cycle.',
     steps: [
       {
         title: 'Step 1',
@@ -92,28 +96,26 @@ export const defaultApplyStudentContent: ApplyStudentContent = {
   cta: {
     heading: 'Ready to Work with Us?',
     primaryLabel: 'Apply',
-    primaryHref: '/apply/student',
     secondaryLabel: 'View projects',
     secondaryHref: '/ourwork',
   },
 };
 
 export const defaultApplyNonprofitContent: ApplyNonprofitContent = {
-  applicationStatus: closedStatus,
+  applicationStatus: closedStatus(NONPROFIT_APPLICATION_URL),
   hero: { title: 'Nonprofits', image: teamPhoto },
   banner: { enabled: false, text: '' },
   intro: {
     heading: 'Build with Hack4Impact UMD',
     body: 'Our student teams collaborate with nonprofit organizations on semester-long technology projects. We work with each partner to scope and develop a product that supports its mission and day-to-day needs.',
     ctaLabel: 'Applications closed',
-    ctaHref: '/apply/nonprofit',
     image: classroomPhoto,
     imageAlt: 'Hack4Impact UMD students gathered in a lecture hall',
   },
   criteria: { heading: 'Partnership criteria', paragraphs: [] },
   timeline: {
     heading: 'Application Process & Timeline',
-    description: 'Exact application dates are published here only after they are confirmed.',
+    description: 'Application dates and deadlines will appear here when the next cycle opens.',
     steps: [
       {
         title: 'Step 1',
@@ -161,7 +163,6 @@ export const defaultApplyNonprofitContent: ApplyNonprofitContent = {
   cta: {
     heading: 'Ready to Work with Us?',
     primaryLabel: 'Apply',
-    primaryHref: '/apply/nonprofit',
     secondaryLabel: "I'm a Student",
     secondaryHref: '/apply/student',
   },

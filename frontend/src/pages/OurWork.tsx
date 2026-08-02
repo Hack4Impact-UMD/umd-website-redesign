@@ -21,11 +21,6 @@ const OurWork = () => {
       {status === 'loading' && (
         <p className="sr-only" role="status">Loading current Our Work content.</p>
       )}
-      {status === 'error' && (
-        <p className="sr-only" role="status">
-          Current Our Work content is unavailable. Showing the verified site fallback.
-        </p>
-      )}
       <OurWorkHeader {...content.header} />
       <OurWorkProjectLibrary />
     </main>

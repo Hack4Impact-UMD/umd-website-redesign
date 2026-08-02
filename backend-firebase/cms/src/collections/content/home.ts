@@ -16,18 +16,31 @@ export const contentHomeCollection = buildContentCollection({
   id: 'content_home',
   name: 'Content: Home',
   icon: 'home',
+  optionalPayloadPaths: [
+    'hero.slides[].mobileImage',
+    'nonprofitMap.featuredProject',
+    'nonprofitMap.featuredProject.logo',
+    'nonprofitMap.featuredProject.logoAlt',
+    'newsletter.linkLabel',
+    'newsletter.subscribeUrl',
+    'newsletter.latestIssue',
+    'newsletter.latestIssue.dateLabel',
+    'newsletter.latestIssue.href',
+    'sponsors.tiers[].sponsors[].href',
+    'sponsors.contactCta',
+  ],
   payloadProperties: {
     hero: {
       dataType: 'map', name: 'Hero', properties: {
         heading: { dataType: 'string', name: 'Heading' },
         body: { dataType: 'string', name: 'Body', multiline: true },
         primaryCta: { dataType: 'map', name: 'Primary CTA', properties: {
-          label: { dataType: 'string', name: 'Label' }, href: { dataType: 'string', name: 'Href' },
+          label: { dataType: 'string', name: 'Label' }, href: { dataType: 'string', name: 'Href', contentValidation: 'cta' },
         } },
         secondaryCta: { dataType: 'map', name: 'Secondary CTA', properties: {
-          label: { dataType: 'string', name: 'Label' }, href: { dataType: 'string', name: 'Href' },
+          label: { dataType: 'string', name: 'Label' }, href: { dataType: 'string', name: 'Href', contentValidation: 'cta' },
         } },
-        slides: { dataType: 'array', name: 'Slides', of: { dataType: 'map', name: 'Slide', properties: {
+        slides: { dataType: 'array', name: 'Slides', validation: { min: 1 }, of: { dataType: 'map', name: 'Slide', properties: {
           image: imageProperty('Image', 'content/content_home/{entityId}/hero-slides'),
           mobileImage: imageProperty('Optional mobile image', 'content/content_home/{entityId}/hero-slides'),
           alt: { dataType: 'string', name: 'Alt text' },
@@ -56,7 +69,7 @@ export const contentHomeCollection = buildContentCollection({
       featuredProject: { dataType: 'map', name: 'Featured project card', properties: {
         title: { dataType: 'string', name: 'Title' },
         summary: { dataType: 'string', name: 'Verified summary', multiline: true },
-        href: { dataType: 'string', name: 'Project href' },
+        href: { dataType: 'string', name: 'Project href', contentValidation: 'cta' },
         logo: imageProperty('Logo', 'content/content_home/{entityId}/featured-project'),
         logoAlt: { dataType: 'string', name: 'Logo alt text' },
       } },
@@ -82,14 +95,14 @@ export const contentHomeCollection = buildContentCollection({
       body: { dataType: 'string', name: 'Body', multiline: true },
       subscribeHeading: { dataType: 'string', name: 'Subscribe heading' },
       linkLabel: { dataType: 'string', name: 'Subscription link label' },
-      subscribeUrl: { dataType: 'string', name: 'Verified subscription URL', url: true },
+      subscribeUrl: { dataType: 'string', name: 'Verified subscription URL', url: true, contentValidation: 'https' },
       placeholderMessage: { dataType: 'string', name: 'Placeholder message', multiline: true },
       latestIssue: { dataType: 'map', name: 'Latest verified issue', properties: {
         dateLabel: { dataType: 'string', name: 'Date label' },
         sender: { dataType: 'string', name: 'Sender' },
         title: { dataType: 'string', name: 'Title' },
         summary: { dataType: 'string', name: 'Summary', multiline: true },
-        href: { dataType: 'string', name: 'Issue URL', url: true },
+        href: { dataType: 'string', name: 'Issue URL', url: true, contentValidation: 'https' },
       } },
       stats: { dataType: 'array', name: 'Verified stats', of: { dataType: 'map', name: 'Stat', properties: {
         value: { dataType: 'string', name: 'Value' },
@@ -106,18 +119,22 @@ export const contentHomeCollection = buildContentCollection({
         sponsors: { dataType: 'array', name: 'Organizations', of: { dataType: 'map', name: 'Organization', properties: {
           name: { dataType: 'string', name: 'Name' },
           logo: imageProperty('Logo', 'content/content_home/{entityId}/sponsors'),
-          href: { dataType: 'string', name: 'Website', url: true },
+          href: { dataType: 'string', name: 'Website', url: true, contentValidation: 'https' },
           visible: { dataType: 'boolean', name: 'Visible' },
         } } },
       } } },
+      contactCta: { dataType: 'map', name: 'Contact call to action', properties: {
+        label: { dataType: 'string', name: 'Label' },
+        href: { dataType: 'string', name: 'Link', contentValidation: 'cta' },
+      } },
     } },
     cta: { dataType: 'map', name: 'Bottom CTA', properties: {
       heading: { dataType: 'string', name: 'Heading' },
       primary: { dataType: 'map', name: 'Primary', properties: {
-        label: { dataType: 'string', name: 'Label' }, href: { dataType: 'string', name: 'Href' },
+        label: { dataType: 'string', name: 'Label' }, href: { dataType: 'string', name: 'Href', contentValidation: 'cta' },
       } },
       secondary: { dataType: 'map', name: 'Secondary', properties: {
-        label: { dataType: 'string', name: 'Label' }, href: { dataType: 'string', name: 'Href' },
+        label: { dataType: 'string', name: 'Label' }, href: { dataType: 'string', name: 'Href', contentValidation: 'cta' },
       } },
     } },
   },

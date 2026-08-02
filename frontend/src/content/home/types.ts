@@ -95,6 +95,7 @@ export const homeContentSchema = z.object({
         sponsors: z.array(sponsorSchema),
       }),
     ),
+    contactCta: ctaSchema.optional(),
   }),
   cta: z.object({
     heading: z.string().trim().min(1),

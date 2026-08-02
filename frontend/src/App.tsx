@@ -10,6 +10,7 @@ import OurWork from './pages/OurWork';
 import ProjectPage from './pages/ProjectPage';
 import PageNotFound from './pages/PageNotFound';
 import Home from './pages/Home';
+import ContactUs from './pages/ContactUs';
 
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -46,6 +47,7 @@ function App() {
               <Route path="/apply" element={<StudentApply />} />
               <Route path="/apply/student" element={<StudentApply />} />
               <Route path="/apply/nonprofit" element={<NonprofitApply />} />
+              <Route path="/contactus" element={<ContactUs settings={siteSettings} />} />
               <Route path="/ourwork/:projectpath" element={<ProjectPage />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>

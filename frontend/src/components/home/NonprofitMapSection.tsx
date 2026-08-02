@@ -28,7 +28,7 @@ export default function NonprofitMapSection({ content }: NonprofitMapSectionProp
           <div className="h-[340px] overflow-hidden bg-[#E7EFF8] sm:h-[440px] lg:h-[571px] lg:w-[81%]">
             <img
               src={partnerMap}
-              alt="Illustrated nonprofit partner map preview"
+              alt="Illustrated map of nonprofit partners"
               className="h-full w-full object-cover object-left"
             />
           </div>

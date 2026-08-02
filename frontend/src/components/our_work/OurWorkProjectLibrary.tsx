@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { getProjects, type ProjectEntity } from '@/api';
 import { useApiResource } from '@/hooks';
@@ -15,6 +16,8 @@ type ProjectItem = {
   imageUrl?: string;
   imageAltText?: string;
   partnerName?: string;
+  memberNames: string[];
+  isFeatured: boolean;
   isCurrentProject: boolean;
 };
 
@@ -46,8 +49,25 @@ export const mapProject = (rawProject: ProjectEntity): ProjectItem => {
     imageUrl: resolveMediaUrl(cmsImage) || undefined,
     imageAltText: attributes.imageAltText,
     partnerName: attributes.nonprofit?.data?.attributes.name,
+    memberNames: attributes.members.data.map(({ attributes: member }) =>
+      `${member.firstName} ${member.lastName}`.trim(),
+    ),
+    isFeatured: attributes.isFeatured,
     isCurrentProject: attributes.isCurrentProject,
   };
+};
+
+export const matchesProjectSearch = (project: ProjectItem, query: string) => {
+  const normalizedQuery = query.trim().toLowerCase();
+  if (!normalizedQuery) return true;
+
+  return [
+    project.title,
+    project.partnerName,
+    formatSeason(project.startDate),
+    getProjectYear(project.startDate),
+    ...project.memberNames,
+  ].some((value) => value?.toLowerCase().includes(normalizedQuery));
 };
 
 const sortYears = (a: string, b: string) => {
@@ -83,6 +103,7 @@ const OurWorkProjectLibrary = ({
   limit,
   title,
 }: OurWorkProjectLibraryProps) => {
+  const [searchQuery, setSearchQuery] = useState('');
   const shellClassName = mode === 'related' ? styles.relatedShell : styles.sectionShell;
 
   const projectsRes = useApiResource((signal) => getProjects({ signal }), []);
@@ -112,9 +133,8 @@ const OurWorkProjectLibrary = ({
   const projects = projectsRes.data ?? [];
 
   const normalized = projects.map(mapProject);
-  const pastProjects = normalized.filter((project) => !project.isCurrentProject);
 
-  if ((mode === 'library' ? pastProjects : normalized).length === 0) {
+  if (normalized.length === 0) {
     return (
       <section className={shellClassName}>
         {mode === 'related' ? (
@@ -123,7 +143,7 @@ const OurWorkProjectLibrary = ({
         <p className={styles.emptyState}>
           {mode === 'related'
             ? 'No additional projects are available right now.'
-            : 'No past projects are available right now. Please check back soon.'}
+            : 'No projects are available right now. Please check back soon.'}
         </p>
       </section>
     );
@@ -159,7 +179,7 @@ const OurWorkProjectLibrary = ({
           </div>
           <Link
             className={styles.arrowButton}
-            to={`/ourwork/${project.path}`}
+            to={`/ourwork/${encodeURIComponent(project.path)}`}
             aria-label={`Open ${project.title}`}
           >
             <span aria-hidden="true">→</span>
@@ -190,6 +210,9 @@ const OurWorkProjectLibrary = ({
     );
   }
 
+  const filteredProjects = normalized.filter((project) => matchesProjectSearch(project, searchQuery));
+  const currentProjects = filteredProjects.filter((project) => project.isCurrentProject).sort(sortProjects);
+  const pastProjects = filteredProjects.filter((project) => !project.isCurrentProject);
   const grouped = pastProjects
     .sort(sortProjects)
     .reduce((groups: Record<string, ProjectItem[]>, project) => {
@@ -205,6 +228,29 @@ const OurWorkProjectLibrary = ({
 
   return (
     <div className={styles.sectionShell}>
+      <div className={styles.searchShell}>
+        <label htmlFor="project-search" className={styles.searchLabel}>Search all projects</label>
+        <input
+          id="project-search"
+          type="search"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
+          placeholder="Search by project, nonprofit, member, season, or year"
+          className={styles.searchInput}
+        />
+      </div>
+
+      {filteredProjects.length === 0 ? (
+        <p className={styles.emptyState}>No projects match “{searchQuery.trim()}”.</p>
+      ) : null}
+
+      {currentProjects.length > 0 ? (
+        <section className={styles.yearSection} aria-labelledby="current-projects-heading">
+          <h2 id="current-projects-heading" className={styles.yearHeading}>Current Projects</h2>
+          <div className={styles.grid}>{currentProjects.map(renderProjectCard)}</div>
+        </section>
+      ) : null}
+
       {years.map((year) => (
         <section key={year} className={styles.yearSection}>
           <h2 className={styles.yearHeading}>{year} Projects</h2>

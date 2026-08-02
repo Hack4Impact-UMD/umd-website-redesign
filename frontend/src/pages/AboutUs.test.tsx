@@ -43,24 +43,43 @@ describe('AboutUs', () => {
         },
       },
     ]);
-    mockedGetMembers.mockResolvedValue([
-      {
-        id: 'member-1',
-        attributes: {
-          firstName: 'Test',
-          lastName: 'Member',
-          linkedinUrl: 'https://www.linkedin.com/in/test-member',
-          memberDisplayStatus: 'Current Board Member',
-          componentRolesArr: [
-            { title: 'Executive Director', isDisplayRole: true },
+    mockedGetMembers.mockImplementation(async (options) =>
+      options?.filterStatus === 'Current Board Member'
+        ? [
+            {
+              id: 'board-1',
+              attributes: {
+                firstName: 'Test',
+                lastName: 'Director',
+                linkedinUrl: 'https://www.linkedin.com/in/test-director',
+                memberDisplayStatus: 'Current Board Member',
+                componentRolesArr: [
+                  { title: 'Executive Director', isDisplayRole: true },
+                ],
+                avatar: { data: null },
+              },
+            },
+          ]
+        : [
+            {
+              id: 'member-1',
+              attributes: {
+                firstName: 'Test',
+                lastName: 'Member',
+                pronouns: 'they/them',
+                linkedinUrl: 'https://www.linkedin.com/in/test-member',
+                memberDisplayStatus: 'Current Member',
+                componentRolesArr: [
+                  { title: 'Engineer', team: 'Community Connect', isDisplayRole: true },
+                ],
+                avatar: { data: null },
+              },
+            },
           ],
-          avatar: { data: null },
-        },
-      },
-    ]);
+    );
   });
 
-  it('renders published Firebase content with live project and board data', async () => {
+  it('renders published Firebase content with live project, board, and member data', async () => {
     render(
       <MemoryRouter>
         <AboutUs />
@@ -72,8 +91,16 @@ describe('AboutUs', () => {
     expect(screen.getByText(/We leverage technology for social good/i)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'At a Glance' })).toBeInTheDocument();
     expect(screen.getByText('Founded at UMD')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Lydia Hu' })).toHaveAttribute(
+      'href',
+      'https://www.linkedin.com/in/lydia-hu/',
+    );
     expect(await screen.findByRole('heading', { name: 'Verified Project' })).toBeInTheDocument();
-    expect(await screen.findByRole('heading', { name: 'Test Member' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Test Director' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Meet the Team' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Test Member' })).toBeInTheDocument();
+    expect(screen.getByText('they/them')).toBeInTheDocument();
+    expect(screen.getByText('Community Connect')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /test member's linkedin/i })).toHaveAttribute(
       'href',
       'https://www.linkedin.com/in/test-member',

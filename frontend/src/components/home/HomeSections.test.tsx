@@ -24,22 +24,31 @@ describe('Home sections', () => {
     );
   });
 
-  it('does not render fabricated testimonial people in placeholder mode', () => {
+  it('shows an honest testimonial placeholder without fabricated people', () => {
     render(<TestimonialsSection content={defaultHomeContent.testimonials} />);
 
-    expect(screen.getByRole('status')).toHaveTextContent(/verified partner stories/i);
+    expect(screen.getByRole('heading', { name: /testimonials/i })).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent(/gathering stories from our nonprofit partners/i);
     expect(screen.queryByText(/nonprofit person/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/organization name/i)).not.toBeInTheDocument();
   });
 
   it('presents legacy sponsor assets in the Figma sponsor section', () => {
-    render(<SponsorsSection content={defaultHomeContent.sponsors} />);
+    render(
+      <MemoryRouter>
+        <SponsorsSection content={defaultHomeContent.sponsors} />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByRole('heading', { name: 'Our Sponsors' })).toBeInTheDocument();
     expect(screen.getByAltText('Microsoft logo')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /interested in sponsoring or partnering/i })).toHaveAttribute(
+      'href',
+      '/contactus',
+    );
   });
 
-  it('shows a safe placeholder instead of unverified impact claims', () => {
+  it('restores the retained impact metrics', () => {
     const { container } = render(
       <>
         <ImpactSection content={defaultHomeContent.impact} />
@@ -48,9 +57,11 @@ describe('Home sections', () => {
     );
 
     expect(screen.getByRole('heading', { name: 'Our Impact' })).toBeInTheDocument();
-    expect(screen.getByRole('status')).toHaveTextContent(/verified impact metrics/i);
-    expect(screen.queryByText('150+')).not.toBeInTheDocument();
-    expect(screen.queryByText('$150K')).not.toBeInTheDocument();
+    expect(screen.getByText('10+')).toBeInTheDocument();
+    expect(screen.getByText('12')).toBeInTheDocument();
+    expect(screen.getByText('150+')).toBeInTheDocument();
+    expect(screen.getByText('400+')).toBeInTheDocument();
+    expect(screen.getByText('$150K')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /student-led community events/i })).toBeInTheDocument();
     expect(container.querySelectorAll('img')).toHaveLength(7);
   });
