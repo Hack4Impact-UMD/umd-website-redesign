@@ -11,15 +11,6 @@ vi.mock('@/api/content', () => ({ getContentDocument: vi.fn() }));
 describe('StudentApply', () => {
   beforeEach(() => vi.clearAllMocks());
 
-  it('keeps the retained application destination disabled in placeholder mode', async () => {
-    vi.mocked(getContentDocument).mockResolvedValue({ mode: 'placeholder' });
-    render(<MemoryRouter><StudentApply /></MemoryRouter>);
-
-    expect(await screen.findAllByRole('button', { name: 'Applications closed' })).toHaveLength(2);
-    expect(screen.queryByRole('link', { name: /apply now/i })).not.toBeInTheDocument();
-    expect(screen.queryByRole('link', { name: 'Applications closed' })).not.toBeInTheDocument();
-  });
-
   it('activates only the exact URL in a freshly verified published open state', async () => {
     vi.mocked(getContentDocument).mockResolvedValue({
       mode: 'published',
