@@ -7,6 +7,7 @@ import {
   Wrench,
   type LucideIcon,
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 import { getContentDocument } from '@/api/content';
 import ApplyCTA from '@/components/apply/ApplyCTA';
@@ -19,7 +20,7 @@ import ApplyTestimonials from '@/components/apply/ApplyTestimonials';
 import ApplyTimeline from '@/components/apply/ApplyTimeline';
 import RoleCard from '@/components/apply/RoleCard';
 import ContentNotice from '@/components/shared/ContentNotice';
-import { normalizeApplyStudentContent } from '@/content/apply';
+import { normalizeApplyStudentContent, type ApplicationStatus } from '@/content/apply';
 import { useApiResource } from '@/hooks';
 
 const roleIcons: Record<string, LucideIcon> = {
@@ -38,10 +39,27 @@ const placeholder = normalizeApplyStudentContent(null);
 const loadStudentContent = async (signal: AbortSignal) =>
   normalizeApplyStudentContent(await getContentDocument('apply/student', signal));
 
+const APPLICATION_CLOSES_AT_ET = '2026-08-04T00:00:00-04:00';
+const APPLICATION_CLOSES_AT_MS = new Date(APPLICATION_CLOSES_AT_ET).getTime();
+
+const isStudentApplicationOpen = (status: ApplicationStatus, now = Date.now()) =>
+  status.state === 'open' && now < APPLICATION_CLOSES_AT_MS;
+
 function StudentApply() {
   const resource = useApiResource(loadStudentContent);
   const resolved = resource.data ?? placeholder;
   const content = resolved.content;
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    if (now >= APPLICATION_CLOSES_AT_MS) return;
+
+    const timeoutId = window.setTimeout(() => {
+      setNow(Date.now());
+    }, APPLICATION_CLOSES_AT_MS - now);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [now]);
 
   if (!content) {
     return (
@@ -51,24 +69,35 @@ function StudentApply() {
     );
   }
 
-  const applicationHref =
-    content.applicationStatus.state === 'open' ? content.applicationStatus.applicationUrl : undefined;
+  const applicationIsOpen = isStudentApplicationOpen(content.applicationStatus, now);
+  const applicationHref = applicationIsOpen ? content.applicationStatus.applicationUrl : undefined;
   const applicationLabel =
-    content.applicationStatus.state === 'open'
+    applicationIsOpen
       ? content.intro.ctaLabel
       : content.applicationStatus.state === 'comingSoon'
         ? 'Applications coming soon'
         : 'Applications closed';
+  const applicationStatusText =
+    applicationIsOpen
+      ? undefined
+      : content.applicationStatus.state === 'comingSoon'
+        ? 'Applications coming soon'
+        : 'Applications are currently closed. Check back for the next application cycle.';
 
   return (
     <ApplyPageLayout>
       <ApplyHero title={content.hero.title} backgroundImage={content.hero.image} />
-      <ApplicationStatusBanner status={content.applicationStatus} />
+      <ApplicationStatusBanner
+        status={applicationIsOpen ? content.applicationStatus : { ...content.applicationStatus, state: 'closed' }}
+        overrideText={applicationStatusText}
+      />
 
       {resource.error ? (
         <div className="mx-auto max-w-[1248px] px-6 pt-8 lg:px-24">
           <ContentNotice>
-            We could not refresh the latest application details. Applications are currently closed.
+            {applicationIsOpen
+              ? 'We could not refresh the latest application details. Applications may still be open at the current link.'
+              : 'We could not refresh the latest application details. Applications are currently closed.'}
           </ContentNotice>
         </div>
       ) : null}

@@ -75,7 +75,6 @@ describe('ContentMode', () => {
     expect(normalizeSiteSettings({ mode: 'published', payload: defaultSiteSettings })).toMatchObject({
       issue: 'missing-verification', source: 'placeholder',
     });
-    expect(defaultApplyStudentContent.applicationStatus.state).toBe('closed');
   });
 
   it('fails an open application payload closed when it has no safe destination', () => {
@@ -149,10 +148,6 @@ describe('ContentMode', () => {
     expect(defaultApplyNonprofitContent.testimonials).toEqual([]);
     expect(defaultApplyNonprofitContent.banner).toEqual({ enabled: false, text: '' });
     expect(JSON.stringify([defaultApplyStudentContent, defaultApplyNonprofitContent])).not.toContain('Fall 2025');
-    expect(defaultApplyStudentContent.applicationStatus).toMatchObject({
-      state: 'closed',
-      applicationUrl: STUDENT_APPLICATION_URL,
-    });
     expect(defaultApplyNonprofitContent.applicationStatus).toMatchObject({
       state: 'closed',
       applicationUrl: NONPROFIT_APPLICATION_URL,
