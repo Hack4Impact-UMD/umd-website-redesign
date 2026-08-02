@@ -7,6 +7,7 @@ import {
   Wrench,
   type LucideIcon,
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 import { getContentDocument } from '@/api/content';
 import ApplyCTA from '@/components/apply/ApplyCTA';
@@ -39,14 +40,26 @@ const loadStudentContent = async (signal: AbortSignal) =>
   normalizeApplyStudentContent(await getContentDocument('apply/student', signal));
 
 const APPLICATION_CLOSES_AT_ET = '2026-08-04T00:00:00-04:00';
+const APPLICATION_CLOSES_AT_MS = new Date(APPLICATION_CLOSES_AT_ET).getTime();
 
-const isStudentApplicationOpen = (status: ApplicationStatus) =>
-  status.state === 'open' && Date.now() < new Date(APPLICATION_CLOSES_AT_ET).getTime();
+const isStudentApplicationOpen = (status: ApplicationStatus, now = Date.now()) =>
+  status.state === 'open' && now < APPLICATION_CLOSES_AT_MS;
 
 function StudentApply() {
   const resource = useApiResource(loadStudentContent);
   const resolved = resource.data ?? placeholder;
   const content = resolved.content;
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    if (now >= APPLICATION_CLOSES_AT_MS) return;
+
+    const timeoutId = window.setTimeout(() => {
+      setNow(Date.now());
+    }, APPLICATION_CLOSES_AT_MS - now);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [now]);
 
   if (!content) {
     return (
@@ -56,7 +69,7 @@ function StudentApply() {
     );
   }
 
-  const applicationIsOpen = isStudentApplicationOpen(content.applicationStatus);
+  const applicationIsOpen = isStudentApplicationOpen(content.applicationStatus, now);
   const applicationHref = applicationIsOpen ? content.applicationStatus.applicationUrl : undefined;
   const applicationLabel =
     applicationIsOpen
@@ -64,12 +77,19 @@ function StudentApply() {
       : content.applicationStatus.state === 'comingSoon'
         ? 'Applications coming soon'
         : 'Applications closed';
+  const applicationStatusText =
+    applicationIsOpen
+      ? undefined
+      : content.applicationStatus.state === 'comingSoon'
+        ? 'Applications coming soon'
+        : 'Applications are currently closed. Check back for the next application cycle.';
 
   return (
     <ApplyPageLayout>
       <ApplyHero title={content.hero.title} backgroundImage={content.hero.image} />
       <ApplicationStatusBanner
         status={applicationIsOpen ? content.applicationStatus : { ...content.applicationStatus, state: 'closed' }}
+        overrideText={applicationStatusText}
       />
 
       {resource.error ? (
