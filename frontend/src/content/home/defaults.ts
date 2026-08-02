@@ -53,17 +53,17 @@ export const defaultHomeContent: HomeContent = {
     },
   },
   testimonials: {
-    mode: 'hidden',
+    mode: 'placeholder',
     heading: 'Testimonials from Our Nonprofit Partners',
-    placeholderMessage: 'Partner stories will be shared here soon.',
+    placeholderMessage: 'We’re gathering stories from our nonprofit partners. Check back soon to hear about their experiences working with our teams.',
     items: [],
   },
   newsletter: {
-    mode: 'hidden',
+    mode: 'placeholder',
     heading: 'Check Out Our Recent Newsletter',
     body: 'Catch up on recent projects, events, and chapter highlights from Hack4Impact UMD.',
-    subscribeHeading: 'Subscribe For Updates',
-    placeholderMessage: 'Newsletter updates will be available here soon.',
+    subscribeHeading: 'Newsletter updates',
+    placeholderMessage: 'We’re preparing a public archive of chapter updates. In the meantime, follow our social channels for the latest news.',
     stats: [],
   },
   sponsors: {

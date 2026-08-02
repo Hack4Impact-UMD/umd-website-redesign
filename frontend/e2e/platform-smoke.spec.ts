@@ -42,9 +42,12 @@ test('home preserves its Figma section order without fabricated live capabilitie
   await expect(page.getByText('$150K')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Explore Our Nonprofit Partners' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Featured Projects' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Testimonials from Our Nonprofit Partners' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Testimonials from Our Nonprofit Partners' })).toBeVisible();
+  await expect(page.getByText(/gathering stories from our nonprofit partners/i)).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Participate in Student-Led Community Events' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Check Out Our Recent Newsletter' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Check Out Our Recent Newsletter' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Newsletter updates' })).toBeVisible();
+  await expect(page.getByText(/preparing a public archive/i)).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Our Sponsors' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Come Make an Impact With Us!' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Apply Now' })).toHaveAttribute('href', '/apply/student');

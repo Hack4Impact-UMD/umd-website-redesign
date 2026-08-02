@@ -24,10 +24,11 @@ describe('Home sections', () => {
     );
   });
 
-  it('does not render testimonial placeholders when stories are unavailable', () => {
+  it('shows an honest testimonial placeholder without fabricated people', () => {
     render(<TestimonialsSection content={defaultHomeContent.testimonials} />);
 
-    expect(screen.queryByRole('heading', { name: /testimonials/i })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /testimonials/i })).toBeInTheDocument();
+    expect(screen.getByRole('status')).toHaveTextContent(/gathering stories from our nonprofit partners/i);
     expect(screen.queryByText(/nonprofit person/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/organization name/i)).not.toBeInTheDocument();
   });
