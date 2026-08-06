@@ -81,6 +81,20 @@ Public website reads go through Functions. Direct Firestore and Storage access
 requires an authenticated Firebase user whose custom `role` claim is `admin` or
 `editor`.
 
+### Provision a CMS editor
+
+Use an individual organization email for every editor; do not distribute a
+shared password. In Firebase Authentication, create an Email/Password user (or
+have the editor sign in with Google), then set the user's custom `role` claim to
+`editor` while preserving any other custom claims. For Email/Password users,
+discard the one-time bootstrap password and use **Reset password** in the
+Firebase user menu so the editor chooses the only retained password.
+
+After a claim change, the editor must sign out and back in to refresh their ID
+token. Verify access at <https://umd-website-f3e79.web.app/> by opening a
+collection read-only before making production edits. Reserve `admin` for the
+rare workflow that actually requires it.
+
 ## CMS behavior
 
 - Google and Email/Password providers must be enabled.
