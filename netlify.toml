@@ -6,13 +6,14 @@
 [build.environment]
   NODE_VERSION = "20"
 
+# The browser still fetches /api/media/* through this proxy: Storage rules deny
+# public reads, so images are served by the Function. Build-time content fetches
+# use API_BASE_URL (set in the Netlify UI) and do not pass through here.
 [[redirects]]
   from = "/api/*"
   to = "https://us-central1-umd-website-f3e79.cloudfunctions.net/api/:splat"
   status = 200
   force = true
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# No SPA fallback: every route is prerendered to its own HTML file, and Netlify
+# serves dist/404.html with a real 404 for anything unmatched.

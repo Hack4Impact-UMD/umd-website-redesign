@@ -1,4 +1,5 @@
-import { getContentDocument } from '@/api/content';
+---
+import { loadAllProjects, loadContent } from '@/api/buildData';
 import CTASection from '@/components/home/CTASection';
 import CommunityEventsSection from '@/components/home/CommunityEventsSection';
 import FeaturedProjectsSection from '@/components/home/FeaturedProjectsSection';
@@ -9,31 +10,29 @@ import NonprofitMapSection from '@/components/home/NonprofitMapSection';
 import SponsorsSection from '@/components/home/SponsorsSection';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import { defaultHomeContent, normalizeHomeContent } from '@/content-schema/home';
-import { useApiResource } from '@/hooks';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 
-const loadHomeContent = (signal: AbortSignal) => getContentDocument('home', { signal });
+const resolved = normalizeHomeContent(await loadContent('home'));
+const content = resolved.source === 'hidden' ? null : (resolved.content ?? defaultHomeContent);
 
-export default function Home() {
-  const { data, status } = useApiResource(loadHomeContent);
-  const resolved = status === 'success' ? normalizeHomeContent(data) : null;
-  const content = resolved?.source === 'hidden' ? null : (resolved?.content ?? defaultHomeContent);
-
-  if (!content) {
-    return <main aria-label="Home" />;
-  }
-
-  return (
-    <main className="bg-background">
-      {status === 'loading' && <p className="sr-only" role="status">Loading current home content.</p>}
-      <HeroCarousel content={content.hero} />
+const projects = await loadAllProjects();
+const featuredProjects = projects.filter((project) => project.attributes.isFeatured);
+---
+<BaseLayout title="Hack4Impact-UMD">
+  {content ? (
+    <main class="bg-background">
+      {/* Above the fold and swipeable, so it hydrates immediately. */}
+      <HeroCarousel client:load content={content.hero} />
       <ImpactSection content={content.impact} />
       <NonprofitMapSection content={content.nonprofitMap} />
-      <FeaturedProjectsSection />
+      <FeaturedProjectsSection projects={featuredProjects} />
       <TestimonialsSection content={content.testimonials} />
       <CommunityEventsSection />
       <NewsletterSection content={content.newsletter} />
       <SponsorsSection content={content.sponsors} />
       <CTASection content={content.cta} />
     </main>
-  );
-}
+  ) : (
+    <main aria-label="Home" />
+  )}
+</BaseLayout>

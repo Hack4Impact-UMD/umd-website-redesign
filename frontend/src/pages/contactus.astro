@@ -1,0 +1,14 @@
+---
+import { loadSiteSettings } from '@/api/buildData';
+import ContactUsSection from '@/components/contact/ContactUsSection';
+import { resolveSiteSettingsContent } from '@/content-schema/site-settings';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const settings = resolveSiteSettingsContent(await loadSiteSettings());
+---
+<BaseLayout
+  title="Contact Us"
+  description="Get in touch with Hack4Impact-UMD at the University of Maryland, College Park."
+>
+  <ContactUsSection settings={settings} />
+</BaseLayout>

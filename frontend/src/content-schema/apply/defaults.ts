@@ -1,5 +1,5 @@
-import teamPhoto from '@/components/assets/apply/apply-team.webp';
-import classroomPhoto from '@/components/assets/apply/apply-classroom.webp';
+import teamPhoto from '@/components/assets/apply/apply-team.webp?url';
+import classroomPhoto from '@/components/assets/apply/apply-classroom.webp?url';
 import type { ApplyNonprofitContent, ApplyStudentContent } from './types';
 
 const closedStatus = (applicationUrl: string) => ({

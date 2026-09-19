@@ -1,4 +1,3 @@
-import { getContentDocument } from '@/api/content';
 import ApplyCTA from '@/components/apply/ApplyCTA';
 import ApplyFaq from '@/components/apply/ApplyFAQ';
 import ApplyHero from '@/components/apply/ApplyHero';
@@ -9,18 +8,14 @@ import ApplyTestimonials from '@/components/apply/ApplyTestimonials';
 import ApplyTimeline from '@/components/apply/ApplyTimeline';
 import ContentNotice from '@/components/shared/ContentNotice';
 import { normalizeApplyNonprofitContent } from '@/content-schema/apply';
-import { useApiResource } from '@/hooks';
 
-const placeholder = normalizeApplyNonprofitContent(null);
+type NonprofitApplyContent = ReturnType<typeof normalizeApplyNonprofitContent>['content'];
 
-const loadNonprofitContent = async (signal: AbortSignal) =>
-  normalizeApplyNonprofitContent(await getContentDocument('apply/nonprofit', { signal }));
+interface NonprofitApplySectionsProps {
+  content: NonprofitApplyContent;
+}
 
-function NonprofitApply() {
-  const resource = useApiResource(loadNonprofitContent);
-  const resolved = resource.data ?? placeholder;
-  const content = resolved.content;
-
+export default function NonprofitApplySections({ content }: NonprofitApplySectionsProps) {
   if (!content) {
     return (
       <main className="mx-auto min-h-[50vh] max-w-[1248px] px-6 py-16 lg:px-24">
@@ -46,13 +41,6 @@ function NonprofitApply() {
         overrideText={content.banner?.enabled ? content.banner.text : undefined}
       />
 
-      {resource.error ? (
-        <div className="mx-auto max-w-[1248px] px-6 pt-8 lg:px-24">
-          <ContentNotice>
-            We could not refresh the latest application details. Applications are currently closed.
-          </ContentNotice>
-        </div>
-      ) : null}
 
       <ApplyIntro
         heading={content.intro.heading}
@@ -98,4 +86,3 @@ function NonprofitApply() {
   );
 }
 
-export default NonprofitApply;

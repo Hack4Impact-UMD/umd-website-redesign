@@ -1,0 +1,61 @@
+---
+const SITE_NAME = 'Hack4Impact-UMD';
+const DEFAULT_DESCRIPTION =
+  'Hack4Impact-UMD is a student organization at the University of Maryland, College Park building nonprofit software as a tool for social good.';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Relative or absolute; resolved against `site`. */
+  ogImage?: string;
+  /** Overrides the canonical path, for routes that duplicate another page. */
+  canonicalPath?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = DEFAULT_DESCRIPTION,
+  ogImage = '/UMDlogo300.png',
+  canonicalPath,
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(canonicalPath ?? Astro.url.pathname, Astro.site);
+const ogImageUrl = new URL(ogImage, Astro.site);
+const fullTitle = title === SITE_NAME ? title : `${title} | ${SITE_NAME}`;
+---
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0069CA" />
+
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+
+  <link rel="icon" href="/UMDlogo300.png" />
+  <link rel="apple-touch-icon" href="/UMDlogo300.png" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={SITE_NAME} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImageUrl} />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
+</head>

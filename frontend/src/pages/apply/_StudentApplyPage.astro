@@ -1,0 +1,53 @@
+---
+import { loadContent } from '@/api/buildData';
+import StudentApplySections from '@/components/apply/StudentApplySections';
+import {
+  APPLICATION_CLOSES_AT_MS,
+  isStudentApplicationOpen,
+  normalizeApplyStudentContent,
+} from '@/content-schema/apply';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+interface Props {
+  canonicalPath: string;
+}
+
+const { canonicalPath } = Astro.props;
+
+const resolved = normalizeApplyStudentContent(await loadContent('apply/student'));
+const content = resolved.content;
+
+// Evaluated at build time, so a build that happens before the deadline would
+// otherwise keep advertising an open application until the next rebuild. The
+// inline script below re-checks on load to close that gap.
+const applicationIsOpen = content
+  ? isStudentApplicationOpen(content.applicationStatus, Date.now())
+  : false;
+const applicationUrl = content?.applicationStatus.applicationUrl ?? '';
+---
+<BaseLayout
+  title="Apply as a Student"
+  description="Join Hack4Impact-UMD as a student engineer, designer, product manager or tech lead."
+  canonicalPath={canonicalPath}
+>
+  <StudentApplySections content={content} applicationIsOpen={applicationIsOpen} />
+</BaseLayout>
+
+{applicationIsOpen && applicationUrl && (
+  <script is:inline define:vars={{ closesAt: APPLICATION_CLOSES_AT_MS, applicationUrl }}>
+    // This page was built while applications were still open. If the deadline
+    // has passed since, close the CTAs here rather than leave a dead
+    // application link live until the next rebuild. Selecting by the known
+    // application URL avoids threading a data attribute through ApplyIntro and
+    // ApplyCTA purely for this.
+    if (Date.now() >= closesAt) {
+      document
+        .querySelectorAll('a[href="' + applicationUrl + '"]')
+        .forEach((el) => {
+          el.removeAttribute('href');
+          el.setAttribute('aria-disabled', 'true');
+          el.textContent = 'Applications closed';
+        });
+    }
+  </script>
+)}

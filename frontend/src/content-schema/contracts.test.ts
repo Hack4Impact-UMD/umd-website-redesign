@@ -7,7 +7,6 @@ import {
   defaultApplyStudentContent,
   NONPROFIT_APPLICATION_URL,
   normalizeApplyStudentContent,
-  STUDENT_APPLICATION_URL,
 } from './apply';
 import { defaultHomeContent, homeContentSchema, normalizeHomeContent } from './home';
 import { defaultOurWorkContent, normalizeOurWorkContent, ourWorkContentSchema } from './our-work';

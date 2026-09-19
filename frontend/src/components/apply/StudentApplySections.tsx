@@ -7,9 +7,7 @@ import {
   Wrench,
   type LucideIcon,
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
-import { getContentDocument } from '@/api/content';
 import ApplyCTA from '@/components/apply/ApplyCTA';
 import ApplyFaq from '@/components/apply/ApplyFAQ';
 import ApplyHero from '@/components/apply/ApplyHero';
@@ -20,12 +18,7 @@ import ApplyTestimonials from '@/components/apply/ApplyTestimonials';
 import ApplyTimeline from '@/components/apply/ApplyTimeline';
 import RoleCard from '@/components/apply/RoleCard';
 import ContentNotice from '@/components/shared/ContentNotice';
-import {
-  APPLICATION_CLOSES_AT_MS,
-  isStudentApplicationOpen,
-  normalizeApplyStudentContent,
-} from '@/content-schema/apply';
-import { useApiResource } from '@/hooks';
+import { normalizeApplyStudentContent } from '@/content-schema/apply';
 
 const roleIcons: Record<string, LucideIcon> = {
   engineer: Code2,
@@ -38,27 +31,18 @@ const roleIcons: Record<string, LucideIcon> = {
   bootcamp: BookOpen,
 };
 
-const placeholder = normalizeApplyStudentContent(null);
+type StudentApplyContent = ReturnType<typeof normalizeApplyStudentContent>['content'];
 
-const loadStudentContent = async (signal: AbortSignal) =>
-  normalizeApplyStudentContent(await getContentDocument('apply/student', { signal }));
+interface StudentApplySectionsProps {
+  content: StudentApplyContent;
+  /** Evaluated at build time by the page; see _StudentApplyPage.astro. */
+  applicationIsOpen: boolean;
+}
 
-function StudentApply() {
-  const resource = useApiResource(loadStudentContent);
-  const resolved = resource.data ?? placeholder;
-  const content = resolved.content;
-  const [now, setNow] = useState(() => Date.now());
-
-  useEffect(() => {
-    if (now >= APPLICATION_CLOSES_AT_MS) return;
-
-    const timeoutId = window.setTimeout(() => {
-      setNow(Date.now());
-    }, APPLICATION_CLOSES_AT_MS - now);
-
-    return () => window.clearTimeout(timeoutId);
-  }, [now]);
-
+export default function StudentApplySections({
+  content,
+  applicationIsOpen,
+}: StudentApplySectionsProps) {
   if (!content) {
     return (
       <main className="mx-auto min-h-[50vh] max-w-[1248px] px-6 py-16 lg:px-24">
@@ -67,7 +51,6 @@ function StudentApply() {
     );
   }
 
-  const applicationIsOpen = isStudentApplicationOpen(content.applicationStatus, now);
   const applicationHref = applicationIsOpen ? content.applicationStatus.applicationUrl : undefined;
   const applicationLabel =
     applicationIsOpen
@@ -90,15 +73,6 @@ function StudentApply() {
         overrideText={applicationStatusText}
       />
 
-      {resource.error ? (
-        <div className="mx-auto max-w-[1248px] px-6 pt-8 lg:px-24">
-          <ContentNotice>
-            {applicationIsOpen
-              ? 'We could not refresh the latest application details. Applications may still be open at the current link.'
-              : 'We could not refresh the latest application details. Applications are currently closed.'}
-          </ContentNotice>
-        </div>
-      ) : null}
 
       <ApplyIntro
         heading={content.intro.heading}
@@ -149,4 +123,3 @@ function StudentApply() {
   );
 }
 
-export default StudentApply;

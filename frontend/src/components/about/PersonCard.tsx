@@ -1,5 +1,5 @@
 import { Linkedin } from 'lucide-react';
-import defaultPfp from '@/components/assets/icons/default_pfp.png';
+import defaultPfp from '@/components/assets/icons/default_pfp.png?url';
 import { resolveMediaUrl } from '@/lib/media';
 import { isSafeHttpsUrl } from '@/lib/urls';
 

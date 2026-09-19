@@ -1,12 +1,11 @@
-import { getMembers, type MemberEntity } from '@/api';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import { AsyncError } from '@/components/shared';
-import { useApiResource } from '@/hooks';
+import type { MemberEntity } from '@/api';
 import PersonCard from './PersonCard';
 
 interface MembersSectionProps {
   title: string;
   filterStatus: 'Current Board Member' | 'Current Member';
+  /** Fetched at build time by the page; already filtered to filterStatus. */
+  memberEntities: MemberEntity[];
 }
 
 const EXEC_ORDER = [
@@ -28,14 +27,13 @@ function getDisplayRole(roles: MemberRole[]): MemberRole | undefined {
   return roles.find((r) => r.isDisplayRole);
 }
 
-export default function MembersSection({ title, filterStatus }: MembersSectionProps) {
+export default function MembersSection({
+  title,
+  filterStatus,
+  memberEntities,
+}: MembersSectionProps) {
   const headingId = filterStatus === 'Current Board Member' ? 'board-heading' : 'members-heading';
-  const res = useApiResource(
-    (signal) => getMembers({ filterStatus, pageSize: 200, signal }),
-    [filterStatus],
-  );
-
-  const members: MemberEntity[] = res.data ?? [];
+  const members: MemberEntity[] = memberEntities;
 
   const sortedMembers =
     filterStatus === 'Current Board Member'
@@ -64,11 +62,7 @@ export default function MembersSection({ title, filterStatus }: MembersSectionPr
         <h2 id={headingId} className="mb-10 text-center font-heading text-h2 font-bold text-foreground">
           {title}
         </h2>
-        {res.status === 'loading' ? (
-          <LoadingSpinner />
-        ) : res.status === 'error' ? (
-          <AsyncError message="Members are unavailable right now." onRetry={res.retry} />
-        ) : sortedMembers.length === 0 ? (
+        {sortedMembers.length === 0 ? (
           <p className="text-center text-base text-muted-foreground">
             {filterStatus === 'Current Board Member'
               ? 'No board members are available right now.'

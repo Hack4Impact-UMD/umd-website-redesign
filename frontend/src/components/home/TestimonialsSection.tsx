@@ -1,6 +1,6 @@
 import { Quote } from 'lucide-react';
 
-import testimonialBackground from '@/components/assets/home/testimonials.webp';
+import testimonialBackground from '@/components/assets/home/testimonials.webp?url';
 import type { HomeContent } from '@/content-schema/home';
 
 interface TestimonialsSectionProps {

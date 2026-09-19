@@ -1,16 +1,14 @@
 import { ArrowRight } from 'lucide-react';
 
-import { getProjects } from '@/api';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import { AsyncError } from '@/components/shared';
-import { useApiResource } from '@/hooks';
+import type { ProjectEntity } from '@/api';
 import { resolveMediaUrl } from '@/lib/media';
 
-export default function FeaturedProjectsSection() {
-  const result = useApiResource(
-    (signal) => getProjects({ filter: { kind: 'featured', value: true }, signal }),
-    [],
-  );
+interface FeaturedProjectsSectionProps {
+  /** Fetched at build time by the page; already filtered to featured projects. */
+  projects: ProjectEntity[];
+}
+
+export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSectionProps) {
 
   return (
     <section
@@ -38,21 +36,13 @@ export default function FeaturedProjectsSection() {
           </a>
         </div>
 
-        {result.status === 'loading' ? (
-          <div className="rounded-lg bg-white p-10">
-            <LoadingSpinner text="Loading featured projects..." />
-          </div>
-        ) : result.status === 'error' ? (
-          <div className="rounded-lg bg-white p-6">
-            <AsyncError message="Featured projects are unavailable right now." onRetry={result.retry} />
-          </div>
-        ) : (result.data ?? []).length === 0 ? (
+        {projects.length === 0 ? (
           <p className="rounded-lg bg-white px-6 py-8 text-center text-base text-muted-foreground">
             No featured projects are available right now. Explore the full project library instead.
           </p>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {(result.data ?? []).slice(0, 6).map((project) => {
+            {projects.slice(0, 6).map((project) => {
               const imageUrl = resolveMediaUrl(project.attributes.image.data[0]?.attributes.url);
               const partnerName = project.attributes.nonprofit?.data?.attributes.name;
               const title = project.attributes.title;

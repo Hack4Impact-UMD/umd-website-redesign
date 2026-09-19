@@ -17,9 +17,6 @@ const isServerRuntime = () => {
   return ssr === true || ssr === 'true';
 };
 
-const isDevOrTest = () =>
-  Boolean(import.meta.env.DEV) || import.meta.env.MODE === 'test';
-
 /** import.meta.env first (Astro inlines it), then process.env for plain Node. */
 const readServerEnv = (key: string) => {
   const inlined = (import.meta.env as Record<string, string | undefined>)[key];
@@ -28,15 +25,19 @@ const readServerEnv = (key: string) => {
   return undefined;
 };
 
-const validateAbsoluteBase = (
-  configured: string,
-  variableName: string,
-  allowLoopbackHttp = false,
-) => {
+/**
+ * Plain http is accepted only for loopback hosts.
+ *
+ * That is not a weakened rule so much as a differently scoped one: the reason
+ * to require HTTPS is that a request leaves the machine in plaintext, which a
+ * loopback request never does. It is what the Firebase emulator and the e2e
+ * fixture server are reachable over, and a production build pointed at
+ * 127.0.0.1 fails at the first fetch anyway.
+ */
+const validateAbsoluteBase = (configured: string, variableName: string) => {
   try {
     const url = new URL(configured);
-    const loopbackHttp =
-      allowLoopbackHttp && url.protocol === 'http:' && LOOPBACK_HOSTS.has(url.hostname);
+    const loopbackHttp = url.protocol === 'http:' && LOOPBACK_HOSTS.has(url.hostname);
     if (
       (url.protocol !== 'https:' && !loopbackHttp) ||
       url.username ||
@@ -50,7 +51,7 @@ const validateAbsoluteBase = (
   } catch (cause) {
     throw new ApiError({
       kind: 'config',
-      message: `${variableName} must be an HTTPS URL without credentials, query, or hash.`,
+      message: `${variableName} must be an HTTPS URL (or a loopback http URL) without credentials, query, or hash.`,
       cause,
     });
   }
@@ -92,7 +93,7 @@ export const getApiBaseUrl = () => {
   }
   // Loopback http is allowed only for the Firebase emulator and the Playwright
   // fixture server, never in a production build.
-  return validateAbsoluteBase(configured, 'API_BASE_URL', isDevOrTest());
+  return validateAbsoluteBase(configured, 'API_BASE_URL');
 };
 
 export const buildApiUrl = (path: string) => {

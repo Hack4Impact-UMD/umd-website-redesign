@@ -1,17 +1,16 @@
 import { ArrowRight } from 'lucide-react';
 import { useMemo, useState } from 'react';
 
-import { getProjects, type ProjectEntity } from '@/api';
-import projectsBackground from '@/components/assets/about/projects-background.webp';
+import type { ProjectEntity } from '@/api';
+import projectsBackground from '@/components/assets/about/projects-background.webp?url';
 import ApplyLink from '@/components/apply/ApplyLink';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import { AsyncError } from '@/components/shared';
 import type { AboutContent } from '@/content-schema/about';
-import { useApiResource } from '@/hooks';
 import { resolveMediaUrl } from '@/lib/media';
 
 type CurrentProjectsSectionProps = Omit<AboutContent['currentProjects'], 'projectPaths'> & {
   projectPaths?: string[];
+  /** Fetched at build time by the page; already filtered to current projects. */
+  projectEntities: ProjectEntity[];
 };
 
 export default function CurrentProjectsSection({
@@ -19,14 +18,10 @@ export default function CurrentProjectsSection({
   linkLabel,
   linkHref,
   projectPaths = [],
+  projectEntities,
 }: CurrentProjectsSectionProps) {
-  const result = useApiResource(
-    (signal) => getProjects({ filter: { kind: 'current', value: true }, signal }),
-    [],
-  );
-
   const projects = useMemo(() => {
-    const currentProjects = result.data ?? [];
+    const currentProjects = projectEntities;
     if (projectPaths.length === 0) return currentProjects;
 
     const projectsByPath = new Map(
@@ -36,7 +31,7 @@ export default function CurrentProjectsSection({
       const project = projectsByPath.get(path);
       return project ? [project] : [];
     });
-  }, [projectPaths, result.data]);
+  }, [projectPaths, projectEntities]);
 
   return (
     <section
@@ -60,15 +55,7 @@ export default function CurrentProjectsSection({
           </ApplyLink>
         </div>
 
-        {result.status === 'loading' ? (
-          <div className="rounded-lg bg-card p-10">
-            <LoadingSpinner text="Loading current projects..." />
-          </div>
-        ) : result.status === 'error' ? (
-          <div className="rounded-lg bg-card p-6">
-            <AsyncError message="Current projects are unavailable right now." onRetry={result.retry} />
-          </div>
-        ) : projects.length === 0 ? (
+        {projects.length === 0 ? (
           <p className="rounded-lg bg-card px-6 py-8 text-center text-base text-muted-foreground">
             No current project teams are available right now.
           </p>

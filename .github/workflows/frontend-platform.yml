@@ -26,11 +26,21 @@ jobs:
       - run: npm --prefix frontend ci
       - name: Audit production dependencies
         run: npm --prefix frontend audit --omit=dev --audit-level=high
-      - name: Typecheck, unit test, and build
+      - name: Typecheck and unit test
         run: |
           npm --prefix frontend run typecheck
           npm --prefix frontend test
-          npm --prefix frontend run build
+      # The build now fetches content over HTTP, so it is pointed at the same
+      # deterministic fixture server the e2e suite uses. CI must never depend on
+      # the live Cloud Function, or merges become contingent on service uptime.
+      - name: Build against the fixture API
+        working-directory: frontend
+        env:
+          API_BASE_URL: http://127.0.0.1:4319
+        run: |
+          node e2e/mock-api/server.mjs &
+          npx wait-on http://127.0.0.1:4319/health -t 30000
+          npm run build
       - name: Ensure build output is ignored
         run: test -z "$(git status --porcelain)"
 
