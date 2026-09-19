@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
-import { defaultSiteSettings } from '@/content/site-settings';
+import { defaultSiteSettings } from '@/content-schema/site-settings';
 import Navbar from './Navbar';
 
 describe('Navbar', () => {

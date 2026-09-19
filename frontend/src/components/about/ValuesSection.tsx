@@ -1,4 +1,4 @@
-import type { AboutContent } from '@/content/about';
+import type { AboutContent } from '@/content-schema/about';
 import { resolveMediaUrl } from '@/lib/media';
 
 type ValuesSectionProps = AboutContent['values'];

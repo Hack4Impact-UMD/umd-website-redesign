@@ -15,7 +15,7 @@ import ContactUs from './pages/ContactUs';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import ScrollToTopButton from './components/buttons/ScrollToTopButton';
-import { defaultSiteSettings, resolveSiteSettingsContent } from './content/site-settings';
+import { defaultSiteSettings, resolveSiteSettingsContent } from './content-schema/site-settings';
 import { useApiResource } from './hooks';
 
 const loadSiteSettings = (signal: AbortSignal) => getContentDocument('site-settings', signal);

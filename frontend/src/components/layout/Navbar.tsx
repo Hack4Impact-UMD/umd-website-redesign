@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg';
-import { defaultSiteSettings, type SiteSettings } from '@/content/site-settings';
+import { defaultSiteSettings, type SiteSettings } from '@/content-schema/site-settings';
 import { resolveMediaUrl } from '@/lib/media';
 import { cn } from '@/lib/utils';
 

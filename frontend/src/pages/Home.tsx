@@ -8,7 +8,7 @@ import NewsletterSection from '@/components/home/NewsletterSection';
 import NonprofitMapSection from '@/components/home/NonprofitMapSection';
 import SponsorsSection from '@/components/home/SponsorsSection';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
-import { defaultHomeContent, normalizeHomeContent } from '@/content/home';
+import { defaultHomeContent, normalizeHomeContent } from '@/content-schema/home';
 import { useApiResource } from '@/hooks';
 
 const loadHomeContent = (signal: AbortSignal) => getContentDocument('home', signal);

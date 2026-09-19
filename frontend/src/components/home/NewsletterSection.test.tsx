@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import { defaultHomeContent } from '@/content/home';
+import { defaultHomeContent } from '@/content-schema/home';
 import NewsletterSection from './NewsletterSection';
 
 describe('NewsletterSection', () => {

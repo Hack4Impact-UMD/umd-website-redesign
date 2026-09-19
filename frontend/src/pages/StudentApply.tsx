@@ -20,7 +20,7 @@ import ApplyTestimonials from '@/components/apply/ApplyTestimonials';
 import ApplyTimeline from '@/components/apply/ApplyTimeline';
 import RoleCard from '@/components/apply/RoleCard';
 import ContentNotice from '@/components/shared/ContentNotice';
-import { normalizeApplyStudentContent, type ApplicationStatus } from '@/content/apply';
+import { normalizeApplyStudentContent, type ApplicationStatus } from '@/content-schema/apply';
 import { useApiResource } from '@/hooks';
 
 const roleIcons: Record<string, LucideIcon> = {

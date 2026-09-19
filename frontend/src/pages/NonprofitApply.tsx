@@ -8,7 +8,7 @@ import ApplicationStatusBanner from '@/components/apply/ApplicationStatusBanner'
 import ApplyTestimonials from '@/components/apply/ApplyTestimonials';
 import ApplyTimeline from '@/components/apply/ApplyTimeline';
 import ContentNotice from '@/components/shared/ContentNotice';
-import { normalizeApplyNonprofitContent } from '@/content/apply';
+import { normalizeApplyNonprofitContent } from '@/content-schema/apply';
 import { useApiResource } from '@/hooks';
 
 const placeholder = normalizeApplyNonprofitContent(null);

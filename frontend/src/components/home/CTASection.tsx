@@ -1,4 +1,4 @@
-import type { HomeContent } from '@/content/home';
+import type { HomeContent } from '@/content-schema/home';
 import HomeActionLink from './HomeActionLink';
 
 interface CTASectionProps {

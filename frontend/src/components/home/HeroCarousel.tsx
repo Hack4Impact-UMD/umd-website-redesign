@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 
-import type { HomeContent } from '@/content/home';
+import type { HomeContent } from '@/content-schema/home';
 import { resolveMediaUrl } from '@/lib/media';
 import HomeActionLink from './HomeActionLink';
 

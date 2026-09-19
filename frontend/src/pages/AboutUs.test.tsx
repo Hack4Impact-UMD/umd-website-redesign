@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { getContentDocument, getMembers, getProjects } from '@/api';
-import { defaultAboutContent } from '@/content/about';
+import { defaultAboutContent } from '@/content-schema/about';
 import AboutUs from './AboutUs';
 
 vi.mock('@/api', async (importOriginal) => {

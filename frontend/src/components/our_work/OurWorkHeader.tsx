@@ -1,4 +1,4 @@
-import type { OurWorkContent } from '@/content/our-work';
+import type { OurWorkContent } from '@/content-schema/our-work';
 import styles from '../../styles/our_work/OurWorkHeader.module.css';
 
 type OurWorkHeaderProps = OurWorkContent['header'];

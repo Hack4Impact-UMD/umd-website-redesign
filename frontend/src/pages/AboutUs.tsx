@@ -8,7 +8,7 @@ import {
   MembersSection,
 } from '@/components/about';
 import LoadingSpinner from '@/components/LoadingSpinner';
-import { defaultAboutContent, normalizeAboutContent } from '@/content/about';
+import { defaultAboutContent, normalizeAboutContent } from '@/content-schema/about';
 import { useApiResource } from '@/hooks';
 
 export default function AboutUs() {

@@ -1,4 +1,4 @@
-import type { HomeContent } from '@/content/home';
+import type { HomeContent } from '@/content-schema/home';
 
 interface ImpactSectionProps {
   content: HomeContent['impact'];
