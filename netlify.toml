@@ -4,11 +4,23 @@
   publish = "dist"
 
 [build.environment]
+  # Astro 7 requires Node >=22.12.
   NODE_VERSION = "22"
+  # Absolute base for server-side content fetching during the build. A
+  # same-origin /api path cannot be resolved outside a browser, so this is
+  # required rather than optional.
+  #
+  # Lives here rather than in the Netlify UI because the same Function URL is
+  # already hardcoded in the redirect below: splitting the two across a file
+  # and a dashboard means a host change silently updates one and not the other.
+  # Note netlify.toml wins over UI-set variables, so overriding this is a code
+  # change by design.
+  API_BASE_URL = "https://us-central1-umd-website-f3e79.cloudfunctions.net/api"
 
 # The browser still fetches /api/media/* through this proxy: Storage rules deny
 # public reads, so images are served by the Function. Build-time content fetches
-# use API_BASE_URL (set in the Netlify UI) and do not pass through here.
+# go direct via API_BASE_URL above and do not pass through here. The two must
+# point at the same Function; deployment-config.test.ts asserts that.
 [[redirects]]
   from = "/api/*"
   to = "https://us-central1-umd-website-f3e79.cloudfunctions.net/api/:splat"

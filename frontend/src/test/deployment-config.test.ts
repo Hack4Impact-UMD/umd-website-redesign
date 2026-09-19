@@ -44,6 +44,20 @@ describe('static deployment routing', () => {
     expect(exists('frontend/public/_redirects')).toBe(false);
   });
 
+  it('points the build-time fetch base at the same Function as the proxy', () => {
+    const config = read('netlify.toml');
+
+    // The build fetches content directly from API_BASE_URL while the browser
+    // fetches media through the redirect. They are two references to one
+    // service, so they drift silently if nothing checks them.
+    const apiBase = config.match(/API_BASE_URL\s*=\s*"([^"]+)"/)?.[1];
+    const proxyTarget = config.match(/to\s*=\s*"([^"]+)\/:splat"/)?.[1];
+
+    expect(apiBase).toBeDefined();
+    expect(apiBase).toMatch(/^https:\/\//);
+    expect(apiBase).toBe(proxyTarget);
+  });
+
   it('has no hand-written index.html that would clobber the generated one', () => {
     // Astro writes dist/index.html. Anything in public/ is copied over the top
     // of it, so a stray index.html silently replaces the home page.
