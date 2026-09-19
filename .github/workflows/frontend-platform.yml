@@ -24,6 +24,15 @@ jobs:
           cache: npm
           cache-dependency-path: frontend/package-lock.json
       - run: npm --prefix frontend ci
+      # Node 22 ships npm 10, whose `audit --omit=dev` posts to
+      # /security/audits/quick. That endpoint is being retired, and it rejects
+      # this tree with "Invalid package tree": sharp's optional binaries for
+      # other platforms (@img/sharp-freebsd-wasm32, @img/sharp-webcontainers-wasm32)
+      # pull in @img/sharp-wasm32, which npm installs but cannot attribute on
+      # linux-x64, so it reports it as extraneous. npm 11 uses the maintained
+      # /security/advisories/bulk endpoint instead.
+      - name: Use npm 11 for the audit endpoint
+        run: npm install -g npm@^11
       - name: Audit production dependencies
         run: npm --prefix frontend audit --omit=dev --audit-level=high
       - name: Typecheck and unit test
