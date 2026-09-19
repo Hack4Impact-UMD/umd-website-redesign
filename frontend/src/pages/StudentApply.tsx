@@ -37,7 +37,7 @@ const roleIcons: Record<string, LucideIcon> = {
 const placeholder = normalizeApplyStudentContent(null);
 
 const loadStudentContent = async (signal: AbortSignal) =>
-  normalizeApplyStudentContent(await getContentDocument('apply/student', signal));
+  normalizeApplyStudentContent(await getContentDocument('apply/student', { signal }));
 
 const APPLICATION_CLOSES_AT_ET = '2026-08-04T00:00:00-04:00';
 const APPLICATION_CLOSES_AT_MS = new Date(APPLICATION_CLOSES_AT_ET).getTime();

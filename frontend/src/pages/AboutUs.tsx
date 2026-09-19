@@ -12,7 +12,7 @@ import { defaultAboutContent, normalizeAboutContent } from '@/content-schema/abo
 import { useApiResource } from '@/hooks';
 
 export default function AboutUs() {
-  const result = useApiResource((signal) => getContentDocument('about', signal), []);
+  const result = useApiResource((signal) => getContentDocument('about', { signal }), []);
 
   if (result.status === 'loading') {
     return (

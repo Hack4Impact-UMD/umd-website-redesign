@@ -103,11 +103,15 @@ export const buildApiUrl = (path: string) => {
   return `${getApiBaseUrl()}/${normalizedPath}`;
 };
 
-interface ApiGetOptions<TSchema extends ZodTypeAny> {
-  schema: TSchema;
+/** Per-request knobs shared by every loader in this directory. */
+export interface ApiRequestOptions {
   signal?: AbortSignal;
   retries?: number;
   timeoutMs?: number;
+}
+
+interface ApiGetOptions<TSchema extends ZodTypeAny> extends ApiRequestOptions {
+  schema: TSchema;
   fetcher?: typeof fetch;
 }
 

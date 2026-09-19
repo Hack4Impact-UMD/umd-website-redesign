@@ -1,17 +1,16 @@
 import { projectsResponseSchema, type ProjectEntity, type ProjectsResponse } from './contracts';
 import { ApiError } from './errors';
-import { apiGet } from './http';
+import { apiGet, type ApiRequestOptions } from './http';
 import { MAX_PAGE_COUNT, projectQuery, type ProjectFilter } from './query';
 
-interface ProjectRequestOptions {
+interface ProjectRequestOptions extends ApiRequestOptions {
   filter?: ProjectFilter;
   pageSize?: number;
-  signal?: AbortSignal;
 }
 
 export const getProjectsPage = (page: number, options: ProjectRequestOptions = {}) => {
   const query = projectQuery(page, options.pageSize ?? 100, options.filter);
-  return apiGet(`projects?${query}`, { schema: projectsResponseSchema, signal: options.signal });
+  return apiGet(`projects?${query}`, { schema: projectsResponseSchema, signal: options.signal, retries: options.retries, timeoutMs: options.timeoutMs });
 };
 
 export const getProjects = async (options: ProjectRequestOptions = {}): Promise<ProjectEntity[]> => {

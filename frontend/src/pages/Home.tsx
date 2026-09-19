@@ -11,7 +11,7 @@ import TestimonialsSection from '@/components/home/TestimonialsSection';
 import { defaultHomeContent, normalizeHomeContent } from '@/content-schema/home';
 import { useApiResource } from '@/hooks';
 
-const loadHomeContent = (signal: AbortSignal) => getContentDocument('home', signal);
+const loadHomeContent = (signal: AbortSignal) => getContentDocument('home', { signal });
 
 export default function Home() {
   const { data, status } = useApiResource(loadHomeContent);

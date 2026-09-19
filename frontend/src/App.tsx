@@ -18,7 +18,7 @@ import ScrollToTopButton from './components/buttons/ScrollToTopButton';
 import { defaultSiteSettings, resolveSiteSettingsContent } from './content-schema/site-settings';
 import { useApiResource } from './hooks';
 
-const loadSiteSettings = (signal: AbortSignal) => getContentDocument('site-settings', signal);
+const loadSiteSettings = (signal: AbortSignal) => getContentDocument('site-settings', { signal });
 
 const ScrollToTopWrapper = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();

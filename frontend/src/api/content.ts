@@ -1,5 +1,5 @@
 import { contentResponseSchema } from './contracts';
-import { apiGet } from './http';
+import { apiGet, type ApiRequestOptions } from './http';
 
 export type ContentKey =
   | 'home'
@@ -9,7 +9,10 @@ export type ContentKey =
   | 'apply/nonprofit'
   | 'site-settings';
 
-export const getContentDocument = async (key: ContentKey, signal?: AbortSignal) => {
-  const response = await apiGet(`content/${key}`, { schema: contentResponseSchema, signal });
+export const getContentDocument = async (key: ContentKey, options: ApiRequestOptions = {}) => {
+  const response = await apiGet(`content/${key}`, {
+    schema: contentResponseSchema,
+    ...options,
+  });
   return response.data;
 };

@@ -5,7 +5,7 @@ import OurWorkHeader from '../components/our_work/OurWorkHeader';
 import OurWorkProjectLibrary from '../components/our_work/OurWorkProjectLibrary';
 import styles from '../styles/our_work/OurWork.module.css';
 
-const loadOurWorkContent = (signal: AbortSignal) => getContentDocument('our-work', signal);
+const loadOurWorkContent = (signal: AbortSignal) => getContentDocument('our-work', { signal });
 
 const OurWork = () => {
   const { data, status } = useApiResource(loadOurWorkContent);
