@@ -6,14 +6,39 @@ const DEFAULT_RETRIES = 1;
 
 const trimSlashes = (value: string) => value.replace(/\/+$/, '');
 
-export const getApiBaseUrl = () => {
-  const configured = import.meta.env.VITE_API_URL?.trim();
-  if (!configured || configured === '/api' || configured === '/api/') return '/api';
+const LOOPBACK_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]']);
 
+/**
+ * `true` while rendering on a server (Astro's static build). Read through a
+ * helper so tests can stub it; Vitest's stubEnv coerces values to strings.
+ */
+const isServerRuntime = () => {
+  const ssr: unknown = import.meta.env.SSR;
+  return ssr === true || ssr === 'true';
+};
+
+const isDevOrTest = () =>
+  Boolean(import.meta.env.DEV) || import.meta.env.MODE === 'test';
+
+/** import.meta.env first (Astro inlines it), then process.env for plain Node. */
+const readServerEnv = (key: string) => {
+  const inlined = (import.meta.env as Record<string, string | undefined>)[key];
+  if (inlined) return inlined;
+  if (typeof process !== 'undefined' && process.env) return process.env[key];
+  return undefined;
+};
+
+const validateAbsoluteBase = (
+  configured: string,
+  variableName: string,
+  allowLoopbackHttp = false,
+) => {
   try {
     const url = new URL(configured);
+    const loopbackHttp =
+      allowLoopbackHttp && url.protocol === 'http:' && LOOPBACK_HOSTS.has(url.hostname);
     if (
-      url.protocol !== 'https:' ||
+      (url.protocol !== 'https:' && !loopbackHttp) ||
       url.username ||
       url.password ||
       url.search ||
@@ -25,10 +50,49 @@ export const getApiBaseUrl = () => {
   } catch (cause) {
     throw new ApiError({
       kind: 'config',
-      message: 'VITE_API_URL must be /api or an HTTPS URL without credentials, query, or hash.',
+      message: `${variableName} must be an HTTPS URL without credentials, query, or hash.`,
       cause,
     });
   }
+};
+
+/**
+ * Base for URLs that end up in rendered HTML (image `src`, links).
+ *
+ * Always same-origin `/api` unless explicitly overridden, so Netlify's proxy
+ * and CDN stay in front of the Cloud Function. The static build must never
+ * bake an absolute function URL into permanent HTML.
+ */
+export const getPublicApiBaseUrl = () => {
+  const configured = (
+    import.meta.env.PUBLIC_API_URL ?? import.meta.env.VITE_API_URL
+  )?.trim();
+  if (!configured || configured === '/api' || configured === '/api/') return '/api';
+  return validateAbsoluteBase(configured, 'PUBLIC_API_URL');
+};
+
+/**
+ * Base for requests this process issues.
+ *
+ * In a browser that is the public base. On a server there is no origin to be
+ * relative to, so an absolute API_BASE_URL is required and its absence is a
+ * hard configuration error rather than a silent fallback.
+ */
+export const getApiBaseUrl = () => {
+  if (!isServerRuntime()) return getPublicApiBaseUrl();
+
+  const configured = readServerEnv('API_BASE_URL')?.trim();
+  if (!configured) {
+    throw new ApiError({
+      kind: 'config',
+      message:
+        'API_BASE_URL must be set to an absolute API URL when fetching on the server. ' +
+        'A same-origin /api path cannot be resolved outside a browser.',
+    });
+  }
+  // Loopback http is allowed only for the Firebase emulator and the Playwright
+  // fixture server, never in a production build.
+  return validateAbsoluteBase(configured, 'API_BASE_URL', isDevOrTest());
 };
 
 export const buildApiUrl = (path: string) => {

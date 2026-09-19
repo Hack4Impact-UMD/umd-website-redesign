@@ -1,4 +1,4 @@
-import { getApiBaseUrl } from '@/api/http';
+import { getPublicApiBaseUrl } from '@/api/http';
 
 const SAFE_STORAGE_ROOTS = new Set(['projects', 'members', 'content']);
 const ENCODED_SEPARATOR = /%2f|%5c/i;
@@ -12,7 +12,7 @@ const isSafeSegments = (value: string) => {
 const apiMediaUrl = (path: string) => {
   const suffix = path.replace(/^\/?api\/media\//, '');
   if (!isSafeSegments(suffix)) return '';
-  return `${getApiBaseUrl()}/media/${suffix}`;
+  return `${getPublicApiBaseUrl()}/media/${suffix}`;
 };
 
 export const resolveMediaUrl = (source?: string | null) => {

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { ApiError } from './errors';
-import { apiGet, buildApiUrl } from './http';
+import { apiGet, buildApiUrl, getApiBaseUrl, getPublicApiBaseUrl } from './http';
 
 describe('apiGet', () => {
   afterEach(() => vi.unstubAllEnvs());
@@ -98,5 +98,57 @@ describe('apiGet', () => {
     expect(buildApiUrl('health')).toBe(
       'https://us-central1-example.cloudfunctions.net/api/health',
     );
+  });
+});
+
+describe('server-side API base resolution', () => {
+  afterEach(() => vi.unstubAllEnvs());
+
+  it('requires an absolute API_BASE_URL when rendering on a server', () => {
+    vi.stubEnv('SSR', true);
+    expect(() => getApiBaseUrl()).toThrow(expect.objectContaining({ kind: 'config' }));
+  });
+
+  it('does not fall back to same-origin /api on a server', () => {
+    vi.stubEnv('SSR', true);
+    vi.stubEnv('VITE_API_URL', '/api');
+    // /api is meaningless without an origin, so this must fail loudly rather
+    // than produce an unfetchable relative URL during the build.
+    expect(() => getApiBaseUrl()).toThrow(expect.objectContaining({ kind: 'config' }));
+  });
+
+  it('uses API_BASE_URL for server-side fetches', () => {
+    vi.stubEnv('SSR', true);
+    vi.stubEnv('API_BASE_URL', 'https://us-central1-example.cloudfunctions.net/api/');
+    expect(getApiBaseUrl()).toBe('https://us-central1-example.cloudfunctions.net/api');
+  });
+
+  it.each([
+    'http://api.example.org/api',
+    'https://user:pass@api.example.org/api',
+    'https://api.example.org/api?token=secret',
+    'not a url',
+  ])('rejects unsafe API_BASE_URL %s', (baseUrl) => {
+    vi.stubEnv('SSR', true);
+    vi.stubEnv('API_BASE_URL', baseUrl);
+    expect(() => getApiBaseUrl()).toThrow(expect.objectContaining({ kind: 'config' }));
+  });
+
+  it('allows loopback http for the emulator and the e2e fixture server', () => {
+    vi.stubEnv('SSR', true);
+    vi.stubEnv('API_BASE_URL', 'http://127.0.0.1:5001/demo-umd-website/us-central1/api');
+    expect(getApiBaseUrl()).toBe('http://127.0.0.1:5001/demo-umd-website/us-central1/api');
+  });
+
+  it('keeps the public base same-origin even when API_BASE_URL is absolute', () => {
+    vi.stubEnv('SSR', true);
+    vi.stubEnv('API_BASE_URL', 'https://us-central1-example.cloudfunctions.net/api');
+    expect(getPublicApiBaseUrl()).toBe('/api');
+  });
+
+  it('prefers PUBLIC_API_URL over VITE_API_URL for the public base', () => {
+    vi.stubEnv('VITE_API_URL', 'https://old.example.org/api');
+    vi.stubEnv('PUBLIC_API_URL', 'https://new.example.org/api');
+    expect(getPublicApiBaseUrl()).toBe('https://new.example.org/api');
   });
 });

@@ -31,3 +31,20 @@ describe('URL safety', () => {
     expect(isSafeCtaUrl('javascript:alert(1)')).toBe(false);
   });
 });
+
+describe('media URLs during a static build', () => {
+  afterEach(() => vi.unstubAllEnvs());
+
+  it('stays same-origin on the server so the CDN proxy is not bypassed', () => {
+    vi.stubEnv('SSR', true);
+    vi.stubEnv('API_BASE_URL', 'https://us-central1-example.cloudfunctions.net/api');
+
+    // The build fetches through API_BASE_URL, but anything written into the
+    // generated HTML must stay relative: an absolute cloudfunctions.net src
+    // would be permanent, skip Netlify's CDN, and leak the function URL.
+    expect(resolveMediaUrl('/api/media/projects/p/image.png')).toBe(
+      '/api/media/projects/p/image.png',
+    );
+    expect(resolveMediaUrl('members/1/avatar.jpg')).toBe('/api/media/members/1/avatar.jpg');
+  });
+});
