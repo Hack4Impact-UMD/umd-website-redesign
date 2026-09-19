@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 
 import { cn } from '@/lib/utils';
 import { isSafeCtaUrl } from '@/lib/urls';
@@ -19,25 +18,17 @@ function ApplyLink({ href, children, className }: ApplyLinkProps) {
     );
   }
 
-  const isExternal = href.startsWith('https:') || href.startsWith('mailto:');
-
-  if (isExternal) {
-    return (
-      <a
-        href={href}
-        className={cn(className)}
-        target={href.startsWith('https:') ? '_blank' : undefined}
-        rel={href.startsWith('https:') ? 'noreferrer' : undefined}
-      >
-        {children}
-      </a>
-    );
-  }
+  const opensNewTab = href.startsWith('https:');
 
   return (
-    <Link to={href} className={cn(className)}>
+    <a
+      href={href}
+      className={cn(className)}
+      target={opensNewTab ? '_blank' : undefined}
+      rel={opensNewTab ? 'noreferrer' : undefined}
+    >
       {children}
-    </Link>
+    </a>
   );
 }
 

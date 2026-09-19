@@ -1,6 +1,5 @@
 import { ArrowRight } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { getProjects, type ProjectEntity } from '@/api';
 import projectsBackground from '@/components/assets/about/projects-background.webp';
@@ -98,8 +97,8 @@ function CurrentProjectCard({ project }: CurrentProjectCardProps) {
 
   return (
     <article className="group relative h-[400px] overflow-hidden rounded-lg bg-card shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
-      <Link
-        to={href}
+      <a
+        href={href}
         aria-label={`View ${title} project`}
         className="absolute inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-h4i-blue"
       >
@@ -147,7 +146,7 @@ function CurrentProjectCard({ project }: CurrentProjectCardProps) {
             <ArrowRight className="h-[15px] w-[15px]" aria-hidden="true" />
           </span>
         </div>
-      </Link>
+      </a>
     </article>
   );
 }

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { getProjects, type ProjectEntity } from '@/api';
 import { useApiResource } from '@/hooks';
 import { resolveMediaUrl } from '@/lib/media';
@@ -177,13 +176,13 @@ const OurWorkProjectLibrary = ({
             <h3 className={styles.projectTitle}>{project.title}</h3>
             {metadata ? <p className={styles.projectSubtitle}>{metadata}</p> : null}
           </div>
-          <Link
+          <a
             className={styles.arrowButton}
-            to={`/ourwork/${encodeURIComponent(project.path)}`}
+            href={`/ourwork/${encodeURIComponent(project.path)}`}
             aria-label={`Open ${project.title}`}
           >
             <span aria-hidden="true">→</span>
-          </Link>
+          </a>
         </div>
       </article>
     );

@@ -1,5 +1,4 @@
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 import { getProjects } from '@/api';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -31,12 +30,12 @@ export default function FeaturedProjectsSection() {
               Featured Projects
             </h2>
           </div>
-          <Link
-            to="/ourwork"
+          <a
+            href="/ourwork"
             className="font-heading text-label font-bold text-text-secondary underline underline-offset-4 transition-colors hover:text-h4i-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
           >
             Explore all projects
-          </Link>
+          </a>
         </div>
 
         {result.status === 'loading' ? (
@@ -63,8 +62,8 @@ export default function FeaturedProjectsSection() {
                   key={project.id}
                   className="group overflow-hidden rounded-lg bg-white shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
                 >
-                  <Link
-                    to={`/ourwork/${encodeURIComponent(project.attributes.path)}`}
+                  <a
+                    href={`/ourwork/${encodeURIComponent(project.attributes.path)}`}
                     aria-label={`View ${title} project`}
                     className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-h4i-blue"
                   >
@@ -89,7 +88,7 @@ export default function FeaturedProjectsSection() {
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
                       </span>
                     </div>
-                  </Link>
+                  </a>
                 </article>
               );
             })}

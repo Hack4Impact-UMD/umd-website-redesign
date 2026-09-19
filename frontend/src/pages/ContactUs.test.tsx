@@ -1,12 +1,11 @@
 import { render, screen, within } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 
 import ContactUs from './ContactUs';
 
 describe('ContactUs', () => {
   it('preserves the chapter email, address, and external community links', () => {
-    render(<MemoryRouter><ContactUs /></MemoryRouter>);
+    render(<ContactUs />);
 
     expect(screen.getByRole('heading', { name: 'Contact Us' })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: /student team gathered after a project presentation/i })).toBeInTheDocument();

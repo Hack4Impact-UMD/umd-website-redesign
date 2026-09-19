@@ -1,5 +1,4 @@
 import { Facebook, Github, Instagram, Linkedin, type LucideIcon } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import footerMark from '@/components/assets/h4i-footer-mark.png';
 import { defaultSiteSettings, type SiteSettings } from '@/content-schema/site-settings';
 
@@ -12,9 +11,9 @@ const socialIcons: Partial<Record<string, LucideIcon>> = {
 
 const FooterLink = ({ href, label }: { href: string; label: string }) =>
   href.startsWith('/') ? (
-    <Link to={href} className="rounded-sm text-base leading-6 text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]">
+    <a href={href} className="rounded-sm text-base leading-6 text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]">
       {label}
-    </Link>
+    </a>
   ) : (
     <a href={href} className="rounded-sm text-base leading-6 text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]">
       {label}
@@ -38,13 +37,13 @@ export default function Footer({ settings = defaultSiteSettings }: FooterProps) 
         <h2 className="sr-only">Hack4Impact UMD site links</h2>
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(240px,300px)_1fr] md:justify-between lg:gap-20">
           <div className="max-w-[300px]">
-            <Link to="/" className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]">
+            <a href="/" className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]">
               <img
                 src={footerMark}
                 alt="Hack4Impact UMD"
                 className="h-16 w-16 object-contain"
               />
-            </Link>
+            </a>
 
             <p className="mt-4 text-base leading-6 text-white/90">{footer.newsletterPrompt}</p>
             {footer.newsletterUrl && (

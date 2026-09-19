@@ -1,12 +1,11 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 import { defaultSiteSettings } from '@/content-schema/site-settings';
 import Footer from './Footer';
 
 describe('Footer', () => {
   it('does not claim a newsletter subscription that has no provider', () => {
-    render(<MemoryRouter><Footer /></MemoryRouter>);
+    render(<Footer />);
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
     expect(screen.queryByRole('link', { name: /newsletter/i })).not.toBeInTheDocument();
     expect(screen.getByText(/follow our social channels/i)).toBeInTheDocument();
@@ -31,7 +30,7 @@ describe('Footer', () => {
         contact: { addressLines: ['College Park, Maryland'], email: 'chapter@example.org' },
       },
     };
-    render(<MemoryRouter><Footer settings={settings} /></MemoryRouter>);
+    render(<Footer settings={settings} />);
     expect(screen.getByText('Monthly chapter notes.')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Read our newsletter' })).toHaveAttribute(
       'href',

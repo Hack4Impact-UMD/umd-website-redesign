@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { getProjects } from '@/api';
@@ -32,9 +31,7 @@ describe('FeaturedProjectsSection', () => {
 
   it('shows live featured projects and a route to the full library', async () => {
     render(
-      <MemoryRouter>
-        <FeaturedProjectsSection />
-      </MemoryRouter>,
+      <FeaturedProjectsSection />,
     );
 
     expect(await screen.findByRole('heading', { name: 'Community Connect' })).toBeInTheDocument();
