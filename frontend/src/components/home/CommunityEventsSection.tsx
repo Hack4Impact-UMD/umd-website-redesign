@@ -1,8 +1,8 @@
-import classroomPhoto from '@/components/assets/apply/apply-classroom.jpg';
-import teamPhoto from '@/components/assets/apply/apply-team.jpg';
+import classroomPhoto from '@/components/assets/apply/apply-classroom.webp';
+import teamPhoto from '@/components/assets/apply/apply-team.webp';
 import teamShowcase from '@/components/assets/about/team-showcase.webp';
 import collaborationPhoto from '@/components/assets/about/values-collaboration.webp';
-import groupPhoto from '@/components/assets/h4igroup_photo.jpg';
+import groupPhoto from '@/components/assets/h4igroup_photo.webp';
 
 const eventPhotos = [
   { src: groupPhoto, alt: 'Hack4Impact UMD students at a networking event', className: 'aspect-[4/3] lg:col-span-3' },
