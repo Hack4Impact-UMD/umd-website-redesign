@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import type { ProjectMember } from '@/components/project_page/projectPageMapper';
-import { groupTeamMembers, resolveProjectRole } from './ProjectPage';
+import { groupTeamMembers, resolveProjectRole } from '@/components/project_page/projectTeam';
 
 const member = (
   id: string,
