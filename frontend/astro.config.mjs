@@ -15,9 +15,15 @@ export default defineConfig({
   output: 'static',
   integrations: [
     react(),
-    // /apply renders the same page as /apply/student and canonicalises to it,
-    // so listing both would advertise a duplicate.
-    sitemap({ filter: (page) => !/\/apply\/?$/.test(new URL(page).pathname) }),
+    sitemap({
+      filter: (page) => {
+        const { pathname } = new URL(page);
+        // /apply renders the same page as /apply/student and canonicalises to
+        // it, so listing both would advertise a duplicate. The /og/*.png cards
+        // are social-preview assets, not pages.
+        return !/\/apply\/?$/.test(pathname) && !pathname.startsWith('/og/');
+      },
+    }),
   ],
   vite: {
     resolve: { alias: { '@': src } },

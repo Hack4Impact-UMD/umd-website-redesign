@@ -3,12 +3,10 @@ import { loadContent } from '@/api/buildData';
 import NonprofitApplySections from '@/components/apply/NonprofitApplySections';
 import { normalizeApplyNonprofitContent } from '@/content-schema/apply';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { STATIC_PAGE_META } from '@/lib/pageMeta';
 
 const resolved = normalizeApplyNonprofitContent(await loadContent('apply/nonprofit'));
 ---
-<BaseLayout
-  title="Apply as a Nonprofit"
-  description="Partner with Hack4Impact-UMD to build free software for your nonprofit."
->
+<BaseLayout {...STATIC_PAGE_META['/apply/nonprofit']}>
   <NonprofitApplySections content={resolved.content} />
 </BaseLayout>

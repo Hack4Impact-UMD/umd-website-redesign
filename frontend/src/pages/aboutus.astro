@@ -3,6 +3,7 @@ import { loadContent, loadAllProjects, loadMembers } from '@/api/buildData';
 import AboutSections from '@/components/about/AboutSections';
 import { normalizeAboutContent } from '@/content-schema/about';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { STATIC_PAGE_META } from '@/lib/pageMeta';
 
 const resolved = normalizeAboutContent(await loadContent('about'));
 const projects = await loadAllProjects();
@@ -12,10 +13,7 @@ const [boardMembers, teamMembers] = await Promise.all([
   loadMembers('Current Member'),
 ]);
 ---
-<BaseLayout
-  title="About Us"
-  description="Meet the students behind Hack4Impact-UMD and the nonprofits we build software for."
->
+<BaseLayout {...STATIC_PAGE_META['/aboutus']}>
   {resolved.content && (
     <AboutSections
       content={resolved.content}
