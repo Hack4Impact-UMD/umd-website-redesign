@@ -11,6 +11,7 @@ import SponsorsSection from '@/components/home/SponsorsSection';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import { defaultHomeContent, normalizeHomeContent } from '@/content-schema/home';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { STATIC_PAGE_META } from '@/lib/pageMeta';
 
 const resolved = normalizeHomeContent(await loadContent('home'));
 const content = resolved.source === 'hidden' ? null : (resolved.content ?? defaultHomeContent);
@@ -18,7 +19,7 @@ const content = resolved.source === 'hidden' ? null : (resolved.content ?? defau
 const projects = await loadAllProjects();
 const featuredProjects = projects.filter((project) => project.attributes.isFeatured);
 ---
-<BaseLayout title="Hack4Impact-UMD">
+<BaseLayout {...STATIC_PAGE_META['/']}>
   {content ? (
     <main class="bg-background">
       {/* Above the fold and swipeable, so it hydrates immediately. */}

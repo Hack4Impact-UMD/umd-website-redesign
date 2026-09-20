@@ -7,6 +7,7 @@ import {
   normalizeApplyStudentContent,
 } from '@/content-schema/apply';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { STATIC_PAGE_META } from '@/lib/pageMeta';
 
 interface Props {
   canonicalPath: string;
@@ -25,11 +26,7 @@ const applicationIsOpen = content
   : false;
 const applicationUrl = content?.applicationStatus.applicationUrl ?? '';
 ---
-<BaseLayout
-  title="Apply as a Student"
-  description="Join Hack4Impact-UMD as a student engineer, designer, product manager or tech lead."
-  canonicalPath={canonicalPath}
->
+<BaseLayout {...STATIC_PAGE_META['/apply/student']} canonicalPath={canonicalPath}>
   <StudentApplySections content={content} applicationIsOpen={applicationIsOpen} />
 </BaseLayout>
 
