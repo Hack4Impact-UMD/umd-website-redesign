@@ -2,16 +2,25 @@
 
 # Overview
 
-To further improve the Hack4Impact-UMD chapter website, we have been given the task of redesigning and improving the current website to better showcase Hack4Impacts mission while offering a professional and friendly user experience on an attractive user interface. 
+The Hack4Impact-UMD chapter website shows the work of the chapter. It shows the
+projects, the members, and the ways to apply.
 
-Generally, we will be working on making the website more accessible, improving and adding new functionality for things like searching, improving the mobile version, and enhancing the look and feel of the website with new animations and styles.
+The public site is an Astro application in `frontend/`. Astro builds every page
+to HTML before deployment. Most pages send no JavaScript to the browser.
 
-The public website is a React and TypeScript application in `frontend/`. Its
-read-only API, Firestore data, Storage media, and FireCMS editor are in
-`backend-firebase/` and use the shared Firebase project `umd-website-f3e79`.
-Netlify remains the public production host and proxies same-origin `/api/**`
-requests to the Firebase Function. See [backend-firebase/README.md](backend-firebase/README.md)
-for the backend architecture and deployment gates.
+The read-only API, the Firestore data, the Storage media, and the FireCMS
+editor are in `backend-firebase/`. They use the Firebase project
+`umd-website-f3e79`.
+
+Netlify hosts the public site. Netlify sends `/api/**` requests to the Firebase
+Function. The build reads content from the same Function.
+
+An edit in FireCMS appears on the site after Netlify builds the site again.
+This takes 2 to 7 minutes. Read
+[docs/CONTENT_PUBLISHING.md](docs/CONTENT_PUBLISHING.md).
+
+For the backend architecture and the deployment gates, read
+[backend-firebase/README.md](backend-firebase/README.md).
 
 ## Production services map
 
@@ -56,24 +65,36 @@ are not production dependencies for the redesign.
 
 # Dependencies, Libraries, Frameworks
 
-- React, TypeScript, Vite, Tailwind CSS, React Router
+- Astro, React, TypeScript, and Tailwind CSS
 - Firebase Functions, Firestore, Storage, and FireCMS
 - Vitest, Testing Library, and Playwright
 
+Astro renders the React components to HTML during the build. Four components
+stay interactive in the browser. The site does not use a client-side router.
+
 # How To Run and Deploy Project
 
-How to run the frontend:
+Node.js 22.12 or later is necessary. Astro 7 needs this version.
+
+Start the Firebase emulator:
+
+```bash
+cd backend-firebase
+npx firebase-tools@14.1.0 emulators:start --project demo-umd-website
+```
+
+Start the frontend in a second terminal:
 
 ```bash
 npm --prefix frontend ci
 npm --prefix frontend run dev
 ```
 
-The Vite server proxies `/api` to the local Firebase Functions emulator by
-default. Override `DEV_API_PROXY_URL` in an ignored local environment file when
-needed; browser builds use same-origin `/api` unless `VITE_API_URL` is explicitly
-set. Run the Firebase stack and its validation using the commands in
-[backend-firebase/README.md](backend-firebase/README.md).
+The build reads content from the API on the server. Set `API_BASE_URL` to an
+absolute address. `frontend/.env.example` gives the emulator address. A
+relative `/api` address has no meaning on a server.
+
+Run the full validation:
 
 ```bash
 npm --prefix frontend run typecheck
@@ -82,13 +103,19 @@ npm --prefix frontend run build
 npm --prefix frontend run test:e2e
 ```
 
+Netlify builds and hosts the public site. `netlify.toml` holds the build
+command, the Node version, and `API_BASE_URL`. For the Firebase deployment
+steps, read [backend-firebase/README.md](backend-firebase/README.md).
+
 # App and content structure
 
-- `frontend/src/pages`: route-level composition
-- `frontend/src/components`: page and shared presentation components
-- `frontend/src/api`: runtime-validated, read-only API client
-- `frontend/src/content`: publication modes, page contracts, and safe local defaults
-- `backend-firebase/functions`: public API and media proxy
+- `frontend/src/pages`: the Astro pages. Each page reads its content, then gives that content to React components.
+- `frontend/src/layouts`: the page shell, the `<head>` tags, and the site chrome
+- `frontend/src/components`: the React components. Astro renders them to HTML.
+- `frontend/src/api`: the read-only API client. It checks every response against a schema.
+- `frontend/src/api/buildData.ts`: the build-time loaders. They cache each request, so one build makes about eight requests.
+- `frontend/src/content-schema`: the publication modes, the page contracts, and the local default content
+- `backend-firebase/functions`: the public API, the media proxy, and the rebuild triggers
 - `backend-firebase/cms`: authenticated editor and content collection registry
 
 Content documents use an atomic `mode`, `verifiedAt`, and `payload` envelope.
