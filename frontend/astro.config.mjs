@@ -13,6 +13,10 @@ const devApiProxyTarget =
 export default defineConfig({
   site: 'https://umd.hack4impact.org',
   output: 'static',
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "viewport",
+  },
   integrations: [
     react(),
     sitemap({
