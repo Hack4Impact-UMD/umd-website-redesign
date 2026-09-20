@@ -21,7 +21,7 @@ export const BUILD_STATE_DOCUMENT = 'netlify';
 export const COOLDOWN_MS = 5 * 60 * 1000;
 
 /** Rebuild at least this often, so time-dependent pages cannot go far stale. */
-export const MAX_BUILD_AGE_MS = 1 * 60 * 60 * 1000;
+export const MAX_BUILD_AGE_MS = 4 * 60 * 60 * 1000;
 
 export interface BuildState {
   lastTriggeredAt?: Timestamp;
