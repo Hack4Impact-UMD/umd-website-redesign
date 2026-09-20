@@ -70,6 +70,6 @@ The trigger writes to `system_build/netlify`. This document holds the cooldown
 state. Clients cannot read or write it.
 
 A scheduled function runs every 5 minutes. It starts a build if an edit is
-waiting. It also starts a build if the last build is more than 24 hours old.
-The 24 hour limit exists because the build evaluates the student application
+waiting. It also starts a build if the last build is more than 4 hours old.
+The 4 hour limit exists because the build evaluates the student application
 deadline. Without the limit, a closed application could stay open on the site.
