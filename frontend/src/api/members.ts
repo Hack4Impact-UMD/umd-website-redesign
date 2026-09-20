@@ -5,18 +5,17 @@ import {
   type MembersResponse,
 } from './contracts';
 import { ApiError } from './errors';
-import { apiGet } from './http';
+import { apiGet, type ApiRequestOptions } from './http';
 import { MAX_PAGE_COUNT, memberQuery } from './query';
 
-interface MemberRequestOptions {
+interface MemberRequestOptions extends ApiRequestOptions {
   filterStatus?: MemberDisplayStatus;
   pageSize?: number;
-  signal?: AbortSignal;
 }
 
 export const getMembersPage = (page: number, options: MemberRequestOptions = {}) => {
   const query = memberQuery(page, options.pageSize ?? 200, options.filterStatus);
-  return apiGet(`members?${query}`, { schema: membersResponseSchema, signal: options.signal });
+  return apiGet(`members?${query}`, { schema: membersResponseSchema, signal: options.signal, retries: options.retries, timeoutMs: options.timeoutMs });
 };
 
 export const getMembers = async (options: MemberRequestOptions = {}): Promise<MemberEntity[]> => {

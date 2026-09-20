@@ -20,7 +20,11 @@ import ApplyTestimonials from '@/components/apply/ApplyTestimonials';
 import ApplyTimeline from '@/components/apply/ApplyTimeline';
 import RoleCard from '@/components/apply/RoleCard';
 import ContentNotice from '@/components/shared/ContentNotice';
-import { normalizeApplyStudentContent, type ApplicationStatus } from '@/content-schema/apply';
+import {
+  APPLICATION_CLOSES_AT_MS,
+  isStudentApplicationOpen,
+  normalizeApplyStudentContent,
+} from '@/content-schema/apply';
 import { useApiResource } from '@/hooks';
 
 const roleIcons: Record<string, LucideIcon> = {
@@ -37,13 +41,7 @@ const roleIcons: Record<string, LucideIcon> = {
 const placeholder = normalizeApplyStudentContent(null);
 
 const loadStudentContent = async (signal: AbortSignal) =>
-  normalizeApplyStudentContent(await getContentDocument('apply/student', signal));
-
-const APPLICATION_CLOSES_AT_ET = '2026-08-04T00:00:00-04:00';
-const APPLICATION_CLOSES_AT_MS = new Date(APPLICATION_CLOSES_AT_ET).getTime();
-
-const isStudentApplicationOpen = (status: ApplicationStatus, now = Date.now()) =>
-  status.state === 'open' && now < APPLICATION_CLOSES_AT_MS;
+  normalizeApplyStudentContent(await getContentDocument('apply/student', { signal }));
 
 function StudentApply() {
   const resource = useApiResource(loadStudentContent);

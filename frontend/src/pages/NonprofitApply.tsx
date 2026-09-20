@@ -14,7 +14,7 @@ import { useApiResource } from '@/hooks';
 const placeholder = normalizeApplyNonprofitContent(null);
 
 const loadNonprofitContent = async (signal: AbortSignal) =>
-  normalizeApplyNonprofitContent(await getContentDocument('apply/nonprofit', signal));
+  normalizeApplyNonprofitContent(await getContentDocument('apply/nonprofit', { signal }));
 
 function NonprofitApply() {
   const resource = useApiResource(loadNonprofitContent);
