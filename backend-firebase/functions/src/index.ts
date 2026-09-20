@@ -14,3 +14,6 @@ export const apiRuntimeOptions = Object.freeze({
 } satisfies HttpsOptions);
 
 export const api = onRequest(apiRuntimeOptions, app);
+
+// Rebuild triggers. Deployed separately from `api`; see backend-firebase/README.md.
+export * from './triggers';
