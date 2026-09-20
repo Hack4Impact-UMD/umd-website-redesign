@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 
 import { isSafeCtaUrl } from '@/lib/urls';
 
@@ -15,14 +14,6 @@ export default function HomeActionLink({ href, className, children }: HomeAction
       <span className={className} aria-disabled="true">
         {children}
       </span>
-    );
-  }
-
-  if (href.startsWith('/')) {
-    return (
-      <Link to={href} className={className}>
-        {children}
-      </Link>
     );
   }
 

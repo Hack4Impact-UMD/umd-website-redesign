@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { getContentDocument, getMembers, getProjects } from '@/api';
@@ -81,9 +80,7 @@ describe('AboutUs', () => {
 
   it('renders published Firebase content with live project, board, and member data', async () => {
     render(
-      <MemoryRouter>
-        <AboutUs />
-      </MemoryRouter>,
+      <AboutUs />,
     );
 
     expect(await screen.findByRole('heading', { name: 'About Us' })).toBeInTheDocument();
@@ -111,9 +108,7 @@ describe('AboutUs', () => {
     mockedGetContent.mockRejectedValueOnce(new Error('offline'));
 
     render(
-      <MemoryRouter>
-        <AboutUs />
-      </MemoryRouter>,
+      <AboutUs />,
     );
 
     expect(await screen.findByRole('heading', { name: 'About Us' })).toBeInTheDocument();
@@ -129,9 +124,7 @@ describe('AboutUs', () => {
     });
 
     render(
-      <MemoryRouter>
-        <AboutUs />
-      </MemoryRouter>,
+      <AboutUs />,
     );
 
     expect(await screen.findByText(/We leverage technology for social good/i)).toBeInTheDocument();

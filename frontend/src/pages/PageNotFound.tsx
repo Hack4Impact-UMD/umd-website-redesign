@@ -1,5 +1,4 @@
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 export default function PageNotFound() {
   return (
@@ -10,13 +9,13 @@ export default function PageNotFound() {
         <p className="mx-auto mt-4 max-w-lg text-body text-muted-foreground">
           The page may have moved, or the address may be incomplete. Return home to keep exploring Hack4Impact UMD.
         </p>
-        <Link
-          to="/"
+        <a
+          href="/"
           className="mt-8 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-h4i-blue px-6 py-3 text-label font-bold text-white transition-colors hover:bg-state-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-4"
         >
           Go to Home
           <ArrowRight aria-hidden="true" className="h-4 w-4" />
-        </Link>
+        </a>
       </section>
     </main>
   );

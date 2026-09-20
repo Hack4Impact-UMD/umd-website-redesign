@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 
 import { defaultHomeContent } from '@/content-schema/home';
@@ -12,9 +11,7 @@ import TestimonialsSection from './TestimonialsSection';
 describe('Home sections', () => {
   it('routes the verified map card to its project detail page', () => {
     render(
-      <MemoryRouter>
-        <NonprofitMapSection content={defaultHomeContent.nonprofitMap} />
-      </MemoryRouter>,
+      <NonprofitMapSection content={defaultHomeContent.nonprofitMap} />,
     );
 
     expect(screen.getByRole('heading', { name: 'Camp Starfish' })).toBeInTheDocument();
@@ -35,9 +32,7 @@ describe('Home sections', () => {
 
   it('presents legacy sponsor assets in the Figma sponsor section', () => {
     render(
-      <MemoryRouter>
-        <SponsorsSection content={defaultHomeContent.sponsors} />
-      </MemoryRouter>,
+      <SponsorsSection content={defaultHomeContent.sponsors} />,
     );
 
     expect(screen.getByRole('heading', { name: 'Our Sponsors' })).toBeInTheDocument();

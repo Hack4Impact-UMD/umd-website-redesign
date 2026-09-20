@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { ArrowLeft, Github, Globe } from 'lucide-react';
 
 import { getProjects } from '@/api';
@@ -94,7 +94,7 @@ function ProjectPage() {
             We could not find a project at this route.
           </p>
           <Button asChild className="mt-6">
-            <Link to="/ourwork">Back to Our Work</Link>
+            <a href="/ourwork">Back to Our Work</a>
           </Button>
         </section>
       </main>
@@ -109,13 +109,13 @@ function ProjectPage() {
     <main className="bg-background">
       <section className="bg-h4i-blue px-6 py-12 text-white lg:px-16 lg:py-16">
         <div className="mx-auto max-w-7xl text-center">
-          <Link
-            to="/ourwork"
+          <a
+            href="/ourwork"
             className="mb-7 inline-flex items-center gap-2 text-body-small text-white/85 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             All projects
-          </Link>
+          </a>
           <h1 className="font-heading text-h1 font-bold text-white sm:text-display">{viewModel.title}</h1>
           {viewModel.summary ? (
             <p className="mx-auto mt-3 max-w-4xl font-body text-body-small text-white/90 sm:text-body">
@@ -232,14 +232,14 @@ function ProjectPage() {
           <h2 className="font-heading text-h2 font-bold text-foreground">Ready to Work with Us?</h2>
           <div className="mt-6 flex flex-wrap gap-4">
             <Button asChild>
-              <Link to="/apply/nonprofit">Apply as a Nonprofit</Link>
+              <a href="/apply/nonprofit">Apply as a Nonprofit</a>
             </Button>
             <Button
               asChild
               variant="outline"
               className="border-h4i-blue text-h4i-blue hover:bg-accent hover:text-h4i-blue"
             >
-              <Link to="/apply/student">I’m a Student</Link>
+              <a href="/apply/student">I’m a Student</a>
             </Button>
           </div>
         </div>

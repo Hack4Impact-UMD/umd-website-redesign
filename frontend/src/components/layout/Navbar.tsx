@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg';
 import { defaultSiteSettings, type SiteSettings } from '@/content-schema/site-settings';
@@ -37,7 +37,7 @@ const SiteLink = ({
   };
 
   return href.startsWith('/') ? (
-    <Link to={href} {...sharedProps}>{children}</Link>
+    <a href={href} {...sharedProps}>{children}</a>
   ) : (
     <a href={href} {...sharedProps}>{children}</a>
   );
@@ -89,7 +89,7 @@ export default function Navbar({ settings = defaultSiteSettings }: NavbarProps) 
         aria-label="Primary navigation"
         className="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-24"
       >
-        <Link to="/" onClick={() => handleNavClick('/')} className="flex shrink-0 items-center">
+        <a href="/" onClick={() => handleNavClick('/')} className="flex shrink-0 items-center">
           <img
             src={logo}
             onError={(event) => {
@@ -99,7 +99,7 @@ export default function Navbar({ settings = defaultSiteSettings }: NavbarProps) 
             alt="Hack4Impact UMD"
             className="h-[27px] w-auto max-w-[203px]"
           />
-        </Link>
+        </a>
 
         <ul className="hidden items-center gap-10 nav:flex">
           {settings.navbar.links.map((link, index) => {
