@@ -1,4 +1,4 @@
-import projectLibraryHero from '@/components/assets/project-library-hero.webp';
+import projectLibraryHero from '@/components/assets/project-library-hero.webp?url';
 import type { OurWorkContent } from './types';
 
 export const defaultOurWorkContent: OurWorkContent = {

@@ -1,18 +1,12 @@
 import { render, screen } from '@testing-library/react';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
-import { getProjects } from '@/api';
+import type { ProjectEntity } from '@/api';
 import FeaturedProjectsSection from './FeaturedProjectsSection';
 
-vi.mock('@/api', async (importOriginal) => ({
-  ...(await importOriginal<typeof import('@/api')>()),
-  getProjects: vi.fn(),
-}));
-
-describe('FeaturedProjectsSection', () => {
-  beforeEach(() => {
-    vi.mocked(getProjects).mockResolvedValue([
-      {
+// Projects arrive as a prop now: the page fetches them at build time.
+const featuredProjects: ProjectEntity[] = [
+  {
         id: 'featured-1',
         attributes: {
           title: 'Community Connect',
@@ -26,23 +20,18 @@ describe('FeaturedProjectsSection', () => {
           members: { data: [] },
         },
       },
-    ]);
-  });
+];
 
-  it('shows live featured projects and a route to the full library', async () => {
-    render(
-      <FeaturedProjectsSection />,
-    );
+describe('FeaturedProjectsSection', () => {
+  it('shows featured projects and a route to the full library', () => {
+    render(<FeaturedProjectsSection projects={featuredProjects} />);
 
-    expect(await screen.findByRole('heading', { name: 'Community Connect' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Community Connect' })).toBeInTheDocument();
     expect(screen.getByText('Example Partner')).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'View Community Connect project' })).toHaveAttribute(
       'href',
       '/ourwork/community%2Fconnect',
     );
     expect(screen.getByRole('link', { name: 'Explore all projects' })).toHaveAttribute('href', '/ourwork');
-    expect(getProjects).toHaveBeenCalledWith(expect.objectContaining({
-      filter: { kind: 'featured', value: true },
-    }));
   });
 });

@@ -20,17 +20,36 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: frontend/package-lock.json
       - run: npm --prefix frontend ci
+      # Node 22 ships npm 10, whose `audit --omit=dev` posts to
+      # /security/audits/quick. That endpoint is being retired, and it rejects
+      # this tree with "Invalid package tree": sharp's optional binaries for
+      # other platforms (@img/sharp-freebsd-wasm32, @img/sharp-webcontainers-wasm32)
+      # pull in @img/sharp-wasm32, which npm installs but cannot attribute on
+      # linux-x64, so it reports it as extraneous. npm 11 uses the maintained
+      # /security/advisories/bulk endpoint instead.
+      - name: Use npm 11 for the audit endpoint
+        run: npm install -g npm@^11
       - name: Audit production dependencies
         run: npm --prefix frontend audit --omit=dev --audit-level=high
-      - name: Typecheck, unit test, and build
+      - name: Typecheck and unit test
         run: |
           npm --prefix frontend run typecheck
           npm --prefix frontend test
-          npm --prefix frontend run build
+      # The build now fetches content over HTTP, so it is pointed at the same
+      # deterministic fixture server the e2e suite uses. CI must never depend on
+      # the live Cloud Function, or merges become contingent on service uptime.
+      - name: Build against the fixture API
+        working-directory: frontend
+        env:
+          API_BASE_URL: http://127.0.0.1:4319
+        run: |
+          node e2e/mock-api/server.mjs &
+          npx wait-on http://127.0.0.1:4319/health -t 30000
+          npm run build
       - name: Ensure build output is ignored
         run: test -z "$(git status --porcelain)"
 
@@ -40,7 +59,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
           cache-dependency-path: frontend/package-lock.json
       - run: npm --prefix frontend ci

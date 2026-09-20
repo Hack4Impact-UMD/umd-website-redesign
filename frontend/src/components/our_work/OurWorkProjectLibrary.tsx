@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import { getProjects, type ProjectEntity } from '@/api';
-import { useApiResource } from '@/hooks';
+import type { ProjectEntity } from '@/api';
 import { resolveMediaUrl } from '@/lib/media';
 import { formatSeason } from '@/lib/date';
-import LoadingSpinner from '../LoadingSpinner';
-import { AsyncError } from '../shared';
 import styles from '../../styles/our_work/OurWorkProjectLibrary.module.css';
-import h4iLogo from '../assets/h4i_files/h4i_logo.svg';
+import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg?url';
 
 type ProjectItem = {
   title: string;
@@ -23,6 +20,8 @@ type ProjectItem = {
 type ProjectLibraryMode = 'library' | 'related';
 
 interface OurWorkProjectLibraryProps {
+  /** Fetched at build time by the page. */
+  projects: ProjectEntity[];
   mode?: ProjectLibraryMode;
   excludePath?: string;
   limit?: number;
@@ -97,6 +96,7 @@ export const sortProjects = (a: ProjectItem, b: ProjectItem) => {
 };
 
 const OurWorkProjectLibrary = ({
+  projects,
   mode = 'library',
   excludePath,
   limit,
@@ -105,31 +105,6 @@ const OurWorkProjectLibrary = ({
   const [searchQuery, setSearchQuery] = useState('');
   const shellClassName = mode === 'related' ? styles.relatedShell : styles.sectionShell;
 
-  const projectsRes = useApiResource((signal) => getProjects({ signal }), []);
-
-  if (projectsRes.status === 'loading') {
-    return (
-      <section className={shellClassName}>
-        {mode === 'related' ? (
-          <h2 className={styles.relatedHeading}>{title || 'View More of Our Work'}</h2>
-        ) : null}
-        <LoadingSpinner text="Loading projects..." />
-      </section>
-    );
-  }
-
-  if (projectsRes.status === 'error') {
-    return (
-      <section className={shellClassName}>
-        {mode === 'related' ? (
-          <h2 className={styles.relatedHeading}>{title || 'View More of Our Work'}</h2>
-        ) : null}
-        <AsyncError message="Projects are unavailable right now." onRetry={projectsRes.retry} />
-      </section>
-    );
-  }
-
-  const projects = projectsRes.data ?? [];
 
   const normalized = projects.map(mapProject);
 

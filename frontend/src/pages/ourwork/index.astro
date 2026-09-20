@@ -1,0 +1,27 @@
+---
+import { loadAllProjects, loadContent } from '@/api/buildData';
+import OurWorkHeader from '@/components/our_work/OurWorkHeader';
+import OurWorkProjectLibrary from '@/components/our_work/OurWorkProjectLibrary';
+import { defaultOurWorkContent, normalizeOurWorkContent } from '@/content-schema/our-work';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import styles from '@/styles/our_work/OurWork.module.css';
+
+const resolved = normalizeOurWorkContent(await loadContent('our-work'));
+const content = resolved.source === 'hidden' ? null : (resolved.content ?? defaultOurWorkContent);
+
+const projects = await loadAllProjects();
+---
+<BaseLayout
+  title="Our Work"
+  description="Explore the software Hack4Impact-UMD has built with nonprofit partners."
+>
+  {content ? (
+    <main class={styles.page}>
+      <OurWorkHeader {...content.header} />
+      {/* Search is the page's primary affordance, so it hydrates on load. */}
+      <OurWorkProjectLibrary client:load projects={projects} />
+    </main>
+  ) : (
+    <main aria-label="Our work" />
+  )}
+</BaseLayout>

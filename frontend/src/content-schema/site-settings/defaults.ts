@@ -1,4 +1,4 @@
-import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg';
+import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg?url';
 import type { SiteSettings } from './types';
 
 export const defaultSiteSettings: SiteSettings = {

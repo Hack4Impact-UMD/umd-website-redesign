@@ -1,0 +1,269 @@
+---
+import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg?url';
+import { defaultSiteSettings, type SiteSettings } from '@/content-schema/site-settings';
+import { resolveMediaUrl } from '@/lib/media';
+import { cn } from '@/lib/utils';
+
+interface Props {
+  settings?: SiteSettings;
+}
+
+const { settings = defaultSiteSettings } = Astro.props;
+
+// Active state is resolved per generated page at build time, so it needs no JS
+// at all -- an improvement on the useLocation() version it replaces.
+const pathname = Astro.url.pathname;
+const isCurrentPath = (href: string) =>
+  href.startsWith('/') && (pathname === href || pathname.startsWith(`${href}/`));
+
+const logo = resolveMediaUrl(settings.branding.logo) || h4iLogo;
+
+const links = settings.navbar.links.map((link, index) => ({
+  ...link,
+  active: Boolean(
+    isCurrentPath(link.href) || link.dropdown?.some((item) => isCurrentPath(item.href)),
+  ),
+  desktopDropdownId: `desktop-nav-dropdown-${index}`,
+  mobileDropdownId: `mobile-nav-dropdown-${index}`,
+}));
+
+const desktopTrigger =
+  'flex items-center gap-1 rounded-sm py-2 text-label font-bold text-foreground transition-colors hover:text-h4i-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-4';
+const desktopItem =
+  'block px-4 py-2 text-body-small text-foreground transition-colors hover:bg-muted hover:text-h4i-blue focus-visible:bg-muted focus-visible:text-h4i-blue focus-visible:outline-none';
+const mobileTrigger =
+  'flex-1 px-6 py-4 text-lg font-bold text-foreground hover:text-h4i-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-h4i-blue';
+const mobileItem =
+  'block px-8 py-3 text-base text-foreground hover:text-h4i-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-h4i-blue';
+---
+<header
+  data-navbar
+  class="sticky top-0 z-50 w-full border-b border-border bg-card shadow-[0_1px_2px_1px_rgba(0,0,0,0.1)]"
+>
+  <nav
+    aria-label="Primary navigation"
+    class="mx-auto flex h-[68px] max-w-[1440px] items-center justify-between px-4 sm:px-6 lg:px-24"
+  >
+    <a href="/" class="flex shrink-0 items-center">
+      <img
+        src={logo}
+        alt="Hack4Impact UMD"
+        class="h-[27px] w-auto max-w-[203px]"
+        onerror={`this.onerror=null;this.src='${h4iLogo}'`}
+      />
+    </a>
+
+    <ul class="hidden items-center gap-10 nav:flex">
+      {links.map((link) => (
+        <li class="relative" data-desktop-item data-has-dropdown={link.dropdown ? 'true' : undefined}>
+          <a
+            href={link.href}
+            class={cn(desktopTrigger, link.active && 'text-h4i-blue')}
+            aria-current={link.active ? 'page' : undefined}
+            aria-haspopup={link.dropdown ? 'true' : undefined}
+            aria-controls={link.dropdown ? link.desktopDropdownId : undefined}
+            aria-expanded={link.dropdown ? 'false' : undefined}
+            data-desktop-trigger={link.dropdown ? '' : undefined}
+          >
+            {link.label}
+            {link.dropdown && (
+              <svg
+                data-chevron
+                aria-hidden="true"
+                class="h-4 w-4 transition-transform"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"
+              >
+                {/* lucide-react ChevronDown */}
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            )}
+          </a>
+          {link.dropdown && (
+            <ul
+              id={link.desktopDropdownId}
+              aria-label={`${link.label} links`}
+              hidden
+              class="absolute right-0 top-full w-48 rounded-md border border-border bg-card py-2 shadow-lg"
+            >
+              {link.dropdown.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class={desktopItem}
+                    aria-current={isCurrentPath(item.href) ? 'page' : undefined}
+                  >{item.label}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+
+    <button
+      type="button"
+      data-menu-toggle
+      class="rounded-md p-2 text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue nav:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-navigation"
+      aria-label="Open menu"
+    >
+      <svg
+        data-icon="menu" aria-hidden="true" class="h-6 w-6"
+        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      >
+        {/* lucide-react Menu */}
+        <line x1="4" x2="20" y1="12" y2="12" /><line x1="4" x2="20" y1="6" y2="6" /><line x1="4" x2="20" y1="18" y2="18" />
+      </svg>
+      <svg
+        data-icon="close" aria-hidden="true" class="hidden h-6 w-6"
+        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      >
+        {/* lucide-react X */}
+        <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+      </svg>
+    </button>
+  </nav>
+
+  <button
+    type="button"
+    data-menu-scrim
+    hidden
+    aria-label="Close navigation menu"
+    class="fixed inset-x-0 bottom-0 top-[68px] z-40 bg-black/20 backdrop-blur-sm nav:hidden"
+  ></button>
+
+  <div
+    id="mobile-navigation"
+    hidden
+    class="absolute left-0 right-0 top-full z-50 border-b border-border bg-card shadow-lg nav:hidden"
+  >
+    <ul class="flex max-h-[calc(100vh-68px)] flex-col overflow-y-auto py-2">
+      {links.map((link) => (
+        <li class="border-b border-border last:border-0">
+          <div class="flex items-center">
+            <a
+              href={link.href}
+              class={cn(mobileTrigger, link.active && 'text-h4i-blue')}
+              aria-current={link.active ? 'page' : undefined}
+            >{link.label}</a>
+            {link.dropdown && (
+              <button
+                type="button"
+                data-submenu-toggle
+                data-label={link.label}
+                class="mr-4 rounded-md p-3 hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue"
+                aria-expanded="false"
+                aria-controls={link.mobileDropdownId}
+                aria-label={`Open ${link.label} submenu`}
+              >
+                <svg
+                  data-chevron aria-hidden="true" class="h-5 w-5 transition-transform"
+                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                ><path d="m6 9 6 6 6-6" /></svg>
+              </button>
+            )}
+          </div>
+          {link.dropdown && (
+            <ul id={link.mobileDropdownId} aria-label={`${link.label} links`} hidden class="bg-muted py-1">
+              {link.dropdown.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class={mobileItem}
+                    aria-current={isCurrentPath(item.href) ? 'page' : undefined}
+                  >{item.label}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<script>
+  // Panels are rendered into the HTML and toggled with the `hidden` attribute
+  // rather than created on demand. `hidden` keeps them out of the accessibility
+  // tree, which is what both Playwright's role engine and jsdom's default
+  // stylesheet respect -- relying on the `nav:hidden` Tailwind class alone would
+  // make jsdom see two copies of every link.
+  const header = document.querySelector<HTMLElement>('[data-navbar]');
+
+  if (header) {
+    const toggle = header.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
+    const panel = header.querySelector<HTMLElement>('#mobile-navigation')!;
+    const scrim = header.querySelector<HTMLElement>('[data-menu-scrim]')!;
+    const menuIcon = toggle.querySelector<SVGElement>('[data-icon="menu"]')!;
+    const closeIcon = toggle.querySelector<SVGElement>('[data-icon="close"]')!;
+
+    const isOpen = (el: Element) => el.getAttribute('aria-expanded') === 'true';
+
+    const setMenu = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      // `hidden` is an HTMLElement property; these are SVGElements, so the
+      // icons toggle a class rather than the attribute.
+      menuIcon.classList.toggle('hidden', open);
+      closeIcon.classList.toggle('hidden', !open);
+      panel.hidden = !open;
+      scrim.hidden = !open;
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    const setSubmenu = (button: HTMLElement, open: boolean) => {
+      const list = document.getElementById(button.getAttribute('aria-controls') ?? '');
+      button.setAttribute('aria-expanded', String(open));
+      button.setAttribute('aria-label', `${open ? 'Close' : 'Open'} ${button.dataset.label} submenu`);
+      button.querySelector('[data-chevron]')?.classList.toggle('rotate-180', open);
+      if (list) list.hidden = !open;
+    };
+
+    const setDesktop = (item: HTMLElement, open: boolean) => {
+      const trigger = item.querySelector<HTMLElement>('[data-desktop-trigger]');
+      if (!trigger) return;
+      const list = document.getElementById(trigger.getAttribute('aria-controls') ?? '');
+      trigger.setAttribute('aria-expanded', String(open));
+      trigger.querySelector('[data-chevron]')?.classList.toggle('rotate-180', open);
+      if (list) list.hidden = !open;
+    };
+
+    const submenuToggles = [...header.querySelectorAll<HTMLElement>('[data-submenu-toggle]')];
+    const desktopItems = [...header.querySelectorAll<HTMLElement>('[data-desktop-item][data-has-dropdown]')];
+
+    toggle.addEventListener('click', () => setMenu(!isOpen(toggle)));
+    scrim.addEventListener('click', () => setMenu(false));
+
+    submenuToggles.forEach((button) =>
+      button.addEventListener('click', () => setSubmenu(button, !isOpen(button))),
+    );
+
+    desktopItems.forEach((item) => {
+      item.addEventListener('mouseenter', () => setDesktop(item, true));
+      item.addEventListener('mouseleave', () => setDesktop(item, false));
+      item.addEventListener('focusin', () => setDesktop(item, true));
+      item.addEventListener('focusout', (event) => {
+        const next = (event as FocusEvent).relatedTarget;
+        if (!(next instanceof Node) || !item.contains(next)) setDesktop(item, false);
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape') return;
+      const mobileWasOpen = isOpen(toggle);
+      setMenu(false);
+      submenuToggles.forEach((button) => setSubmenu(button, false));
+      desktopItems.forEach((item) => setDesktop(item, false));
+      // The React version focused the toggle even on desktop, where it is
+      // nav:hidden, which stole focus from the dropdown the user was in.
+      if (mobileWasOpen) toggle.focus();
+    });
+  }
+</script>

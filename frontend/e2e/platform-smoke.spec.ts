@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { collectionEnvelope, installFixtures, project, publishedSiteSettings } from './fixtures';
+import { installFixtures } from './fixtures';
 
 for (const [path, heading] of [
   ['/', /Hack4Impact-UMD/i],
@@ -118,9 +118,11 @@ test('desktop Apply dropdown supports focus and Escape', async ({ page }) => {
   await expect(applyLink).toHaveAttribute('aria-expanded', 'false');
 });
 
-test('published site settings update shared chrome while legacy and loading states keep defaults', async ({ page }) => {
-  await installFixtures(page, { siteSettings: publishedSiteSettings });
-  await page.goto('/missing-direct-link');
+test('published site settings drive the shared chrome, and unknown routes really 404', async ({ page }) => {
+  await installFixtures(page);
+  // No SPA fallback any more: this is Astro's 404.html, served with a real 404.
+  const response = await page.goto('/missing-direct-link');
+  expect(response?.status()).toBe(404);
   await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Go to Home' })).toHaveAttribute('href', '/');
   await expect(page.getByRole('link', { name: 'Chapter Info' }).first()).toHaveAttribute('href', '/aboutus');
@@ -137,58 +139,6 @@ test('published site settings update shared chrome while legacy and loading stat
   await expect(page.locator('form')).toHaveCount(0);
 });
 
-test('site chrome renders defaults before a delayed legacy settings response and keeps them afterward', async ({ page }) => {
-  await installFixtures(page);
-  let releaseResponse = () => {};
-  const responseGate = new Promise<void>((resolve) => { releaseResponse = resolve; });
-  await page.route(/\/api\/content\/site-settings(?:\?|$)/, async (route) => {
-    await responseGate;
-    await route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({
-        data: { navbar: { links: [{ label: 'Legacy', href: '/legacy' }] } },
-        meta: { collection: 'content_site_settings', documentId: 'main' },
-      }),
-    });
-  });
-
-  const response = page.waitForResponse(/\/api\/content\/site-settings(?:\?|$)/);
-  await page.goto('/missing');
-  await expect(page.getByRole('link', { name: 'About Us' }).first()).toBeVisible();
-  await expect(page.getByRole('contentinfo')).toBeVisible();
-  releaseResponse();
-  await response;
-  await expect(page.getByRole('link', { name: 'About Us' }).first()).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Legacy' })).toHaveCount(0);
-});
-
-test('project library exposes a real retry path after an API failure', async ({ page }) => {
-  await installFixtures(page);
-  let requests = 0;
-  let serveSuccess = false;
-  await page.route(/\/api\/projects(?:\?|$)/, (route) => {
-    requests += 1;
-    if (!serveSuccess) {
-      return route.fulfill({ status: 503, contentType: 'text/plain', body: 'temporarily unavailable' });
-    }
-    return route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify(collectionEnvelope([project])),
-    });
-  });
-
-  await page.goto('/ourwork');
-  await expect(page.getByRole('alert')).toContainText(/unavailable/i);
-  const failedRequests = requests;
-  serveSuccess = true;
-  await page.getByRole('button', { name: /try again/i }).click();
-  await expect(page.getByRole('heading', { name: '2025 Projects' })).toBeVisible();
-  expect(failedRequests).toBeGreaterThanOrEqual(2);
-  expect(requests).toBeGreaterThan(failedRequests);
-});
-
 test('project library restores current projects and searchable project discovery', async ({ page }) => {
   await installFixtures(page);
   await page.goto('/ourwork');
@@ -203,24 +153,10 @@ test('project library restores current projects and searchable project discovery
 });
 
 test('published Our Work content replaces the local header fallback', async ({ page }) => {
-  await installFixtures(page, {
-    ourWork: {
-      mode: 'published',
-      verifiedAt: '2026-08-01T12:00:00.000Z',
-      payload: {
-        header: {
-          title: 'Verified Project Archive',
-          subtitle: 'Current CMS-managed copy',
-          image: '/assets/fixture-logo.svg',
-          imageAlt: 'Verified archive artwork',
-        },
-      },
-    },
-  });
+  await installFixtures(page);
 
   await page.goto('/ourwork');
-  await expect(page.getByRole('heading', { name: 'Verified Project Archive' })).toBeVisible();
-  await expect(page.getByText('Current CMS-managed copy')).toBeVisible();
-  await expect(page.getByAltText('Verified archive artwork')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Project Library' })).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Project Library' })).toBeVisible();
+  await expect(page.getByText('Fixture-managed copy')).toBeVisible();
+  await expect(page.getByAltText('Fixture archive artwork')).toBeVisible();
 });

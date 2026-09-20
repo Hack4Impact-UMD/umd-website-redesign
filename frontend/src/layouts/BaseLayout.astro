@@ -1,0 +1,36 @@
+---
+import '@/index.css';
+
+import ScrollToTopButton from '@/components/buttons/ScrollToTopButton.astro';
+import Footer from '@/components/layout/Footer';
+import Navbar from '@/components/layout/Navbar.astro';
+import { loadSiteSettings } from '@/api/buildData';
+import { resolveSiteSettingsContent } from '@/content-schema/site-settings';
+import Head from './Head.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  canonicalPath?: string;
+  noindex?: boolean;
+}
+
+// Memoised, so the whole build fetches site settings once rather than once per page.
+// resolveSiteSettingsContent already falls back to the local defaults for
+// placeholder, legacy and invalid documents.
+const settings = resolveSiteSettingsContent(await loadSiteSettings());
+---
+<html lang="en">
+  <Head {...Astro.props} />
+  <body>
+    <div class="min-h-screen flex flex-col">
+      <Navbar settings={settings} />
+      <div class="flex-1">
+        <slot />
+      </div>
+      <Footer settings={settings} />
+      <ScrollToTopButton />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+---
+import { loadAllProjects } from '@/api/buildData';
+import ProjectPageSections from '@/components/project_page/ProjectPageSections';
+import type { ProjectApiItem } from '@/components/project_page/projectPageMapper';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await loadAllProjects();
+
+  // A slash in a slug would silently map to the wrong route on a single
+  // [projectpath] segment, so fail the build rather than publish a bad URL.
+  const nested = projects.filter((project) => project.attributes.path.includes('/'));
+  if (nested.length > 0) {
+    throw new Error(
+      `Project paths cannot contain "/": ${nested.map((p) => p.attributes.path).join(', ')}`,
+    );
+  }
+
+  return projects.map((project) => ({
+    params: { projectpath: project.attributes.path },
+    props: { project, allProjects: projects },
+  }));
+}
+
+const { project, allProjects } = Astro.props;
+const { title, summary } = project.attributes;
+---
+<BaseLayout title={title} description={summary}>
+  <ProjectPageSections project={project as ProjectApiItem} allProjects={allProjects} />
+</BaseLayout>

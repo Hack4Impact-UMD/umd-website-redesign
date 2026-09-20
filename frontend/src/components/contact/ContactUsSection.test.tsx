@@ -1,11 +1,11 @@
 import { render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 
-import ContactUs from './ContactUs';
+import ContactUsSection from './ContactUsSection';
 
 describe('ContactUs', () => {
   it('preserves the chapter email, address, and external community links', () => {
-    render(<ContactUs />);
+    render(<ContactUsSection />);
 
     expect(screen.getByRole('heading', { name: 'Contact Us' })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: /student team gathered after a project presentation/i })).toBeInTheDocument();

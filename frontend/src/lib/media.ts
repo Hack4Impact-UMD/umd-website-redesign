@@ -23,7 +23,7 @@ export const resolveMediaUrl = (source?: string | null) => {
   }
 
   if (value.startsWith('/api/media/')) return apiMediaUrl(value);
-  if (value.startsWith('/assets/') || value.startsWith('/src/')) {
+  if (value.startsWith('/assets/') || value.startsWith('/src/') || value.startsWith("/_astro/")) {
     return isSafeSegments(value) ? value : '';
   }
   if (!value.includes('://') && !value.startsWith('/')) {

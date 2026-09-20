@@ -1,15 +1,14 @@
-import groupPhoto from '@/components/assets/h4igroup_photo.webp';
-import campStarfishLogo from '@/components/assets/home/camp-starfish.png';
-import mobileGroupPhoto from '@/components/assets/home/h4igroup-photo-mobile.webp';
-import classroomPhoto from '@/components/assets/apply/apply-classroom.webp';
-import ACES from '@/components/assets/supporters/ACES.png';
-import Bloomberg from '@/components/assets/supporters/Bloomberg.png';
-import CapitalOne from '@/components/assets/supporters/CapitalOne.png';
-import CodePath from '@/components/assets/supporters/CodePath.png';
-import DoGood from '@/components/assets/supporters/DoGood.png';
-import Microsoft from '@/components/assets/supporters/Microsoft.png';
-import SmithSchool from '@/components/assets/supporters/SmithSchool.png';
-import Uber from '@/components/assets/supporters/Uber.png';
+import campStarfishLogo from '@/components/assets/home/camp-starfish.png?url';
+import mobileGroupPhoto from '@/components/assets/home/h4igroup-photo-mobile.webp?url';
+import classroomPhoto from '@/components/assets/apply/apply-classroom.webp?url';
+import ACES from '@/components/assets/supporters/ACES.png?url';
+import Bloomberg from '@/components/assets/supporters/Bloomberg.png?url';
+import CapitalOne from '@/components/assets/supporters/CapitalOne.png?url';
+import CodePath from '@/components/assets/supporters/CodePath.png?url';
+import DoGood from '@/components/assets/supporters/DoGood.png?url';
+import Microsoft from '@/components/assets/supporters/Microsoft.png?url';
+import SmithSchool from '@/components/assets/supporters/SmithSchool.png?url';
+import Uber from '@/components/assets/supporters/Uber.png?url';
 import type { HomeContent } from './types';
 
 export const defaultHomeContent: HomeContent = {

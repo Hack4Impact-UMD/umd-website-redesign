@@ -1,0 +1,27 @@
+---
+import { loadContent, loadAllProjects, loadMembers } from '@/api/buildData';
+import AboutSections from '@/components/about/AboutSections';
+import { normalizeAboutContent } from '@/content-schema/about';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const resolved = normalizeAboutContent(await loadContent('about'));
+const projects = await loadAllProjects();
+const currentProjects = projects.filter((p) => p.attributes.isCurrentProject);
+const [boardMembers, teamMembers] = await Promise.all([
+  loadMembers('Current Board Member'),
+  loadMembers('Current Member'),
+]);
+---
+<BaseLayout
+  title="About Us"
+  description="Meet the students behind Hack4Impact-UMD and the nonprofits we build software for."
+>
+  {resolved.content && (
+    <AboutSections
+      content={resolved.content}
+      currentProjects={currentProjects}
+      boardMembers={boardMembers}
+      teamMembers={teamMembers}
+    />
+  )}
+</BaseLayout>

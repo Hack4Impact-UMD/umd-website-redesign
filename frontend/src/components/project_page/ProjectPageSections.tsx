@@ -1,22 +1,17 @@
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { ArrowLeft, Github, Globe } from 'lucide-react';
 
-import { getProjects } from '@/api';
+import type { ProjectEntity } from '@/api';
 import PersonCard from '@/components/about/PersonCard';
 import ApplyLink from '@/components/apply/ApplyLink';
-import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg';
-import LoadingSpinner from '@/components/LoadingSpinner';
+import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg?url';
 import OurWorkProjectLibrary from '@/components/our_work/OurWorkProjectLibrary';
 import {
   buildProjectPageViewModel,
   type ProjectApiItem,
-  type ProjectMember,
 } from '@/components/project_page/projectPageMapper';
 import { groupTeamMembers, type TeamMemberView } from '@/components/project_page/projectTeam';
-import { AsyncError } from '@/components/shared';
 import { Button } from '@/components/ui/button';
-import { useApiResource } from '@/hooks';
 
 function TeamSection({ title, members }: { title: string; members: TeamMemberView[] }) {
   if (members.length === 0) return null;
@@ -65,42 +60,17 @@ function ProjectVisual({ src, alt }: { src: string; alt: string }) {
   );
 }
 
-function ProjectPage() {
-  const { projectpath } = useParams<{ projectpath: string }>();
-  const slug = projectpath || '';
-  const projectRes = useApiResource(
-    (signal) => getProjects({ filter: { kind: 'path', value: slug }, signal }),
-    [slug],
-  );
+interface ProjectPageSectionsProps {
+  /** Resolved from the slug at build time by getStaticPaths. */
+  project: ProjectApiItem;
+  /** Every project, for the related-projects strip. */
+  allProjects: ProjectEntity[];
+}
 
-  if (projectRes.status === 'loading') return <LoadingSpinner text="Loading project..." />;
-
-  if (projectRes.status === 'error') {
-    return (
-      <main className="mx-auto max-w-3xl px-6 py-20">
-        <AsyncError message="This project could not be loaded." onRetry={projectRes.retry} />
-      </main>
-    );
-  }
-
-  const project: ProjectApiItem | undefined = projectRes.data?.[0];
-
-  if (!project) {
-    return (
-      <main className="bg-background px-6 py-20 lg:px-16">
-        <section className="mx-auto max-w-3xl rounded-xl border border-border bg-card px-6 py-10 text-center shadow-sm sm:px-10">
-          <h1 className="font-heading text-h2 font-bold text-foreground">Project not found</h1>
-          <p className="mt-4 font-body text-body-small text-muted-foreground">
-            We could not find a project at this route.
-          </p>
-          <Button asChild className="mt-6">
-            <a href="/ourwork">Back to Our Work</a>
-          </Button>
-        </section>
-      </main>
-    );
-  }
-
+export default function ProjectPageSections({
+  project,
+  allProjects,
+}: ProjectPageSectionsProps) {
   const viewModel = buildProjectPageViewModel(project);
   const teamGroups = groupTeamMembers(viewModel.members, viewModel.title);
   const hasTeam = Object.values(teamGroups).some((members) => members.length > 0);
@@ -219,8 +189,9 @@ function ProjectPage() {
       <section className="px-6 py-16 lg:px-16 lg:py-20">
         <div className="mx-auto max-w-7xl">
           <OurWorkProjectLibrary
+            projects={allProjects}
             mode="related"
-            excludePath={viewModel.path || slug}
+            excludePath={viewModel.path}
             limit={2}
             title="View More of Our Work"
           />
@@ -248,4 +219,3 @@ function ProjectPage() {
   );
 }
 
-export default ProjectPage;

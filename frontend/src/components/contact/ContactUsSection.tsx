@@ -11,14 +11,14 @@ import {
 } from 'lucide-react';
 
 import ApplyLink from '@/components/apply/ApplyLink';
-import teamShowcase from '@/components/assets/about/team-showcase.webp';
+import teamShowcase from '@/components/assets/about/team-showcase.webp?url';
 import { defaultSiteSettings, type SiteSettings } from '@/content-schema/site-settings';
 
-interface ContactUsProps {
+interface ContactUsSectionProps {
   settings?: SiteSettings;
 }
 
-export default function ContactUs({ settings = defaultSiteSettings }: ContactUsProps) {
+export default function ContactUsSection({ settings = defaultSiteSettings }: ContactUsSectionProps) {
   const { footer } = settings;
   const socialIcons: Record<string, LucideIcon> = {
     Facebook,

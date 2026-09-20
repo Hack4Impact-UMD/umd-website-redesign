@@ -1,7 +1,7 @@
-import teamPhoto from '@/components/assets/about/team-showcase.webp';
-import valuesPhoto from '@/components/assets/about/values-collaboration.webp';
-import h4iGroupPhoto from '@/components/assets/h4igroup_photo.webp';
-import aboutHeaderPhoto from '@/components/assets/backgrounds/about_us/aboutus_header2023.webp';
+import teamPhoto from '@/components/assets/about/team-showcase.webp?url';
+import valuesPhoto from '@/components/assets/about/values-collaboration.webp?url';
+import h4iGroupPhoto from '@/components/assets/h4igroup_photo.webp?url';
+import aboutHeaderPhoto from '@/components/assets/backgrounds/about_us/aboutus_header2023.webp?url';
 import type { AboutContent } from './types';
 
 export const defaultAboutContent = {

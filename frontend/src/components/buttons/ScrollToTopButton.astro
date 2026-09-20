@@ -1,0 +1,46 @@
+---
+/**
+ * Scroll-to-top affordance.
+ *
+ * Deliberately not a React island. It renders in the shared layout, so
+ * hydrating it would pull react-dom onto every page of the site -- the exact
+ * cost the .astro Navbar exists to avoid. The behaviour is a scroll listener
+ * and a click handler, which is a few lines of vanilla JS.
+ *
+ * Rendered hidden rather than conditionally, so no JS is needed to create it.
+ */
+---
+<button
+  type="button"
+  data-scroll-top
+  hidden
+  aria-label="Scroll to Top"
+  class="fixed bottom-8 right-8 z-50 hidden h-14 w-14 items-center justify-center rounded-full bg-h4i-blue text-white shadow-lg transition-all hover:scale-110 hover:bg-h4i-blue/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
+>
+  <svg
+    aria-hidden="true" class="h-6 w-6"
+    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+  >
+    {/* lucide-react ArrowUp */}
+    <path d="m5 12 7-7 7 7" /><path d="M12 19V5" />
+  </svg>
+</button>
+
+<script>
+  const SCROLL_THRESHOLD = 300;
+  const button = document.querySelector<HTMLButtonElement>('[data-scroll-top]');
+
+  if (button) {
+    const sync = () => {
+      const show = document.documentElement.scrollTop > SCROLL_THRESHOLD;
+      button.hidden = !show;
+      button.classList.toggle('hidden', !show);
+      button.classList.toggle('flex', show);
+    };
+
+    window.addEventListener('scroll', sync, { passive: true });
+    button.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    sync();
+  }
+</script>
