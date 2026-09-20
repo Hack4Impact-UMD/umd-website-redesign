@@ -9,6 +9,7 @@ production data.
 - `functions/`: read-only public API with Strapi-compatible project/member responses
 - `cms/`: authenticated FireCMS application for admin/editor content management
 - `firestore.rules` and `storage.rules`: direct CMS access controls
+- `functions/src/triggers/`: the rebuild triggers that start a Netlify build
 - `scripts/verify-live-contract.mjs`: unauthenticated, GET-only live parity check
 - `scripts/plan-content-migration.mjs`: deterministic, file-based dry run for legacy content envelopes
 - `SOURCE_PARITY.md`: captured baseline, intentional differences, and known uncertainty
@@ -114,6 +115,42 @@ requires an authenticated Firebase user whose custom `role` claim is `admin` or
   treated as placeholders.
 - Newsletter integration remains deferred.
 
+## Rebuild triggers
+
+The public site is prerendered. An edit in FireCMS appears only after Netlify
+builds the site again.
+
+A Firestore trigger watches each `content_*` collection. It also watches
+`projects` and `members`. The trigger sends a POST request to a Netlify build
+hook.
+
+The trigger limits the number of builds. The first edit in a quiet period
+starts a build at once. An edit inside the 5 minute cooldown only records that
+a rebuild is necessary. A scheduled function runs every 5 minutes and starts
+the waiting build. A group of edits therefore costs two builds.
+
+The same scheduled function starts a build if the last build is more than 24
+hours old. The build evaluates the student application deadline, so the site
+must not stay unbuilt for a long time.
+
+The trigger writes the cooldown state to `system_build/netlify`.
+`firestore.rules` refuses every client read and write to this collection. Only
+the Admin SDK can change it.
+
+Set the build hook before you deploy the triggers:
+
+```bash
+firebase functions:secrets:set NETLIFY_BUILD_HOOK_URL
+```
+
+The hook address is a credential. Any person who has it can start a build. Do
+not put it in `firebase.json`, in a `.env` file, or in the repository. The
+source checks that the address is an `api.netlify.com` build hook, and never
+writes it to the log.
+
+For the editor instructions, read
+[../docs/CONTENT_PUBLISHING.md](../docs/CONTENT_PUBLISHING.md).
+
 ## Deployment gate
 
 This PR performs no deployment. Merging it does not authorize deployment.
@@ -127,6 +164,23 @@ firebase deploy --only functions:api --project umd-website-f3e79
 firebase deploy --only firestore:rules,storage --project umd-website-f3e79
 firebase deploy --only hosting:cms --project umd-website-f3e79
 ```
+
+Deploy the rebuild triggers one at a time:
+
+```bash
+firebase deploy --only functions:onContentHomeWrite --project umd-website-f3e79
+firebase deploy --only functions:onContentAboutWrite --project umd-website-f3e79
+firebase deploy --only functions:onContentOurWorkWrite --project umd-website-f3e79
+firebase deploy --only functions:onContentApplyStudentWrite --project umd-website-f3e79
+firebase deploy --only functions:onContentApplyNonprofitWrite --project umd-website-f3e79
+firebase deploy --only functions:onContentSiteSettingsWrite --project umd-website-f3e79
+firebase deploy --only functions:onProjectWrite --project umd-website-f3e79
+firebase deploy --only functions:onMemberWrite --project umd-website-f3e79
+firebase deploy --only functions:flushRebuild --project umd-website-f3e79
+```
+
+Deploy the triggers only after the Astro site is live on Netlify. A trigger
+that builds an unconfigured site only wastes build minutes.
 
 The `public` target additionally requires an explicitly approved site creation
 and target mapping before `firebase deploy --only hosting:public` can work. Do
