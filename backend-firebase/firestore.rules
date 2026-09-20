@@ -18,6 +18,14 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // Build bookkeeping written only by the rebuild trigger through the Admin
+    // SDK, which bypasses these rules. Denied to every client explicitly: the
+    // catch-all below already denies it, but stating it here stops a later
+    // widening of that rule from exposing it by accident.
+    match /system_build/{documentId} {
+      allow read, write: if false;
+    }
+
     // CMS-managed singleton content collections are named content_*.
     match /{collectionName}/{documentId} {
       allow read, write: if hasCmsRole()

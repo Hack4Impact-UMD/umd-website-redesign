@@ -51,6 +51,15 @@ describe('Firestore CMS roles', () => {
     await assertSucceeds(setDoc(content, { heading: 'Allowed' }));
     await assertSucceeds(deleteDoc(content));
   });
+
+  it.each(['admin', 'editor'])('denies %s access to build bookkeeping', async (role) => {
+    // system_build is written only by the rebuild trigger via the Admin SDK.
+    // Editors must not be able to read or clear the cooldown.
+    const firestore = environment.authenticatedContext(role, { role }).firestore();
+    const buildState = doc(firestore, 'system_build', 'netlify');
+    await assertFails(getDoc(buildState));
+    await assertFails(setDoc(buildState, { pendingSince: null }));
+  });
 });
 
 describe('Storage CMS roles and image constraints', () => {
