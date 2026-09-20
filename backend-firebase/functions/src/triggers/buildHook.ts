@@ -56,16 +56,34 @@ export const assertBuildHookUrl = (raw: string): string => {
   return url.toString();
 };
 
+/** Netlify shows this in the deploy list. Keep it short and readable. */
+const MAX_TITLE_LENGTH = 120;
+
+/**
+ * Build the hook address with the deploy title attached.
+ *
+ * Netlify reads trigger_title from the query string, not from the request
+ * body. A JSON body is not the title: Netlify URL-encodes it and exposes it to
+ * the build as INCOMING_HOOK_BODY, which nothing here reads.
+ * https://docs.netlify.com/build/configure-builds/build-hooks/
+ */
+export const buildHookRequestUrl = (hookUrl: string, reason: string): string => {
+  const url = new URL(hookUrl);
+  url.searchParams.set('trigger_title', `content update: ${reason}`.slice(0, MAX_TITLE_LENGTH));
+  return url.toString();
+};
+
 const postBuildHook = async (hookUrl: string, reason: string) => {
-  const response = await fetch(hookUrl, {
+  // The documented example posts a body of '{}'.
+  const response = await fetch(buildHookRequestUrl(hookUrl, reason), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ trigger_title: `content update: ${reason}` }),
+    body: '{}',
     signal: AbortSignal.timeout(10_000),
   });
 
   if (!response.ok) {
-    // Never log hookUrl: it is a credential.
+    // Never log the address: it is a credential.
     throw new Error(`Netlify build hook returned HTTP ${response.status}`);
   }
 };

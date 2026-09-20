@@ -31,6 +31,7 @@ const {
   COOLDOWN_MS,
   MAX_BUILD_AGE_MS,
   assertBuildHookUrl,
+  buildHookRequestUrl,
   flushPendingRebuild,
   requestRebuild,
 } = await import('../../src/triggers/buildHook');
@@ -69,7 +70,9 @@ describe('rebuild throttling', () => {
   it('builds immediately on the first edit', async () => {
     await expect(requestRebuild('content_home', HOOK, T0)).resolves.toBe('triggered');
     expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(fetchMock.mock.calls[0][0]).toBe(HOOK);
+    expect(fetchMock.mock.calls[0][0]).toBe(
+      `${HOOK}?trigger_title=content+update%3A+content_home`,
+    );
   });
 
   it('collapses a burst of saves into one build', async () => {
@@ -136,5 +139,42 @@ describe('rebuild throttling', () => {
   it('never sends the hook URL in the request body', async () => {
     await requestRebuild('content_home', HOOK, T0);
     expect(JSON.stringify(fetchMock.mock.calls[0][1].body)).not.toContain('build_hooks');
+  });
+});
+
+describe('buildHookRequestUrl', () => {
+  // Netlify reads trigger_title from the query string. A JSON body is not the
+  // title: Netlify exposes it to the build as INCOMING_HOOK_BODY instead, so a
+  // title sent in the body is silently ignored and every deploy keeps the
+  // default message.
+  // https://docs.netlify.com/build/configure-builds/build-hooks/
+  it('puts the deploy title in the query string', () => {
+    const url = new URL(buildHookRequestUrl(HOOK, 'content_home'));
+    expect(url.origin + url.pathname).toBe(HOOK);
+    expect(url.searchParams.get('trigger_title')).toBe('content update: content_home');
+  });
+
+  it('sends an empty JSON body, as the documented example does', async () => {
+    const fetchMock = vi.fn().mockResolvedValue({ ok: true, status: 200 });
+    vi.stubGlobal('fetch', fetchMock);
+    doc.data = undefined;
+
+    await requestRebuild('projects', HOOK, T0);
+
+    const init = fetchMock.mock.calls[0][1];
+    expect(init.method).toBe('POST');
+    expect(init.body).toBe('{}');
+  });
+
+  it('keeps any query parameters already on the hook address', () => {
+    const withBranch = `${HOOK}?trigger_branch=main`;
+    const url = new URL(buildHookRequestUrl(withBranch, 'members'));
+    expect(url.searchParams.get('trigger_branch')).toBe('main');
+    expect(url.searchParams.get('trigger_title')).toBe('content update: members');
+  });
+
+  it('shortens a long title rather than sending an unbounded query string', () => {
+    const url = new URL(buildHookRequestUrl(HOOK, 'x'.repeat(500)));
+    expect(url.searchParams.get('trigger_title')!.length).toBe(120);
   });
 });
