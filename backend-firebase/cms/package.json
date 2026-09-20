@@ -31,17 +31,7 @@
     "vitest": "^2.1.8"
   },
   "overrides": {
-    "@firecms/firebase": {
-      "@firebase/auth": "1.13.3"
-    },
-    "fdir": {
-      "picomatch": "4.0.5"
-    },
-    "tinyglobby": {
-      "picomatch": "4.0.5"
-    },
-    "vite": {
-      "picomatch": "4.0.5"
-    }
+    "@tiptap/core": "^3.31.3",
+    "nanoid": "^3.3.18"
   }
 }
