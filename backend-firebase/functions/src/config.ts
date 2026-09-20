@@ -1,7 +1,8 @@
+import { defineString } from 'firebase-functions/params';
+
 export interface RuntimeConfig {
   firebaseProjectId: string;
   firebaseStorageBucket: string;
-  apiRegion: string;
   cacheMaxAge: number;
   cacheSMaxAge: number;
   allowedOrigins: readonly string[];
@@ -13,7 +14,15 @@ type Environment = Record<string, string | undefined>;
 const DEFAULT_EMULATOR_PROJECT_ID = 'demo-umd-website';
 const DEFAULT_REGION = 'us-central1';
 const MAX_CACHE_AGE_SECONDS = 86_400;
-const REGION_PATTERN = /^[a-z]+(?:-[a-z0-9]+)+\d$/;
+
+/**
+ * Used directly as `region:` in trigger/https declarations, which are
+ * evaluated locally by the Firebase CLI before .env is loaded (see
+ * loadRuntimeConfig below). A `firebase-functions` param resolves through the
+ * CLI's own .env-aware pipeline instead of a raw process.env read, so the
+ * declared region is correct even during that local discovery pass.
+ */
+export const API_REGION = defineString('API_REGION', { default: DEFAULT_REGION });
 
 const readBoundedInteger = (
   environment: Environment,
@@ -117,15 +126,9 @@ export const loadRuntimeConfig = (
     throw new Error('APP_FIREBASE_STORAGE_BUCKET is required outside the emulator');
   }
 
-  const apiRegion = (environment.API_REGION || DEFAULT_REGION).trim();
-  if (!REGION_PATTERN.test(apiRegion)) {
-    throw new Error(`Invalid API_REGION: ${apiRegion}`);
-  }
-
   return {
     firebaseProjectId,
     firebaseStorageBucket: validateBucket(rawBucket),
-    apiRegion,
     cacheMaxAge: readBoundedInteger(environment, 'API_CACHE_MAX_AGE', 60),
     cacheSMaxAge: readBoundedInteger(environment, 'API_CACHE_S_MAX_AGE', 300),
     allowedOrigins: readAllowedOrigins(environment, isEmulator),
@@ -133,4 +136,19 @@ export const loadRuntimeConfig = (
   };
 };
 
-export const runtimeConfig = loadRuntimeConfig();
+/**
+ * Reads and validates config from process.env, memoized after the first
+ * call. Never call this at module scope: at deploy time the Firebase CLI
+ * loads .env into the *deployed function's* environment, not into the local
+ * process that statically analyzes this codebase to discover triggers, so a
+ * module-scope call throws even though the same env is fine once the
+ * function actually runs (see the .env storage-bucket deploy failure this
+ * was written to fix).
+ */
+let cachedRuntimeConfig: RuntimeConfig | undefined;
+export const getRuntimeConfig = (): RuntimeConfig => {
+  if (!cachedRuntimeConfig) {
+    cachedRuntimeConfig = loadRuntimeConfig();
+  }
+  return cachedRuntimeConfig;
+};

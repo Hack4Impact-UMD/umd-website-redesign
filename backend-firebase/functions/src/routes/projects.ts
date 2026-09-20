@@ -11,14 +11,14 @@ import { normalizeRelationIds } from '../utils/relations';
 import { RuntimeConfig } from '../config';
 import { QueryValidationError } from '../utils/query';
 
-const projectCollection = db.collection('projects');
-const memberCollection = db.collection('members');
+const getProjectCollection = () => db.collection('projects');
+const getMemberCollection = () => db.collection('members');
 
 const buildQuery = (
   request: Request,
 ): Query => {
   const filters = parseProjectFilters(request);
-  let query: Query = projectCollection;
+  let query: Query = getProjectCollection();
 
   if (typeof filters.path === 'string' && filters.path.length > 0) {
     query = query.where('path', '==', filters.path);
@@ -106,7 +106,7 @@ export const getProjects = async (
 
     const [projectsSnapshot, membersSnapshot] = await Promise.all([
       query.get(),
-      memberCollection.get(),
+      getMemberCollection().get(),
     ]);
 
     const projects = projectsSnapshot.docs.map((doc) => toProjectRecord(doc.id, doc.data()));

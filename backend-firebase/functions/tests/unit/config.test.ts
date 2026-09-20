@@ -4,7 +4,6 @@ import { loadRuntimeConfig } from '../../src/config';
 const productionEnvironment = {
   APP_FIREBASE_PROJECT_ID: 'umd-website-f3e79',
   APP_FIREBASE_STORAGE_BUCKET: 'umd-website-f3e79.firebasestorage.app',
-  API_REGION: 'us-central1',
   ALLOWED_ORIGINS: 'https://umd.hack4impact.org',
 };
 
@@ -12,7 +11,6 @@ describe('loadRuntimeConfig', () => {
   it('loads and normalizes explicit production configuration', () => {
     expect(loadRuntimeConfig(productionEnvironment)).toMatchObject({
       firebaseProjectId: 'umd-website-f3e79',
-      apiRegion: 'us-central1',
       allowedOrigins: ['https://umd.hack4impact.org'],
       cacheMaxAge: 60,
       cacheSMaxAge: 300,
@@ -61,7 +59,6 @@ describe('loadRuntimeConfig', () => {
     ['API_CACHE_MAX_AGE', '-1'],
     ['API_CACHE_MAX_AGE', '1.5'],
     ['API_CACHE_S_MAX_AGE', '86401'],
-    ['API_REGION', 'invalid'],
   ])('rejects invalid %s', (key, value) => {
     expect(() => loadRuntimeConfig({ ...productionEnvironment, [key]: value })).toThrow();
   });

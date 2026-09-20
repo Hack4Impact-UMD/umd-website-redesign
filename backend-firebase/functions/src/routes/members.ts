@@ -10,11 +10,11 @@ import { normalizeRelationIds } from '../utils/relations';
 import { RuntimeConfig } from '../config';
 import { QueryValidationError } from '../utils/query';
 
-const memberCollection = db.collection('members');
+const getMemberCollection = () => db.collection('members');
 
 const buildQuery = (request: Request): Query => {
   const { memberDisplayStatus } = parseMemberFilters(request);
-  let query: Query = memberCollection;
+  let query: Query = getMemberCollection();
 
   if (typeof memberDisplayStatus === 'string' && memberDisplayStatus.length > 0) {
     query = query.where('memberDisplayStatus', '==', memberDisplayStatus);

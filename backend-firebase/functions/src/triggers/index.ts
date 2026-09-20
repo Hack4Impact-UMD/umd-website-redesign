@@ -2,7 +2,7 @@ import { defineSecret } from 'firebase-functions/params';
 import { onDocumentWritten } from 'firebase-functions/v2/firestore';
 import { onSchedule } from 'firebase-functions/v2/scheduler';
 import { logger } from 'firebase-functions';
-import { runtimeConfig } from '../config';
+import { API_REGION } from '../config';
 import { assertBuildHookUrl, flushPendingRebuild, requestRebuild } from './buildHook';
 
 /**
@@ -31,7 +31,7 @@ const WATCHED_COLLECTIONS = [
 
 const triggerOptions = (document: string) => ({
   document,
-  region: runtimeConfig.apiRegion,
+  region: API_REGION,
   secrets: [NETLIFY_BUILD_HOOK_URL],
   // A failed build request is picked up by the scheduled sweep, so retrying
   // here would only add duplicate builds.
@@ -89,7 +89,7 @@ export const onMemberWrite = onDocumentWritten(
 export const flushRebuild = onSchedule(
   {
     schedule: 'every 5 minutes',
-    region: runtimeConfig.apiRegion,
+    region: API_REGION,
     secrets: [NETLIFY_BUILD_HOOK_URL],
     maxInstances: 1,
   },

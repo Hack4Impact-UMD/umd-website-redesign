@@ -6,7 +6,6 @@ import type { RuntimeConfig } from '../../src/config';
 const config: RuntimeConfig = {
   firebaseProjectId: 'demo-umd-website',
   firebaseStorageBucket: 'demo-umd-website.appspot.com',
-  apiRegion: 'us-central1',
   cacheMaxAge: 60,
   cacheSMaxAge: 300,
   allowedOrigins: ['https://allowed.example'],
