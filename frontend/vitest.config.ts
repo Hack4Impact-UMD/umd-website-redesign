@@ -7,7 +7,7 @@ import { defineConfig } from 'vitest/config';
 // server. Nothing here needs to resolve .astro files, so the alias is enough.
 export default defineConfig({
   plugins: [react()],
-  resolve: { alias: { '@': path.resolve(__dirname, './src') } },
+  resolve: { alias: { '@': path.resolve(import.meta.dirname, './src') } },
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],
