@@ -2,11 +2,9 @@
 
 # Overview
 
-The Hack4Impact-UMD chapter website shows the work of the chapter. It shows the
-projects, the members, and the ways to apply.
+This repo contains the source code for the Hack4Impact-UMD chapter website. 
 
-The public site is an Astro application in `frontend/`. Astro builds every page
-to HTML before deployment. Most pages send no JavaScript to the browser.
+The site uses a static Astro frontend and FireCMS for dynamic content. Content is fetched from FireCMS and rendered at build time.
 
 The read-only API, the Firestore data, the Storage media, and the FireCMS
 editor are in `backend-firebase/`. They use the Firebase project
@@ -34,9 +32,6 @@ For the backend architecture and the deployment gates, read
 | CMS sign-in | Firebase Authentication in project `umd-website-f3e79` | Client setup and authorization: `backend-firebase/cms/src/firebaseConfig.ts` and `backend-firebase/cms/src/App.tsx` |
 | Domain and DNS | Domain registered with Namecheap; DNS hosted in Cloudflare | Managed in the provider consoles; the repository does not contain registrar or DNS credentials |
 
-The redesign does not currently use a separate analytics platform, form
-processor, or application email-delivery service. Application and newsletter
-destinations are content-managed links, while contact links use `mailto:`.
 For Firebase deployment commands and safety gates, see
 [backend-firebase/README.md](backend-firebase/README.md). For the recorded live
 resource inventory and parity checks, see
@@ -68,9 +63,6 @@ are not production dependencies for the redesign.
 - Astro, React, TypeScript, and Tailwind CSS
 - Firebase Functions, Firestore, Storage, and FireCMS
 - Vitest, Testing Library, and Playwright
-
-Astro renders the React components to HTML during the build. Four components
-stay interactive in the browser. The site does not use a client-side router.
 
 # How To Run and Deploy Project
 
