@@ -1,5 +1,5 @@
 import partnerMap from '@/components/assets/home/partner-map.png';
-import type { HomeContent } from '@/content/home';
+import type { HomeContent } from '@/content-schema/home';
 import { resolveMediaUrl } from '@/lib/media';
 import HomeActionLink from './HomeActionLink';
 

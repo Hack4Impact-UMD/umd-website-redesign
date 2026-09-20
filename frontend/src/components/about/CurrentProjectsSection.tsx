@@ -7,7 +7,7 @@ import projectsBackground from '@/components/assets/about/projects-background.we
 import ApplyLink from '@/components/apply/ApplyLink';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import { AsyncError } from '@/components/shared';
-import type { AboutContent } from '@/content/about';
+import type { AboutContent } from '@/content-schema/about';
 import { useApiResource } from '@/hooks';
 import { resolveMediaUrl } from '@/lib/media';
 

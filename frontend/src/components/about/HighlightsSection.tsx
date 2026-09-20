@@ -1,4 +1,4 @@
-import type { AboutContent } from '@/content/about';
+import type { AboutContent } from '@/content-schema/about';
 
 type HighlightsSectionProps = NonNullable<AboutContent['highlights']>;
 

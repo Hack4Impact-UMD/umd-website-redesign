@@ -1,5 +1,5 @@
 import { getContentDocument } from '@/api/content';
-import { defaultOurWorkContent, normalizeOurWorkContent } from '@/content/our-work';
+import { defaultOurWorkContent, normalizeOurWorkContent } from '@/content-schema/our-work';
 import { useApiResource } from '@/hooks';
 import OurWorkHeader from '../components/our_work/OurWorkHeader';
 import OurWorkProjectLibrary from '../components/our_work/OurWorkProjectLibrary';

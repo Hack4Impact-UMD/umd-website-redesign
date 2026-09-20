@@ -1,6 +1,6 @@
 import missionCornerEnd from '@/components/assets/about/mission-corner-end.svg';
 import missionCornerStart from '@/components/assets/about/mission-corner-start.svg';
-import type { AboutContent } from '@/content/about';
+import type { AboutContent } from '@/content-schema/about';
 
 type MissionSectionProps = AboutContent['mission'];
 

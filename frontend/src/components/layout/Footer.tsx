@@ -1,7 +1,7 @@
 import { Facebook, Github, Instagram, Linkedin, type LucideIcon } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import footerMark from '@/components/assets/h4i-footer-mark.png';
-import { defaultSiteSettings, type SiteSettings } from '@/content/site-settings';
+import { defaultSiteSettings, type SiteSettings } from '@/content-schema/site-settings';
 
 const socialIcons: Partial<Record<string, LucideIcon>> = {
   facebook: Facebook,

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { describe, expect, it } from 'vitest';
 
-import { defaultHomeContent } from '@/content/home';
+import { defaultHomeContent } from '@/content-schema/home';
 import CommunityEventsSection from './CommunityEventsSection';
 import ImpactSection from './ImpactSection';
 import NonprofitMapSection from './NonprofitMapSection';

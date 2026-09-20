@@ -12,7 +12,7 @@ import {
 
 import ApplyLink from '@/components/apply/ApplyLink';
 import teamShowcase from '@/components/assets/about/team-showcase.webp';
-import { defaultSiteSettings, type SiteSettings } from '@/content/site-settings';
+import { defaultSiteSettings, type SiteSettings } from '@/content-schema/site-settings';
 
 interface ContactUsProps {
   settings?: SiteSettings;

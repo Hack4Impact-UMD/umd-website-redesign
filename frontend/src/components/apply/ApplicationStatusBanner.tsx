@@ -1,4 +1,4 @@
-import type { ApplicationStatus } from '@/content/apply';
+import type { ApplicationStatus } from '@/content-schema/apply';
 
 import ApplyLink from './ApplyLink';
 
