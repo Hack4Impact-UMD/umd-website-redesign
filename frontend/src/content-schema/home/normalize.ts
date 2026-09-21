@@ -21,6 +21,44 @@ const addLegacyImpactFallback = (document: unknown): unknown => {
   };
 };
 
+/**
+ * Legacy documents carry the newsletter card under `card`, with `date` and
+ * `recapBody` where the current shape has `dateLabel` and `summary`. Without
+ * this the card silently vanished: an unknown key is stripped, so the section
+ * rendered with no issue to read. `recapTitle` has no slot in
+ * NewsletterSection and is intentionally dropped.
+ */
+const addLegacyNewsletterCard = (document: unknown): unknown => {
+  if (!document || typeof document !== 'object') return document;
+  const candidate = document as { payload?: unknown };
+  if (!candidate.payload || typeof candidate.payload !== 'object') return document;
+
+  const payload = candidate.payload as { newsletter?: unknown };
+  const newsletter = payload.newsletter;
+  if (!newsletter || typeof newsletter !== 'object') return document;
+
+  const section = newsletter as Record<string, unknown>;
+  const card = section.card;
+  if (section.latestIssue || !card || typeof card !== 'object') return document;
+
+  const legacy = card as Record<string, unknown>;
+  return {
+    ...candidate,
+    payload: {
+      ...payload,
+      newsletter: {
+        ...section,
+        latestIssue: {
+          dateLabel: legacy.date,
+          sender: legacy.sender,
+          title: legacy.title,
+          summary: legacy.recapBody,
+        },
+      },
+    },
+  };
+};
+
 const sanitizePublishedContent = (content: HomeContent): HomeContent => {
   const verifiedImpactStats = content.impact.stats.filter((stat) => stat.verified);
   const impactMode =
@@ -77,7 +115,7 @@ const sanitizePublishedContent = (content: HomeContent): HomeContent => {
 
 export const normalizeHomeContent = (document: unknown): ResolvedContent<HomeContent> => {
   const resolved = resolveContentDocument(
-    addLegacyImpactFallback(document),
+    addLegacyNewsletterCard(addLegacyImpactFallback(document)),
     homeContentSchema,
     defaultHomeContent,
   );

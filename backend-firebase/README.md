@@ -12,6 +12,7 @@ production data.
 - `functions/src/triggers/`: the rebuild triggers that start a Netlify build
 - `scripts/verify-live-contract.mjs`: unauthenticated, GET-only live parity check
 - `scripts/plan-content-migration.mjs`: deterministic, file-based dry run for legacy content envelopes
+- `scripts/apply-content-migration.mjs`: authenticated writer for those envelopes, dry run unless `--commit`
 - `SOURCE_PARITY.md`: captured baseline, intentional differences, and known uncertainty
 
 The live project is `umd-website-f3e79`. Source config defines separate `cms`
@@ -80,6 +81,26 @@ The planner writes only to stdout. It wraps root-level documents as
 retains the known application/contact destinations for editor review. Malformed
 modern envelopes are reported as `needs-review` and are never rewritten. Applying
 that plan to production requires separate explicit authorization.
+
+`apply-content-migration.mjs` is that separate step. It reads the six documents
+straight from Firestore through the Admin SDK and restructures them in place:
+
+```bash
+node backend-firebase/scripts/apply-content-migration.mjs            # dry run
+node backend-firebase/scripts/apply-content-migration.mjs --commit   # writes
+```
+
+It only restructures. Unlike the planner it does not scrub the application
+campaign, so `testimonials`, the nonprofit banner, and the legacy CTA hrefs
+survive; the one field it adds is the `applicationStatus` the apply pages
+require, always as `closed`, carrying the URL already present in the document.
+Documents that already have an envelope are skipped rather than rewritten.
+Whether a cycle is open is then set in FireCMS, along with `mode` and a fresh
+`verifiedAt`.
+
+A migration is invisible to the site on its own: every document lands as
+`placeholder`, which renders the local default. The content only appears once an
+editor publishes it.
 
 ## Public API
 

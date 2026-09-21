@@ -1,4 +1,4 @@
-import { z, type ZodType } from 'zod';
+import { z, type ZodType, type ZodTypeDef } from 'zod';
 
 export const contentModeSchema = z.enum(['published', 'placeholder', 'hidden']);
 export type ContentMode = z.infer<typeof contentModeSchema>;
@@ -23,9 +23,16 @@ const toVerifiedIso = (value: unknown) => {
   return Number.isNaN(date.getTime()) ? null : date.toISOString();
 };
 
+/**
+ * The schema's input type is deliberately left open rather than pinned to `T`.
+ * Payload schemas carry `.default()`s for keys that legacy documents predate,
+ * which makes their parsed output narrower than their accepted input; tying
+ * both ends to one parameter would infer `T` from the loose input side and
+ * hand every caller a half-optional content type.
+ */
 export const resolveContentDocument = <T>(
   document: unknown,
-  payloadSchema: ZodType<T>,
+  payloadSchema: ZodType<T, ZodTypeDef, unknown>,
   placeholder: T,
 ): ResolvedContent<T> => {
   if (!document || typeof document !== 'object' || !('mode' in document)) {
