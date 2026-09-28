@@ -9,7 +9,7 @@ const INK = '#333333';
 const GRAY = '#657788';
 const BACKGROUND = '#F9FAFB';
 
-const WORDMARK_WIDTH = 300;
+const WORDMARK_WIDTH = 300 * 2;
 const WORDMARK_HEIGHT = Math.round((WORDMARK_WIDTH * 300) / 2248);
 
 // Satori implements `text-overflow` only partially, so long strings are cut
