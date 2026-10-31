@@ -1,6 +1,5 @@
-import { ArrowRight } from 'lucide-react';
-
 import type { ProjectEntity } from '@/api';
+import ProjectCard from '@/components/shared/ProjectCard';
 import { resolveMediaUrl } from '@/lib/media';
 
 interface FeaturedProjectsSectionProps {
@@ -42,46 +41,19 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
           </p>
         ) : (
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {projects.slice(0, 6).map((project) => {
-              const imageUrl = resolveMediaUrl(project.attributes.image.data[0]?.attributes.url);
-              const partnerName = project.attributes.nonprofit?.data?.attributes.name;
-              const title = project.attributes.title;
-
-              return (
-                <article
-                  key={project.id}
-                  className="group overflow-hidden rounded-lg bg-white shadow-[0_4px_12px_rgba(0,0,0,0.1)]"
-                >
-                  <a
-                    href={`/ourwork/${encodeURIComponent(project.attributes.path)}`}
-                    aria-label={`View ${title} project`}
-                    className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-h4i-blue"
-                  >
-                    <div className="aspect-[16/10] overflow-hidden bg-gradient-to-br from-h4i-blue-light to-white">
-                      {imageUrl ? (
-                        <img
-                          src={imageUrl}
-                          alt={project.attributes.imageAltText ?? `${title} project preview`}
-                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                          loading="lazy"
-                        />
-                      ) : null}
-                    </div>
-                    <div className="flex min-h-24 items-center gap-4 bg-[#0056A3] px-5 py-4 text-white">
-                      <div className="min-w-0 flex-1">
-                        <h3 className="font-heading text-[22px] font-bold leading-7">{title}</h3>
-                        <p className="mt-1 text-sm font-bold text-white/85">
-                          {partnerName ?? (project.attributes.isCurrentProject ? 'Current project' : 'Community project')}
-                        </p>
-                      </div>
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-white/25">
-                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                      </span>
-                    </div>
-                  </a>
-                </article>
-              );
-            })}
+            {projects.slice(0, 6).map((project) => (
+              <ProjectCard
+                key={project.id}
+                title={project.attributes.title}
+                path={project.attributes.path}
+                imageUrl={resolveMediaUrl(project.attributes.image.data[0]?.attributes.url) || undefined}
+                imageAltText={project.attributes.imageAltText}
+                subtitle={
+                  project.attributes.nonprofit?.data?.attributes.name ??
+                  (project.attributes.isCurrentProject ? 'Current project' : 'Community project')
+                }
+              />
+            ))}
           </div>
         )}
       </div>
