@@ -1,4 +1,4 @@
-import type { output, ZodTypeAny } from 'zod';
+import type { output, ZodType } from 'zod';
 import { ApiError } from './errors';
 
 const DEFAULT_TIMEOUT_MS = 12_000;
@@ -111,7 +111,7 @@ export interface ApiRequestOptions {
   timeoutMs?: number;
 }
 
-interface ApiGetOptions<TSchema extends ZodTypeAny> extends ApiRequestOptions {
+interface ApiGetOptions<TSchema extends ZodType> extends ApiRequestOptions {
   schema: TSchema;
   fetcher?: typeof fetch;
 }
@@ -135,7 +135,7 @@ const delay = (milliseconds: number, signal?: AbortSignal) =>
     signal?.addEventListener('abort', abort, { once: true });
   });
 
-export const apiGet = async <TSchema extends ZodTypeAny>(
+export const apiGet = async <TSchema extends ZodType>(
   path: string,
   options: ApiGetOptions<TSchema>,
 ): Promise<output<TSchema>> => {

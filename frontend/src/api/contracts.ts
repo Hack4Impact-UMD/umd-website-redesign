@@ -1,7 +1,9 @@
 import { z } from 'zod';
 
 const nonEmptyString = z.string().trim().min(1);
-const optionalString = z.string().nullish().transform((value) => value ?? undefined);
+// The trailing .optional() keeps the key optional in the parsed type; Zod 4
+// otherwise makes keys behind a transform required.
+const optionalString = z.string().nullish().transform((value) => value ?? undefined).optional();
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -86,7 +88,7 @@ export const projectEntitySchema = z.object({
   attributes: projectAttributesSchema,
 });
 
-export const collectionSchema = <T extends z.ZodTypeAny>(attributes: T) =>
+export const collectionSchema = <T extends z.ZodType>(attributes: T) =>
   z.object({
     data: z.array(z.object({ id: z.string(), attributes })),
     meta: z.object({ pagination: paginationSchema }),
