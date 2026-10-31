@@ -1,4 +1,4 @@
-import { z, type ZodType, type ZodTypeDef } from 'zod';
+import { z, type ZodType } from 'zod';
 
 export const contentModeSchema = z.enum(['published', 'placeholder', 'hidden']);
 export type ContentMode = z.infer<typeof contentModeSchema>;
@@ -32,7 +32,7 @@ const toVerifiedIso = (value: unknown) => {
  */
 export const resolveContentDocument = <T>(
   document: unknown,
-  payloadSchema: ZodType<T, ZodTypeDef, unknown>,
+  payloadSchema: ZodType<T, unknown>,
   placeholder: T,
 ): ResolvedContent<T> => {
   if (!document || typeof document !== 'object' || !('mode' in document)) {

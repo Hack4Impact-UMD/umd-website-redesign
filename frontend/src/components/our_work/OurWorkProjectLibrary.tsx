@@ -2,8 +2,8 @@ import { useState } from 'react';
 import type { ProjectEntity } from '@/api';
 import { resolveMediaUrl } from '@/lib/media';
 import { formatSeason } from '@/lib/date';
+import ProjectCard from '@/components/shared/ProjectCard';
 import styles from '../../styles/our_work/OurWorkProjectLibrary.module.css';
-import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg?url';
 
 type ProjectItem = {
   title: string;
@@ -129,37 +129,14 @@ const OurWorkProjectLibrary = ({
       : project.partnerName || formatSeason(project.startDate);
 
     return (
-      <article
+      <ProjectCard
         key={project.path}
-        className={mode === 'related' ? `${styles.card} ${styles.relatedCard}` : styles.card}
-      >
-        <div className={styles.imagePanel}>
-          {project.imageUrl ? (
-            <img
-              className={styles.projectImage}
-              src={project.imageUrl}
-              alt={project.imageAltText || `${project.title} project preview`}
-            />
-          ) : (
-            <div className={styles.imageFallback} aria-label="Project image unavailable">
-              <img src={h4iLogo} alt="" />
-            </div>
-          )}
-        </div>
-        <div className={styles.cardFooter}>
-          <div className={styles.contentWrap}>
-            <h3 className={styles.projectTitle}>{project.title}</h3>
-            {metadata ? <p className={styles.projectSubtitle}>{metadata}</p> : null}
-          </div>
-          <a
-            className={styles.arrowButton}
-            href={`/ourwork/${encodeURIComponent(project.path)}`}
-            aria-label={`Open ${project.title}`}
-          >
-            <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </article>
+        title={project.title}
+        path={project.path}
+        imageUrl={project.imageUrl}
+        imageAltText={project.imageAltText}
+        subtitle={metadata}
+      />
     );
   };
 
