@@ -68,6 +68,9 @@ const BOARD_ROLES = [
   { title: 'Director of Product', pattern: /director of product/i },
   { title: 'Director of Education', pattern: /director of education/i },
   { title: 'Director of Design', pattern: /director of design/i },
+  { title: 'Director of Finance and Sponsorship', pattern: /director of finance/i },
+  { title: 'Director of Events', pattern: /director of events/i },
+  { title: 'Director of Recruitment', pattern: /director of recruitment/i },
   // Deputy directors are not board seats; their project role is used instead.
   { title: 'Director of Public Relations and Outreach', pattern: /(?<!deputy )director of pr/i },
 ];
@@ -87,6 +90,110 @@ const NAME_FIXES = {
 
 /** Names whose first name has more than one word. */
 const MULTI_WORD_FIRST_NAMES = new Set(['tracy anne tan']);
+
+/**
+ * Current members who did not fill out the form, keyed by member ID. Details
+ * come from their live Firestore document; the avatar is its storage path.
+ */
+const MANUAL_MEMBERS = {
+  // Live member 289.
+  'isabella-steinebach': {
+    firstName: 'Isabella',
+    lastName: 'Steinebach',
+    pronouns: 'she/her',
+    memberDisplayStatus: 'Current Board Member',
+    isBootcamp: false,
+    projectIds: [],
+    componentRolesArr: [{ title: 'Executive Director', isDisplayRole: true }],
+    avatar: { url: 'members/289/avatar.png', alt: 'Headshot of Isabella Steinebach' },
+  },
+  // Live member 155.
+  'gavin-crisologo': {
+    firstName: 'Gavin',
+    lastName: 'Crisologo',
+    pronouns: 'he/him',
+    memberDisplayStatus: 'Current Board Member',
+    isBootcamp: false,
+    projectIds: [],
+    componentRolesArr: [{ title: 'Senior Advisor', isDisplayRole: true }],
+    avatar: { url: 'members/155/avatar.jpg', alt: 'Headshot of Gavin Crisologo' },
+  },
+  // Live member 203.
+  'kalpana-iyer': {
+    firstName: 'Kalpana',
+    lastName: 'Iyer',
+    pronouns: 'she/her',
+    memberDisplayStatus: 'Current Board Member',
+    isBootcamp: false,
+    projectIds: [],
+    componentRolesArr: [{ title: 'Senior Advisor', isDisplayRole: true }],
+    avatar: { url: 'members/203/avatar.jpg', alt: 'Headshot of Kalpana Iyer' },
+  },
+  // Live member 258.
+  'annie-nguyen': {
+    firstName: 'Annie',
+    lastName: 'Nguyen',
+    pronouns: 'she/her',
+    memberDisplayStatus: 'Current Board Member',
+    isBootcamp: false,
+    projectIds: [],
+    componentRolesArr: [{ title: 'Director of Events', isDisplayRole: true }],
+    avatar: { url: 'members/258/avatar.jpg', alt: 'Headshot of Annie Nguyen' },
+  },
+  'amber-li': {
+    firstName: 'Amber',
+    lastName: 'Li',
+    memberDisplayStatus: 'Current Board Member',
+    isBootcamp: false,
+    projectIds: [],
+    componentRolesArr: [{ title: 'Director of Education', isDisplayRole: true }],
+    avatar: null,
+  },
+  'chloe-thompson': {
+    firstName: 'Chloe',
+    lastName: 'Thompson',
+    memberDisplayStatus: 'Current Board Member',
+    isBootcamp: false,
+    projectIds: [],
+    componentRolesArr: [{ title: 'Director of Finance and Sponsorship', isDisplayRole: true }],
+    avatar: null,
+  },
+  'henry-harms': {
+    firstName: 'Henry',
+    lastName: 'Harms',
+    memberDisplayStatus: 'Current Board Member',
+    isBootcamp: false,
+    projectIds: [],
+    componentRolesArr: [{ title: 'Director of Events', isDisplayRole: true }],
+    avatar: null,
+  },
+  'kathleen-lin': {
+    firstName: 'Kathleen',
+    lastName: 'Lin',
+    memberDisplayStatus: 'Current Board Member',
+    isBootcamp: false,
+    projectIds: [],
+    componentRolesArr: [{ title: 'Director of Finance and Sponsorship', isDisplayRole: true }],
+    avatar: null,
+  },
+  'stuti-pardiwala': {
+    firstName: 'Stuti',
+    lastName: 'Pardiwala',
+    memberDisplayStatus: 'Current Board Member',
+    isBootcamp: false,
+    projectIds: [],
+    componentRolesArr: [{ title: 'Director of Public Relations and Outreach', isDisplayRole: true }],
+    avatar: null,
+  },
+};
+
+/**
+ * Board titles for form respondents who gave only their project role, keyed
+ * by member ID. The title becomes their display role; project roles stay.
+ */
+const EXTRA_BOARD_ROLES = {
+  'laila-shakoor': 'Director of Recruitment',
+};
 
 /** RFC 4180 parser: quoted fields may contain commas, quotes, and newlines. */
 const parseCsv = (text) => {
@@ -277,6 +384,11 @@ const buildMember = (record, warnings) => {
   if (wantsHeadshot && !headshotUrl) warnings.push(`${name}: consented to a headshot but uploaded none`);
 
   const componentRolesArr = buildRoles(record, warnings, name);
+  const extraBoardRole = EXTRA_BOARD_ROLES[slugify(name)];
+  if (extraBoardRole) {
+    for (const role of componentRolesArr) role.isDisplayRole = false;
+    componentRolesArr.unshift({ title: extraBoardRole, isDisplayRole: true });
+  }
   const isBoardMember = componentRolesArr.some((role) =>
     BOARD_ROLES.some((candidate) => candidate.title === role.title),
   );
@@ -336,6 +448,16 @@ export const convertRoster = (csvText) => {
     members[id] = member;
   }
 
+  for (const [id, member] of Object.entries(MANUAL_MEMBERS)) {
+    if (members[id]) throw new Error(`Manual member ${id} is also in the CSV`);
+    members[id] = structuredClone(member);
+  }
+
+  const missingBoardRoles = Object.keys(EXTRA_BOARD_ROLES).filter((id) => !members[id]);
+  if (missingBoardRoles.length > 0) {
+    throw new Error(`Board roles for members not in the CSV: ${missingBoardRoles.join(', ')}`);
+  }
+
   for (const project of Object.values(projects)) project.memberIds.sort();
   const merged = people.filter((record) => record.submissions > 1).length;
   return { members: sortObject(members), projects: sortObject(projects), warnings, merged };
@@ -347,7 +469,7 @@ const main = async () => {
   const { members, projects, warnings, merged } = convertRoster(await readFile(csvPath, 'utf8'));
 
   await writeFile(path.join(outDir, 'members.json'), `${JSON.stringify(members, null, 2)}\n`);
-  await writeFile(path.join(outDir, 'project.json'), `${JSON.stringify(projects, null, 2)}\n`);
+  await writeFile(path.join(outDir, 'projects.json'), `${JSON.stringify(projects, null, 2)}\n`);
 
   console.error(
     `${Object.keys(members).length} members (${merged} merged from repeat submissions), ` +
