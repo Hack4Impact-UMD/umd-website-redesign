@@ -21,7 +21,7 @@ export const siteSettingsSchema = z.object({
     })),
     contact: z.object({
       addressLines: z.array(nonEmptyTextSchema).min(1),
-      email: z.string().trim().email(),
+      email: z.string().trim().pipe(z.email()),
     }),
   }),
   branding: z.object({ logo: safeMediaSchema }),
