@@ -24,4 +24,15 @@ describe('PersonCard link safety', () => {
       expect(screen.queryByRole('link', { name: /linkedin/i })).not.toBeInTheDocument();
     },
   );
+
+  it('shows initials instead of a placeholder image when there is no headshot', () => {
+    const { container } = render(<PersonCard name="Test Member" role="Engineer" prominent />);
+    expect(container.querySelector('img')).toBeNull();
+    expect(screen.getByText('TM')).toBeInTheDocument();
+  });
+
+  it('shows the headshot when one is provided', () => {
+    render(<PersonCard name="Test Member" role="Engineer" imageSrc="/assets/test.png" />);
+    expect(screen.getByAltText('Test Member headshot')).toHaveAttribute('src', '/assets/test.png');
+  });
 });

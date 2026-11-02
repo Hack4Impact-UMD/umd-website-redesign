@@ -18,7 +18,7 @@ export const defaultApplyStudentContent: ApplyStudentContent = {
     label: 'Applications are open.',
     applicationUrl: STUDENT_APPLICATION_URL,
   },
-  hero: { title: 'Students', image: teamPhoto },
+  hero: { title: 'Apply as a Student', image: teamPhoto },
   intro: {
     heading: 'Build technology for social impact',
     body: 'We prepare students for socially conscious roles in technology while building a supportive community. Members develop real-world experience with agile teams made up of product managers, designers, tech leads, and engineers.',

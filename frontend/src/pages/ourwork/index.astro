@@ -12,7 +12,7 @@ const content = resolved.source === 'hidden' ? null : (resolved.content ?? defau
 
 const projects = await loadAllProjects();
 ---
-<BaseLayout {...STATIC_PAGE_META['/ourwork']}>
+<BaseLayout {...STATIC_PAGE_META['/ourwork']} transparentNav={Boolean(content)}>
   {content ? (
     <main class={styles.page}>
       <OurWorkHeader {...content.header} />

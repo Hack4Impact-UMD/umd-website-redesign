@@ -1,7 +1,6 @@
 /**
- * The logo's corner brackets, used to frame the two "invitation" moments on the
- * home page (hero and closing CTA). Decorative only. The parent must be
- * positioned (`relative`).
+ * The logo's corner brackets, framing the text of every page hero and the
+ * closing CTAs. Decorative only. The parent must be positioned (`relative`).
  */
 export default function CornerBrackets() {
   return (

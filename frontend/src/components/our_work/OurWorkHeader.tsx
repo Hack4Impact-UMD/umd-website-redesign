@@ -1,21 +1,14 @@
+import PageHero from '@/components/shared/PageHero';
 import type { OurWorkContent } from '@/content-schema/our-work';
-import styles from '../../styles/our_work/OurWorkHeader.module.css';
 
 type OurWorkHeaderProps = OurWorkContent['header'];
 
-const OurWorkHeader = ({ title, subtitle, image, imageAlt }: OurWorkHeaderProps) => {
-  return (
-    <header className={styles.header}>
-      <img className={styles.heroImage} src={image} alt={imageAlt} />
-      <div className={styles.overlay} aria-hidden="true" />
-      <div className={styles.content}>
-        <div className={styles.contentInner}>
-          <h1 className={styles.title}>{title}</h1>
-          <p className={styles.subtitle}>{subtitle}</p>
-        </div>
-      </div>
-    </header>
-  );
-};
+const OurWorkHeader = ({ title, subtitle, image, imageAlt }: OurWorkHeaderProps) => (
+  <PageHero title={title} image={image} imageAlt={imageAlt} headingId="our-work-title">
+    {subtitle ? (
+      <p className="mt-6 font-body text-base leading-relaxed text-white/90 sm:text-lg">{subtitle}</p>
+    ) : null}
+  </PageHero>
+);
 
 export default OurWorkHeader;

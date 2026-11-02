@@ -12,26 +12,24 @@ type ApplyTimelineProps = {
   steps: TimelineStep[];
 };
 
+// A real sequence, so it stays an ordered list with its step labels.
 function ApplyTimeline({ heading, description, steps }: ApplyTimelineProps) {
   return (
     <ApplySection>
-      <div className="space-y-10">
-        <SectionHeader title={heading} description={description} />
-        <ol className="space-y-6">
-          {steps.map((step, index) => (
-            <li key={`${step.title}-${index}`} className="flex items-start gap-5 sm:items-center sm:gap-10">
-              <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-md border border-primary bg-card font-heading text-lg font-bold text-text-secondary shadow-sm sm:h-[72px] sm:w-[72px]">
-                {index + 1}
-              </div>
-              <div className="min-w-0 space-y-2">
-                <h3 className="font-heading text-h3 font-bold">{step.title}</h3>
-                <p className="font-heading text-label text-text-secondary">{step.subtitle}</p>
-                <p className="font-body text-base leading-6 text-foreground sm:text-lg">{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
+      <SectionHeader title={heading} description={description} />
+      <ol className="mt-12 grid gap-x-8 gap-y-10 md:grid-cols-3">
+        {steps.map((step, index) => (
+          <li key={`${step.title}-${index}`} className="border-t-2 border-h4i-blue pt-5">
+            <p className="font-heading text-label text-h4i-blue">{step.title}</p>
+            <h3 className="mt-2 font-heading text-2xl font-normal leading-tight tracking-tight text-foreground">
+              {step.subtitle}
+            </h3>
+            <p className="mt-3 font-body text-base leading-relaxed text-text-secondary sm:text-lg">
+              {step.description}
+            </p>
+          </li>
+        ))}
+      </ol>
     </ApplySection>
   );
 }

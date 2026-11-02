@@ -7,7 +7,7 @@ describe('ContactUs', () => {
   it('preserves the chapter email, address, and external community links', () => {
     render(<ContactUsSection />);
 
-    expect(screen.getByRole('heading', { name: 'Contact Us' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Contact us' })).toBeInTheDocument();
     expect(screen.getByRole('img', { name: /student team gathered after a project presentation/i })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'umd@hack4impact.org' })).toHaveAttribute(
       'href',

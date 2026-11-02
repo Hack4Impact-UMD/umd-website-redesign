@@ -22,6 +22,7 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "dev:live": "API_BASE_URL=https://umd.hack4impact.org/api astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview --host 127.0.0.1 --port 4173 --ignore-lock",
     "typecheck": "astro check",

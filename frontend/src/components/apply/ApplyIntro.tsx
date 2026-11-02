@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { lightPrimaryButton, lightPrimaryButtonUnavailable } from '@/components/shared/buttonStyles';
 import { resolveMediaUrl } from '@/lib/media';
 
 import ApplyLink from './ApplyLink';
@@ -17,31 +17,31 @@ function ApplyIntro({ heading, body, ctaLabel, ctaHref, imageSrc, imageAlt }: Ap
   const imageUrl = resolveMediaUrl(imageSrc);
 
   return (
-    <ApplySection className="py-12 sm:py-16">
-      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-10">
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <h2 className="font-heading text-3xl font-bold tracking-tight">{heading}</h2>
-            <p className="font-body text-lg text-muted-foreground">{body}</p>
+    <ApplySection>
+      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <h2 className="text-section">{heading}</h2>
+          <p className="mt-4 max-w-prose font-body text-lg leading-relaxed text-text-secondary">{body}</p>
+          <div className="mt-8">
+            {ctaHref ? (
+              <ApplyLink href={ctaHref} className={lightPrimaryButton}>
+                {ctaLabel}
+              </ApplyLink>
+            ) : (
+              <span aria-disabled="true" className={lightPrimaryButtonUnavailable}>
+                {ctaLabel}
+              </span>
+            )}
           </div>
-          {ctaHref ? (
-            <Button asChild className="w-fit min-w-24 bg-primary text-primary-foreground hover:bg-state-primary-hover">
-              <ApplyLink href={ctaHref}>{ctaLabel}</ApplyLink>
-            </Button>
-          ) : (
-            <Button className="w-fit min-w-24" disabled>
-              {ctaLabel}
-            </Button>
-          )}
         </div>
-        {imageUrl ? <div className="flex justify-center lg:justify-end">
+        {imageUrl ? (
           <img
             src={imageUrl}
             alt={imageAlt}
-            className="aspect-[604/252] w-full rounded-lg object-cover"
+            className="aspect-[4/3] w-full rounded-lg object-cover"
             loading="lazy"
           />
-        </div> : null}
+        ) : null}
       </div>
     </ApplySection>
   );

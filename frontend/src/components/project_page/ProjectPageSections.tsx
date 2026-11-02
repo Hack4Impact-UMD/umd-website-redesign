@@ -193,7 +193,7 @@ export default function ProjectPageSections({
             mode="related"
             excludePath={viewModel.path}
             limit={2}
-            title="View More of Our Work"
+            title="More of our work"
           />
         </div>
       </section>

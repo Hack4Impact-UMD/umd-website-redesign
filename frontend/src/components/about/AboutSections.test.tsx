@@ -72,18 +72,20 @@ describe('AboutSections', () => {
       payload: defaultAboutContent,
     }).content!);
 
-    expect(screen.getByRole('heading', { name: 'About Us' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'About us' })).toBeInTheDocument();
     expect(screen.queryByRole('heading', { name: 'Our Mission' })).not.toBeInTheDocument();
     expect(screen.getByText(/We leverage technology for social good/i)).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'At a Glance' })).toBeInTheDocument();
-    expect(screen.getByText('Founded at UMD')).toBeInTheDocument();
+    // 'At a Glance' was removed: its items were labels, not facts.
+    expect(screen.queryByRole('heading', { name: 'At a Glance' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Our story' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Our values' })).toBeInTheDocument();
     expect(screen.getByRole('link', { name: 'Lydia Hu' })).toHaveAttribute(
       'href',
       'https://www.linkedin.com/in/lydia-hu/',
     );
     expect(screen.getByRole('heading', { name: 'Verified Project' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Test Director' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Meet the Team' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Meet the team' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Test Member' })).toBeInTheDocument();
     expect(screen.getByText('they/them')).toBeInTheDocument();
     expect(screen.getByText('Community Connect')).toBeInTheDocument();
@@ -91,6 +93,7 @@ describe('AboutSections', () => {
       'href',
       'https://www.linkedin.com/in/test-member',
     );
+    expect(screen.getByRole('heading', { name: 'Build with us this semester' })).toBeInTheDocument();
   });
 
   it('renders the safe local copy when the document resolves to a placeholder', () => {
@@ -99,7 +102,7 @@ describe('AboutSections', () => {
 
     renderWith(resolved.content!);
 
-    expect(screen.getByRole('heading', { name: 'About Us' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'About us' })).toBeInTheDocument();
     expect(screen.getByText(/See how we’ve grown from vision to impact/i)).toBeInTheDocument();
   });
 

@@ -73,7 +73,6 @@ export default function StudentApplySections({
         overrideText={applicationStatusText}
       />
 
-
       <ApplyIntro
         heading={content.intro.heading}
         body={content.intro.body}
@@ -85,9 +84,9 @@ export default function StudentApplySections({
 
       {content.roles.length > 0 ? (
         <ApplySection variant="muted">
-          <div className="space-y-8">
+          <div>
             <SectionHeader title="Roles" />
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-12 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
               {content.roles.map((role) => (
                 <RoleCard
                   key={role.title}
