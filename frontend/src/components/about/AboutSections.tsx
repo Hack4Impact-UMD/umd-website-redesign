@@ -2,12 +2,13 @@ import type { MemberEntity, ProjectEntity } from '@/api';
 import {
   AboutHeader,
   CurrentProjectsSection,
-  HighlightsSection,
   MembersSection,
   StoryTimelineSection,
   ValuesSection,
 } from '@/components/about';
+import CTASection from '@/components/home/CTASection';
 import { defaultAboutContent, normalizeAboutContent } from '@/content-schema/about';
+import { defaultHomeContent } from '@/content-schema/home';
 
 type ResolvedAboutContent = NonNullable<ReturnType<typeof normalizeAboutContent>['content']>;
 
@@ -31,7 +32,6 @@ export default function AboutSections({
   const {
     header,
     story = defaultAboutContent.story,
-    highlights = defaultAboutContent.highlights,
     values,
     currentProjects: currentProjectsContent,
   } = content;
@@ -40,19 +40,20 @@ export default function AboutSections({
     <main className="flex flex-col bg-background">
       <AboutHeader {...header} />
       <StoryTimelineSection {...story} />
-      <HighlightsSection {...highlights} />
       <ValuesSection {...values} />
       <CurrentProjectsSection {...currentProjectsContent} projectEntities={currentProjects} />
       <MembersSection
-        title="Meet the Board"
+        title="Meet the board"
         filterStatus="Current Board Member"
         memberEntities={boardMembers}
       />
       <MembersSection
-        title="Meet the Team"
+        title="Meet the team"
         filterStatus="Current Member"
         memberEntities={teamMembers}
       />
+      {/* Same closing invitation as the home page. */}
+      <CTASection content={defaultHomeContent.cta} />
     </main>
   );
 }

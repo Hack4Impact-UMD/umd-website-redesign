@@ -3,13 +3,13 @@ import { installFixtures } from './fixtures';
 
 for (const [path, heading] of [
   ['/', /Building software for social good/i],
-  ['/aboutus', /About Us/i],
+  ['/aboutus', /About us/i],
   ['/ourwork', /Project Library/i],
   ['/ourwork/fixture-project', /Fixture Project/i],
-  ['/apply', /^Students$/i],
-  ['/apply/student', /^Students$/i],
+  ['/apply', /^Apply as a Student$/i],
+  ['/apply/student', /^Apply as a Student$/i],
   ['/apply/nonprofit', /^Nonprofits$/i],
-  ['/contactus', /^Contact Us$/i],
+  ['/contactus', /^Contact us$/i],
 ] as const) {
   test(`${path} renders with deterministic API fixtures`, async ({ page }) => {
     const errors: string[] = [];
@@ -58,12 +58,12 @@ test('home preserves its Figma section order without fabricated live capabilitie
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
-test('about highlights stay within a mobile viewport', async ({ page }) => {
+test('about page stays within a mobile viewport', async ({ page }) => {
   await installFixtures(page);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/aboutus');
 
-  await expect(page.getByRole('heading', { name: 'About Us' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'About us' })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
@@ -73,7 +73,7 @@ test('contact page keeps every real contact path in its mobile redesign', async 
   await page.goto('/contactus');
 
   const main = page.getByRole('main');
-  await expect(main.getByRole('heading', { name: 'Contact Us', level: 1 })).toBeVisible();
+  await expect(main.getByRole('heading', { name: 'Contact us', level: 1 })).toBeVisible();
   await expect(main.getByRole('img', { name: /student team gathered after a project presentation/i })).toBeVisible();
   await expect(main.getByRole('link', { name: 'umd@hack4impact.org' })).toHaveAttribute(
     'href',
@@ -146,9 +146,9 @@ test('project library restores current projects and searchable project discovery
   await installFixtures(page);
   await page.goto('/ourwork');
 
-  await expect(page.getByRole('heading', { name: 'Current Projects' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Current projects' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Current Community Tool' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: '2025 Projects' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: '2025', exact: true })).toBeVisible();
 
   await page.getByRole('searchbox', { name: 'Search all projects' }).fill('Fixture Member');
   await expect(page.getByRole('heading', { name: 'Current Community Tool' })).toBeVisible();

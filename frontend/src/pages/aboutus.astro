@@ -13,7 +13,7 @@ const [boardMembers, teamMembers] = await Promise.all([
   loadMembers('Current Member'),
 ]);
 ---
-<BaseLayout {...STATIC_PAGE_META['/aboutus']}>
+<BaseLayout {...STATIC_PAGE_META['/aboutus']} transparentNav={Boolean(resolved.content)}>
   {resolved.content && (
     <AboutSections
       content={resolved.content}

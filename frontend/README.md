@@ -54,6 +54,16 @@ npm --prefix frontend run dev
 
 Astro runs at <http://localhost:3000>.
 
+To work on design without the emulator, read content and images from the live
+site instead. This only reads from production; it never writes.
+
+```bash
+npm --prefix frontend run dev:live
+```
+
+The script sets `API_BASE_URL` inline, which needs a POSIX shell (macOS,
+Linux, WSL or Git Bash).
+
 ### Environment variables
 
 `frontend/.env.example` lists three variables.
@@ -61,7 +71,7 @@ Astro runs at <http://localhost:3000>.
 | Variable | Function |
 | --- | --- |
 | `API_BASE_URL` | The API address for the build. The build needs an absolute address. |
-| `DEV_API_PROXY_URL` | The proxy target for browser image requests in development. |
+| `DEV_API_PROXY_URL` | The proxy target for browser image requests in development. Defaults to `API_BASE_URL`, so images come from the same API as the content. |
 | `PUBLIC_API_URL` | The API address for the browser. Keep it empty for same-origin `/api`. |
 
 `API_BASE_URL` is necessary. A relative `/api` address has no meaning on a

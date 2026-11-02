@@ -112,7 +112,7 @@ const OurWorkProjectLibrary = ({
     return (
       <section className={shellClassName}>
         {mode === 'related' ? (
-          <h2 className={styles.relatedHeading}>{title || 'View More of Our Work'}</h2>
+          <h2 className={`${styles.relatedHeading} text-section`}>{title || 'More of our work'}</h2>
         ) : null}
         <p className={styles.emptyState}>
           {mode === 'related'
@@ -149,7 +149,7 @@ const OurWorkProjectLibrary = ({
 
     return (
       <section className={styles.relatedShell}>
-        <h2 className={styles.relatedHeading}>{title || 'View More of Our Work'}</h2>
+        <h2 className={`${styles.relatedHeading} text-section`}>{title || 'More of our work'}</h2>
         {limited.length === 0 ? (
           <p className={styles.emptyState}>No additional projects are available right now.</p>
         ) : (
@@ -197,14 +197,14 @@ const OurWorkProjectLibrary = ({
 
       {currentProjects.length > 0 ? (
         <section className={styles.yearSection} aria-labelledby="current-projects-heading">
-          <h2 id="current-projects-heading" className={styles.yearHeading}>Current Projects</h2>
+          <h2 id="current-projects-heading" className={`${styles.yearHeading} text-section`}>Current projects</h2>
           <div className={styles.grid}>{currentProjects.map(renderProjectCard)}</div>
         </section>
       ) : null}
 
       {years.map((year) => (
         <section key={year} className={styles.yearSection}>
-          <h2 className={styles.yearHeading}>{year} Projects</h2>
+          <h2 className={`${styles.yearHeading} text-section`}>{year === 'Unknown' ? 'Earlier projects' : year}</h2>
           <div className={styles.grid}>{grouped[year].map(renderProjectCard)}</div>
         </section>
       ))}

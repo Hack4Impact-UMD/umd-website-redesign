@@ -6,9 +6,13 @@ import { fileURLToPath } from 'node:url';
 const src = fileURLToPath(new URL('./src', import.meta.url));
 
 // Browser-side /api/media/* still needs a dev proxy. Server-side fetches during
-// the build use API_BASE_URL directly and never pass through this.
+// the build use API_BASE_URL directly and never pass through this. Falling back
+// to API_BASE_URL keeps images coming from the same API as the page content, so
+// pointing the dev server at production (npm run dev:live) brings images too.
 const devApiProxyTarget =
-  process.env.DEV_API_PROXY_URL || 'http://127.0.0.1:5001/demo-umd-website/us-central1/api';
+  process.env.DEV_API_PROXY_URL ||
+  process.env.API_BASE_URL ||
+  'http://127.0.0.1:5001/demo-umd-website/us-central1/api';
 
 export default defineConfig({
   site: 'https://umd.hack4impact.org',

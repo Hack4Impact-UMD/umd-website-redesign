@@ -1,7 +1,11 @@
-import { Button } from '@/components/ui/button';
+import CornerBrackets from '@/components/shared/CornerBrackets';
+import {
+  darkPrimaryButton,
+  darkPrimaryButtonUnavailable,
+  darkSecondaryButton,
+} from '@/components/shared/buttonStyles';
 
 import ApplyLink from './ApplyLink';
-import { ApplySection } from './ApplyPageLayout';
 
 type ApplyCTAProps = {
   heading: string;
@@ -11,31 +15,31 @@ type ApplyCTAProps = {
   secondaryHref: string;
 };
 
+// The site's closing invitation: navy, framed by the logo's brackets.
 function ApplyCTA({ heading, primaryLabel, primaryHref, secondaryLabel, secondaryHref }: ApplyCTAProps) {
   return (
-    <ApplySection>
-      <div className="space-y-6">
-        <h2 className="font-heading text-2xl font-bold">{heading}</h2>
-        <div className="flex flex-wrap gap-4">
+    <section className="bg-h4i-navy px-6 py-20 text-white sm:px-10 lg:px-24 lg:py-28">
+      <div className="mx-auto max-w-[1248px]">
+        <div className="relative w-fit max-w-full py-5 pr-8 sm:py-6 sm:pr-16">
+          <CornerBrackets />
+          <h2 className="text-section text-white">{heading}</h2>
+        </div>
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-6">
           {primaryHref ? (
-            <Button asChild className="min-w-28 bg-primary text-primary-foreground hover:bg-state-primary-hover">
-              <ApplyLink href={primaryHref}>{primaryLabel}</ApplyLink>
-            </Button>
-          ) : (
-            <Button className="min-w-28" disabled>
+            <ApplyLink href={primaryHref} className={darkPrimaryButton}>
               {primaryLabel}
-            </Button>
+            </ApplyLink>
+          ) : (
+            <span aria-disabled="true" className={darkPrimaryButtonUnavailable}>
+              {primaryLabel}
+            </span>
           )}
-          <Button
-            asChild
-            variant="outline"
-            className="border-primary text-primary hover:bg-accent hover:text-primary"
-          >
-            <ApplyLink href={secondaryHref}>{secondaryLabel}</ApplyLink>
-          </Button>
+          <ApplyLink href={secondaryHref} className={darkSecondaryButton}>
+            {secondaryLabel}
+          </ApplyLink>
         </div>
       </div>
-    </ApplySection>
+    </section>
   );
 }
 

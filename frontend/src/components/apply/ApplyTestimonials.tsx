@@ -14,7 +14,7 @@ function ApplyTestimonials({ testimonials }: ApplyTestimonialsProps) {
   if (testimonials.length === 0) return null;
 
   return (
-    <ApplySection className="bg-h4i-blue text-white">
+    <ApplySection variant="inverse">
       <div className="grid gap-6 md:grid-cols-2">
         {testimonials.map((testimonial, index) => (
           <div

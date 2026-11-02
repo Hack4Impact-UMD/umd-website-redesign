@@ -7,6 +7,6 @@ import { STATIC_PAGE_META } from '@/lib/pageMeta';
 
 const settings = resolveSiteSettingsContent(await loadSiteSettings());
 ---
-<BaseLayout {...STATIC_PAGE_META['/contactus']}>
+<BaseLayout {...STATIC_PAGE_META['/contactus']} transparentNav>
   <ContactUsSection settings={settings} />
 </BaseLayout>
