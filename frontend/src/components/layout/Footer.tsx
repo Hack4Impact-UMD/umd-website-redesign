@@ -98,7 +98,7 @@ export default function Footer({ settings = defaultSiteSettings }: FooterProps) 
             </section>
 
             <section aria-labelledby="footer-contact-heading">
-              <h3 id="footer-contact-heading" className="text-[22px] font-bold leading-[30px]">Contact Us</h3>
+              <h3 id="footer-contact-heading" className="text-[22px] font-bold leading-[30px]">Contact us</h3>
               <address className="mt-3 not-italic text-base leading-6 text-white/80">
                 {footer.contact.addressLines.map((line) => <div key={line}>{line}</div>)}
                 <a

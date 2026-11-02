@@ -11,20 +11,25 @@ import {
   type ProjectApiItem,
 } from '@/components/project_page/projectPageMapper';
 import { groupTeamMembers, type TeamMemberView } from '@/components/project_page/projectTeam';
-import { Button } from '@/components/ui/button';
+import CTASection from '@/components/home/CTASection';
+import { darkPrimaryButton, darkSecondaryButton } from '@/components/shared/buttonStyles';
+import PageHero from '@/components/shared/PageHero';
+import ProjectScreenshot from '@/components/project_page/ProjectScreenshot';
+import { defaultHomeContent } from '@/content-schema/home';
 
 function TeamSection({ title, members }: { title: string; members: TeamMemberView[] }) {
   if (members.length === 0) return null;
+  const headingId = `team-${title.toLowerCase().replace(/\W+/g, '-')}`;
 
   return (
-    <section aria-labelledby={`team-${title.toLowerCase().replace(/\W+/g, '-')}`}>
+    <section aria-labelledby={headingId}>
       <h3
-        id={`team-${title.toLowerCase().replace(/\W+/g, '-')}`}
-        className="mb-6 font-heading text-h3 font-bold text-foreground"
+        id={headingId}
+        className="mb-6 border-t border-black/10 pt-5 font-heading text-2xl font-normal tracking-tight text-foreground"
       >
         {title}
       </h3>
-      <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-10">
+      <div className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 lg:gap-x-6">
         {members.map((member) => (
           <PersonCard
             key={member.id}
@@ -39,24 +44,24 @@ function TeamSection({ title, members }: { title: string; members: TeamMemberVie
   );
 }
 
+// Project images are mostly small logos: show them at no more than natural
+// size on a white panel, like the project cards.
 function ProjectVisual({ src, alt }: { src: string; alt: string }) {
   const [hasError, setHasError] = useState(false);
 
-  if (hasError) {
-    return (
-      <div className="flex aspect-[16/9] items-center justify-center rounded-xl bg-muted p-12">
-        <img src={h4iLogo} alt="" className="w-40 max-w-full opacity-40" />
-      </div>
-    );
-  }
-
   return (
-    <img
-      src={src}
-      alt={alt}
-      className="h-auto max-h-[640px] w-full rounded-xl object-contain"
-      onError={() => setHasError(true)}
-    />
+    <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-white ring-1 ring-black/10">
+      {hasError ? (
+        <img src={h4iLogo} alt="" className="absolute inset-0 m-auto w-40 max-w-[60%] opacity-40" />
+      ) : (
+        <img
+          src={src}
+          alt={alt}
+          className="absolute inset-0 m-auto h-auto max-h-[70%] w-auto max-w-[70%] object-contain"
+          onError={() => setHasError(true)}
+        />
+      )}
+    </div>
   );
 }
 
@@ -75,85 +80,78 @@ export default function ProjectPageSections({
   const teamGroups = groupTeamMembers(viewModel.members, viewModel.title);
   const hasTeam = Object.values(teamGroups).some((members) => members.length > 0);
 
+  const facts = [
+    viewModel.partnerName ? { label: 'Partner', value: viewModel.partnerName } : null,
+    viewModel.seasonLabel ? { label: 'Season', value: viewModel.seasonLabel } : null,
+    viewModel.isCurrentProject ? { label: 'Status', value: 'Current project' } : null,
+  ].filter((fact): fact is { label: string; value: string } => fact !== null);
+
   return (
-    <main className="bg-background">
-      <section className="bg-h4i-blue px-6 py-12 text-white lg:px-16 lg:py-16">
-        <div className="mx-auto max-w-7xl text-center">
+    <main className="bg-white">
+      <PageHero
+        title={viewModel.title}
+        headingId="project-title"
+        aside={
+          viewModel.screenshot ? (
+            <ProjectScreenshot
+              src={viewModel.screenshot.src}
+              alt={viewModel.screenshot.alt}
+              url={viewModel.hostedProjectURL}
+            />
+          ) : undefined
+        }
+        leading={
           <a
             href="/ourwork"
-            className="mb-7 inline-flex items-center gap-2 text-body-small text-white/85 transition-colors hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+            className="inline-flex items-center gap-2 rounded-sm font-body text-base text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-h4i-navy"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             All projects
           </a>
-          <h1 className="font-heading text-h1 font-bold text-white sm:text-display">{viewModel.title}</h1>
-          {viewModel.summary ? (
-            <p className="mx-auto mt-3 max-w-4xl font-body text-body-small text-white/90 sm:text-body">
-              {viewModel.summary}
-            </p>
-          ) : null}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-            {viewModel.partnerName ? (
-              <span className="rounded-lg bg-white/10 px-4 py-2 font-heading text-label text-white">
-                {viewModel.partnerName}
-              </span>
-            ) : null}
-            {viewModel.isCurrentProject ? (
-              <span className="rounded-lg border border-white/40 px-4 py-2 font-heading text-label text-white">
-                Current project
-              </span>
-            ) : null}
-            {viewModel.seasonLabel ? (
-              <span className="rounded-lg border border-white/40 px-4 py-2 font-heading text-label text-white">
-                {viewModel.seasonLabel}
-              </span>
-            ) : null}
+        }
+      >
+        {viewModel.summary ? (
+          <p className="mt-6 font-body text-lg leading-relaxed text-white/90 sm:text-xl">{viewModel.summary}</p>
+        ) : null}
+        {facts.length > 0 ? (
+          <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
+            {facts.map((fact) => (
+              <div key={fact.label}>
+                <dt className="font-body text-sm text-white/60">{fact.label}</dt>
+                <dd className="mt-1 font-heading text-lg text-white">{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
+        {viewModel.hostedProjectURL || viewModel.repoURL ? (
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-6">
             {viewModel.hostedProjectURL ? (
-              <Button
-                asChild
-                variant="secondary"
-                className="h-10 bg-white text-h4i-blue hover:bg-white/90"
-              >
-                <ApplyLink href={viewModel.hostedProjectURL}>
-                  <span className="inline-flex items-center gap-2">
-                    <Globe className="h-4 w-4" aria-hidden="true" />
-                    View project
-                  </span>
-                </ApplyLink>
-              </Button>
+              <ApplyLink href={viewModel.hostedProjectURL} className={`${darkPrimaryButton} gap-2`}>
+                <Globe className="h-4 w-4" aria-hidden="true" />
+                View project
+              </ApplyLink>
             ) : null}
             {viewModel.repoURL ? (
-              <Button
-                asChild
-                variant="outline"
-                className="h-10 border-white bg-transparent text-white hover:bg-white/10 hover:text-white"
-              >
-                <ApplyLink href={viewModel.repoURL}>
-                  <span className="inline-flex items-center gap-2">
-                    <Github className="h-4 w-4" aria-hidden="true" />
-                    View code
-                  </span>
-                </ApplyLink>
-              </Button>
+              <ApplyLink href={viewModel.repoURL} className={`${darkSecondaryButton} gap-2`}>
+                <Github className="h-4 w-4" aria-hidden="true" />
+                View code
+              </ApplyLink>
             ) : null}
           </div>
-        </div>
-      </section>
+        ) : null}
+      </PageHero>
 
       {viewModel.overviewParagraphs.length > 0 || viewModel.heroImageSrc ? (
-        <section className="px-6 py-16 lg:px-16 lg:py-20" aria-labelledby="project-overview">
-          <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <section className="px-6 py-16 sm:px-8 lg:px-24 lg:py-24" aria-labelledby="project-overview">
+          <div className="mx-auto grid max-w-[1248px] items-start gap-10 lg:grid-cols-12 lg:gap-16">
             {viewModel.overviewParagraphs.length > 0 ? (
-              <div>
-                <h2 id="project-overview" className="font-heading text-h2 font-bold text-foreground">
-                  Project Overview
+              <div className="lg:col-span-7">
+                <h2 id="project-overview" className="text-section text-foreground">
+                  Project overview
                 </h2>
-                <div className="mt-5 space-y-4">
+                <div className="mt-6 max-w-prose space-y-5">
                   {viewModel.overviewParagraphs.map((paragraph, index) => (
-                    <p
-                      key={`${index}-${paragraph}`}
-                      className="font-body text-body-small text-muted-foreground sm:text-body"
-                    >
+                    <p key={`${index}-${paragraph}`} className="font-body text-lg leading-relaxed text-text-secondary">
                       {paragraph}
                     </p>
                   ))}
@@ -165,7 +163,7 @@ export default function ProjectPageSections({
               </h2>
             )}
             {viewModel.heroImageSrc ? (
-              <div className="overflow-hidden rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-6">
+              <div className={viewModel.overviewParagraphs.length > 0 ? 'lg:col-span-5 lg:sticky lg:top-28' : 'lg:col-span-6'}>
                 <ProjectVisual src={viewModel.heroImageSrc} alt={viewModel.heroImageAlt} />
               </div>
             ) : null}
@@ -174,20 +172,20 @@ export default function ProjectPageSections({
       ) : null}
 
       {hasTeam ? (
-        <section className="bg-card px-6 py-16 lg:px-16 lg:py-20" aria-labelledby="project-team">
-          <div className="mx-auto max-w-7xl space-y-12">
-            <h2 id="project-team" className="text-center font-heading text-h2 font-bold text-foreground">
-              Meet the Team
+        <section className="bg-[#F1F3F5] px-6 py-16 sm:px-8 lg:px-24 lg:py-24" aria-labelledby="project-team">
+          <div className="mx-auto max-w-[1248px] space-y-12">
+            <h2 id="project-team" className="text-section text-foreground">
+              Meet the team
             </h2>
-            <TeamSection title="Product & Design" members={teamGroups.productDesign} />
+            <TeamSection title="Product & design" members={teamGroups.productDesign} />
             <TeamSection title="Engineering" members={teamGroups.engineering} />
-            <TeamSection title="Other Contributors" members={teamGroups.other} />
+            <TeamSection title="Other contributors" members={teamGroups.other} />
           </div>
         </section>
       ) : null}
 
-      <section className="px-6 py-16 lg:px-16 lg:py-20">
-        <div className="mx-auto max-w-7xl">
+      <section className="px-6 py-16 sm:px-8 lg:px-24 lg:py-24">
+        <div className="mx-auto max-w-[1248px]">
           <OurWorkProjectLibrary
             projects={allProjects}
             mode="related"
@@ -198,24 +196,8 @@ export default function ProjectPageSections({
         </div>
       </section>
 
-      <section className="px-6 pb-16 lg:px-16 lg:pb-20">
-        <div className="mx-auto max-w-7xl rounded-xl border border-border bg-card px-6 py-10 shadow-sm sm:px-8">
-          <h2 className="font-heading text-h2 font-bold text-foreground">Ready to Work with Us?</h2>
-          <div className="mt-6 flex flex-wrap gap-4">
-            <Button asChild>
-              <a href="/apply/nonprofit">Apply as a Nonprofit</a>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              className="border-h4i-blue text-h4i-blue hover:bg-accent hover:text-h4i-blue"
-            >
-              <a href="/apply/student">I’m a Student</a>
-            </Button>
-          </div>
-        </div>
-      </section>
+      {/* Same closing invitation as the rest of the site. */}
+      <CTASection content={defaultHomeContent.cta} />
     </main>
   );
 }
-

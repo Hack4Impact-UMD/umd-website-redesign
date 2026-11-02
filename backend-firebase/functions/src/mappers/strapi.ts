@@ -53,6 +53,17 @@ export const mapMemberToStrapiEntity = (
   };
 };
 
+// Same public-URL rules as `image`: an unsafe or missing path yields no screenshot.
+const mapScreenshot = (project: ProjectRecord): StrapiProjectAttributes['screenshot']['data'] => {
+  const url = project.screenshot?.url ? toPublicMediaUrl(project.screenshot.url) : null;
+  if (!url) return null;
+  const alt = project.screenshot?.alt?.trim();
+  return {
+    id: `${project.id}_screenshot`,
+    attributes: alt ? { url, alternativeText: alt } : { url },
+  };
+};
+
 export const mapProjectToStrapiEntity = (
   project: ProjectRecord,
   membersById: Map<string, MemberRecord>,
@@ -98,6 +109,9 @@ export const mapProjectToStrapiEntity = (
               url: asset.url,
             },
           })),
+      },
+      screenshot: {
+        data: mapScreenshot(project),
       },
       members: {
         data: memberEntities,

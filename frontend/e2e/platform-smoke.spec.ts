@@ -127,7 +127,7 @@ test('published site settings drive the shared chrome, and unknown routes really
   const response = await page.goto('/missing-direct-link');
   expect(response?.status()).toBe(404);
   await expect(page.getByRole('heading', { name: 'Page not found' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Go to Home' })).toHaveAttribute('href', '/');
+  await expect(page.getByRole('link', { name: 'Go to the home page' })).toHaveAttribute('href', '/');
   await expect(page.getByRole('link', { name: 'Chapter Info' }).first()).toHaveAttribute('href', '/aboutus');
   await expect(page.getByRole('link', { name: 'Contact Us' }).first()).toHaveAttribute('href', '/contactus');
   await expect(page.getByRole('link', { name: 'TerpLink' })).toHaveAttribute(
@@ -162,4 +162,14 @@ test('published Our Work content replaces the local header fallback', async ({ p
   await expect(page.getByRole('heading', { name: 'Project Library' })).toBeVisible();
   await expect(page.getByText('Fixture-managed copy')).toBeVisible();
   await expect(page.getByAltText('Fixture archive artwork')).toBeVisible();
+});
+
+test('a project with a screenshot shows it in the hero', async ({ page }) => {
+  await installFixtures(page);
+  await page.goto('/ourwork/fixture-project');
+  await expect(page.getByRole('heading', { name: 'Fixture Project', level: 1 })).toBeVisible();
+  await expect(page.getByRole('img', { name: 'Fixture dashboard' })).toHaveAttribute(
+    'src',
+    '/api/media/projects/fixture-project/screenshot.png',
+  );
 });

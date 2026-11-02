@@ -52,7 +52,7 @@ Start the Astro server in a second terminal:
 npm --prefix frontend run dev
 ```
 
-Astro runs at <http://localhost:3000>.
+Astro runs at <http://localhost:4321>.
 
 To work on design without the emulator, read content and images from the live
 site instead. This only reads from production; it never writes.
@@ -83,6 +83,29 @@ that address into every image tag in the HTML. Those addresses do not use the
 Netlify cache.
 
 Do not put Firebase Admin credentials in the frontend.
+
+## Design system
+
+The pages share a small set of styles and components. Reuse them before you
+write new ones.
+
+| Piece | Where | Use |
+| --- | --- | --- |
+| Colours | `tailwind.config.js` | `h4i-navy` for dark sections and hero overlays, `h4i-blue` for links and accents, `#F1F3F5` for grey sections |
+| Fonts | `tailwind.config.js` | `font-heading` (Karla) for headings, labels, and buttons. `font-body` (Open Sans) for text. |
+| `text-section` | `src/index.css` | The heading of every page section. Regular weight, sentence case. |
+| `PageHero` | `src/components/shared/` | The photo hero of every inner page, with the navy overlay and corner brackets. `aside` adds a right-hand column, such as a product screenshot. |
+| `CornerBrackets` | `src/components/shared/` | The logo's corner brackets. Only for heroes and the closing call to action. |
+| `buttonStyles.ts` | `src/components/shared/` | Button classes for dark and light backgrounds, and the unavailable state. |
+| `ProjectCard` | `src/components/shared/` | Project cards on Home, About, and Our Work. |
+| `CTASection` | `src/components/home/` | The navy "Build with us" band at the end of a page. |
+
+Sections alternate between white and grey. Navy is for heroes, the closing call
+to action, and the footer. Write headings, labels, and buttons in sentence case.
+
+A page with a `PageHero` or the home hero must pass `transparentNav` to
+`BaseLayout`. The navigation bar then sits over the hero and turns solid when
+the page scrolls.
 
 ## Validation
 

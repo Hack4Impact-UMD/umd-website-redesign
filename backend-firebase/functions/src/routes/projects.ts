@@ -75,6 +75,7 @@ const toProjectRecord = (id: string, raw: FirebaseFirestore.DocumentData): Proje
   hostedProjectURL: raw.hostedProjectURL,
   imageAltText: raw.imageAltText,
   image: Array.isArray(raw.image) ? raw.image : [],
+  screenshot: raw.screenshot && typeof raw.screenshot === 'object' ? raw.screenshot : null,
   memberIds: normalizeRelationIds(raw.memberIds),
   nonprofitName: raw.nonprofitName,
   createdAt: raw.createdAt,

@@ -13,7 +13,7 @@ describe('Footer', () => {
       'href',
       'https://facebook.com/hack4impactumd',
     );
-    expect(screen.getByRole('link', { name: 'Contact Us' })).toHaveAttribute('href', '/contactus');
+    expect(screen.getByRole('link', { name: 'Contact us' })).toHaveAttribute('href', '/contactus');
     expect(screen.getByRole('link', { name: 'TerpLink' })).toHaveAttribute(
       'href',
       'https://terplink.umd.edu/organization/hack4impact',

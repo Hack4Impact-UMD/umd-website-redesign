@@ -89,5 +89,38 @@ describe('Strapi compatibility mapper', () => {
     expect(mappedMember.id).toBe('255');
     expect(mappedMember.attributes.componentRolesArr).toHaveLength(2);
     expect(mappedProject.attributes.members.data).toEqual([mappedMember]);
+    expect(mappedProject.attributes.screenshot.data).toBeNull();
+  });
+
+  it('maps a project screenshot to a public media URL with its alt text', () => {
+    const base: ProjectRecord = {
+      id: '7',
+      title: 'Portal',
+      path: 'applicationportal',
+      summary: 'Summary',
+      blurb: 'Blurb',
+      isFeatured: false,
+      isCurrentProject: true,
+      image: [],
+      memberIds: [],
+    };
+
+    const withScreenshot = mapProjectToStrapiEntity(
+      { ...base, screenshot: { url: 'projects/7/screenshot-ab12.png', alt: ' Reviewer dashboard ' } },
+      new Map(),
+    );
+    expect(withScreenshot.attributes.screenshot.data).toEqual({
+      id: '7_screenshot',
+      attributes: {
+        url: '/api/media/projects/7/screenshot-ab12.png',
+        alternativeText: 'Reviewer dashboard',
+      },
+    });
+
+    const unsafe = mapProjectToStrapiEntity(
+      { ...base, screenshot: { url: 'projects/%2e%2e/secret.png' } },
+      new Map(),
+    );
+    expect(unsafe.attributes.screenshot.data).toBeNull();
   });
 });
