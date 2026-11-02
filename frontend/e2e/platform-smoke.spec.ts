@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { installFixtures } from './fixtures';
 
 for (const [path, heading] of [
-  ['/', /Hack4Impact-UMD/i],
+  ['/', /Building software for social good/i],
   ['/aboutus', /About Us/i],
   ['/ourwork', /Project Library/i],
   ['/ourwork/fixture-project', /Fixture Project/i],
@@ -33,8 +33,8 @@ test('home preserves its Figma section order without fabricated live capabilitie
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
-  await expect(page.getByRole('heading', { name: 'Hack4Impact-UMD' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Our Impact' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Building software for social good' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Our impact' })).toBeVisible();
   await expect(page.getByText('10+')).toBeVisible();
   await expect(page.getByText('12', { exact: true })).toBeVisible();
   await expect(page.getByText('150+')).toBeVisible();
@@ -48,7 +48,12 @@ test('home preserves its Figma section order without fabricated live capabilitie
   await expect(page.getByText(/preparing a public archive/i)).toHaveCount(0);
   await expect(page.getByRole('heading', { name: 'Our sponsors' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Build with us this semester' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Join as a student', exact: true })).toHaveAttribute('href', '/apply/student');
+  // The hero and the closing CTA share the same pair of actions.
+  const studentLinks = page.getByRole('link', { name: 'Join as a student', exact: true });
+  await expect(studentLinks).toHaveCount(2);
+  for (const link of await studentLinks.all()) {
+    await expect(link).toHaveAttribute('href', '/apply/student');
+  }
   await expect(page.locator('form')).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
