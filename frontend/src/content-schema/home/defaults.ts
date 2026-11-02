@@ -1,5 +1,4 @@
 import campStarfishLogo from '@/components/assets/home/camp-starfish.png?url';
-import mobileGroupPhoto from '@/components/assets/home/h4igroup-photo-mobile.webp?url';
 import classroomPhoto from '@/components/assets/apply/apply-classroom.webp?url';
 import ACES from '@/components/assets/supporters/ACES.png?url';
 import Bloomberg from '@/components/assets/supporters/Bloomberg.png?url';
@@ -13,17 +12,17 @@ import type { HomeContent } from './types';
 
 export const defaultHomeContent: HomeContent = {
   hero: {
-    heading: 'Hack4Impact-UMD',
-    body: 'Building powerful nonprofit software as a tool for social good. We connect UMD students with nonprofits to create technology that supports their work.',
+    heading: 'Building software for social good',
+    body: 'Each semester, Hack4Impact-UMD student teams work alongside nonprofit partners to design, build, and hand off the high-quality software they need.',
     slides: [
       {
         image: classroomPhoto,
-        mobileImage: mobileGroupPhoto,
+        mobileImage: classroomPhoto,
         alt: 'Hack4Impact UMD students collaborating at a laptop workshop',
       },
     ],
-    primaryCta: { label: 'Learn More', href: '/aboutus' },
-    secondaryCta: { label: 'Apply Now', href: '/apply/student' },
+    primaryCta: { label: 'Join as a student', href: '/apply/student' },
+    secondaryCta: { label: 'Partner with us', href: '/apply/nonprofit' },
   },
   impact: {
     mode: 'published',

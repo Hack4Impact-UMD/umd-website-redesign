@@ -50,7 +50,7 @@ test('home preserves its Figma section order without fabricated live capabilitie
   await expect(page.getByText(/preparing a public archive/i)).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Our Sponsors' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Come Make an Impact With Us!' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Apply Now' })).toHaveAttribute('href', '/apply/student');
+  await expect(page.getByRole('link', { name: 'Join as a student', exact: true })).toHaveAttribute('href', '/apply/student');
   await expect(page.locator('form')).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });

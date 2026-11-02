@@ -37,7 +37,7 @@ export default function AboutSections({
   } = content;
 
   return (
-    <main className="flex flex-col bg-background font-karla">
+    <main className="flex flex-col bg-background">
       <AboutHeader {...header} />
       <StoryTimelineSection {...story} />
       <HighlightsSection {...highlights} />

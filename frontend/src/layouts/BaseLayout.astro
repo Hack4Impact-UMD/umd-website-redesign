@@ -14,6 +14,8 @@ interface Props {
   ogImage?: string;
   canonicalPath?: string;
   noindex?: boolean;
+  /** Overlay the navbar on a full-bleed hero; it turns solid once the page scrolls. */
+  transparentNav?: boolean;
 }
 
 // Memoised, so the whole build fetches site settings once rather than once per page.
@@ -25,7 +27,7 @@ const settings = resolveSiteSettingsContent(await loadSiteSettings());
   <Head {...Astro.props} />
   <body>
     <div class="min-h-screen flex flex-col">
-      <Navbar settings={settings} />
+      <Navbar settings={settings} transparentOnTop={Astro.props.transparentNav} />
       <div class="flex-1">
         <slot />
       </div>
