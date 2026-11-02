@@ -11,6 +11,7 @@ export default {
       colors: {
         'h4i-blue': '#0069CA',
         'h4i-blue-light': '#C2E0FB',
+        'h4i-navy': '#001a33',
         'h4i-mint': '#80D2C8',
         'h4i-mint-light': '#CBF9F3',
         'h4i-black': '#333333',
@@ -68,7 +69,7 @@ export default {
       },
       fontFamily: {
         heading: ['Karla', 'sans-serif'],
-        body: ['Karla', 'sans-serif'],
+        body: ['"Open Sans"', 'sans-serif'],
         karla: ['Karla', 'sans-serif'],
       },
       fontSize: {

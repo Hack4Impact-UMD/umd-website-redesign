@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 import { installFixtures } from './fixtures';
 
 for (const [path, heading] of [
-  ['/', /Hack4Impact-UMD/i],
+  ['/', /Building software for social good/i],
   ['/aboutus', /About Us/i],
   ['/ourwork', /Project Library/i],
   ['/ourwork/fixture-project', /Fixture Project/i],
@@ -33,24 +33,27 @@ test('home preserves its Figma section order without fabricated live capabilitie
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
-  await expect(page.getByRole('heading', { name: 'Hack4Impact-UMD' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Our Impact' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Building software for social good' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Our impact' })).toBeVisible();
   await expect(page.getByText('10+')).toBeVisible();
   await expect(page.getByText('12', { exact: true })).toBeVisible();
   await expect(page.getByText('150+')).toBeVisible();
   await expect(page.getByText('400+')).toBeVisible();
   await expect(page.getByText('$150K')).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Explore Our Nonprofit Partners' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Featured Projects' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Testimonials from Our Nonprofit Partners' })).toBeVisible();
-  await expect(page.getByText(/gathering stories from our nonprofit partners/i)).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Participate in Student-Led Community Events' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Check Out Our Recent Newsletter' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Newsletter updates' })).toBeVisible();
-  await expect(page.getByText(/preparing a public archive/i)).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Our Sponsors' })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Come Make an Impact With Us!' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Apply Now' })).toHaveAttribute('href', '/apply/student');
+  await expect(page.getByRole('heading', { name: 'Featured projects' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Where our partners are' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Student-led community events' })).toBeVisible();
+  // Placeholder-only sections stay hidden until they have real content.
+  await expect(page.getByText(/gathering stories from our nonprofit partners/i)).toHaveCount(0);
+  await expect(page.getByText(/preparing a public archive/i)).toHaveCount(0);
+  await expect(page.getByRole('heading', { name: 'Our sponsors' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Build with us this semester' })).toBeVisible();
+  // The hero and the closing CTA share the same pair of actions.
+  const studentLinks = page.getByRole('link', { name: 'Join as a student', exact: true });
+  await expect(studentLinks).toHaveCount(2);
+  for (const link of await studentLinks.all()) {
+    await expect(link).toHaveAttribute('href', '/apply/student');
+  }
   await expect(page.locator('form')).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });

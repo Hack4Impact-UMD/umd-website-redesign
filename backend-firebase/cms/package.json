@@ -32,6 +32,7 @@
   },
   "overrides": {
     "@tiptap/core": "^3.31.3",
-    "nanoid": "^3.3.18"
+    "nanoid": "^3.3.18",
+    "@grpc/grpc-js": "^1.14.5"
   }
 }

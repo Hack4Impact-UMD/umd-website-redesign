@@ -26,7 +26,7 @@ export default function ValuesSection({ heading, items }: ValuesSectionProps) {
               <h3 className="mt-4 font-heading text-h3 font-bold text-foreground">
                 {value.title}
               </h3>
-              <p className="mt-2 font-karla text-body text-foreground">
+              <p className="mt-2 font-body text-body text-foreground">
                 {value.description}
               </p>
             </div>

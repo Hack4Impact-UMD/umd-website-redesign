@@ -1,14 +1,16 @@
 ---
 import h4iLogo from '@/components/assets/h4i_files/h4i_logo.svg?url';
+import h4iLogoWhite from '@/components/assets/h4i_files/h4i_logo_white.svg?url';
 import { defaultSiteSettings, type SiteSettings } from '@/content-schema/site-settings';
 import { resolveMediaUrl } from '@/lib/media';
 import { cn } from '@/lib/utils';
 
 interface Props {
   settings?: SiteSettings;
+  transparentOnTop?: boolean;
 }
 
-const { settings = defaultSiteSettings } = Astro.props;
+const { settings = defaultSiteSettings, transparentOnTop = false } = Astro.props;
 
 // Active state is resolved per generated page at build time, so it needs no JS
 // at all -- an improvement on the useLocation() version it replaces.
@@ -17,6 +19,9 @@ const isCurrentPath = (href: string) =>
   href.startsWith('/') && (pathname === href || pathname.startsWith(`${href}/`));
 
 const logo = resolveMediaUrl(settings.branding.logo) || h4iLogo;
+// The white variant matches only the bundled logo; a CMS-uploaded logo keeps
+// its own colours over the hero.
+const overlayLogo = transparentOnTop && logo === h4iLogo ? h4iLogoWhite : null;
 
 const links = settings.navbar.links.map((link, index) => ({
   ...link,
@@ -28,7 +33,7 @@ const links = settings.navbar.links.map((link, index) => ({
 }));
 
 const desktopTrigger =
-  'flex items-center gap-1 rounded-sm py-2 text-label font-bold text-foreground transition-colors hover:text-h4i-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-4';
+  'flex items-center gap-1 rounded-sm py-2 text-label font-bold text-foreground transition-colors hover:text-h4i-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-4 group-data-[overlay=true]/nav:text-white group-data-[overlay=true]/nav:hover:text-white/75 group-data-[overlay=true]/nav:focus-visible:ring-white group-data-[overlay=true]/nav:focus-visible:ring-offset-transparent';
 const desktopItem =
   'block px-4 py-2 text-body-small text-foreground transition-colors hover:bg-muted hover:text-h4i-blue focus-visible:bg-muted focus-visible:text-h4i-blue focus-visible:outline-none';
 const mobileTrigger =
@@ -38,7 +43,14 @@ const mobileItem =
 ---
 <header
   data-navbar
-  class="sticky top-0 z-50 w-full border-b border-border bg-card shadow-[0_1px_2px_1px_rgba(0,0,0,0.1)]"
+  data-transparent-on-top={transparentOnTop ? 'true' : undefined}
+  data-overlay={transparentOnTop ? 'true' : undefined}
+  class={cn(
+    'group/nav top-0 z-50 w-full border-b border-border bg-card shadow-[0_1px_2px_1px_rgba(0,0,0,0.1)]',
+    transparentOnTop
+      ? 'fixed inset-x-0 transition-[background-color,border-color,box-shadow] duration-200 motion-reduce:transition-none data-[overlay=true]:border-transparent data-[overlay=true]:bg-transparent data-[overlay=true]:bg-gradient-to-b data-[overlay=true]:bg-no-repeat data-[overlay=true]:from-h4i-navy/70 data-[overlay=true]:to-transparent data-[overlay=true]:shadow-none'
+      : 'sticky',
+  )}
 >
   <nav
     aria-label="Primary navigation"
@@ -48,9 +60,16 @@ const mobileItem =
       <img
         src={logo}
         alt="Hack4Impact UMD"
-        class="h-[27px] w-auto max-w-[203px]"
+        class={cn('h-[27px] w-auto max-w-[203px]', overlayLogo && 'group-data-[overlay=true]/nav:hidden')}
         onerror={`this.onerror=null;this.src='${h4iLogo}'`}
       />
+      {overlayLogo && (
+        <img
+          src={overlayLogo}
+          alt="Hack4Impact UMD"
+          class="hidden h-[27px] w-auto max-w-[203px] group-data-[overlay=true]/nav:block"
+        />
+      )}
     </a>
 
     <ul class="hidden items-center gap-10 nav:flex">
@@ -106,7 +125,7 @@ const mobileItem =
     <button
       type="button"
       data-menu-toggle
-      class="rounded-md p-2 text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue nav:hidden"
+      class="rounded-md p-2 text-foreground hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue nav:hidden group-data-[overlay=true]/nav:text-white group-data-[overlay=true]/nav:hover:bg-white/10 group-data-[overlay=true]/nav:focus-visible:ring-white"
       aria-expanded="false"
       aria-controls="mobile-navigation"
       aria-label="Open menu"
@@ -206,6 +225,17 @@ const mobileItem =
 
     const isOpen = (el: Element) => el.getAttribute('aria-expanded') === 'true';
 
+    // Pages with a full-bleed hero render the header transparent over it; it
+    // turns solid once the page scrolls or the mobile menu opens.
+    const transparentOnTop = header.dataset.transparentOnTop === 'true';
+    const syncOverlay = () => {
+      if (!transparentOnTop) return;
+      const overlay = window.scrollY < 8 && !isOpen(toggle);
+      header.dataset.overlay = String(overlay);
+    };
+    window.addEventListener('scroll', syncOverlay, { passive: true });
+    syncOverlay();
+
     const setMenu = (open: boolean) => {
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
@@ -216,6 +246,7 @@ const mobileItem =
       panel.hidden = !open;
       scrim.hidden = !open;
       document.body.style.overflow = open ? 'hidden' : '';
+      syncOverlay();
     };
 
     const setSubmenu = (button: HTMLElement, open: boolean) => {
