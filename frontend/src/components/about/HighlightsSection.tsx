@@ -15,7 +15,7 @@ export default function HighlightsSection({ heading, items }: HighlightsSectionP
               <dt className="font-heading text-[clamp(28px,4vw,44px)] font-bold leading-none [overflow-wrap:anywhere]">
                 {item.value}
               </dt>
-              <dd className="mx-auto mt-3 max-w-[180px] font-karla text-body-small text-inverse-foreground/80">
+              <dd className="mx-auto mt-3 max-w-[180px] font-body text-body-small text-inverse-foreground/80">
                 {item.label}
               </dd>
             </div>

@@ -65,7 +65,7 @@ export default function NewsletterSection({ content }: NewsletterSectionProps) {
             <article className="w-full max-w-[520px] overflow-hidden rounded-xl bg-white shadow-[0_4px_12px_rgba(0,0,0,0.1)]">
               <header className="bg-[#0056A3] px-6 py-5 text-white sm:px-8 sm:py-7">
                 {latestIssue.dateLabel && (
-                  <p className="font-heading text-sm leading-5 text-white/80">{latestIssue.dateLabel}</p>
+                  <p className="font-body text-sm leading-5 text-white/80">{latestIssue.dateLabel}</p>
                 )}
                 <p className="mt-2 font-heading text-base font-bold leading-5 text-white">
                   {latestIssue.sender}
