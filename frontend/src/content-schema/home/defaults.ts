@@ -29,11 +29,12 @@ export const defaultHomeContent: HomeContent = {
     heading: 'Our impact',
     placeholderMessage: 'Impact metrics are being updated.',
     stats: [
+      // The first stat is shown as the section's lead number.
+      { value: '$150K', label: 'Value delivered to nonprofits', verified: true },
       { value: '10+', label: 'Software projects delivered', verified: true },
       { value: '12', label: 'Nonprofit partners served', verified: true },
       { value: '150+', label: 'Active members', verified: true },
       { value: '400+', label: 'Applicants per semester', verified: true },
-      { value: '$150K', label: 'Value delivered to nonprofits', verified: true },
     ],
   },
   nonprofitMap: {
