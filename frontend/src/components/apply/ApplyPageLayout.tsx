@@ -10,19 +10,20 @@ type ApplySectionProps = {
   variant?: SectionVariant;
 };
 
+// The same white / cool grey / navy rhythm as the home and about pages.
 const sectionVariants: Record<SectionVariant, string> = {
-  default: 'bg-background text-foreground',
-  muted: 'bg-muted text-foreground',
-  inverse: 'bg-inverse text-inverse-foreground',
+  default: 'bg-white text-foreground',
+  muted: 'bg-[#F1F3F5] text-foreground',
+  inverse: 'bg-h4i-navy text-white',
 };
 
 export function ApplyPageLayout({ children }: { children: ReactNode }) {
-  return <main className="bg-background text-foreground">{children}</main>;
+  return <main className="bg-white text-foreground">{children}</main>;
 }
 
 export function ApplySection({ children, className, variant = 'default' }: ApplySectionProps) {
   return (
-    <section className={cn('px-6 py-16 lg:px-24', sectionVariants[variant], className)}>
+    <section className={cn('px-6 py-16 sm:px-8 lg:px-24 lg:py-24', sectionVariants[variant], className)}>
       <div className="mx-auto w-full max-w-[1248px]">{children}</div>
     </section>
   );
@@ -30,9 +31,11 @@ export function ApplySection({ children, className, variant = 'default' }: Apply
 
 export function SectionHeader({ title, description }: { title: string; description?: string }) {
   return (
-    <div className="space-y-3">
-      <h2 className="font-heading text-h2 font-bold tracking-tight">{title}</h2>
-      {description ? <p className="font-body text-lg text-muted-foreground">{description}</p> : null}
+    <div className="max-w-2xl">
+      <h2 className="text-section">{title}</h2>
+      {description ? (
+        <p className="mt-4 font-body text-lg leading-relaxed text-text-secondary">{description}</p>
+      ) : null}
     </div>
   );
 }

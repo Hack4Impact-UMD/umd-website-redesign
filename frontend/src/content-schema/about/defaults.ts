@@ -1,12 +1,13 @@
 import teamPhoto from '@/components/assets/about/team-showcase.webp?url';
 import valuesPhoto from '@/components/assets/about/values-collaboration.webp?url';
 import h4iGroupPhoto from '@/components/assets/h4igroup_photo.webp?url';
-import aboutHeaderPhoto from '@/components/assets/backgrounds/about_us/aboutus_header2023.webp?url';
+// A plain group photo: the older header image has a wave shape baked in that fights the overlay.
+import aboutHeaderPhoto from '@/components/assets/home/testimonials.webp?url';
 import type { AboutContent } from './types';
 
 export const defaultAboutContent = {
   header: {
-    title: 'About Us',
+    title: 'About us',
     paragraphs: [
       'Hack4Impact-UMD is a student-led organization at the University of Maryland and an official chapter of Hack4Impact, a national 501(c)(3) nonprofit using technology for social good. We partner with local and mission-driven nonprofit organizations to design and build free, high-quality software that helps organizations operate more efficiently and scale their impact.',
       'Our cross-functional teams of student designers, software engineers, and product managers collaborate closely with nonprofit partners to deliver custom web and mobile applications tailored to real organizational needs, providing sustainable technology solutions nonprofits may not otherwise have access to.',
@@ -19,7 +20,7 @@ export const defaultAboutContent = {
     body: 'Our mission is to leverage technology for social good by building impactful software solutions for nonprofit organizations while providing students with real-world, professional experience.',
   },
   story: {
-    heading: 'Our Story',
+    heading: 'Our story',
     intro:
       'We leverage technology for social good by building impactful software solutions for nonprofit organizations while providing students with real-world, professional experience. See how we’ve grown from vision to impact.',
     items: [
@@ -78,24 +79,24 @@ export const defaultAboutContent = {
     ],
   },
   values: {
-    heading: 'Our Values',
+    heading: 'Our values',
     items: [
       {
-        title: 'Go Beyond Technology',
+        title: 'Go beyond technology',
         description:
           'Technology is only one tool we use in our greater mission for social impact. We learn from, work with, and are inspired by others tackling social problems using a multitude of tools.',
         image: teamPhoto,
         imageAlt: 'Hack4Impact UMD members at a project showcase',
       },
       {
-        title: 'Develop with Care',
+        title: 'Develop with care',
         description:
           'We build with others in mind. Empathy and compassion are crucial to serving our partner organizations and members. We work to deeply understand the people we are helping.',
         image: h4iGroupPhoto,
         imageAlt: 'Hack4Impact UMD members gathered in a classroom',
       },
       {
-        title: 'Be Open Minded',
+        title: 'Be open-minded',
         description:
           'Our process depends on openness to different people, topics, and perspectives. We embrace difference and work against intolerance to foster an inclusive environment.',
         image: valuesPhoto,
@@ -104,8 +105,8 @@ export const defaultAboutContent = {
     ],
   },
   currentProjects: {
-    heading: 'Current Project Teams',
-    linkLabel: 'View all projects →',
+    heading: 'Current project teams',
+    linkLabel: 'See all projects',
     linkHref: '/ourwork',
     projectPaths: [],
   },

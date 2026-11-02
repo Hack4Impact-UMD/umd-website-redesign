@@ -22,6 +22,12 @@ export const project = {
     imageAltText: 'Fixture project',
     nonprofit: { data: { id: 'npo-1', attributes: { name: 'Fixture Nonprofit' } } },
     image: { data: [] },
+    screenshot: {
+      data: {
+        id: 'project-001_screenshot',
+        attributes: { url: '/api/media/projects/fixture-project/screenshot.png', alternativeText: 'Fixture dashboard' },
+      },
+    },
     members: { data: [] },
   },
 };

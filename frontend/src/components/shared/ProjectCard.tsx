@@ -27,9 +27,9 @@ export default function ProjectCard({
       <a
         href={href}
         aria-label={`View ${title} project`}
-        className="group flex h-full flex-col overflow-hidden rounded-lg bg-white ring-1 ring-black/5 transition-shadow hover:shadow-[0_8px_24px_rgba(0,26,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2 motion-reduce:transition-none"
+        className="group flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-[0_1px_2px_rgba(0,26,51,0.06),0_4px_14px_rgba(0,26,51,0.07)] ring-1 ring-black/10 transition-shadow hover:shadow-[0_2px_4px_rgba(0,26,51,0.06),0_12px_28px_rgba(0,26,51,0.14)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2 motion-reduce:transition-none"
       >
-        <div className="relative aspect-[16/10] shrink-0 overflow-hidden border-b border-black/5 bg-white">
+        <div className="relative aspect-[16/10] shrink-0 overflow-hidden border-b border-black/10 bg-white">
           {imageUrl && isLogo ? (
             <>
               <img

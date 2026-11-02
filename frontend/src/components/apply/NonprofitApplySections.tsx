@@ -2,7 +2,7 @@ import ApplyCTA from '@/components/apply/ApplyCTA';
 import ApplyFaq from '@/components/apply/ApplyFAQ';
 import ApplyHero from '@/components/apply/ApplyHero';
 import ApplyIntro from '@/components/apply/ApplyIntro';
-import { ApplyPageLayout, ApplySection, SectionHeader } from '@/components/apply/ApplyPageLayout';
+import { ApplyPageLayout, ApplySection } from '@/components/apply/ApplyPageLayout';
 import ApplicationStatusBanner from '@/components/apply/ApplicationStatusBanner';
 import ApplyTestimonials from '@/components/apply/ApplyTestimonials';
 import ApplyTimeline from '@/components/apply/ApplyTimeline';
@@ -41,7 +41,6 @@ export default function NonprofitApplySections({ content }: NonprofitApplySectio
         overrideText={content.banner?.enabled ? content.banner.text : undefined}
       />
 
-
       <ApplyIntro
         heading={content.intro.heading}
         body={content.intro.body}
@@ -53,9 +52,12 @@ export default function NonprofitApplySections({ content }: NonprofitApplySectio
 
       {content.criteria.paragraphs.length > 0 ? (
         <ApplySection variant="muted">
-          <div className="space-y-6">
-            <SectionHeader title={content.criteria.heading} />
-            <div className="space-y-4 font-body text-base leading-6 text-foreground sm:text-lg">
+          <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+            <h2 className="text-section lg:col-span-4">
+              {/* Allow a break after slashes: CMS headings like "Criteria/Qualifications" are one unbreakable word. */}
+              {content.criteria.heading.replaceAll('/', '/\u200B')}
+            </h2>
+            <div className="space-y-5 font-body text-lg leading-relaxed text-text-secondary lg:col-span-8">
               {content.criteria.paragraphs.map((paragraph, index) => (
                 <p key={`${paragraph.slice(0, 40)}-${index}`}>{paragraph}</p>
               ))}

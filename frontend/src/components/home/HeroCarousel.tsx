@@ -6,8 +6,8 @@ import 'keen-slider/keen-slider.min.css';
 import type { HomeContent } from '@/content-schema/home';
 import { resolveMediaUrl } from '@/lib/media';
 import { APPLICATION_CLOSES_AT_MS } from '@/content-schema/apply';
-import CornerBrackets from './CornerBrackets';
-import { darkPrimaryButton, darkSecondaryButton } from './darkButtons';
+import CornerBrackets from '@/components/shared/CornerBrackets';
+import { darkPrimaryButton, darkSecondaryButton } from '@/components/shared/buttonStyles';
 import HomeActionLink from './HomeActionLink';
 
 interface HeroCarouselProps {

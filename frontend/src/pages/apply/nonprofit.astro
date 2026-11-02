@@ -7,6 +7,6 @@ import { STATIC_PAGE_META } from '@/lib/pageMeta';
 
 const resolved = normalizeApplyNonprofitContent(await loadContent('apply/nonprofit'));
 ---
-<BaseLayout {...STATIC_PAGE_META['/apply/nonprofit']}>
+<BaseLayout {...STATIC_PAGE_META['/apply/nonprofit']} transparentNav={Boolean(resolved.content)}>
   <NonprofitApplySections content={resolved.content} />
 </BaseLayout>

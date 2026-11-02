@@ -65,4 +65,33 @@ describe('buildProjectPageViewModel', () => {
     expect(result.heroImageSrc).toContain('/media/projects/verified/preview.png');
     expect(result.partnerName).toBe('Verified Partner');
   });
+
+  it('passes a safe screenshot through with its alt text, and falls back to a generic alt', () => {
+    const withAlt = buildProjectPageViewModel(
+      project({
+        screenshot: {
+          data: {
+            id: 'project-1_screenshot',
+            attributes: { url: '/api/media/projects/1/screenshot.png', alternativeText: 'Reviewer dashboard' },
+          },
+        },
+      }),
+    );
+    expect(withAlt.screenshot).toEqual({ src: '/api/media/projects/1/screenshot.png', alt: 'Reviewer dashboard' });
+
+    const withoutAlt = buildProjectPageViewModel(
+      project({ screenshot: { data: { id: 's', attributes: { url: '/api/media/projects/1/screenshot.png' } } } }),
+    );
+    expect(withoutAlt.screenshot?.alt).toBe('Screenshot of Verified Project');
+  });
+
+  it('has no screenshot when the API omits it, sends null, or sends an unsafe URL', () => {
+    expect(buildProjectPageViewModel(project()).screenshot).toBeUndefined();
+    expect(buildProjectPageViewModel(project({ screenshot: { data: null } })).screenshot).toBeUndefined();
+    expect(
+      buildProjectPageViewModel(
+        project({ screenshot: { data: { id: 's', attributes: { url: 'javascript:alert(1)' } } } }),
+      ).screenshot,
+    ).toBeUndefined();
+  });
 });

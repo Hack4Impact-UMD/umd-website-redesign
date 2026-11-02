@@ -34,28 +34,24 @@ export default function CurrentProjectsSection({
 
   return (
     <section
-      className="bg-[#F1F3F5] px-6 py-10 sm:px-8 sm:py-12 lg:px-24"
+      className="bg-white px-6 py-16 sm:px-8 lg:px-24 lg:py-24"
       aria-labelledby="current-projects-heading"
     >
       <div className="mx-auto max-w-[1248px]">
-        <div className="mb-6 grid items-center gap-2 sm:grid-cols-[1fr_auto_1fr]">
-          <span aria-hidden="true" className="hidden sm:block" />
-          <h2
-            id="current-projects-heading"
-            className="text-center font-heading text-h2 font-bold text-foreground"
-          >
+        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <h2 id="current-projects-heading" className="text-section text-foreground">
             {heading}
           </h2>
           <ApplyLink
             href={linkHref}
-            className="justify-self-center font-heading text-label font-bold text-text-secondary underline underline-offset-4 transition-colors hover:text-h4i-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2 sm:justify-self-end"
+            className="font-heading text-label font-bold text-h4i-blue underline underline-offset-4 transition-colors hover:text-state-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
           >
             {linkLabel}
           </ApplyLink>
         </div>
 
         {projects.length === 0 ? (
-          <p className="rounded-lg bg-card px-6 py-8 text-center text-base text-muted-foreground">
+          <p className="rounded-lg bg-[#F1F3F5] px-6 py-8 text-center text-base text-muted-foreground">
             No current project teams are available right now.
           </p>
         ) : (

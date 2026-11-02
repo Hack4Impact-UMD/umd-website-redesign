@@ -1,6 +1,6 @@
 import type { HomeContent } from '@/content-schema/home';
-import CornerBrackets from './CornerBrackets';
-import { darkPrimaryButton, darkSecondaryButton } from './darkButtons';
+import CornerBrackets from '@/components/shared/CornerBrackets';
+import { darkPrimaryButton, darkSecondaryButton } from '@/components/shared/buttonStyles';
 import HomeActionLink from './HomeActionLink';
 
 interface CTASectionProps {
