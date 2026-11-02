@@ -50,6 +50,8 @@ export interface ProjectRecord {
   hostedProjectURL?: string;
   imageAltText?: string;
   image: MediaAsset[];
+  /** Optional product screenshot, shown beside the title on the project page. */
+  screenshot?: MediaAsset | null;
   memberIds: string[];
   nonprofitName?: string;
   createdAt?: string;
@@ -99,6 +101,15 @@ export interface StrapiProjectAttributes {
         url: string;
       };
     }>;
+  };
+  screenshot: {
+    data: {
+      id: string;
+      attributes: {
+        url: string;
+        alternativeText?: string;
+      };
+    } | null;
   };
   members: {
     data: Array<StrapiEntity<StrapiMemberAttributes>>;

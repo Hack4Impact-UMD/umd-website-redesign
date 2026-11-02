@@ -18,6 +18,8 @@ export interface ProjectPageViewModel {
   hostedProjectURL?: string;
   heroImageSrc?: string;
   heroImageAlt: string;
+  /** Product screenshot for the hero, when the project has one. */
+  screenshot?: { src: string; alt: string };
   members: ProjectMember[];
 }
 
@@ -51,6 +53,15 @@ export function buildProjectPageViewModel(
     attributes.imageAltText ||
     `${attributes.title} project preview`;
 
+  const screenshotData = attributes.screenshot?.data;
+  const screenshotSrc = resolveMediaUrl(screenshotData?.attributes.url) || undefined;
+  const screenshot = screenshotSrc
+    ? {
+        src: screenshotSrc,
+        alt: screenshotData?.attributes.alternativeText || `Screenshot of ${attributes.title}`,
+      }
+    : undefined;
+
   return {
     title: attributes.title,
     path: attributes.path,
@@ -66,6 +77,7 @@ export function buildProjectPageViewModel(
         : undefined,
     heroImageSrc,
     heroImageAlt,
+    screenshot,
     members: attributes.members.data,
   };
 }

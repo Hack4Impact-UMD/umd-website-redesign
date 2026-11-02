@@ -57,7 +57,7 @@ export const projectsCollection = buildCollection({
   propertiesOrder: [
     'title', 'path', 'startDate', 'summary', 'blurb', 'isFeatured',
     'isCurrentProject', 'repoURL', 'hostedProjectURL', 'imageAltText',
-    'nonprofitName', 'memberIds', 'image',
+    'nonprofitName', 'memberIds', 'image', 'screenshot',
   ],
   properties: {
     title: { dataType: 'string', name: 'Title', columnWidth: 240, validation: { required: true } },
@@ -86,6 +86,13 @@ export const projectsCollection = buildCollection({
       },
     },
     image: { dataType: 'array', name: 'Project images', hideFromCollection: true, of: mediaMapProperty('projects/{entityId}') },
+    screenshot: {
+      ...mediaMapProperty('projects/{entityId}', 'Screenshot'),
+      description:
+        'Optional. A screenshot of the product, shown beside the title on the project page. ' +
+        'Use a wide desktop capture (about 1900×1000) of a representative screen, and describe it in Alt text.',
+      hideFromCollection: true,
+    },
   },
   callbacks: {
     onFetch: async ({ entity }) => ({
