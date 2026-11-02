@@ -48,19 +48,19 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
             <article className="grid items-center gap-8 lg:grid-cols-5 lg:gap-12">
               <a
                 href={projectHref(lead)}
-                className="block overflow-hidden rounded-lg bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2 lg:col-span-3"
+                className="relative block aspect-[16/10] overflow-hidden rounded-lg bg-white ring-1 ring-black/5 lg:col-span-3"
                 tabIndex={-1}
                 aria-hidden="true"
               >
+                {/* Shown at no more than natural size: most CMS images are small logos. */}
                 {projectImage(lead) && (
                   <img
                     src={projectImage(lead)}
                     alt=""
-                    className="aspect-[16/10] w-full object-cover"
+                    className="absolute inset-0 m-auto h-auto max-h-[60%] w-auto max-w-[60%] object-contain"
                     loading="lazy"
                   />
                 )}
-                {!projectImage(lead) && <div className="aspect-[16/10] w-full" />}
               </a>
               <div className="lg:col-span-2">
                 <p className="font-heading text-label text-h4i-blue">{projectSubtitle(lead)}</p>

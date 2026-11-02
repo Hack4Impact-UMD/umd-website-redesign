@@ -29,7 +29,7 @@ export default function ProjectCard({
         aria-label={`View ${title} project`}
         className="group flex h-full flex-col overflow-hidden rounded-lg bg-white ring-1 ring-black/5 transition-shadow hover:shadow-[0_8px_24px_rgba(0,26,51,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2 motion-reduce:transition-none"
       >
-        <div className="relative aspect-[16/10] shrink-0 overflow-hidden bg-[#E7EFF8]">
+        <div className="relative aspect-[16/10] shrink-0 overflow-hidden border-b border-black/5 bg-white">
           {imageUrl && isLogo ? (
             <>
               <img
@@ -47,10 +47,13 @@ export default function ProjectCard({
               </div>
             </>
           ) : imageUrl ? (
+            // CMS images are mostly logos, some only ~200px: show them at no more
+            // than their natural size, centred, rather than stretched to fill.
             <img
               src={imageUrl}
               alt={imageAltText ?? `${title} project preview`}
-              className="h-full w-full object-contain"
+              className="absolute inset-0 m-auto h-auto max-h-[70%] w-auto max-w-[70%] object-contain"
+              loading="lazy"
             />
           ) : null}
         </div>
