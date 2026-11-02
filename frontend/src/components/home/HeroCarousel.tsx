@@ -1,20 +1,30 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
 
 import type { HomeContent } from '@/content-schema/home';
 import { resolveMediaUrl } from '@/lib/media';
+import { APPLICATION_CLOSES_AT_MS } from '@/content-schema/apply';
+import CornerBrackets from './CornerBrackets';
+import { darkPrimaryButton, darkSecondaryButton } from './darkButtons';
 import HomeActionLink from './HomeActionLink';
 
 interface HeroCarouselProps {
   content: HomeContent['hero'];
+  /** Whether the CMS marked student applications open at build time. */
+  studentApplicationsOpen?: boolean;
 }
 
-export default function HeroCarousel({ content }: HeroCarouselProps) {
+export default function HeroCarousel({ content, studentApplicationsOpen = false }: HeroCarouselProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [ready, setReady] = useState(false);
   const hasMultipleSlides = content.slides.length > 1;
+  // A static build can outlive the deadline, so re-check the hard close on load.
+  const [applicationsOpen, setApplicationsOpen] = useState(studentApplicationsOpen);
+  useEffect(() => {
+    if (Date.now() >= APPLICATION_CLOSES_AT_MS) setApplicationsOpen(false);
+  }, []);
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
@@ -52,15 +62,17 @@ export default function HeroCarousel({ content }: HeroCarouselProps) {
       <div className="absolute inset-0">
         <div className="mx-auto flex h-full max-w-[1440px] flex-col justify-center px-6 pb-16 pt-[68px] sm:px-10 lg:px-24">
           <div className="max-w-3xl text-white">
+            {applicationsOpen && (
+              <a
+                href="/apply/student"
+                className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/60 px-4 py-1.5 font-body text-sm text-white transition-colors hover:border-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+              >
+                Student applications are open
+                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+              </a>
+            )}
             <div className="relative py-5 sm:py-6">
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -left-3 top-0 h-7 w-7 border-l-[2.5px] border-t-[2.5px] border-white/80 sm:-left-6 sm:h-11 sm:w-11 sm:border-l-[3px] sm:border-t-[3px]"
-              />
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-3 bottom-0 h-7 w-7 border-b-[2.5px] border-r-[2.5px] border-white/80 sm:right-2 sm:h-11 sm:w-11 sm:border-b-[3px] sm:border-r-[3px]"
-              />
+              <CornerBrackets />
               <h1
                 id="home-hero-heading"
                 className="text-balance font-heading text-4xl font-normal leading-[1.05] tracking-tight text-white sm:-ml-1 sm:text-7xl"
@@ -72,16 +84,10 @@ export default function HeroCarousel({ content }: HeroCarouselProps) {
               </p>
             </div>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:gap-6">
-              <HomeActionLink
-                href={content.primaryCta.href}
-                className="inline-flex h-11 min-w-[200px] items-center justify-center rounded-lg bg-white px-6 font-heading text-base font-bold text-h4i-blue transition-colors hover:bg-state-secondary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-h4i-navy"
-              >
+              <HomeActionLink href={content.primaryCta.href} className={darkPrimaryButton}>
                 {content.primaryCta.label}
               </HomeActionLink>
-              <HomeActionLink
-                href={content.secondaryCta.href}
-                className="inline-flex h-11 min-w-[200px] items-center justify-center rounded-lg border-2 border-white/80 bg-transparent px-6 font-heading text-base font-bold text-white transition-colors hover:border-white hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-h4i-navy"
-              >
+              <HomeActionLink href={content.secondaryCta.href} className={darkSecondaryButton}>
                 {content.secondaryCta.label}
               </HomeActionLink>
             </div>

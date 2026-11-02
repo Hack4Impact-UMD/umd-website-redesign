@@ -86,6 +86,12 @@
 }
 
 @layer utilities {
+  /* Home-page section headings: the hero's regular-weight Karla at a second size. */
+  .text-section {
+    @apply font-heading text-4xl font-normal leading-[1.1] tracking-tight sm:text-5xl;
+    text-wrap: balance;
+  }
+
   .text-body-small {
     @apply font-body text-base leading-5 tracking-wide;
   }
