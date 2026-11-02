@@ -24,9 +24,9 @@ export default function SponsorsSection({ content }: SponsorsSectionProps) {
   const hasSponsors = content.mode === 'published' && content.tiers.length > 0;
 
   return (
-    <section aria-labelledby="sponsors-heading" className="bg-[#F9FAFB] px-4 py-10 sm:px-6 sm:py-12 lg:px-24">
+    <section aria-labelledby="sponsors-heading" className="bg-white px-6 py-16 sm:px-8 lg:px-24 lg:py-20">
       <div className="mx-auto max-w-[1248px]">
-        <h2 id="sponsors-heading" className="text-center text-[28px] leading-9 text-foreground">
+        <h2 id="sponsors-heading" className="text-section text-foreground">
           {content.heading}
         </h2>
 

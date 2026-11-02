@@ -12,8 +12,8 @@ const publishedDocument = () => ({
 describe('normalizeHomeContent', () => {
   it('provides readable mobile hero art and the application CTA in the verified fallback', () => {
     expect(defaultHomeContent.hero.slides[0].mobileImage).toBeTruthy();
-    expect(defaultHomeContent.hero.secondaryCta).toEqual({
-      label: 'Apply Now',
+    expect(defaultHomeContent.hero.primaryCta).toEqual({
+      label: 'Join as a student',
       href: '/apply/student',
     });
   });

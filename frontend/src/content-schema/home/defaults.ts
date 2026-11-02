@@ -1,5 +1,4 @@
 import campStarfishLogo from '@/components/assets/home/camp-starfish.png?url';
-import mobileGroupPhoto from '@/components/assets/home/h4igroup-photo-mobile.webp?url';
 import classroomPhoto from '@/components/assets/apply/apply-classroom.webp?url';
 import ACES from '@/components/assets/supporters/ACES.png?url';
 import Bloomberg from '@/components/assets/supporters/Bloomberg.png?url';
@@ -13,34 +12,35 @@ import type { HomeContent } from './types';
 
 export const defaultHomeContent: HomeContent = {
   hero: {
-    heading: 'Hack4Impact-UMD',
-    body: 'Building powerful nonprofit software as a tool for social good. We connect UMD students with nonprofits to create technology that supports their work.',
+    heading: 'Building software for social good',
+    body: 'Each semester, Hack4Impact-UMD student teams work alongside nonprofit partners to design, build, and hand off the high-quality software they need.',
     slides: [
       {
         image: classroomPhoto,
-        mobileImage: mobileGroupPhoto,
+        mobileImage: classroomPhoto,
         alt: 'Hack4Impact UMD students collaborating at a laptop workshop',
       },
     ],
-    primaryCta: { label: 'Learn More', href: '/aboutus' },
-    secondaryCta: { label: 'Apply Now', href: '/apply/student' },
+    primaryCta: { label: 'Join as a student', href: '/apply/student' },
+    secondaryCta: { label: 'Partner with us', href: '/apply/nonprofit' },
   },
   impact: {
     mode: 'published',
-    heading: 'Our Impact',
+    heading: 'Our impact',
     placeholderMessage: 'Impact metrics are being updated.',
     stats: [
+      // The first stat is shown as the section's lead number.
+      { value: '$150K', label: 'Value delivered to nonprofits', verified: true },
       { value: '10+', label: 'Software projects delivered', verified: true },
       { value: '12', label: 'Nonprofit partners served', verified: true },
       { value: '150+', label: 'Active members', verified: true },
       { value: '400+', label: 'Applicants per semester', verified: true },
-      { value: '$150K', label: 'Value delivered to nonprofits', verified: true },
     ],
   },
   nonprofitMap: {
     mode: 'placeholder',
-    heading: 'Explore Our Nonprofit Partners',
-    body: 'Explore the nonprofit partners our student teams support in Maryland and beyond.',
+    heading: 'Where our partners are',
+    body: 'Our student teams have built software for nonprofits across Maryland and beyond.',
     statusTitle: 'Our nonprofit partners',
     statusDescription: 'View the project library for the complete, current list of nonprofit collaborations.',
     featuredProject: {
@@ -52,13 +52,15 @@ export const defaultHomeContent: HomeContent = {
     },
   },
   testimonials: {
-    mode: 'placeholder',
+    // Hidden until real partner quotes are collected.
+    mode: 'hidden',
     heading: 'Testimonials from Our Nonprofit Partners',
     placeholderMessage: 'We’re gathering stories from our nonprofit partners. Check back soon to hear about their experiences working with our teams.',
     items: [],
   },
   newsletter: {
-    mode: 'placeholder',
+    // Hidden until there is a public newsletter archive to link to.
+    mode: 'hidden',
     heading: 'Check Out Our Recent Newsletter',
     body: 'Catch up on recent projects, events, and chapter highlights from Hack4Impact UMD.',
     subscribeHeading: 'Newsletter updates',
@@ -67,7 +69,7 @@ export const defaultHomeContent: HomeContent = {
   },
   sponsors: {
     mode: 'published',
-    heading: 'Our Sponsors',
+    heading: 'Our sponsors',
     placeholderMessage: 'Sponsor information is being updated.',
     tiers: [
       {
@@ -96,13 +98,13 @@ export const defaultHomeContent: HomeContent = {
       },
     ],
     contactCta: {
-      label: 'Interested in sponsoring or partnering? Contact us',
+      label: 'Become a sponsor',
       href: '/contactus',
     },
   },
   cta: {
-    heading: 'Come Make an Impact With Us!',
-    primary: { label: 'Partner as a Nonprofit', href: '/apply/nonprofit' },
-    secondary: { label: 'Join as a Student', href: '/apply/student' },
+    heading: 'Build with us this semester',
+    primary: { label: 'Join as a student', href: '/apply/student' },
+    secondary: { label: 'Partner with us', href: '/apply/nonprofit' },
   },
 };

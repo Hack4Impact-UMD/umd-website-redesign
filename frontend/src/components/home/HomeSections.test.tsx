@@ -15,14 +15,19 @@ describe('Home sections', () => {
     );
 
     expect(screen.getByRole('heading', { name: 'Camp Starfish' })).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'View Project' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'View project' })).toHaveAttribute(
       'href',
       '/ourwork/camp-starfish',
     );
   });
 
+  it('hides testimonials by default until real quotes exist', () => {
+    const { container } = render(<TestimonialsSection content={defaultHomeContent.testimonials} />);
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it('shows an honest testimonial placeholder without fabricated people', () => {
-    render(<TestimonialsSection content={defaultHomeContent.testimonials} />);
+    render(<TestimonialsSection content={{ ...defaultHomeContent.testimonials, mode: 'placeholder' }} />);
 
     expect(screen.getByRole('heading', { name: /testimonials/i })).toBeInTheDocument();
     expect(screen.getByRole('status')).toHaveTextContent(/gathering stories from our nonprofit partners/i);
@@ -35,9 +40,9 @@ describe('Home sections', () => {
       <SponsorsSection content={defaultHomeContent.sponsors} />,
     );
 
-    expect(screen.getByRole('heading', { name: 'Our Sponsors' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Our sponsors' })).toBeInTheDocument();
     expect(screen.getByAltText('Microsoft logo')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: /interested in sponsoring or partnering/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'Become a sponsor' })).toHaveAttribute(
       'href',
       '/contactus',
     );
@@ -51,14 +56,14 @@ describe('Home sections', () => {
       </>,
     );
 
-    expect(screen.getByRole('heading', { name: 'Our Impact' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Our impact' })).toBeInTheDocument();
     expect(screen.getByText('10+')).toBeInTheDocument();
     expect(screen.getByText('12')).toBeInTheDocument();
     expect(screen.getByText('150+')).toBeInTheDocument();
     expect(screen.getByText('400+')).toBeInTheDocument();
     expect(screen.getByText('$150K')).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /student-led community events/i })).toBeInTheDocument();
-    expect(container.querySelectorAll('img')).toHaveLength(7);
+    expect(container.querySelectorAll('img')).toHaveLength(3);
   });
 
   it('renders only verified published impact metrics', () => {

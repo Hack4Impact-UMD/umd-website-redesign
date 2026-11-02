@@ -11,11 +11,11 @@ const socialIcons: Partial<Record<string, LucideIcon>> = {
 
 const FooterLink = ({ href, label }: { href: string; label: string }) =>
   href.startsWith('/') ? (
-    <a href={href} className="rounded-sm text-base leading-6 text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]">
+    <a href={href} className="rounded-sm text-base leading-6 text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-h4i-navy">
       {label}
     </a>
   ) : (
-    <a href={href} className="rounded-sm text-base leading-6 text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]">
+    <a href={href} className="rounded-sm text-base leading-6 text-white/80 transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-h4i-navy">
       {label}
     </a>
   );
@@ -32,12 +32,12 @@ export default function Footer({ settings = defaultSiteSettings }: FooterProps) 
   });
 
   return (
-    <footer className="bg-[#0F172A] text-white">
+    <footer className="border-t border-white/10 bg-h4i-navy text-white">
       <div className="mx-auto max-w-[1440px] px-4 py-12 sm:px-6 lg:px-24">
         <h2 className="sr-only">Hack4Impact UMD site links</h2>
         <div className="grid grid-cols-1 gap-12 md:grid-cols-[minmax(240px,300px)_1fr] md:justify-between lg:gap-20">
           <div className="max-w-[300px]">
-            <a href="/" className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]">
+            <a href="/" className="inline-flex rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-h4i-navy">
               <img
                 src={footerMark}
                 alt="Hack4Impact UMD"
@@ -52,7 +52,7 @@ export default function Footer({ settings = defaultSiteSettings }: FooterProps) 
                   href={footer.newsletterUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-10 items-center justify-center rounded-lg border border-white px-6 py-2 text-label font-bold transition-colors hover:bg-white hover:text-[#0F172A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]"
+                  className="inline-flex min-h-10 items-center justify-center rounded-lg border border-white px-6 py-2 text-label font-bold transition-colors hover:bg-white hover:text-h4i-navy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-h4i-navy"
                 >
                   Read our newsletter
                 </a>
@@ -103,7 +103,7 @@ export default function Footer({ settings = defaultSiteSettings }: FooterProps) 
                 {footer.contact.addressLines.map((line) => <div key={line}>{line}</div>)}
                 <a
                   href={`mailto:${footer.contact.email}`}
-                  className="mt-2 inline-block max-w-full rounded-sm [overflow-wrap:anywhere] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F172A]"
+                  className="mt-2 inline-block max-w-full rounded-sm [overflow-wrap:anywhere] transition-colors hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-h4i-navy"
                 >
                   {footer.contact.email}
                 </a>

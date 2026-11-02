@@ -28,10 +28,10 @@ describe('FeaturedProjectsSection', () => {
 
     expect(screen.getByRole('heading', { name: 'Community Connect' })).toBeInTheDocument();
     expect(screen.getByText('Example Partner')).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'View Community Connect project' })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: 'View project' })).toHaveAttribute(
       'href',
       '/ourwork/community%2Fconnect',
     );
-    expect(screen.getByRole('link', { name: 'Explore all projects' })).toHaveAttribute('href', '/ourwork');
+    expect(screen.getByRole('link', { name: 'See all projects' })).toHaveAttribute('href', '/ourwork');
   });
 });
