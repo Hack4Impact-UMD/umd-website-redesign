@@ -5,8 +5,15 @@ import { defaultHomeContent } from '@/content-schema/home';
 import NewsletterSection from './NewsletterSection';
 
 describe('NewsletterSection', () => {
-  it('shows a production-ready placeholder without a fake signup control', () => {
+  it('is hidden by default until there is a public archive', () => {
     const { container } = render(<NewsletterSection content={defaultHomeContent.newsletter} />);
+    expect(container).toBeEmptyDOMElement();
+  });
+
+  it('shows a production-ready placeholder without a fake signup control', () => {
+    const { container } = render(
+      <NewsletterSection content={{ ...defaultHomeContent.newsletter, mode: 'placeholder' }} />,
+    );
 
     expect(screen.queryByRole('form')).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Check Out Our Recent Newsletter' })).toBeInTheDocument();

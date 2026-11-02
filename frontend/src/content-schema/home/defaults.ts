@@ -26,7 +26,7 @@ export const defaultHomeContent: HomeContent = {
   },
   impact: {
     mode: 'published',
-    heading: 'Our Impact',
+    heading: 'Our impact',
     placeholderMessage: 'Impact metrics are being updated.',
     stats: [
       { value: '10+', label: 'Software projects delivered', verified: true },
@@ -38,8 +38,8 @@ export const defaultHomeContent: HomeContent = {
   },
   nonprofitMap: {
     mode: 'placeholder',
-    heading: 'Explore Our Nonprofit Partners',
-    body: 'Explore the nonprofit partners our student teams support in Maryland and beyond.',
+    heading: 'Where our partners are',
+    body: 'Our student teams have built software for nonprofits across Maryland and beyond.',
     statusTitle: 'Our nonprofit partners',
     statusDescription: 'View the project library for the complete, current list of nonprofit collaborations.',
     featuredProject: {
@@ -51,13 +51,15 @@ export const defaultHomeContent: HomeContent = {
     },
   },
   testimonials: {
-    mode: 'placeholder',
+    // Hidden until real partner quotes are collected.
+    mode: 'hidden',
     heading: 'Testimonials from Our Nonprofit Partners',
     placeholderMessage: 'We’re gathering stories from our nonprofit partners. Check back soon to hear about their experiences working with our teams.',
     items: [],
   },
   newsletter: {
-    mode: 'placeholder',
+    // Hidden until there is a public newsletter archive to link to.
+    mode: 'hidden',
     heading: 'Check Out Our Recent Newsletter',
     body: 'Catch up on recent projects, events, and chapter highlights from Hack4Impact UMD.',
     subscribeHeading: 'Newsletter updates',
@@ -66,7 +68,7 @@ export const defaultHomeContent: HomeContent = {
   },
   sponsors: {
     mode: 'published',
-    heading: 'Our Sponsors',
+    heading: 'Our sponsors',
     placeholderMessage: 'Sponsor information is being updated.',
     tiers: [
       {
@@ -95,13 +97,13 @@ export const defaultHomeContent: HomeContent = {
       },
     ],
     contactCta: {
-      label: 'Interested in sponsoring or partnering? Contact us',
+      label: 'Become a sponsor',
       href: '/contactus',
     },
   },
   cta: {
-    heading: 'Come Make an Impact With Us!',
-    primary: { label: 'Partner as a Nonprofit', href: '/apply/nonprofit' },
-    secondary: { label: 'Join as a Student', href: '/apply/student' },
+    heading: 'Build with us this semester',
+    primary: { label: 'Join as a student', href: '/apply/student' },
+    secondary: { label: 'Partner with us', href: '/apply/nonprofit' },
   },
 };
