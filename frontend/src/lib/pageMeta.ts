@@ -2,12 +2,20 @@ export const SITE_NAME = 'Hack4Impact-UMD';
 
 export const SITE_DOMAIN = 'umd.hack4impact.org';
 
+/** The home hero's heading; headlines the home and fallback OG cards. */
+export const SITE_TAGLINE = 'Building software for social good';
+
 export const DEFAULT_DESCRIPTION =
   'Hack4Impact-UMD is a student organization at the University of Maryland, College Park building nonprofit software as a tool for social good.';
 
 export interface PageMeta {
   title: string;
   description?: string;
+  /**
+   * Headline for the page's OG card when the `<title>` would repeat the logo
+   * printed above it. Not passed to the page's own head.
+   */
+  cardTitle?: string;
 }
 
 /**
@@ -17,7 +25,7 @@ export interface PageMeta {
  * differently from the page's own `<title>`.
  */
 export const STATIC_PAGE_META = {
-  '/': { title: SITE_NAME },
+  '/': { title: SITE_NAME, cardTitle: SITE_TAGLINE },
   '/aboutus': {
     title: 'About Us',
     description:
