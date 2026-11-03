@@ -25,7 +25,7 @@ const studentApplicationsOpen = studentApply
 const projects = await loadAllProjects();
 const featuredProjects = projects.filter((project) => project.attributes.isFeatured);
 ---
-<BaseLayout {...STATIC_PAGE_META['/']} transparentNav={Boolean(content)}>
+<BaseLayout title={STATIC_PAGE_META['/'].title} transparentNav={Boolean(content)}>
   {content ? (
     <main class="bg-background">
       {/* Above the fold and swipeable, so it hydrates immediately. */}
