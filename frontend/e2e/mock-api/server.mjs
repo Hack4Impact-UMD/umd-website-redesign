@@ -14,6 +14,7 @@
 import { createServer } from 'node:http';
 
 import {
+  alumnus,
   collectionEnvelope,
   currentProject,
   member,
@@ -53,12 +54,16 @@ const json = (res, body) => {
 };
 
 const server = createServer((req, res) => {
-  const { pathname } = new URL(req.url, `http://127.0.0.1:${PORT}`);
+  const { pathname, searchParams } = new URL(req.url, `http://127.0.0.1:${PORT}`);
   const route = pathname.replace(/^\/api/, '').replace(/^\//, '');
 
   if (route === 'health') return json(res, { status: 'ok', service: 'e2e-mock-api' });
   if (route === 'projects') return json(res, collectionEnvelope([project, currentProject]));
-  if (route === 'members') return json(res, collectionEnvelope([member]));
+  if (route === 'members') {
+    const status = searchParams.get('filters[memberDisplayStatus][$eq]');
+    const members = [member, alumnus].filter((m) => !status || m.attributes.memberDisplayStatus === status);
+    return json(res, collectionEnvelope(members));
+  }
 
   if (route.startsWith('content/')) {
     const key = route.slice('content/'.length);

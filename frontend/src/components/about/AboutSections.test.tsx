@@ -52,6 +52,19 @@ const teamMembers: MemberEntity[] = [
   },
 ];
 
+const alumni: MemberEntity[] = [
+  {
+    id: 'alum-1',
+    attributes: {
+      firstName: 'Test',
+      lastName: 'Alum',
+      memberDisplayStatus: 'Former Member or Board Member',
+      componentRolesArr: [{ title: 'Designer', isDisplayRole: true }],
+      avatar: { data: null },
+    },
+  },
+];
+
 type ResolvedAboutContent = NonNullable<ReturnType<typeof normalizeAboutContent>['content']>;
 
 const renderWith = (content: ResolvedAboutContent) =>
@@ -61,6 +74,7 @@ const renderWith = (content: ResolvedAboutContent) =>
       currentProjects={currentProjects}
       boardMembers={boardMembers}
       teamMembers={teamMembers}
+      alumni={alumni}
     />,
   );
 
@@ -94,6 +108,23 @@ describe('AboutSections', () => {
       'https://www.linkedin.com/in/test-member',
     );
     expect(screen.getByRole('heading', { name: 'Build with us this semester' })).toBeInTheDocument();
+  });
+
+  it('splits the team into current members and alumni tabs, current first', () => {
+    renderWith(normalizeAboutContent({ mode: 'placeholder' }).content!);
+
+    const currentTab = screen.getByRole('tab', { name: 'Current members' });
+    const alumniTab = screen.getByRole('tab', { name: 'Alumni' });
+    expect(currentTab).toHaveAttribute('aria-selected', 'true');
+    expect(alumniTab).toHaveAttribute('aria-selected', 'false');
+    expect(alumniTab).toHaveAttribute('tabindex', '-1');
+
+    expect(screen.getByRole('tabpanel', { name: 'Current members' })).toContainElement(
+      screen.getByRole('heading', { name: 'Test Member' }),
+    );
+    // The alumni panel is rendered but hidden until its tab is chosen.
+    expect(screen.queryByRole('heading', { name: 'Test Alum' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Test Alum', hidden: true })).toBeInTheDocument();
   });
 
   it('renders the safe local copy when the document resolves to a placeholder', () => {
