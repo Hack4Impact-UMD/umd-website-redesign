@@ -43,6 +43,17 @@ export const member = {
   },
 };
 
+export const alumnus = {
+  id: 'member-002',
+  attributes: {
+    firstName: 'Fixture',
+    lastName: 'Alumnus',
+    memberDisplayStatus: 'Former Member or Board Member',
+    componentRolesArr: [{ title: 'Designer', isDisplayRole: true }],
+    avatar: { data: null },
+  },
+};
+
 export const currentProject = {
   ...project,
   id: 'project-002',
