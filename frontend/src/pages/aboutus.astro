@@ -8,9 +8,10 @@ import { STATIC_PAGE_META } from '@/lib/pageMeta';
 const resolved = normalizeAboutContent(await loadContent('about'));
 const projects = await loadAllProjects();
 const currentProjects = projects.filter((p) => p.attributes.isCurrentProject);
-const [boardMembers, teamMembers] = await Promise.all([
+const [boardMembers, teamMembers, alumni] = await Promise.all([
   loadMembers('Current Board Member'),
   loadMembers('Current Member'),
+  loadMembers('Former Member or Board Member'),
 ]);
 ---
 <BaseLayout {...STATIC_PAGE_META['/aboutus']} transparentNav={Boolean(resolved.content)}>
@@ -20,6 +21,40 @@ const [boardMembers, teamMembers] = await Promise.all([
       currentProjects={currentProjects}
       boardMembers={boardMembers}
       teamMembers={teamMembers}
+      alumni={alumni}
     />
   )}
 </BaseLayout>
+
+<script>
+  // Current members / Alumni tabs in MembersSection (WAI-ARIA tabs pattern:
+  // arrow keys and Home/End move between tabs, Tab moves into the panel).
+  for (const root of document.querySelectorAll<HTMLElement>('[data-tabs]')) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const select = (selected: HTMLButtonElement) => {
+      for (const tab of tabs) {
+        const isSelected = tab === selected;
+        tab.setAttribute('aria-selected', String(isSelected));
+        tab.tabIndex = isSelected ? 0 : -1;
+        const panel = document.getElementById(tab.getAttribute('aria-controls') ?? '');
+        if (panel) panel.hidden = !isSelected;
+      }
+    };
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => select(tab));
+      tab.addEventListener('keydown', (event) => {
+        const last = tabs.length - 1;
+        const target =
+          event.key === 'ArrowRight' ? (index === last ? 0 : index + 1)
+          : event.key === 'ArrowLeft' ? (index === 0 ? last : index - 1)
+          : event.key === 'Home' ? 0
+          : event.key === 'End' ? last
+          : null;
+        if (target === null) return;
+        event.preventDefault();
+        tabs[target].focus();
+        select(tabs[target]);
+      });
+    });
+  }
+</script>

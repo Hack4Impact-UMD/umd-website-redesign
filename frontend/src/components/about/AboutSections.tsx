@@ -17,17 +17,20 @@ interface AboutSectionsProps {
   currentProjects: ProjectEntity[];
   boardMembers: MemberEntity[];
   teamMembers: MemberEntity[];
+  alumni: MemberEntity[];
 }
 
 /**
  * The About page body. Content and collections are resolved by the .astro page
- * at build time; this component is purely presentational and ships no JS.
+ * at build time; this component is purely presentational and ships no JS. The members
+ * tabs are driven by a small script in aboutus.astro.
  */
 export default function AboutSections({
   content,
   currentProjects,
   boardMembers,
   teamMembers,
+  alumni,
 }: AboutSectionsProps) {
   const {
     header,
@@ -51,6 +54,7 @@ export default function AboutSections({
         title="Meet the team"
         filterStatus="Current Member"
         memberEntities={teamMembers}
+        alumniEntities={alumni}
       />
       {/* Same closing invitation as the home page. */}
       <CTASection content={defaultHomeContent.cta} />

@@ -67,6 +67,28 @@ test('about page stays within a mobile viewport', async ({ page }) => {
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });
 
+test('about page switches the team gallery between current members and alumni', async ({ page }) => {
+  await installFixtures(page);
+  await page.goto('/aboutus');
+
+  const current = page.getByRole('tab', { name: 'Current members' });
+  const alumni = page.getByRole('tab', { name: 'Alumni' });
+  await expect(current).toHaveAttribute('aria-selected', 'true');
+  await expect(page.getByRole('heading', { name: 'Fixture Member' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Fixture Alumnus' })).toBeHidden();
+
+  await alumni.click();
+  await expect(alumni).toHaveAttribute('aria-selected', 'true');
+  await expect(page.getByRole('heading', { name: 'Fixture Alumnus' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Fixture Member' })).toBeHidden();
+  await expect(page.getByRole('link', { name: 'Let us know' })).toHaveAttribute('href', '/contactus');
+
+  await alumni.press('ArrowLeft');
+  await expect(current).toBeFocused();
+  await expect(current).toHaveAttribute('aria-selected', 'true');
+  await expect(page.getByRole('heading', { name: 'Fixture Member' })).toBeVisible();
+});
+
 test('contact page keeps every real contact path in its mobile redesign', async ({ page }) => {
   await installFixtures(page);
   await page.setViewportSize({ width: 390, height: 844 });
