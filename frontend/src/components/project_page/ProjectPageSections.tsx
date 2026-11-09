@@ -137,7 +137,11 @@ export default function ProjectPageSections({
   allProjects,
 }: ProjectPageSectionsProps) {
   const viewModel = buildProjectPageViewModel(project);
-  const teamGroups = groupTeamMembers(viewModel.members, viewModel.title);
+  const teamGroups = groupTeamMembers(viewModel.members, [
+    viewModel.title,
+    viewModel.partnerName,
+    viewModel.path,
+  ]);
   const hasTeam = Object.values(teamGroups).some((members) => members.length > 0);
   const [heroShot, ...galleryShots] = viewModel.screenshots;
 

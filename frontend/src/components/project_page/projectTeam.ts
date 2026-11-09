@@ -26,12 +26,20 @@ export type TeamMemberView = {
   imageSrc: string | null;
 };
 
-const normalize = (value?: string) => value?.trim().toLowerCase() || '';
+/** Case, punctuation and spacing aside, so `kisses-for-kyle` matches "Kisses for Kyle". */
+const normalize = (value?: string | null) =>
+  value?.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() || '';
 
-export function resolveProjectRole(member: ProjectMember, projectTitle: string): string | null {
+/**
+ * A role's team names the project it was on, but not always by the project's
+ * current title: titles get edited ("Kisses for Kyle" became "Kisses for Kyle
+ * Gift Drive"), and some teams are named for the partner. So a role belongs to
+ * the project when its team matches any of the project's names.
+ */
+export function resolveProjectRole(member: ProjectMember, projectNames: Array<string | undefined>): string | null {
   const roles = member.attributes.componentRolesArr;
-  const projectKey = normalize(projectTitle);
-  const matchingRole = roles.find((role) => normalize(role.team) === projectKey);
+  const keys = new Set(projectNames.map(normalize).filter(Boolean));
+  const matchingRole = roles.find((role) => keys.has(normalize(role.team)));
 
   if (matchingRole) return matchingRole.title;
   return roles.length === 1 ? roles[0].title : null;
@@ -43,7 +51,12 @@ const sortTeamMembers = (members: TeamMemberView[]) =>
     return roleOrder || a.name.localeCompare(b.name) || a.id.localeCompare(b.id);
   });
 
-export function groupTeamMembers(members: ProjectMember[], projectTitle: string) {
+/**
+ * Every member the project lists appears. One whose role on this project
+ * cannot be told apart from their others is shown under other contributors
+ * without a role, rather than with a guessed one.
+ */
+export function groupTeamMembers(members: ProjectMember[], projectNames: Array<string | undefined>) {
   const groups = {
     productDesign: [] as TeamMemberView[],
     engineering: [] as TeamMemberView[],
@@ -51,8 +64,7 @@ export function groupTeamMembers(members: ProjectMember[], projectTitle: string)
   };
 
   members.forEach((member) => {
-    const role = resolveProjectRole(member, projectTitle);
-    if (!role) return;
+    const role = resolveProjectRole(member, projectNames) ?? '';
 
     const name = `${member.attributes.firstName} ${member.attributes.lastName}`.trim();
     const teamMember = {

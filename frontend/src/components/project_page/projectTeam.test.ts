@@ -27,9 +27,22 @@ const role = (title: string, team?: string) => ({
 
 describe('project team mapping', () => {
   it('selects an exact project role and avoids ambiguous unrelated roles', () => {
-    expect(resolveProjectRole(member('Exact', [role('Engineer', 'Other'), role('Designer', 'Target')]), 'Target')).toBe('Designer');
-    expect(resolveProjectRole(member('Single', [role('Engineer')]), 'Target')).toBe('Engineer');
-    expect(resolveProjectRole(member('Ambiguous', [role('Engineer'), role('Designer')]), 'Target')).toBeNull();
+    expect(resolveProjectRole(member('Exact', [role('Engineer', 'Other'), role('Designer', 'Target')]), ['Target'])).toBe('Designer');
+    expect(resolveProjectRole(member('Single', [role('Engineer')]), ['Target'])).toBe('Engineer');
+    expect(resolveProjectRole(member('Ambiguous', [role('Engineer'), role('Designer')]), ['Target'])).toBeNull();
+  });
+
+  it("matches a role by the project's slug or partner when its title has changed", () => {
+    const names = ['Kisses for Kyle Gift Drive', 'Kisses for Kyle Foundation', 'kisses-for-kyle'];
+    const nazeer = member('Nazeer', [role('Engineer', 'Hagar International'), role('Engineer', 'Kisses for Kyle')]);
+    expect(resolveProjectRole(nazeer, names)).toBe('Engineer');
+    const lead = member('Lead', [role('Director of Engineering'), role('Tech Lead', 'Kisses for Kyle')]);
+    expect(resolveProjectRole(lead, names)).toBe('Tech Lead');
+  });
+
+  it('never drops a listed member: an unresolved role shows as none', () => {
+    const groups = groupTeamMembers([member('Ambiguous', [role('Engineer', 'Elsewhere'), role('Designer', 'Other')])], ['Target']);
+    expect(groups.other).toEqual([{ id: 'Ambiguous', name: 'Ambiguous Member', role: '', imageSrc: null }]);
   });
 
   it('keeps verified roles in honest, deterministic groups', () => {
@@ -37,7 +50,7 @@ describe('project team mapping', () => {
       member('Zed', [role('Engineer')]),
       member('Ada', [role('Product Manager')]),
       member('Pat', [role('Community Liaison')]),
-    ], 'Target');
+    ], ['Target']);
 
     expect(groups.productDesign.map((item) => item.role)).toEqual(['Product Manager']);
     expect(groups.engineering.map((item) => item.role)).toEqual(['Engineer']);
