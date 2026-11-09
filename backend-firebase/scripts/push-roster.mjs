@@ -23,13 +23,14 @@
  *
  * Usage:
  *   node push-roster.mjs --members board                  # dry run, board members only
+ *   node push-roster.mjs --members team                   # dry run, non-board current members
  *   node push-roster.mjs --members kim-luu,hita-thota     # dry run, chosen members
  *   node push-roster.mjs --members all --projects all     # dry run, everything
  *   node push-roster.mjs --members board --commit         # writes to Firestore
  *   node push-roster.mjs --restore <backup.json>          # dry run of a restore
  *   node push-roster.mjs --restore <backup.json> --commit
  *
- * --members takes `all`, `board`, or comma-separated member IDs from
+ * --members takes `all`, `board`, `team`, or comma-separated member IDs from
  * members.json; --projects takes `all` or project IDs from projects.json.
  * --members-file and --projects-file override the default data/ paths.
  *
@@ -39,6 +40,20 @@
  * an unchanged file is not uploaded again. Uploads run before any document is
  * written, and old headshots are not deleted.
  *   node push-roster.mjs --members board --avatars ../../data/headshots-board
+ *   node push-roster.mjs --members team --avatars ../../data/headshots-members
+ *
+ * --project-images <dir> takes one folder per project ID from projects.json,
+ * holding `logo.<ext>` (the nonprofit logo) and `screenshot_<i>.<ext>`
+ * (product screenshots), each .webp, .png or .jpg:
+ *   <dir>/seedmoney/logo.png
+ *   <dir>/seedmoney/screenshot_1.webp
+ * For each selected project, the logo replaces the first project image (what
+ * the site shows as the logo) and screenshot_1 becomes the screenshot on the
+ * project page; uploads go to `projects/<firestore-id>/<kind>-<hash>.<ext>`.
+ * The site shows one screenshot, so screenshot_2 and later are reported and
+ * skipped. An empty or missing folder leaves the live images alone.
+ *   node push-roster.mjs --members team --projects all \
+ *     --avatars ../../data/headshots-members --project-images ../../data/project-images
  *
  * Before committing, every document the push touches is saved to
  * scripts/output-roster-backup/, and the printed --restore command puts them
@@ -69,7 +84,10 @@ const STORAGE_BUCKET = process.env.STORAGE_BUCKET ?? `${PROJECT_ID}.firebasestor
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const COLLECTIONS = new Set(['members', 'projects']);
 const BOARD_STATUS = 'Current Board Member';
+const TEAM_STATUS = 'Current Member';
 const FORMER_STATUS = 'Former Member or Board Member';
+/** Named --members selections, by memberDisplayStatus. */
+const STATUS_SELECTIONS = { board: BOARD_STATUS, team: TEAM_STATUS };
 
 /** Firestore allows 500 writes per batch; stay under it. */
 const BATCH_SIZE = 450;
@@ -130,9 +148,9 @@ const union = (...lists) => [...new Set(lists.flat())];
 export const selectIds = (spec, records, kind) => {
   if (!spec) return [];
   if (spec === 'all') return Object.keys(records).sort();
-  if (spec === 'board' && kind === 'members') {
+  if (kind === 'members' && Object.hasOwn(STATUS_SELECTIONS, spec)) {
     return Object.keys(records)
-      .filter((id) => records[id].memberDisplayStatus === BOARD_STATUS)
+      .filter((id) => records[id].memberDisplayStatus === STATUS_SELECTIONS[spec])
       .sort();
   }
 
@@ -181,6 +199,7 @@ export const planPush = ({
   selectedMemberIds,
   selectedProjectIds,
   localAvatars = {},
+  localProjectImages = {},
 }) => {
   const warnings = [];
   const uploads = [];
@@ -291,6 +310,27 @@ export const planPush = ({
     doc.memberIds = union(relationIds(live?.memberIds), linkTo(memberTargets, json.memberIds, json.title, 'member'));
     for (const field of ['nonprofitName', 'repoURL', 'hostedProjectURL', 'imageAltText']) {
       if (json[field]) doc[field] = json[field];
+    }
+
+    const local = localProjectImages[jsonId];
+    const toMedia = (image, kind, alt) => {
+      const url = `projects/${id}/${image.fileName}`;
+      const liveUrl = kind === 'logo' ? live?.image?.[0]?.url : live?.screenshot?.url;
+      if (liveUrl !== url) uploads.push({ file: image.file, path: url, contentType: image.mimeType });
+      return { url, alt, mimeType: image.mimeType };
+    };
+    if (local?.logo) {
+      const logo = toMedia(local.logo, 'logo', `${doc.nonprofitName || json.title} logo`);
+      doc.image = [logo, ...doc.image.slice(1)];
+    }
+    if (local?.screenshots?.length) {
+      const [first, ...extra] = local.screenshots;
+      doc.screenshot = toMedia(first, 'screenshot', `Screenshot of ${json.title}`);
+      if (extra.length > 0) {
+        warnings.push(
+          `${json.title}: the site shows one screenshot; skipped ${extra.map((image) => path.basename(image.file)).join(', ')}`,
+        );
+      }
     }
 
     putWrite('projects', id, live, doc, json.title);
@@ -407,25 +447,68 @@ const argValue = (flag) => {
 
 const readJson = async (file) => JSON.parse(await readFile(file, 'utf8'));
 
-const AVATAR_TYPES = { '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png' };
+const IMAGE_TYPES = { '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.png': 'image/png' };
 
 /**
- * Reads `<member-id>.<ext>` headshots from a directory. The storage file name
- * carries a content hash, so re-pushing the same image maps to the same path
- * and is skipped rather than uploaded again.
+ * Describes an image for upload. The storage file name carries a content hash,
+ * so re-pushing the same image maps to the same path and is not uploaded again.
  */
+const describeImage = async (file, kind) => {
+  const ext = path.extname(file).toLowerCase();
+  const hash = createHash('sha256').update(await readFile(file)).digest('hex').slice(0, 12);
+  return { file, fileName: `${kind}-${hash}${ext === '.jpeg' ? '.jpg' : ext}`, mimeType: IMAGE_TYPES[ext] };
+};
+
+/**
+ * Reads `<project-id>/logo.<ext>` and `<project-id>/screenshot_<i>.<ext>`.
+ * Screenshots are ordered by i.
+ */
+export const readProjectImages = async (dir, projects) => {
+  const images = {};
+  for (const entry of (await readdir(dir, { withFileTypes: true })).sort((a, b) => a.name.localeCompare(b.name))) {
+    if (entry.name.startsWith('.')) continue;
+    if (!entry.isDirectory()) throw new Error(`Expected only project folders in ${dir}, found ${entry.name}`);
+    if (!projects[entry.name]) throw new Error(`Folder ${entry.name} does not match a project ID in projects.json`);
+
+    const folder = path.join(dir, entry.name);
+    let logo = null;
+    const screenshots = [];
+    for (const name of (await readdir(folder)).sort()) {
+      if (name.startsWith('.')) continue;
+      const ext = path.extname(name).toLowerCase();
+      const base = path.basename(name, path.extname(name));
+      const index = /^screenshot_(\d+)$/.exec(base)?.[1];
+      if (!IMAGE_TYPES[ext] || (base !== 'logo' && index === undefined)) {
+        throw new Error(`Unexpected file ${entry.name}/${name}: use logo.<ext> or screenshot_<i>.<ext> (webp, png, jpg)`);
+      }
+      const file = path.join(folder, name);
+      if (base === 'logo') {
+        if (logo) throw new Error(`More than one logo in ${entry.name}`);
+        logo = await describeImage(file, 'logo');
+      } else {
+        if (screenshots.some((shot) => shot.index === Number(index))) {
+          throw new Error(`More than one screenshot_${index} in ${entry.name}`);
+        }
+        screenshots.push({ index: Number(index), ...(await describeImage(file, 'screenshot')) });
+      }
+    }
+    screenshots.sort((a, b) => a.index - b.index);
+    if (logo || screenshots.length > 0) images[entry.name] = { logo, screenshots };
+  }
+  return images;
+};
+
+/** Reads `<member-id>.<ext>` headshots from a directory. */
 const readLocalAvatars = async (dir, members) => {
   const avatars = {};
   for (const name of (await readdir(dir)).sort()) {
     const ext = path.extname(name).toLowerCase();
     const memberId = path.basename(name, path.extname(name));
-    if (!AVATAR_TYPES[ext]) throw new Error(`Unsupported headshot type: ${name}`);
+    if (!IMAGE_TYPES[ext]) throw new Error(`Unsupported headshot type: ${name}`);
     if (!members[memberId]) throw new Error(`Headshot ${name} does not match a member ID in members.json`);
     if (avatars[memberId]) throw new Error(`More than one headshot for ${memberId}`);
 
-    const file = path.join(dir, name);
-    const hash = createHash('sha256').update(await readFile(file)).digest('hex').slice(0, 12);
-    avatars[memberId] = { file, fileName: `avatar-${hash}${ext === '.jpeg' ? '.jpg' : ext}`, mimeType: AVATAR_TYPES[ext] };
+    avatars[memberId] = await describeImage(path.join(dir, name), 'avatar');
   }
   return avatars;
 };
@@ -463,6 +546,10 @@ const push = async ({ db, bucket, Timestamp, DocumentReference, commit }) => {
 
   const avatarsDir = argValue('--avatars');
   const localAvatars = avatarsDir ? await readLocalAvatars(path.resolve(avatarsDir), members) : {};
+  const projectImagesDir = argValue('--project-images');
+  const localProjectImages = projectImagesDir
+    ? await readProjectImages(path.resolve(projectImagesDir), projects)
+    : {};
 
   const plan = planPush({
     members,
@@ -472,6 +559,7 @@ const push = async ({ db, bucket, Timestamp, DocumentReference, commit }) => {
     selectedMemberIds,
     selectedProjectIds,
     localAvatars,
+    localProjectImages,
   });
   printPlan(plan);
 
@@ -481,7 +569,7 @@ const push = async ({ db, bucket, Timestamp, DocumentReference, commit }) => {
   }
   if (!commit) {
     console.log(
-      `\n${plan.writes.length} document(s) would be written and ${plan.uploads.length} headshot(s) uploaded. ` +
+      `\n${plan.writes.length} document(s) would be written and ${plan.uploads.length} image(s) uploaded. ` +
         'Re-run with --commit to apply.',
     );
     return;
@@ -499,7 +587,7 @@ const push = async ({ db, bucket, Timestamp, DocumentReference, commit }) => {
   console.log(`\nBacked up ${backup.documents.length} document(s) to ${backupFile}`);
 
   // Upload before writing, so no document ever points at a missing file. Old
-  // headshots are left in place, so a restore still finds them.
+  // images are left in place, so a restore still finds them.
   for (const upload of plan.uploads) {
     await bucket.upload(upload.file, {
       destination: upload.path,
@@ -507,7 +595,7 @@ const push = async ({ db, bucket, Timestamp, DocumentReference, commit }) => {
       metadata: { cacheControl: 'public, max-age=31536000, immutable' },
     });
   }
-  if (plan.uploads.length > 0) console.log(`Uploaded ${plan.uploads.length} headshot(s) to ${bucket.name}.`);
+  if (plan.uploads.length > 0) console.log(`Uploaded ${plan.uploads.length} image(s) to ${bucket.name}.`);
 
   await commitWrites(
     db,

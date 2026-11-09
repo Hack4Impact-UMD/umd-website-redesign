@@ -1,7 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 
-import { planPush, selectIds } from './push-roster.mjs';
+import { planPush, readProjectImages, selectIds } from './push-roster.mjs';
 
 const member = (overrides) => ({
   firstName: 'Ada',
@@ -38,12 +41,13 @@ const plan = (overrides) =>
     ...overrides,
   });
 
-test('board selection picks only Current Board Member records', () => {
+test('board and team selections pick records by display status', () => {
   const members = {
     'kim-luu': member({ memberDisplayStatus: 'Current Board Member' }),
     'ada-lovelace': member(),
   };
   assert.deepEqual(selectIds('board', members, 'members'), ['kim-luu']);
+  assert.deepEqual(selectIds('team', members, 'members'), ['ada-lovelace']);
   assert.deepEqual(selectIds('all', members, 'members'), ['ada-lovelace', 'kim-luu']);
   assert.deepEqual(selectIds(null, members, 'members'), []);
   assert.throws(() => selectIds('kim-luu,nobody', members, 'members'), /Unknown members.*nobody/);
@@ -258,4 +262,76 @@ test('a selected record matching two live documents is refused', () => {
       }),
     /member ada-lovelace matches more than one live document/,
   );
+});
+
+const image = (kind, hash, ext = 'png') => ({
+  file: `/images/${kind}.${ext}`,
+  fileName: `${kind}-${hash}.${ext}`,
+  mimeType: ext === 'png' ? 'image/png' : 'image/webp',
+});
+
+test('a project logo replaces the first image and screenshot_1 becomes the screenshot', () => {
+  const liveData = {
+    title: 'Seed Money',
+    path: 'seedmoney',
+    image: [
+      { url: 'projects/7/old-logo.png', alt: 'old' },
+      { url: 'projects/7/extra.png', alt: 'extra' },
+    ],
+    screenshot: { url: 'projects/7/screenshot-same.webp', alt: 'kept' },
+    memberIds: [],
+  };
+  const { writes, uploads, warnings } = plan({
+    projects: { seedmoney: project({ title: 'Seed Money', path: 'seedmoney', nonprofitName: 'SeedMoney' }) },
+    liveProjects: [{ id: '7', data: liveData }],
+    selectedProjectIds: ['seedmoney'],
+    localProjectImages: {
+      seedmoney: {
+        logo: image('logo', 'abc'),
+        screenshots: [image('screenshot', 'same', 'webp'), image('screenshot', 'two', 'webp')],
+      },
+    },
+  });
+
+  assert.deepEqual(writes[0].after.image, [
+    { url: 'projects/7/logo-abc.png', alt: 'SeedMoney logo', mimeType: 'image/png' },
+    { url: 'projects/7/extra.png', alt: 'extra' },
+  ]);
+  assert.deepEqual(writes[0].after.screenshot, {
+    url: 'projects/7/screenshot-same.webp',
+    alt: 'Screenshot of Seed Money',
+    mimeType: 'image/webp',
+  });
+  // The screenshot is already at that content-hashed path, so only the logo uploads.
+  assert.deepEqual(uploads.map((upload) => upload.path), ['projects/7/logo-abc.png']);
+  assert.match(warnings.join('\n'), /Seed Money: the site shows one screenshot; skipped screenshot\.webp/);
+});
+
+test('project image folders are read by project ID, with screenshots in numeric order', async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), 'project-images-'));
+  try {
+    await mkdir(path.join(dir, 'seedmoney'));
+    await mkdir(path.join(dir, 'kisses-for-kyle'));
+    for (const name of ['logo.png', 'screenshot_10.webp', 'screenshot_2.jpg']) {
+      await writeFile(path.join(dir, 'seedmoney', name), name);
+    }
+    const projects = { seedmoney: project(), 'kisses-for-kyle': project() };
+
+    const images = await readProjectImages(dir, projects);
+    assert.deepEqual(Object.keys(images), ['seedmoney']);
+    assert.match(images.seedmoney.logo.fileName, /^logo-[0-9a-f]{12}\.png$/);
+    assert.deepEqual(
+      images.seedmoney.screenshots.map((shot) => [shot.index, shot.mimeType]),
+      [[2, 'image/jpeg'], [10, 'image/webp']],
+    );
+
+    await writeFile(path.join(dir, 'seedmoney', 'cover.png'), 'x');
+    await assert.rejects(readProjectImages(dir, projects), /Unexpected file seedmoney\/cover\.png/);
+    await rm(path.join(dir, 'seedmoney', 'cover.png'));
+
+    await mkdir(path.join(dir, 'nobody'));
+    await assert.rejects(readProjectImages(dir, projects), /Folder nobody does not match a project ID/);
+  } finally {
+    await rm(dir, { recursive: true, force: true });
+  }
 });
