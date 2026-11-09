@@ -94,6 +94,12 @@ const fetchableMediaUrl = (source: string) => {
   return null;
 };
 
+/** A CMS image's bytes at build time, or undefined when it has no fetchable URL. */
+export const fetchMedia = async (source: string): Promise<Buffer | undefined> => {
+  const url = fetchableMediaUrl(source);
+  return url ? fetchImage(url) : undefined;
+};
+
 const fetchImage = async (url: string) => {
   const response = await fetch(url, { signal: AbortSignal.timeout(PHOTO_FETCH_TIMEOUT_MS) });
   if (!response.ok) throw new Error(`HTTP ${response.status}`);

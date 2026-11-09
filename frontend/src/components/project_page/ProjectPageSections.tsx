@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from 'react';
+import { useState } from 'react';
 import { ArrowLeft, Github, Globe } from 'lucide-react';
 
 import type { ProjectEntity } from '@/api';
@@ -17,6 +17,7 @@ import PageHero from '@/components/shared/PageHero';
 import ProjectScreenshot from '@/components/project_page/ProjectScreenshot';
 import type { ProjectScreenshotView } from '@/components/project_page/projectPageMapper';
 import { defaultHomeContent } from '@/content-schema/home';
+import { BLUEPRINT_GRID } from '@/components/shared/blueprint';
 
 function TeamSection({ title, members }: { title: string; members: TeamMemberView[] }) {
   if (members.length === 0) return null;
@@ -72,23 +73,12 @@ const GALLERY_ITEM_WIDTH = {
   phone: 'w-[min(56vw,240px)]',
 } as const;
 
-// A faint drafting grid in the brand blue, fading out towards the edges.
-const BLUEPRINT_GRID: CSSProperties = {
-  backgroundImage:
-    'linear-gradient(to right, rgb(0 105 202 / 0.16) 1px, transparent 1px),' +
-    'linear-gradient(to bottom, rgb(0 105 202 / 0.16) 1px, transparent 1px)',
-  backgroundSize: '32px 32px',
-  maskImage: 'radial-gradient(ellipse 70% 65% at 50% 55%, black 30%, transparent 100%)',
-  WebkitMaskImage: 'radial-gradient(ellipse 70% 65% at 50% 55%, black 30%, transparent 100%)',
-};
 
 function ScreenshotGallery({
   screenshots,
-  url,
   partnerName,
 }: {
   screenshots: ProjectScreenshotView[];
-  url?: string;
   partnerName?: string;
 }) {
   return (
@@ -118,7 +108,7 @@ function ScreenshotGallery({
               {/* Devices stand on one baseline, so their labels start on one line. */}
               <div className="flex flex-1 items-end">
                 <div className="w-full">
-                  <ProjectScreenshot {...shot} url={url} placement="gallery" />
+                  <ProjectScreenshot {...shot} placement="gallery" />
                 </div>
               </div>
               {shot.caption ? (
@@ -246,11 +236,7 @@ export default function ProjectPageSections({
       ) : null}
 
       {galleryShots.length > 0 ? (
-        <ScreenshotGallery
-          screenshots={galleryShots}
-          url={viewModel.hostedProjectURL}
-          partnerName={viewModel.partnerName}
-        />
+        <ScreenshotGallery screenshots={galleryShots} partnerName={viewModel.partnerName} />
       ) : null}
 
       {hasTeam ? (

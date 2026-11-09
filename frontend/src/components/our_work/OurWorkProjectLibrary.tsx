@@ -3,6 +3,7 @@ import type { ProjectEntity } from '@/api';
 import { resolveMediaUrl } from '@/lib/media';
 import { formatSeason } from '@/lib/date';
 import ProjectCard from '@/components/shared/ProjectCard';
+import { cardScreenshot, type CardScreenshot } from '@/lib/screenshots';
 import styles from '../../styles/our_work/OurWorkProjectLibrary.module.css';
 
 type ProjectItem = {
@@ -11,6 +12,8 @@ type ProjectItem = {
   startDate?: string;
   imageUrl?: string;
   imageAltText?: string;
+  screenshot?: CardScreenshot;
+  summary?: string;
   partnerName?: string;
   memberNames: string[];
   isFeatured: boolean;
@@ -46,6 +49,8 @@ export const mapProject = (rawProject: ProjectEntity): ProjectItem => {
     startDate: attributes.startDate,
     imageUrl: resolveMediaUrl(cmsImage) || undefined,
     imageAltText: attributes.imageAltText,
+    screenshot: cardScreenshot(attributes, resolveMediaUrl),
+    summary: attributes.summary.trim() || undefined,
     partnerName: attributes.nonprofit?.data?.attributes.name,
     memberNames: attributes.members.data.map(({ attributes: member }) =>
       `${member.firstName} ${member.lastName}`.trim(),
@@ -123,7 +128,7 @@ const OurWorkProjectLibrary = ({
     );
   }
 
-  const renderProjectCard = (project: ProjectItem) => {
+  const renderProjectCard = (project: ProjectItem, wide = false) => {
     const metadata = project.isCurrentProject
       ? 'Current project'
       : project.partnerName || formatSeason(project.startDate);
@@ -136,9 +141,20 @@ const OurWorkProjectLibrary = ({
         imageUrl={project.imageUrl}
         imageAltText={project.imageAltText}
         subtitle={metadata}
+        screenshot={project.screenshot}
+        summary={project.summary}
+        variant={wide ? 'wide' : 'default'}
+        className={wide ? 'col-span-full' : ''}
       />
     );
   };
+
+  // Projects with a screenshot lead their section as full-width cards; the
+  // rest follow in the grid, each group keeping its date order.
+  const renderSection = (items: ProjectItem[]) => [
+    ...items.filter((project) => project.screenshot).map((project) => renderProjectCard(project, true)),
+    ...items.filter((project) => !project.screenshot).map((project) => renderProjectCard(project)),
+  ];
 
   if (mode === 'related') {
     const filtered = normalized
@@ -154,7 +170,7 @@ const OurWorkProjectLibrary = ({
           <p className={styles.emptyState}>No additional projects are available right now.</p>
         ) : (
           <div className={`${styles.grid} ${styles.relatedGrid}`}>
-            {limited.map(renderProjectCard)}
+            {limited.map((project) => renderProjectCard(project))}
           </div>
         )}
       </section>
@@ -198,14 +214,14 @@ const OurWorkProjectLibrary = ({
       {currentProjects.length > 0 ? (
         <section className={styles.yearSection} aria-labelledby="current-projects-heading">
           <h2 id="current-projects-heading" className={`${styles.yearHeading} text-section`}>Current projects</h2>
-          <div className={styles.grid}>{currentProjects.map(renderProjectCard)}</div>
+          <div className={styles.grid}>{renderSection(currentProjects)}</div>
         </section>
       ) : null}
 
       {years.map((year) => (
         <section key={year} className={styles.yearSection}>
           <h2 className={`${styles.yearHeading} text-section`}>{year === 'Unknown' ? 'Earlier projects' : year}</h2>
-          <div className={styles.grid}>{grouped[year].map(renderProjectCard)}</div>
+          <div className={styles.grid}>{renderSection(grouped[year])}</div>
         </section>
       ))}
     </div>
