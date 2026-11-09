@@ -5,6 +5,7 @@ import ApplyLink from '@/components/apply/ApplyLink';
 import ProjectCard from '@/components/shared/ProjectCard';
 import type { AboutContent } from '@/content-schema/about';
 import { resolveMediaUrl } from '@/lib/media';
+import { cardScreenshot } from '@/lib/screenshots';
 
 type CurrentProjectsSectionProps = Omit<AboutContent['currentProjects'], 'projectPaths'> & {
   projectPaths?: string[];
@@ -64,6 +65,7 @@ export default function CurrentProjectsSection({
                 imageUrl={resolveMediaUrl(project.attributes.image.data[0]?.attributes.url) || undefined}
                 imageAltText={project.attributes.imageAltText}
                 subtitle={project.attributes.nonprofit?.data?.attributes.name ?? 'Current project'}
+                screenshot={cardScreenshot(project.attributes, resolveMediaUrl)}
               />
             ))}
           </div>

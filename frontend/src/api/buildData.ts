@@ -2,6 +2,7 @@ import { getContentDocument, type ContentKey } from './content';
 import type { MemberDisplayStatus, MemberEntity, ProjectEntity } from './contracts';
 import { getMembers } from './members';
 import { getProjects } from './projects';
+import { withBrandColors } from './brandColors';
 
 /**
  * Build-time content loaders.
@@ -43,7 +44,7 @@ export const loadContent = (key: ContentKey) =>
 export const loadSiteSettings = () => loadContent('site-settings');
 
 export const loadAllProjects = (): Promise<ProjectEntity[]> =>
-  memo('projects:all', () => getProjects({ pageSize: 100, ...BUILD_FETCH }));
+  memo('projects:all', async () => withBrandColors(await getProjects({ pageSize: 100, ...BUILD_FETCH })));
 
 export const loadMembers = (filterStatus: MemberDisplayStatus): Promise<MemberEntity[]> =>
   memo(`members:${filterStatus}`, () =>

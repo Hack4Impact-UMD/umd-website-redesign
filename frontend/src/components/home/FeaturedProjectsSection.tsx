@@ -1,6 +1,8 @@
 import type { ProjectEntity } from '@/api';
-import ProjectCard from '@/components/shared/ProjectCard';
+import ProjectCard, { PartnerLogo } from '@/components/shared/ProjectCard';
+import ScreenshotPeek from '@/components/shared/ScreenshotPeek';
 import { resolveMediaUrl } from '@/lib/media';
+import { cardScreenshot } from '@/lib/screenshots';
 
 interface FeaturedProjectsSectionProps {
   /** Fetched at build time by the page; already filtered to featured projects. */
@@ -13,12 +15,16 @@ const projectHref = (project: ProjectEntity) =>
 const projectImage = (project: ProjectEntity) =>
   resolveMediaUrl(project.attributes.image.data[0]?.attributes.url) || undefined;
 
+const projectScreenshot = (project: ProjectEntity) =>
+  cardScreenshot(project.attributes, resolveMediaUrl);
+
 const projectSubtitle = (project: ProjectEntity) =>
   project.attributes.nonprofit?.data?.attributes.name ??
   (project.attributes.isCurrentProject ? 'Current project' : 'Community project');
 
 export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSectionProps) {
   const [lead, ...rest] = projects;
+  const leadScreenshot = lead ? projectScreenshot(lead) : undefined;
 
   return (
     <section
@@ -52,8 +58,9 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
                 tabIndex={-1}
                 aria-hidden="true"
               >
+                {leadScreenshot ? <ScreenshotPeek screenshot={leadScreenshot} className="h-full w-full" /> : null}
                 {/* Shown at no more than natural size: most CMS images are small logos. */}
-                {projectImage(lead) && (
+                {!leadScreenshot && projectImage(lead) && (
                   <img
                     src={projectImage(lead)}
                     alt=""
@@ -63,6 +70,9 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
                 )}
               </a>
               <div className="lg:col-span-2">
+                {leadScreenshot?.logoUrl ? (
+                  <PartnerLogo src={leadScreenshot.logoUrl} title={lead.attributes.title} className="mb-5 h-9 max-w-[180px]" />
+                ) : null}
                 <p className="font-heading text-label text-h4i-blue">{projectSubtitle(lead)}</p>
                 <h3 className="mt-2 font-heading text-3xl font-normal leading-tight tracking-tight text-foreground sm:text-4xl">
                   {lead.attributes.title}
@@ -91,6 +101,7 @@ export default function FeaturedProjectsSection({ projects }: FeaturedProjectsSe
                     imageUrl={projectImage(project)}
                     imageAltText={project.attributes.imageAltText}
                     subtitle={projectSubtitle(project)}
+                    screenshot={projectScreenshot(project)}
                   />
                 ))}
               </div>

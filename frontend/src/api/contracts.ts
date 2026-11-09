@@ -80,6 +80,11 @@ export const projectAttributesSchema = z.object({
     })
     .optional(),
   image: z.object({ data: z.array(mediaEntitySchema) }),
+  /**
+   * Not sent by the API: set at build time from the partner logo, for the
+   * panel behind the project's screenshot on cards (see api/brandColors.ts).
+   */
+  brandColor: z.string().optional(),
   // Optional so a build against an API deployed before this field existed still validates.
   screenshots: z
     .object({

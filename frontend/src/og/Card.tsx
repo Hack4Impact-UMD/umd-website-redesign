@@ -178,7 +178,6 @@ const ScreenshotFrame = ({ image, host }: { image: PreparedImage; host?: string 
         height: SCREENSHOT_FRAME.chromeHeight,
         padding: '0 14px',
         backgroundColor: '#F1F3F5',
-        borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
       }}
     >
       {TRAFFIC_LIGHTS.map((color) => (
