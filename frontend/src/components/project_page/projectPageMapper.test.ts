@@ -66,32 +66,49 @@ describe('buildProjectPageViewModel', () => {
     expect(result.partnerName).toBe('Verified Partner');
   });
 
-  it('passes a safe screenshot through with its alt text, and falls back to a generic alt', () => {
-    const withAlt = buildProjectPageViewModel(
+  it('passes safe screenshots through in order, with alt text and a frame from their shape', () => {
+    const result = buildProjectPageViewModel(
       project({
-        screenshot: {
-          data: {
-            id: 'project-1_screenshot',
-            attributes: { url: '/api/media/projects/1/screenshot.png', alternativeText: 'Reviewer dashboard' },
-          },
+        screenshots: {
+          data: [
+            {
+              id: 's0',
+              attributes: {
+                url: '/api/media/projects/1/desktop.png',
+                alternativeText: 'Reviewer dashboard',
+                width: 1900,
+                height: 1000,
+              },
+            },
+            { id: 's1', attributes: { url: 'javascript:alert(1)' } },
+            { id: 's2', attributes: { url: '/api/media/projects/1/phone.png', width: 390, height: 844 } },
+            { id: 's3', attributes: { url: '/api/media/projects/1/unknown.png' } },
+          ],
         },
       }),
     );
-    expect(withAlt.screenshot).toEqual({ src: '/api/media/projects/1/screenshot.png', alt: 'Reviewer dashboard' });
 
-    const withoutAlt = buildProjectPageViewModel(
-      project({ screenshot: { data: { id: 's', attributes: { url: '/api/media/projects/1/screenshot.png' } } } }),
-    );
-    expect(withoutAlt.screenshot?.alt).toBe('Screenshot of Verified Project');
+    expect(result.screenshots).toEqual([
+      {
+        src: '/api/media/projects/1/desktop.png',
+        alt: 'Reviewer dashboard',
+        caption: 'Reviewer dashboard',
+        frame: 'browser',
+        width: 1900,
+        height: 1000,
+      },
+      { src: '/api/media/projects/1/phone.png', alt: 'Screenshot 3 of Verified Project', frame: 'phone', width: 390, height: 844 },
+      // No dimensions: the shape is unknown, so it gets the browser frame.
+      { src: '/api/media/projects/1/unknown.png', alt: 'Screenshot 4 of Verified Project', frame: 'browser' },
+    ]);
   });
 
-  it('has no screenshot when the API omits it, sends null, or sends an unsafe URL', () => {
-    expect(buildProjectPageViewModel(project()).screenshot).toBeUndefined();
-    expect(buildProjectPageViewModel(project({ screenshot: { data: null } })).screenshot).toBeUndefined();
-    expect(
-      buildProjectPageViewModel(
-        project({ screenshot: { data: { id: 's', attributes: { url: 'javascript:alert(1)' } } } }),
-      ).screenshot,
-    ).toBeUndefined();
+  it('uses a plain generic alt for a lone screenshot, and has none when the API omits them', () => {
+    const single = buildProjectPageViewModel(
+      project({ screenshots: { data: [{ id: 's', attributes: { url: '/api/media/projects/1/shot.png' } }] } }),
+    );
+    expect(single.screenshots[0]?.alt).toBe('Screenshot of Verified Project');
+    expect(buildProjectPageViewModel(project()).screenshots).toEqual([]);
+    expect(buildProjectPageViewModel(project({ screenshots: { data: [] } })).screenshots).toEqual([]);
   });
 });

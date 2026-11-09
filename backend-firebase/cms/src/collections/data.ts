@@ -57,7 +57,7 @@ export const projectsCollection = buildCollection({
   propertiesOrder: [
     'title', 'path', 'startDate', 'summary', 'blurb', 'isFeatured',
     'isCurrentProject', 'repoURL', 'hostedProjectURL', 'imageAltText',
-    'nonprofitName', 'memberIds', 'image', 'screenshot',
+    'nonprofitName', 'memberIds', 'image', 'screenshots',
   ],
   properties: {
     title: { dataType: 'string', name: 'Title', columnWidth: 240, validation: { required: true } },
@@ -86,12 +86,15 @@ export const projectsCollection = buildCollection({
       },
     },
     image: { dataType: 'array', name: 'Project images', hideFromCollection: true, of: mediaMapProperty('projects/{entityId}') },
-    screenshot: {
-      ...mediaMapProperty('projects/{entityId}', 'Screenshot'),
+    screenshots: {
+      dataType: 'array',
+      name: 'Screenshots',
       description:
-        'Optional. A screenshot of the product, shown beside the title on the project page. ' +
-        'Use a wide desktop capture (about 1900×1000) of a representative screen, and describe it in Alt text.',
+        'Optional. The first is shown beside the title on the project page; the rest in a row further down. ' +
+        'Use desktop captures (about 1900×1000) or phone captures, and describe each in Alt text. ' +
+        'Fill in Width and Height: a screenshot taller than it is wide is framed as a phone.',
       hideFromCollection: true,
+      of: mediaMapProperty('projects/{entityId}', 'Screenshot'),
     },
   },
   callbacks: {

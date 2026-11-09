@@ -50,8 +50,11 @@ export interface ProjectRecord {
   hostedProjectURL?: string;
   imageAltText?: string;
   image: MediaAsset[];
-  /** Optional product screenshot, shown beside the title on the project page. */
-  screenshot?: MediaAsset | null;
+  /**
+   * Product screenshots. The first is shown in the project page hero and the
+   * rest in a row further down; width and height pick a phone or browser frame.
+   */
+  screenshots: MediaAsset[];
   memberIds: string[];
   nonprofitName?: string;
   createdAt?: string;
@@ -102,14 +105,16 @@ export interface StrapiProjectAttributes {
       };
     }>;
   };
-  screenshot: {
-    data: {
+  screenshots: {
+    data: Array<{
       id: string;
       attributes: {
         url: string;
         alternativeText?: string;
+        width?: number;
+        height?: number;
       };
-    } | null;
+    }>;
   };
   members: {
     data: Array<StrapiEntity<StrapiMemberAttributes>>;

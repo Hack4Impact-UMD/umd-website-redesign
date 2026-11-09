@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { ArrowLeft, Github, Globe } from 'lucide-react';
 
 import type { ProjectEntity } from '@/api';
@@ -15,6 +15,7 @@ import CTASection from '@/components/home/CTASection';
 import { darkPrimaryButton, darkSecondaryButton } from '@/components/shared/buttonStyles';
 import PageHero from '@/components/shared/PageHero';
 import ProjectScreenshot from '@/components/project_page/ProjectScreenshot';
+import type { ProjectScreenshotView } from '@/components/project_page/projectPageMapper';
 import { defaultHomeContent } from '@/content-schema/home';
 
 function TeamSection({ title, members }: { title: string; members: TeamMemberView[] }) {
@@ -65,6 +66,75 @@ function ProjectVisual({ src, alt }: { src: string; alt: string }) {
   );
 }
 
+// Phones are narrow, so they get a smaller box than browser windows.
+const GALLERY_ITEM_WIDTH = {
+  browser: 'w-[min(80vw,560px)]',
+  phone: 'w-[min(56vw,240px)]',
+} as const;
+
+// A faint drafting grid in the brand blue, fading out towards the edges.
+const BLUEPRINT_GRID: CSSProperties = {
+  backgroundImage:
+    'linear-gradient(to right, rgb(0 105 202 / 0.16) 1px, transparent 1px),' +
+    'linear-gradient(to bottom, rgb(0 105 202 / 0.16) 1px, transparent 1px)',
+  backgroundSize: '32px 32px',
+  maskImage: 'radial-gradient(ellipse 70% 65% at 50% 55%, black 30%, transparent 100%)',
+  WebkitMaskImage: 'radial-gradient(ellipse 70% 65% at 50% 55%, black 30%, transparent 100%)',
+};
+
+function ScreenshotGallery({
+  screenshots,
+  url,
+  partnerName,
+}: {
+  screenshots: ProjectScreenshotView[];
+  url?: string;
+  partnerName?: string;
+}) {
+  return (
+    <section className="relative isolate overflow-hidden bg-h4i-navy py-16 lg:py-24" aria-labelledby="project-screenshots">
+      <div aria-hidden="true" className="absolute inset-0 -z-10" style={BLUEPRINT_GRID} />
+      <div className="mx-auto max-w-[1248px] px-6 sm:px-8 lg:px-0">
+        <h2 id="project-screenshots" className="text-section text-white">
+          A closer look
+        </h2>
+        {partnerName ? (
+          <p className="mt-4 max-w-prose font-body text-lg leading-relaxed text-white/70">
+            More screens from what the team built with {partnerName}.
+          </p>
+        ) : null}
+      </div>
+      {/* Centred while it fits; scrolls sideways from its start when it does not.
+          Focusable so keyboard users can scroll it. */}
+      <div
+        role="region"
+        aria-labelledby="project-screenshots"
+        tabIndex={0}
+        className="mx-auto mt-12 max-w-[1344px] overflow-x-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
+      >
+        <ul className="mx-auto flex w-max snap-x snap-mandatory items-stretch gap-10 px-6 pb-6 pt-2 sm:px-8 lg:gap-14 lg:px-12">
+          {screenshots.map((shot) => (
+            <li key={shot.src} className={`flex shrink-0 snap-center flex-col ${GALLERY_ITEM_WIDTH[shot.frame]}`}>
+              {/* Devices stand on one baseline, so their labels start on one line. */}
+              <div className="flex flex-1 items-end">
+                <div className="w-full">
+                  <ProjectScreenshot {...shot} url={url} placement="gallery" />
+                </div>
+              </div>
+              {shot.caption ? (
+                // The image's alt text already says this to screen readers.
+                <p aria-hidden="true" className="mt-6 border-t-2 border-h4i-blue pt-3 font-body text-sm leading-snug text-white/70">
+                  {shot.caption}
+                </p>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 interface ProjectPageSectionsProps {
   /** Resolved from the slug at build time by getStaticPaths. */
   project: ProjectApiItem;
@@ -79,6 +149,7 @@ export default function ProjectPageSections({
   const viewModel = buildProjectPageViewModel(project);
   const teamGroups = groupTeamMembers(viewModel.members, viewModel.title);
   const hasTeam = Object.values(teamGroups).some((members) => members.length > 0);
+  const [heroShot, ...galleryShots] = viewModel.screenshots;
 
   const facts = [
     viewModel.partnerName ? { label: 'Partner', value: viewModel.partnerName } : null,
@@ -92,14 +163,17 @@ export default function ProjectPageSections({
         title={viewModel.title}
         headingId="project-title"
         aside={
-          viewModel.screenshot ? (
-            <ProjectScreenshot
-              src={viewModel.screenshot.src}
-              alt={viewModel.screenshot.alt}
-              url={viewModel.hostedProjectURL}
-            />
+          heroShot ? (
+            heroShot.frame === 'phone' ? (
+              <div className="w-full max-w-[280px]">
+                <ProjectScreenshot {...heroShot} placement="hero" />
+              </div>
+            ) : (
+              <ProjectScreenshot {...heroShot} url={viewModel.hostedProjectURL} placement="hero" />
+            )
           ) : undefined
         }
+        asideBleed={heroShot?.frame !== 'phone'}
         leading={
           <a
             href="/ourwork"
@@ -169,6 +243,14 @@ export default function ProjectPageSections({
             ) : null}
           </div>
         </section>
+      ) : null}
+
+      {galleryShots.length > 0 ? (
+        <ScreenshotGallery
+          screenshots={galleryShots}
+          url={viewModel.hostedProjectURL}
+          partnerName={viewModel.partnerName}
+        />
       ) : null}
 
       {hasTeam ? (

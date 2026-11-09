@@ -81,14 +81,19 @@ export const projectAttributesSchema = z.object({
     .optional(),
   image: z.object({ data: z.array(mediaEntitySchema) }),
   // Optional so a build against an API deployed before this field existed still validates.
-  screenshot: z
+  screenshots: z
     .object({
-      data: z
-        .object({
+      data: z.array(
+        z.object({
           id: z.string(),
-          attributes: z.object({ url: nonEmptyString, alternativeText: optionalString }),
-        })
-        .nullable(),
+          attributes: z.object({
+            url: nonEmptyString,
+            alternativeText: optionalString,
+            width: z.number().positive().optional(),
+            height: z.number().positive().optional(),
+          }),
+        }),
+      ),
     })
     .optional(),
   members: z.object({ data: z.array(memberEntitySchema) }),
