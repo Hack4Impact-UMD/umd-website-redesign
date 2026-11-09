@@ -53,16 +53,29 @@ export const mapMemberToStrapiEntity = (
   };
 };
 
-// Same public-URL rules as `image`: an unsafe or missing path yields no screenshot.
-const mapScreenshot = (project: ProjectRecord): StrapiProjectAttributes['screenshot']['data'] => {
-  const url = project.screenshot?.url ? toPublicMediaUrl(project.screenshot.url) : null;
-  if (!url) return null;
-  const alt = project.screenshot?.alt?.trim();
-  return {
-    id: `${project.id}_screenshot`,
-    attributes: alt ? { url, alternativeText: alt } : { url },
-  };
-};
+const isDimension = (value: unknown): value is number =>
+  typeof value === 'number' && Number.isFinite(value) && value > 0;
+
+// Same public-URL rules as `image`: a screenshot with an unsafe or missing path is dropped.
+const mapScreenshots = (project: ProjectRecord): StrapiProjectAttributes['screenshots']['data'] =>
+  (project.screenshots ?? []).flatMap((asset, index) => {
+    const url = asset && typeof asset === 'object' ? toPublicMediaUrl(asset.url) : null;
+    if (!url) return [];
+    const alt = typeof asset.alt === 'string' ? asset.alt.trim() : '';
+    return [
+      {
+        id: `${project.id}_screenshot_${index}`,
+        attributes: {
+          url,
+          ...(alt ? { alternativeText: alt } : {}),
+          // Both or neither: one dimension alone says nothing about the shape.
+          ...(isDimension(asset.width) && isDimension(asset.height)
+            ? { width: asset.width, height: asset.height }
+            : {}),
+        },
+      },
+    ];
+  });
 
 export const mapProjectToStrapiEntity = (
   project: ProjectRecord,
@@ -110,8 +123,8 @@ export const mapProjectToStrapiEntity = (
             },
           })),
       },
-      screenshot: {
-        data: mapScreenshot(project),
+      screenshots: {
+        data: mapScreenshots(project),
       },
       members: {
         data: memberEntities,

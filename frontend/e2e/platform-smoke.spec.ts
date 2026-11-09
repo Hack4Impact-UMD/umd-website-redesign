@@ -186,12 +186,29 @@ test('published Our Work content replaces the local header fallback', async ({ p
   await expect(page.getByAltText('Fixture archive artwork')).toBeVisible();
 });
 
-test('a project with a screenshot shows it in the hero', async ({ page }) => {
+test('a project shows its first screenshot in the hero and the rest in a row below', async ({ page }) => {
   await installFixtures(page);
   await page.goto('/ourwork/fixture-project');
-  await expect(page.getByRole('heading', { name: 'Fixture Project', level: 1 })).toBeVisible();
-  await expect(page.getByRole('img', { name: 'Fixture dashboard' })).toHaveAttribute(
+  const hero = page.locator('section', { has: page.getByRole('heading', { name: 'Fixture Project', level: 1 }) });
+  await expect(hero.getByRole('img', { name: 'Fixture dashboard' })).toHaveAttribute(
     'src',
     '/api/media/projects/fixture-project/screenshot.png',
   );
+
+  const gallery = page.getByRole('region', { name: 'A closer look' });
+  await expect(gallery.getByRole('listitem')).toHaveCount(2);
+  await expect(gallery.getByRole('img', { name: 'Fixture mobile check-in' })).toBeVisible();
+  await expect(gallery.getByRole('img', { name: 'Fixture reports' })).toBeVisible();
+  await expect(gallery.getByRole('img', { name: 'Fixture dashboard' })).toHaveCount(0);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+});
+
+test('a mobile app project frames its hero screenshot as a phone', async ({ page }) => {
+  await installFixtures(page);
+  await page.goto('/ourwork/current-community-tool');
+  const shot = page.getByRole('img', { name: 'Community tool home screen' });
+  await expect(shot).toBeVisible();
+  const box = await shot.boundingBox();
+  expect(box && box.height / box.width).toBeGreaterThan(1.5);
+  await expect(page.getByRole('region', { name: 'A closer look' }).getByRole('listitem')).toHaveCount(1);
 });

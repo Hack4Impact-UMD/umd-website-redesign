@@ -22,11 +22,37 @@ export const project = {
     imageAltText: 'Fixture project',
     nonprofit: { data: { id: 'npo-1', attributes: { name: 'Fixture Nonprofit' } } },
     image: { data: [] },
-    screenshot: {
-      data: {
-        id: 'project-001_screenshot',
-        attributes: { url: '/api/media/projects/fixture-project/screenshot.png', alternativeText: 'Fixture dashboard' },
+    // Desktop first, so the hero gets a browser frame; the rest fill the row below.
+    screenshots: {
+      data: [
+      {
+        id: 'project-001_screenshot_0',
+        attributes: {
+          url: '/api/media/projects/fixture-project/screenshot.png',
+          alternativeText: 'Fixture dashboard',
+          width: 1900,
+          height: 1000,
+        },
       },
+      {
+        id: 'project-001_screenshot_1',
+        attributes: {
+          url: '/api/media/projects/fixture-project/phone.png',
+          alternativeText: 'Fixture mobile check-in',
+          width: 390,
+          height: 844,
+        },
+      },
+      {
+        id: 'project-001_screenshot_2',
+        attributes: {
+          url: '/api/media/projects/fixture-project/reports.png',
+          alternativeText: 'Fixture reports',
+          width: 1900,
+          height: 1000,
+        },
+      },
+      ],
     },
     members: { data: [] },
   },
@@ -64,6 +90,29 @@ export const currentProject = {
     startDate: '2026-01-15',
     isCurrentProject: true,
     nonprofit: { data: { id: 'npo-2', attributes: { name: 'Current Partner' } } },
+    // A mobile app: phone-shaped captures throughout.
+    screenshots: {
+      data: [
+      {
+        id: 'project-002_screenshot_0',
+        attributes: {
+          url: '/api/media/projects/current-community-tool/home.png',
+          alternativeText: 'Community tool home screen',
+          width: 390,
+          height: 844,
+        },
+      },
+      {
+        id: 'project-002_screenshot_1',
+        attributes: {
+          url: '/api/media/projects/current-community-tool/events.png',
+          alternativeText: 'Community tool events list',
+          width: 390,
+          height: 844,
+        },
+      },
+      ],
+    },
     members: { data: [member] },
   },
 };

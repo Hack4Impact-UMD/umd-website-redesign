@@ -78,6 +78,7 @@ describe('Strapi compatibility mapper', () => {
       isFeatured: false,
       isCurrentProject: true,
       image: [],
+      screenshots: [],
       memberIds: ['255'],
     };
 
@@ -89,10 +90,10 @@ describe('Strapi compatibility mapper', () => {
     expect(mappedMember.id).toBe('255');
     expect(mappedMember.attributes.componentRolesArr).toHaveLength(2);
     expect(mappedProject.attributes.members.data).toEqual([mappedMember]);
-    expect(mappedProject.attributes.screenshot.data).toBeNull();
+    expect(mappedProject.attributes.screenshots.data).toEqual([]);
   });
 
-  it('maps a project screenshot to a public media URL with its alt text', () => {
+  it('maps project screenshots to public media URLs with alt text and dimensions', () => {
     const base: ProjectRecord = {
       id: '7',
       title: 'Portal',
@@ -102,25 +103,35 @@ describe('Strapi compatibility mapper', () => {
       isFeatured: false,
       isCurrentProject: true,
       image: [],
+      screenshots: [],
       memberIds: [],
     };
 
-    const withScreenshot = mapProjectToStrapiEntity(
-      { ...base, screenshot: { url: 'projects/7/screenshot-ab12.png', alt: ' Reviewer dashboard ' } },
-      new Map(),
-    );
-    expect(withScreenshot.attributes.screenshot.data).toEqual({
-      id: '7_screenshot',
-      attributes: {
-        url: '/api/media/projects/7/screenshot-ab12.png',
-        alternativeText: 'Reviewer dashboard',
+    const mapped = mapProjectToStrapiEntity(
+      {
+        ...base,
+        screenshots: [
+          { url: 'projects/7/screenshot-ab12.png', alt: ' Reviewer dashboard ', width: 1900, height: 1000 },
+          { url: 'projects/%2e%2e/secret.png' },
+          { url: 'projects/7/screenshot-cd34.png', width: 390 },
+        ],
       },
-    });
-
-    const unsafe = mapProjectToStrapiEntity(
-      { ...base, screenshot: { url: 'projects/%2e%2e/secret.png' } },
       new Map(),
     );
-    expect(unsafe.attributes.screenshot.data).toBeNull();
+    expect(mapped.attributes.screenshots.data).toEqual([
+      {
+        id: '7_screenshot_0',
+        attributes: {
+          url: '/api/media/projects/7/screenshot-ab12.png',
+          alternativeText: 'Reviewer dashboard',
+          width: 1900,
+          height: 1000,
+        },
+      },
+      {
+        id: '7_screenshot_2',
+        attributes: { url: '/api/media/projects/7/screenshot-cd34.png' },
+      },
+    ]);
   });
 });

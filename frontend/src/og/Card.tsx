@@ -176,7 +176,7 @@ const ScreenshotFrame = ({ image, host }: { image: PreparedImage; host?: string 
         display: 'flex',
         alignItems: 'center',
         height: SCREENSHOT_FRAME.chromeHeight,
-        padding: '0 18px',
+        padding: '0 14px',
         backgroundColor: '#F1F3F5',
         borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
       }}
@@ -184,19 +184,19 @@ const ScreenshotFrame = ({ image, host }: { image: PreparedImage; host?: string 
       {TRAFFIC_LIGHTS.map((color) => (
         <div
           key={color}
-          style={{ width: 12, height: 12, marginRight: 7, borderRadius: 6, backgroundColor: color }}
+          style={{ width: 10, height: 10, marginRight: 6, borderRadius: 5, backgroundColor: color }}
         />
       ))}
       {host ? (
         <div
           style={{
             display: 'flex',
-            marginLeft: 14,
-            padding: '4px 14px',
-            borderRadius: 6,
+            marginLeft: 12,
+            padding: '1px 12px',
+            borderRadius: 4,
             backgroundColor: WHITE,
             fontFamily: 'Open Sans',
-            fontSize: 15,
+            fontSize: 13,
             color: '#4B5563',
           }}
         >
