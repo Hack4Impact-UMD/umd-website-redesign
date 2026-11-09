@@ -15,6 +15,12 @@ interface PageHeroProps {
   children?: ReactNode;
   /** Optional right-hand column on large screens (e.g. a product screenshot). Stacks below on mobile. */
   aside?: ReactNode;
+  /**
+   * From xl the aside is oversized and bleeds off the right and bottom edges,
+   * which suits a browser window. Off, it sits centred in its column instead,
+   * which suits something with its own outline, like a phone.
+   */
+  asideBleed?: boolean;
 }
 
 /**
@@ -23,7 +29,16 @@ interface PageHeroProps {
  * Pages using it should pass `transparentNav` to BaseLayout, since it reserves
  * room for the header.
  */
-export default function PageHero({ title, image, imageAlt = '', headingId, leading, children, aside }: PageHeroProps) {
+export default function PageHero({
+  title,
+  image,
+  imageAlt = '',
+  headingId,
+  leading,
+  children,
+  aside,
+  asideBleed = true,
+}: PageHeroProps) {
   return (
     <section
       aria-labelledby={headingId}
@@ -67,7 +82,15 @@ export default function PageHero({ title, image, imageAlt = '', headingId, leadi
           {/* From xl the aside is oversized and bleeds off the right and
               bottom edges (the section clips it), so it reads as a window into the product. */}
           {aside ? (
-            <div className="min-w-0 xl:-mb-14 xl:self-end xl:pt-16 [&>*]:xl:w-[calc(100%_+_(100vw_-_min(100vw,1440px))_/_2_+_18rem)] [&>*]:xl:max-w-none">{aside}</div>
+            <div
+              className={
+                asideBleed
+                  ? 'min-w-0 xl:-mb-14 xl:self-end xl:pt-16 [&>*]:xl:w-[calc(100%_+_(100vw_-_min(100vw,1440px))_/_2_+_18rem)] [&>*]:xl:max-w-none'
+                  : 'flex min-w-0 justify-center'
+              }
+            >
+              {aside}
+            </div>
           ) : null}
         </div>
       </div>

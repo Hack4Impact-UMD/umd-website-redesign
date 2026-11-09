@@ -11,6 +11,7 @@ import {
 } from '@/lib/pageMeta';
 import { DEFAULT_PHOTO, STATIC_PAGE_PHOTOS } from '@/og/photos';
 import { renderOgImage, type OgVisualSource } from '@/og/render';
+import { screenshotFrame } from '@/lib/screenshots';
 
 interface OgRouteProps {
   title: string;
@@ -36,8 +37,12 @@ export const getStaticPaths = (async () => {
   const projects = await loadAllProjects();
 
   const projectEntries = projects.map((project) => {
-    const { title, summary, path, image, screenshot, hostedProjectURL } = project.attributes;
-    const screenshotSource = screenshot?.data?.attributes.url;
+    const { title, summary, path, image, screenshots, hostedProjectURL } = project.attributes;
+    // The card's browser frame would crop a phone capture to a sliver, so a
+    // phone-shaped hero screenshot gives way to the logo.
+    const heroShot = screenshots?.data[0]?.attributes;
+    const screenshotSource =
+      heroShot && screenshotFrame(heroShot.width, heroShot.height) === 'browser' ? heroShot.url : undefined;
     const logoSource = image.data[0]?.attributes.url;
     return {
       imagePath: projectOgImagePath(path),

@@ -1,10 +1,21 @@
 import type { MemberEntity, ProjectEntity } from '@/api';
 import { formatSeason } from '@/lib/date';
 import { resolveMediaUrl } from '@/lib/media';
+import { screenshotFrame, type ScreenshotFrame } from '@/lib/screenshots';
 import { isSafeHttpsUrl } from '@/lib/urls';
 
 export type ProjectMember = MemberEntity;
 export type ProjectApiItem = ProjectEntity;
+
+export interface ProjectScreenshotView {
+  src: string;
+  alt: string;
+  /** The editor's own description, when there is one; never the generic fallback. */
+  caption?: string;
+  frame: ScreenshotFrame;
+  width?: number;
+  height?: number;
+}
 
 export interface ProjectPageViewModel {
   title: string;
@@ -18,8 +29,8 @@ export interface ProjectPageViewModel {
   hostedProjectURL?: string;
   heroImageSrc?: string;
   heroImageAlt: string;
-  /** Product screenshot for the hero, when the project has one. */
-  screenshot?: { src: string; alt: string };
+  /** Product screenshots: the first goes in the hero, the rest in a row below. */
+  screenshots: ProjectScreenshotView[];
   members: ProjectMember[];
 }
 
@@ -53,14 +64,21 @@ export function buildProjectPageViewModel(
     attributes.imageAltText ||
     `${attributes.title} project preview`;
 
-  const screenshotData = attributes.screenshot?.data;
-  const screenshotSrc = resolveMediaUrl(screenshotData?.attributes.url) || undefined;
-  const screenshot = screenshotSrc
-    ? {
-        src: screenshotSrc,
-        alt: screenshotData?.attributes.alternativeText || `Screenshot of ${attributes.title}`,
-      }
-    : undefined;
+  const screenshots = (attributes.screenshots?.data ?? []).flatMap(({ attributes: shot }, index, all) => {
+    const src = resolveMediaUrl(shot.url);
+    if (!src) return [];
+    const generic = all.length > 1 ? `Screenshot ${index + 1} of ${attributes.title}` : `Screenshot of ${attributes.title}`;
+    return [
+      {
+        src,
+        alt: shot.alternativeText || generic,
+        caption: shot.alternativeText || undefined,
+        frame: screenshotFrame(shot.width, shot.height),
+        width: shot.width,
+        height: shot.height,
+      },
+    ];
+  });
 
   return {
     title: attributes.title,
@@ -77,7 +95,7 @@ export function buildProjectPageViewModel(
         : undefined,
     heroImageSrc,
     heroImageAlt,
-    screenshot,
+    screenshots,
     members: attributes.members.data,
   };
 }

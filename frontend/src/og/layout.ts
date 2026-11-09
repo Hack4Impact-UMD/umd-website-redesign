@@ -13,7 +13,7 @@ const SCREENSHOT_TOP = 150;
 const SCREENSHOT_LEFT = 700;
 /** How far the frame runs past the card's right edge. */
 const SCREENSHOT_BLEED = 60;
-const SCREENSHOT_CHROME_HEIGHT = 40;
+const SCREENSHOT_CHROME_HEIGHT = 30;
 
 /**
  * A browser-framed screenshot, as on the project page hero: it bleeds off the
