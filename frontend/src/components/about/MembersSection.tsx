@@ -160,6 +160,16 @@ export default function MembersSection({
               className="rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-4"
               hidden
             >
+              <p className="mb-8 text-base text-muted-foreground">
+                Alum and don’t see yourself here?{' '}
+                <a
+                  href="/contactus"
+                  className="font-bold text-h4i-blue underline underline-offset-4 transition-colors hover:text-state-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-h4i-blue focus-visible:ring-offset-2"
+                >
+                  Let us know
+                </a>{' '}
+                and we’ll add you.
+              </p>
               <MemberGrid
                 members={[...alumniEntities].sort(byName)}
                 prominent={false}

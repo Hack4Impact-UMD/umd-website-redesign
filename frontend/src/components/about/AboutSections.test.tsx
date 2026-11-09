@@ -125,6 +125,10 @@ describe('AboutSections', () => {
     // The alumni panel is rendered but hidden until its tab is chosen.
     expect(screen.queryByRole('heading', { name: 'Test Alum' })).not.toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Test Alum', hidden: true })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Let us know', hidden: true })).toHaveAttribute(
+      'href',
+      '/contactus',
+    );
   });
 
   it('renders the safe local copy when the document resolves to a placeholder', () => {

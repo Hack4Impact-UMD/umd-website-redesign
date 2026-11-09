@@ -81,6 +81,7 @@ test('about page switches the team gallery between current members and alumni', 
   await expect(alumni).toHaveAttribute('aria-selected', 'true');
   await expect(page.getByRole('heading', { name: 'Fixture Alumnus' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Fixture Member' })).toBeHidden();
+  await expect(page.getByRole('link', { name: 'Let us know' })).toHaveAttribute('href', '/contactus');
 
   await alumni.press('ArrowLeft');
   await expect(current).toBeFocused();
