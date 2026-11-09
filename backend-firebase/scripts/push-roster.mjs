@@ -18,8 +18,9 @@
  * neither live nor part of this push is dropped and reported.
  *
  * Any push that selects members also treats members.json as the whole current
- * board: a live board member who is not a board member there is hidden from
- * the board (see the HIDE lines of a dry run).
+ * roster: a live current member whose status there differs takes that status,
+ * and one missing from it becomes a former member (see the HIDE lines of a
+ * dry run).
  *
  * Usage:
  *   node push-roster.mjs --members board                  # dry run, board members only
@@ -43,17 +44,22 @@
  *   node push-roster.mjs --members team --avatars ../../data/headshots-members
  *
  * --project-images <dir> takes one folder per project ID from projects.json,
- * holding `logo.<ext>` (the nonprofit logo) and `screenshot_<i>.<ext>`
- * (product screenshots), each .webp, .png or .jpg:
+ * holding `logo.<ext>` (the nonprofit logo) and `screenshot_<i>.<ext>` or
+ * `screenshot-<i>.<ext>` (product screenshots), each .webp, .png or .jpg:
  *   <dir>/seedmoney/logo.png
  *   <dir>/seedmoney/screenshot_1.webp
  * For each selected project, the logo replaces the first project image (what
- * the site shows as the logo) and screenshot_1 becomes the screenshot on the
- * project page; uploads go to `projects/<firestore-id>/<kind>-<hash>.<ext>`.
- * The site shows one screenshot, so screenshot_2 and later are reported and
- * skipped. An empty or missing folder leaves the live images alone.
+ * the site shows as the logo) and screenshot_1 becomes the hero screenshot on the
+ * project page, with the rest in the row below it; uploads go to
+ * `projects/<firestore-id>/<kind>-<hash>.<ext>`. Screenshots are stored with
+ * their width and height, which pick a phone or browser frame on the site.
+ * An empty or missing folder leaves the live images alone.
  *   node push-roster.mjs --members team --projects all \
  *     --avatars ../../data/headshots-members --project-images ../../data/project-images
+ *
+ * Any push that selects projects also treats projects.json as the whole set of
+ * current projects: a live current project that is not current there is
+ * marked as not current (see the RETIRE lines of a dry run).
  *
  * Before committing, every document the push touches is saved to
  * scripts/output-roster-backup/, and the printed --restore command puts them
@@ -86,6 +92,7 @@ const COLLECTIONS = new Set(['members', 'projects']);
 const BOARD_STATUS = 'Current Board Member';
 const TEAM_STATUS = 'Current Member';
 const FORMER_STATUS = 'Former Member or Board Member';
+const CURRENT_STATUSES = new Set([BOARD_STATUS, TEAM_STATUS]);
 /** Named --members selections, by memberDisplayStatus. */
 const STATUS_SELECTIONS = { board: BOARD_STATUS, team: TEAM_STATUS };
 
@@ -313,43 +320,52 @@ export const planPush = ({
     }
 
     const local = localProjectImages[jsonId];
-    const toMedia = (image, kind, alt) => {
+    // Content-hashed paths: a file already at its path is not uploaded again.
+    const liveUrls = new Set(
+      [...(live?.image ?? []), ...(Array.isArray(live?.screenshots) ? live.screenshots : [])].map((asset) => asset?.url),
+    );
+    const toMedia = (image, alt) => {
       const url = `projects/${id}/${image.fileName}`;
-      const liveUrl = kind === 'logo' ? live?.image?.[0]?.url : live?.screenshot?.url;
-      if (liveUrl !== url) uploads.push({ file: image.file, path: url, contentType: image.mimeType });
-      return { url, alt, mimeType: image.mimeType };
+      if (!liveUrls.has(url)) uploads.push({ file: image.file, path: url, contentType: image.mimeType });
+      const dimensions = image.width && image.height ? { width: image.width, height: image.height } : {};
+      return { url, alt, mimeType: image.mimeType, ...dimensions };
     };
     if (local?.logo) {
-      const logo = toMedia(local.logo, 'logo', `${doc.nonprofitName || json.title} logo`);
-      doc.image = [logo, ...doc.image.slice(1)];
+      const alt = `${doc.nonprofitName || json.title} logo`;
+      doc.image = [toMedia(local.logo, alt), ...doc.image.slice(1)];
+      // The site reads the logo's alt text from imageAltText, not from the image.
+      if (!json.imageAltText) doc.imageAltText = alt;
     }
     if (local?.screenshots?.length) {
-      const [first, ...extra] = local.screenshots;
-      doc.screenshot = toMedia(first, 'screenshot', `Screenshot of ${json.title}`);
-      if (extra.length > 0) {
-        warnings.push(
-          `${json.title}: the site shows one screenshot; skipped ${extra.map((image) => path.basename(image.file)).join(', ')}`,
-        );
-      }
+      doc.screenshots = local.screenshots.map((image, index) =>
+        toMedia(image, local.screenshots.length > 1 ? `Screenshot ${index + 1} of ${json.title}` : `Screenshot of ${json.title}`),
+      );
     }
 
     putWrite('projects', id, live, doc, json.title);
   }
 
-  // members.json is the whole current board. A live board member who is not
-  // on it is hidden from the board: they take their members.json status if
-  // they have one, otherwise they become a former member. Only the status
-  // changes, so they stay on the project pages they belong to.
+  // members.json is the whole current roster. A live current member (board or
+  // not) whose status there differs takes that status, and one who is not in
+  // it at all becomes a former member. Only the status changes, so they stay
+  // on the project pages they belong to.
   if (selectedMemberIds.length > 0) {
     const jsonByLiveId = new Map(
       [...memberTargets]
         .filter(([, target]) => target?.live)
         .map(([jsonId, target]) => [target.id, members[jsonId]]),
     );
+    const jsonNames = new Set(Object.values(members).map(nameKey));
     for (const live of liveMembers) {
-      if (live.data.memberDisplayStatus !== BOARD_STATUS || writes.has(`members/${live.id}`)) continue;
+      if (!CURRENT_STATUSES.has(live.data.memberDisplayStatus) || writes.has(`members/${live.id}`)) continue;
       const json = jsonByLiveId.get(live.id);
-      if (json?.memberDisplayStatus === BOARD_STATUS) continue;
+      if (json?.memberDisplayStatus === live.data.memberDisplayStatus) continue;
+      // Two live documents share this name, so the match cannot say which one
+      // is the roster's; leave both for a person to sort out.
+      if (!json && liveMemberByName.get(nameKey(live.data)) === 'ambiguous' && jsonNames.has(nameKey(live.data))) {
+        warnings.push(`members/${live.id} (${nameKey(live.data)}) shares a name with another live member; status left alone`);
+        continue;
+      }
 
       const after = { ...structuredClone(live.data), memberDisplayStatus: json?.memberDisplayStatus ?? FORMER_STATUS };
       writes.set(`members/${live.id}`, {
@@ -360,6 +376,30 @@ export const planPush = ({
         label: `${live.data.firstName ?? ''} ${live.data.lastName ?? ''}`.trim(),
         reciprocalOnly: true,
         hidden: true,
+      });
+    }
+  }
+
+  // projects.json is the whole set of current projects. A live current project
+  // that is not current there is marked as not current; only that flag changes.
+  if (selectedProjectIds.length > 0) {
+    const jsonByLiveId = new Map(
+      [...projectTargets]
+        .filter(([, target]) => target?.live)
+        .map(([jsonId, target]) => [target.id, projects[jsonId]]),
+    );
+    for (const live of liveProjects) {
+      if (live.data.isCurrentProject !== true || writes.has(`projects/${live.id}`)) continue;
+      if (jsonByLiveId.get(live.id)?.isCurrentProject === true) continue;
+
+      writes.set(`projects/${live.id}`, {
+        collection: 'projects',
+        id: live.id,
+        before: live.data,
+        after: { ...structuredClone(live.data), isCurrentProject: false },
+        label: String(live.data.title ?? ''),
+        reciprocalOnly: true,
+        retired: true,
       });
     }
   }
@@ -423,7 +463,15 @@ const printPlan = ({ writes, uploads, warnings }) => {
   }
   for (const write of writes) {
     const action =
-      write.before === null ? 'CREATE' : write.hidden ? 'HIDE  ' : write.reciprocalOnly ? 'LINK  ' : 'UPDATE';
+      write.before === null
+        ? 'CREATE'
+        : write.hidden
+          ? 'HIDE  '
+          : write.retired
+            ? 'RETIRE'
+            : write.reciprocalOnly
+              ? 'LINK  '
+              : 'UPDATE';
     console.log(`${action} ${write.collection}/${write.id}  ${write.label}`);
     for (const field of write.fields) {
       if (write.before === null) {
@@ -459,6 +507,20 @@ const describeImage = async (file, kind) => {
   return { file, fileName: `${kind}-${hash}${ext === '.jpeg' ? '.jpg' : ext}`, mimeType: IMAGE_TYPES[ext] };
 };
 
+/** sharp is not a dependency here; it is installed for the frontend's image pipeline. */
+const imageSize = async (file) => {
+  const require = createRequire(path.join(REPO_ROOT, 'frontend/package.json'));
+  let sharp;
+  try {
+    sharp = require('sharp');
+  } catch {
+    throw new Error('sharp not found: run `npm --prefix frontend ci` first');
+  }
+  // autoOrient so a rotated phone capture reports its displayed shape.
+  const { info } = await sharp(file).autoOrient().toBuffer({ resolveWithObject: true });
+  return { width: info.width, height: info.height };
+};
+
 /**
  * Reads `<project-id>/logo.<ext>` and `<project-id>/screenshot_<i>.<ext>`.
  * Screenshots are ordered by i.
@@ -477,9 +539,9 @@ export const readProjectImages = async (dir, projects) => {
       if (name.startsWith('.')) continue;
       const ext = path.extname(name).toLowerCase();
       const base = path.basename(name, path.extname(name));
-      const index = /^screenshot_(\d+)$/.exec(base)?.[1];
+      const index = /^screenshot[_-](\d+)$/.exec(base)?.[1];
       if (!IMAGE_TYPES[ext] || (base !== 'logo' && index === undefined)) {
-        throw new Error(`Unexpected file ${entry.name}/${name}: use logo.<ext> or screenshot_<i>.<ext> (webp, png, jpg)`);
+        throw new Error(`Unexpected file ${entry.name}/${name}: use logo.<ext> or screenshot_<i>.<ext> (or screenshot-<i>; webp, png, jpg)`);
       }
       const file = path.join(folder, name);
       if (base === 'logo') {
@@ -489,7 +551,8 @@ export const readProjectImages = async (dir, projects) => {
         if (screenshots.some((shot) => shot.index === Number(index))) {
           throw new Error(`More than one screenshot_${index} in ${entry.name}`);
         }
-        screenshots.push({ index: Number(index), ...(await describeImage(file, 'screenshot')) });
+        const { width, height } = await imageSize(file);
+        screenshots.push({ index: Number(index), width, height, ...(await describeImage(file, 'screenshot')) });
       }
     }
     screenshots.sort((a, b) => a.index - b.index);

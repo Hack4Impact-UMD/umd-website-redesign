@@ -4,7 +4,12 @@ import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
+import { createRequire } from 'node:module';
+
 import { planPush, readProjectImages, selectIds } from './push-roster.mjs';
+
+// sharp comes from the frontend, as in push-roster.mjs.
+const sharp = createRequire(new URL('../../frontend/package.json', import.meta.url))('sharp');
 
 const member = (overrides) => ({
   firstName: 'Ada',
@@ -103,9 +108,10 @@ test('new members get the next numeric IDs in a stable order and no Drive avatar
         avatar: { url: 'https://drive.google.com/open?id=abc', alt: 'x' },
       }),
     },
+    // Former members, so the roster rule leaves them alone.
     liveMembers: [
-      { id: '7', data: member({ firstName: 'Old', lastName: 'Timer' }) },
-      { id: '289', data: member({ firstName: 'Isa', lastName: 'Bel' }) },
+      { id: '7', data: member({ firstName: 'Old', lastName: 'Timer', memberDisplayStatus: 'Former Member or Board Member' }) },
+      { id: '289', data: member({ firstName: 'Isa', lastName: 'Bel', memberDisplayStatus: 'Former Member or Board Member' }) },
     ],
     selectedMemberIds: ['amy-ay', 'zed-zee'],
   });
@@ -172,7 +178,7 @@ test('an unselected live document that already links back is not rewritten', () 
   assert.deepEqual(writes.map((write) => `${write.collection}/${write.id}`), ['members/1']);
 });
 
-test('live board members missing from the board in members.json are hidden', () => {
+test('live current members take their members.json status, or become former when missing', () => {
   const board = { memberDisplayStatus: 'Current Board Member' };
   const { writes } = plan({
     members: {
@@ -191,11 +197,13 @@ test('live board members missing from the board in members.json are hidden', () 
   });
 
   const byId = Object.fromEntries(writes.map((write) => [write.id, write]));
-  assert.deepEqual(Object.keys(byId).sort(), ['2', '3'], 'Kim is unchanged; Hita is board in the data; 5 was never board');
+  assert.deepEqual(Object.keys(byId).sort(), ['2', '3', '5'], 'Kim is unchanged; Hita is board in the data');
   assert.equal(byId['2'].after.memberDisplayStatus, 'Current Member');
   assert.deepEqual(byId['3'].fields, ['memberDisplayStatus']);
   assert.equal(byId['3'].after.memberDisplayStatus, 'Former Member or Board Member');
   assert.equal(byId['3'].hidden, true);
+  // Not on the board, but not on the roster either.
+  assert.equal(byId['5'].after.memberDisplayStatus, 'Former Member or Board Member');
 });
 
 test('a projects-only push leaves the board alone', () => {
@@ -270,25 +278,29 @@ const image = (kind, hash, ext = 'png') => ({
   mimeType: ext === 'png' ? 'image/png' : 'image/webp',
 });
 
-test('a project logo replaces the first image and screenshot_1 becomes the screenshot', () => {
+test('a project logo replaces the first image and the screenshots are stored in order with their sizes', () => {
   const liveData = {
     title: 'Seed Money',
     path: 'seedmoney',
+    isCurrentProject: true,
     image: [
       { url: 'projects/7/old-logo.png', alt: 'old' },
       { url: 'projects/7/extra.png', alt: 'extra' },
     ],
-    screenshot: { url: 'projects/7/screenshot-same.webp', alt: 'kept' },
+    screenshots: [{ url: 'projects/7/screenshot-same.webp', alt: 'kept' }],
     memberIds: [],
   };
-  const { writes, uploads, warnings } = plan({
+  const { writes, uploads } = plan({
     projects: { seedmoney: project({ title: 'Seed Money', path: 'seedmoney', nonprofitName: 'SeedMoney' }) },
     liveProjects: [{ id: '7', data: liveData }],
     selectedProjectIds: ['seedmoney'],
     localProjectImages: {
       seedmoney: {
         logo: image('logo', 'abc'),
-        screenshots: [image('screenshot', 'same', 'webp'), image('screenshot', 'two', 'webp')],
+        screenshots: [
+          { ...image('screenshot', 'same', 'webp'), width: 1900, height: 1000 },
+          { ...image('screenshot', 'two', 'webp'), width: 390, height: 844 },
+        ],
       },
     },
   });
@@ -297,14 +309,49 @@ test('a project logo replaces the first image and screenshot_1 becomes the scree
     { url: 'projects/7/logo-abc.png', alt: 'SeedMoney logo', mimeType: 'image/png' },
     { url: 'projects/7/extra.png', alt: 'extra' },
   ]);
-  assert.deepEqual(writes[0].after.screenshot, {
-    url: 'projects/7/screenshot-same.webp',
-    alt: 'Screenshot of Seed Money',
-    mimeType: 'image/webp',
+  assert.equal(writes[0].after.imageAltText, 'SeedMoney logo');
+  assert.deepEqual(writes[0].after.screenshots, [
+    { url: 'projects/7/screenshot-same.webp', alt: 'Screenshot 1 of Seed Money', mimeType: 'image/webp', width: 1900, height: 1000 },
+    { url: 'projects/7/screenshot-two.webp', alt: 'Screenshot 2 of Seed Money', mimeType: 'image/webp', width: 390, height: 844 },
+  ]);
+  // The first screenshot is already at its content-hashed path, so it is not uploaded again.
+  assert.deepEqual(uploads.map((upload) => upload.path), ['projects/7/logo-abc.png', 'projects/7/screenshot-two.webp']);
+});
+
+test('live current projects that are not current in projects.json are retired', () => {
+  const { writes } = plan({
+    projects: {
+      seedmoney: project({ title: 'Seed Money', path: 'seedmoney' }),
+      'kisses-for-kyle': project({ title: 'Kisses for Kyle', path: 'kisses-for-kyle', isCurrentProject: false }),
+    },
+    liveProjects: [
+      { id: '1', data: { title: 'Old Current', path: 'old-current', isCurrentProject: true, memberIds: ['9'] } },
+      { id: '2', data: { title: 'Kisses for Kyle', path: 'kisses-for-kyle', isCurrentProject: true, memberIds: [] } },
+      { id: '3', data: { title: 'Already Past', path: 'already-past', isCurrentProject: false, memberIds: [] } },
+      { id: '4', data: { title: 'Seed Money', path: 'seedmoney', isCurrentProject: true, memberIds: [] } },
+    ],
+    selectedProjectIds: ['seedmoney'],
   });
-  // The screenshot is already at that content-hashed path, so only the logo uploads.
-  assert.deepEqual(uploads.map((upload) => upload.path), ['projects/7/logo-abc.png']);
-  assert.match(warnings.join('\n'), /Seed Money: the site shows one screenshot; skipped screenshot\.webp/);
+
+  const byId = Object.fromEntries(writes.filter((write) => write.retired).map((write) => [write.id, write]));
+  // 1 is not in projects.json; 2 is there but not current; 3 is already past; 4 is pushed as current.
+  assert.deepEqual(Object.keys(byId).sort(), ['1', '2']);
+  assert.equal(writes.find((write) => write.id === '4').after.isCurrentProject, true);
+  for (const id of ['1', '2']) {
+    assert.deepEqual(byId[id].fields, ['isCurrentProject']);
+    assert.equal(byId[id].after.isCurrentProject, false);
+    assert.equal(byId[id].retired, true);
+  }
+  assert.deepEqual(byId['1'].after.memberIds, ['9'], 'members stay linked');
+});
+
+test('a members-only push leaves projects alone', () => {
+  const { writes } = plan({
+    members: { 'ada-lovelace': member() },
+    liveProjects: [{ id: '1', data: { title: 'Old Current', path: 'old-current', isCurrentProject: true, memberIds: [] } }],
+    selectedMemberIds: ['ada-lovelace'],
+  });
+  assert.deepEqual(writes.map((write) => write.collection), ['members']);
 });
 
 test('project image folders are read by project ID, with screenshots in numeric order', async () => {
@@ -312,17 +359,19 @@ test('project image folders are read by project ID, with screenshots in numeric 
   try {
     await mkdir(path.join(dir, 'seedmoney'));
     await mkdir(path.join(dir, 'kisses-for-kyle'));
-    for (const name of ['logo.png', 'screenshot_10.webp', 'screenshot_2.jpg']) {
-      await writeFile(path.join(dir, 'seedmoney', name), name);
-    }
+    const blank = (width, height) => sharp({ create: { width, height, channels: 3, background: '#ffffff' } });
+    await blank(40, 20).png().toFile(path.join(dir, 'seedmoney', 'logo.png'));
+    // Either separator works.
+    await blank(39, 84).webp().toFile(path.join(dir, 'seedmoney', 'screenshot-10.webp'));
+    await blank(190, 100).jpeg().toFile(path.join(dir, 'seedmoney', 'screenshot_2.jpg'));
     const projects = { seedmoney: project(), 'kisses-for-kyle': project() };
 
     const images = await readProjectImages(dir, projects);
     assert.deepEqual(Object.keys(images), ['seedmoney']);
     assert.match(images.seedmoney.logo.fileName, /^logo-[0-9a-f]{12}\.png$/);
     assert.deepEqual(
-      images.seedmoney.screenshots.map((shot) => [shot.index, shot.mimeType]),
-      [[2, 'image/jpeg'], [10, 'image/webp']],
+      images.seedmoney.screenshots.map((shot) => [shot.index, shot.mimeType, shot.width, shot.height]),
+      [[2, 'image/jpeg', 190, 100], [10, 'image/webp', 39, 84]],
     );
 
     await writeFile(path.join(dir, 'seedmoney', 'cover.png'), 'x');
