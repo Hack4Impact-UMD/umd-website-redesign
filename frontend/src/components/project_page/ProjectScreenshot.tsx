@@ -10,7 +10,7 @@ interface ProjectScreenshotProps {
   height?: number;
   /**
    * In the hero the browser frame is a fixed window that bleeds off the
-   * section's right and bottom edges from xl, so it is squared off there and
+   * section's right and bottom edges, so it is squared off there and
    * whatever does not fit is lost off those same edges. In the gallery a
    * desktop capture shows whole, in its own shape, without browser chrome.
    */
@@ -47,7 +47,7 @@ function BrowserFrame({ src, alt, url, width, height, placement }: Omit<ProjectS
 
   return (
     <figure
-      className={`overflow-hidden rounded-xl bg-white ring-1 ring-white/20 ${FRAME_SHADOW} ${isHero ? 'xl:rounded-b-none xl:rounded-r-none' : ''}`}
+      className={`overflow-hidden rounded-xl bg-white ring-1 ring-white/20 ${FRAME_SHADOW} ${isHero ? 'rounded-b-none rounded-r-none' : ''}`}
     >
       <div aria-hidden="true" className="flex items-center gap-3 bg-[#F1F3F5] px-3 py-1.5">
         <div className="flex gap-1.5">
@@ -66,13 +66,12 @@ function BrowserFrame({ src, alt, url, width, height, placement }: Omit<ProjectS
         alt={alt}
         loading={isHero ? undefined : 'lazy'}
         style={naturalRatio(width, height)}
-        // Below xl the frame sits inside the hero, so the capture shows whole.
-        // From xl it bleeds off the hero's right and bottom edges: pinned to
-        // the top-left corner, as on the link-preview card, the header and
+        // In the hero it bleeds off the right and bottom edges: pinned to the
+        // top-left corner, as on the link-preview card, the header and
         // navigation stay in view and the overflow is lost off those edges.
         className={
           isHero
-            ? 'block h-auto w-full xl:!aspect-[16/10] xl:object-cover xl:object-left-top'
+            ? 'block h-auto w-full !aspect-[16/10] object-cover object-left-top'
             : 'block h-auto w-full'
         }
       />

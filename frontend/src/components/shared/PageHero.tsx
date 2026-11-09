@@ -16,7 +16,7 @@ interface PageHeroProps {
   /** Optional right-hand column on large screens (e.g. a product screenshot). Stacks below on mobile. */
   aside?: ReactNode;
   /**
-   * From xl the aside is oversized and bleeds off the right and bottom edges,
+   * The aside is oversized and bleeds off the right and bottom edges,
    * which suits a browser window. Off, it sits centred in its column instead,
    * which suits something with its own outline, like a phone.
    */
@@ -79,13 +79,16 @@ export default function PageHero({
           </h1>
           {children ? <div className="max-w-2xl">{children}</div> : null}
         </div>
-          {/* From xl the aside is oversized and bleeds off the right and
-              bottom edges (the section clips it), so it reads as a window into the product. */}
+          {/* The aside is oversized and bleeds off the right and bottom edges
+              (the section clips it), so it reads as a window into the product.
+              Below xl it stacks under the copy and overruns the container's
+              right padding plus a little more; from xl it also fills the gutter
+              outside the 1440px max width. */}
           {aside ? (
             <div
               className={
                 asideBleed
-                  ? 'min-w-0 xl:-mb-14 xl:self-end xl:pt-16 [&>*]:xl:w-[calc(100%_+_(100vw_-_min(100vw,1440px))_/_2_+_18rem)] [&>*]:xl:max-w-none'
+                  ? 'min-w-0 -mb-14 xl:self-end xl:pt-16 [&>*]:max-w-none [&>*]:w-[calc(100%_+_4.5rem)] [&>*]:sm:w-[calc(100%_+_7.5rem)] [&>*]:lg:w-[calc(100%_+_12rem)] [&>*]:xl:w-[calc(100%_+_(100vw_-_min(100vw,1440px))_/_2_+_18rem)]'
                   : 'flex min-w-0 justify-center'
               }
             >

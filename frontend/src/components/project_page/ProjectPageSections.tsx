@@ -143,7 +143,7 @@ export default function ProjectPageSections({
     viewModel.path,
   ]);
   const hasTeam = Object.values(teamGroups).some((members) => members.length > 0);
-  const [heroShot, ...galleryShots] = viewModel.screenshots;
+  const [heroShot] = viewModel.screenshots;
 
   const facts = [
     viewModel.partnerName ? { label: 'Partner', value: viewModel.partnerName } : null,
@@ -239,8 +239,10 @@ export default function ProjectPageSections({
         </section>
       ) : null}
 
-      {galleryShots.length > 0 ? (
-        <ScreenshotGallery screenshots={galleryShots} partnerName={viewModel.partnerName} />
+      {/* The gallery repeats the hero shot whole, since the hero crops it, but
+          only alongside other screens: a lone screenshot is already in the hero. */}
+      {viewModel.screenshots.length > 1 ? (
+        <ScreenshotGallery screenshots={viewModel.screenshots} partnerName={viewModel.partnerName} />
       ) : null}
 
       {hasTeam ? (
