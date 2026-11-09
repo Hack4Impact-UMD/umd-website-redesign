@@ -3,7 +3,7 @@ import type { FirebaseUserWrapper } from '@firecms/firebase';
 import { EmailAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { collections } from './collections';
 import { firebaseConfig } from './firebaseConfig';
-import h4iWordmark from '../../../frontend/src/components/assets/h4iumd_wordmark_blue.png';
+import h4iWordmark from './assets/h4iumd_wordmark_blue.png';
 
 const cmsAuthenticator = async ({ user }: { user: FirebaseUserWrapper | null }) => {
   const firebaseUser = user?.firebaseUser;
