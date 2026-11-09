@@ -65,11 +65,16 @@ function BrowserFrame({ src, alt, url, width, height, placement }: Omit<ProjectS
         src={src}
         alt={alt}
         loading={isHero ? undefined : 'lazy'}
-        style={isHero ? undefined : naturalRatio(width, height)}
-        // Pinned to the top-left corner, as on the link-preview card: the
-        // header and navigation stay in view, and anything that does not fit
-        // is lost off the right and bottom, where the hero cuts the frame off.
-        className={isHero ? 'block aspect-[16/10] w-full object-cover object-left-top' : 'block h-auto w-full'}
+        style={naturalRatio(width, height)}
+        // Below xl the frame sits inside the hero, so the capture shows whole.
+        // From xl it bleeds off the hero's right and bottom edges: pinned to
+        // the top-left corner, as on the link-preview card, the header and
+        // navigation stay in view and the overflow is lost off those edges.
+        className={
+          isHero
+            ? 'block h-auto w-full xl:!aspect-[16/10] xl:object-cover xl:object-left-top'
+            : 'block h-auto w-full'
+        }
       />
     </figure>
   );
